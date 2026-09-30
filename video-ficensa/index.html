@@ -1,0 +1,487 @@
+<!doctype html>
+<html lang="es" data-resolution="landscape">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <script src="assets/gsap.min.js"></script>
+    <style>
+      :root {
+        --navy: #0b2545;
+        --teal: #0e8a8c;
+        --teal-soft: #d8f0ef;
+        --sun: #f2b01e;
+        --leaf: #6dbb45;
+        --paper: #f3f8fb;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: var(--paper);
+      }
+      #root {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        font-family: Montserrat, sans-serif;
+        color: var(--navy);
+        background: var(--paper);
+      }
+      .clip {
+        position: absolute;
+        inset: 0;
+      }
+
+      /* ---------- Fondos de tarjeta (intro / cierre) ---------- */
+      .card-bg {
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(1200px 700px at 85% 110%, #cfe9ee 0%, rgba(207, 233, 238, 0) 60%),
+          radial-gradient(900px 600px at 10% -10%, #e4f1f7 0%, rgba(228, 241, 247, 0) 60%),
+          var(--paper);
+      }
+      .stripe {
+        position: absolute;
+        left: 0;
+        right: 0;
+        height: 10px;
+        bottom: 0;
+        display: flex;
+      }
+      .stripe span {
+        flex: 1;
+        height: 100%;
+      }
+      .card-content {
+        position: absolute;
+        left: 160px;
+        right: 160px;
+        top: 0;
+        bottom: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 28px;
+      }
+      .eyebrow {
+        font-size: 26px;
+        font-weight: 700;
+        letter-spacing: 0.32em;
+        color: var(--teal);
+        text-transform: uppercase;
+      }
+      .headline {
+        font-size: 96px;
+        font-weight: 800;
+        line-height: 1.05;
+        letter-spacing: -0.02em;
+      }
+      .headline .line {
+        display: block;
+        overflow: hidden;
+        padding-bottom: 8px;
+      }
+      .headline .line > span {
+        display: inline-block;
+      }
+      .accent {
+        color: var(--teal);
+      }
+      .underline-wrap {
+        position: relative;
+        isolation: isolate;
+        display: inline-block;
+      }
+      .underline {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 4px;
+        height: 16px;
+        border-radius: 8px;
+        background: var(--sun);
+        z-index: -1;
+        transform-origin: left center;
+      }
+
+      /* ---------- Video ---------- */
+      .video-wrap {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+        opacity: 0;
+      }
+      .cam {
+        position: absolute;
+        inset: 0;
+      }
+      .video-wrap video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .vignette {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg, rgba(11, 37, 69, 0) 55%, rgba(11, 37, 69, 0.45) 100%);
+        opacity: 0;
+      }
+
+      /* ---------- Rótulos sobre el video ---------- */
+      .tag {
+        position: absolute;
+        left: 96px;
+        bottom: 96px;
+        display: flex;
+        align-items: stretch;
+        border-radius: 18px;
+        overflow: hidden;
+        background: rgba(255, 255, 255, 0.94);
+        box-shadow: 0 18px 50px rgba(11, 37, 69, 0.28);
+      }
+      .tag .bar {
+        width: 14px;
+        background: var(--teal);
+        transform-origin: bottom center;
+      }
+      .tag .txt {
+        padding: 26px 40px 26px 30px;
+        font-size: 46px;
+        font-weight: 700;
+        letter-spacing: -0.01em;
+        white-space: nowrap;
+      }
+      .tag .txt small {
+        display: block;
+        font-size: 22px;
+        font-weight: 700;
+        letter-spacing: 0.24em;
+        text-transform: uppercase;
+        color: var(--teal);
+        margin-bottom: 8px;
+      }
+
+      /* Énfasis principal sobre el CRM */
+      .hero-band {
+        position: absolute;
+        left: 96px;
+        right: 96px;
+        bottom: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 40px;
+        padding: 26px 44px;
+        border-radius: 24px;
+        background: rgba(11, 37, 69, 0.9);
+        box-shadow: 0 24px 60px rgba(11, 37, 69, 0.35);
+        color: #ffffff;
+      }
+      .hero-band .big {
+        font-size: 58px;
+        font-weight: 800;
+        letter-spacing: -0.015em;
+        white-space: nowrap;
+      }
+      .hero-band .big .accent {
+        color: #7fe0d8;
+      }
+      .chips {
+        display: flex;
+        gap: 16px;
+      }
+      .chip {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 14px 24px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.12);
+        border: 2px solid rgba(127, 224, 216, 0.6);
+        font-size: 26px;
+        font-weight: 700;
+        white-space: nowrap;
+      }
+      .chip i {
+        display: block;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: var(--sun);
+      }
+
+      /* Cierre */
+      .pillars {
+        display: flex;
+        gap: 22px;
+        margin-top: 18px;
+      }
+      .pillar {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 18px 30px;
+        border-radius: 999px;
+        background: #ffffff;
+        box-shadow: 0 10px 30px rgba(11, 37, 69, 0.12);
+        font-size: 30px;
+        font-weight: 700;
+      }
+      .pillar i {
+        display: block;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+      }
+      .signoff {
+        font-size: 28px;
+        font-weight: 600;
+        color: #4a6072;
+        margin-top: 6px;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="26"
+      data-width="1920"
+      data-height="1080"
+    >
+      <!-- ================= VIDEO: escena 1 ================= -->
+      <div id="va-wrap" class="video-wrap" data-layout-allow-overflow>
+        <div id="va-cam" class="cam">
+        <video
+          id="va"
+          class="clip"
+          src="assets/escena1.mp4"
+          data-start="2.6"
+          data-duration="10"
+          data-media-start="0"
+          data-track-index="1"
+          muted
+          playsinline
+        ></video>
+        </div>
+      </div>
+
+      <!-- ================= VIDEO: escena 2 ================= -->
+      <div id="vb-wrap" class="video-wrap" data-layout-allow-overflow>
+        <div id="vb-cam" class="cam">
+        <video
+          id="vb"
+          class="clip"
+          src="assets/escena2.mp4"
+          data-start="12.1"
+          data-duration="10"
+          data-media-start="0"
+          data-track-index="2"
+          muted
+          playsinline
+        ></video>
+        </div>
+      </div>
+
+      <div id="vignette" class="vignette"></div>
+
+      <!-- ================= INTRO ================= -->
+      <div id="intro" class="clip" data-start="0" data-duration="3.1" data-track-index="0">
+        <div class="card-bg"></div>
+        <div class="card-content" id="intro-content">
+          <div class="eyebrow" id="intro-eyebrow">Banco Ficensa</div>
+          <div class="headline">
+            <span class="line"><span id="intro-l1">Cada cliente es único.</span></span>
+            <span class="line"><span id="intro-l2">Conocerlo debería ser <span class="accent">inmediato.</span></span></span>
+          </div>
+        </div>
+        <div class="stripe">
+          <span style="background: var(--teal)"></span>
+          <span style="background: var(--leaf)"></span>
+          <span style="background: var(--sun)"></span>
+          <span style="background: var(--navy)"></span>
+        </div>
+      </div>
+
+      <!-- ================= RÓTULOS ESCENA 1 ================= -->
+      <div id="t1" class="clip" data-start="3.0" data-duration="1.7" data-track-index="5">
+        <div class="tag" id="t1-tag">
+          <div class="bar" id="t1-bar"></div>
+          <div class="txt" id="t1-txt"><small>El cliente llega</small>Desde el primer momento…</div>
+        </div>
+      </div>
+
+      <div id="t2" class="clip" data-start="4.8" data-duration="1.8" data-track-index="5">
+        <div class="tag" id="t2-tag">
+          <div class="bar" id="t2-bar"></div>
+          <div class="txt" id="t2-txt"><small>Identificación</small>…lo reconocemos al instante</div>
+        </div>
+      </div>
+
+      <div id="t3" class="clip" data-start="6.7" data-duration="4.0" data-track-index="5">
+        <div class="hero-band" id="t3-band">
+          <div class="big" id="t3-big">Toda su información, <span class="accent">a la mano.</span></div>
+          <div class="chips">
+            <div class="chip" id="t3-c1"><i></i>Perfil</div>
+            <div class="chip" id="t3-c2"><i></i>Productos</div>
+            <div class="chip" id="t3-c3"><i></i>Oportunidades</div>
+          </div>
+        </div>
+      </div>
+
+      <div id="t4" class="clip" data-start="10.8" data-duration="1.6" data-track-index="5">
+        <div class="tag" id="t4-tag">
+          <div class="bar" id="t4-bar"></div>
+          <div class="txt" id="t4-txt"><small>En tiempo real</small>Oportunidades sugeridas</div>
+        </div>
+      </div>
+
+      <!-- ================= RÓTULOS ESCENA 2 ================= -->
+      <div id="t5" class="clip" data-start="12.9" data-duration="3.1" data-track-index="5">
+        <div class="tag" id="t5-tag">
+          <div class="bar" id="t5-bar"></div>
+          <div class="txt" id="t5-txt"><small>Asesoría</small>Beneficios pensados para cada cliente</div>
+        </div>
+      </div>
+
+      <div id="t6" class="clip" data-start="16.3" data-duration="1.8" data-track-index="5">
+        <div class="tag" id="t6-tag">
+          <div class="bar" id="t6-bar"></div>
+          <div class="txt" id="t6-txt"><small>Sin esperas</small>Respuesta inmediata</div>
+        </div>
+      </div>
+
+      <div id="t7" class="clip" data-start="18.3" data-duration="1.7" data-track-index="5">
+        <div class="tag" id="t7-tag">
+          <div class="bar" id="t7-bar"></div>
+          <div class="txt" id="t7-txt"><small>Resultado</small>Clientes que se van satisfechos</div>
+        </div>
+      </div>
+
+      <!-- ================= CIERRE ================= -->
+      <div id="outro" class="clip" data-start="21.6" data-duration="4.4" data-track-index="0">
+        <div class="card-bg"></div>
+        <div class="card-content" id="outro-content">
+          <div class="eyebrow" id="outro-eyebrow">Lo que buscamos</div>
+          <div class="headline">
+            <span class="line"><span id="outro-l1">Toda la información</span></span>
+            <span class="line"><span id="outro-l2">de nuestros clientes,</span></span>
+            <span class="line"
+              ><span id="outro-l3"
+                ><span class="underline-wrap accent">a la mano.<span class="underline" id="outro-ul"></span></span></span
+            ></span>
+          </div>
+          <div class="pillars">
+            <div class="pillar" id="p1"><i style="background: var(--teal)"></i>Perfil completo</div>
+            <div class="pillar" id="p2"><i style="background: var(--leaf)"></i>Historial</div>
+            <div class="pillar" id="p3"><i style="background: var(--sun)"></i>Oportunidades</div>
+          </div>
+          <div class="signoff" id="outro-sign">Banco Ficensa · Personalización a tu medida</div>
+        </div>
+        <div class="stripe">
+          <span style="background: var(--teal)"></span>
+          <span style="background: var(--leaf)"></span>
+          <span style="background: var(--sun)"></span>
+          <span style="background: var(--navy)"></span>
+        </div>
+      </div>
+
+      <!-- ================= AUDIO ================= -->
+      <audio
+        id="va-audio"
+        src="assets/escena1.mp4"
+        data-start="2.6"
+        data-duration="10"
+        data-media-start="0"
+        data-track-index="10"
+        data-volume="1"
+        data-fade-in="0.5"
+        data-fade-out="0.5"
+      ></audio>
+      <audio
+        id="vb-audio"
+        src="assets/escena2.mp4"
+        data-start="12.1"
+        data-duration="10"
+        data-media-start="0"
+        data-track-index="11"
+        data-volume="1"
+        data-fade-in="0.5"
+        data-fade-out="1.2"
+      ></audio>
+    </div>
+
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      const ease = "power3.out";
+
+      // ---------- Intro ----------
+      tl.fromTo("#intro-eyebrow", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.5, ease }, 0.15);
+      tl.fromTo("#intro-l1", { yPercent: 110 }, { yPercent: 0, duration: 0.7, ease }, 0.3);
+      tl.fromTo("#intro-l2", { yPercent: 110 }, { yPercent: 0, duration: 0.7, ease }, 0.9);
+      tl.to("#intro-content", { opacity: 0, y: -30, duration: 0.45, ease: "power2.in" }, 2.55);
+
+      // ---------- Video: entradas, Ken Burns y fundido cruzado ----------
+      tl.fromTo("#va-wrap", { opacity: 0 }, { opacity: 1, duration: 0.6, ease: "power2.out" }, 2.6);
+      tl.fromTo("#va-cam", { scale: 1.0 }, { scale: 1.05, duration: 10, ease: "none" }, 2.6);
+      tl.fromTo("#vb-wrap", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "none" }, 12.1);
+      tl.fromTo("#vb-cam", { scale: 1.04 }, { scale: 1.0, duration: 10, ease: "none" }, 12.1);
+      tl.fromTo("#vignette", { opacity: 0 }, { opacity: 1, duration: 0.6 }, 2.8);
+      tl.to("#vignette", { opacity: 0, duration: 0.5 }, 19.9);
+
+      // ---------- Rótulo genérico: barra crece, tarjeta entra desde la izquierda, sale bajando ----------
+      function tag(id, start, dur) {
+        tl.fromTo(`#${id}-tag`, { opacity: 0, x: -60 }, { opacity: 1, x: 0, duration: 0.5, ease }, start);
+        tl.fromTo(`#${id}-bar`, { scaleY: 0 }, { scaleY: 1, duration: 0.45, ease }, start + 0.1);
+        tl.fromTo(`#${id}-txt`, { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.45, ease }, start + 0.2);
+        tl.to(`#${id}-tag`, { opacity: 0, y: 20, duration: 0.3, ease: "power2.in" }, start + dur - 0.3);
+      }
+      tag("t1", 3.0, 1.7);
+      tag("t2", 4.8, 1.8);
+      tag("t4", 10.8, 1.6);
+      tag("t5", 12.9, 3.1);
+      tag("t6", 16.3, 1.8);
+      tag("t7", 18.3, 1.7);
+
+      // ---------- Énfasis principal sobre el CRM ----------
+      tl.fromTo("#t3-band", { opacity: 0, y: 80 }, { opacity: 1, y: 0, duration: 0.6, ease: "back.out(1.4)" }, 6.7);
+      tl.fromTo("#t3-big", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.5, ease }, 6.95);
+      tl.fromTo(
+        ["#t3-c1", "#t3-c2", "#t3-c3"],
+        { opacity: 0, y: 24, scale: 0.85 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: "back.out(2)", stagger: 0.28 },
+        7.5
+      );
+      tl.to("#t3-big", { scale: 1.04, duration: 0.25, yoyo: true, repeat: 1, ease: "sine.inOut" }, 9.0);
+      tl.to("#t3-band", { opacity: 0, y: 40, duration: 0.35, ease: "power2.in" }, 10.35);
+
+      // ---------- Cierre ----------
+      tl.fromTo("#outro-content", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "none" }, 21.6);
+      tl.fromTo("#outro-eyebrow", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.5, ease }, 21.8);
+      tl.fromTo("#outro-l1", { yPercent: 110 }, { yPercent: 0, duration: 0.65, ease }, 22.0);
+      tl.fromTo("#outro-l2", { yPercent: 110 }, { yPercent: 0, duration: 0.65, ease }, 22.3);
+      tl.fromTo("#outro-l3", { yPercent: 110 }, { yPercent: 0, duration: 0.7, ease }, 22.7);
+      tl.fromTo("#outro-ul", { scaleX: 0 }, { scaleX: 1, duration: 0.6, ease: "power2.inOut" }, 23.3);
+      tl.fromTo(
+        ["#p1", "#p2", "#p3"],
+        { opacity: 0, y: 24 },
+        { opacity: 1, y: 0, duration: 0.45, ease: "back.out(1.8)", stagger: 0.18 },
+        23.8
+      );
+      tl.fromTo("#outro-sign", { opacity: 0 }, { opacity: 1, duration: 0.5 }, 24.6);
+
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>
