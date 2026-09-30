@@ -26,7 +26,7 @@ language: es
 - voiceover: "Tus clientes están en todas partes: un correo aquí, una hoja de cálculo allá, un chat que nadie ve."
 - duration: 6s
 - transition_in: cut
-- status: outline
+- status: built
 - src: compositions/frames/01-todo-disperso.html
 - type: hook
 - persuasion: Pain validation + Concretization (datos dispersos → fragmentos visibles)
@@ -42,7 +42,7 @@ keyMessage: Sin un centro, cada equipo ve solo un trozo del cliente.
 - voiceover: "HubSpot empieza por el centro: un CRM. Contactos, empresas, negocios y tickets, en una sola ficha por cliente."
 - duration: 8s
 - transition_in: zoom-through
-- status: outline
+- status: built
 - src: compositions/frames/02-el-centro-crm.html
 - type: product_intro
 - persuasion: Frame-then-fill (el centro primero, luego su contenido) + Progressive disclosure
@@ -58,7 +58,7 @@ keyMessage: Todo en HubSpot gira alrededor de una sola base de datos de clientes
 - voiceover: "Se conecta Marketing Hub: emails, anuncios y formularios atraen visitantes… y los convierten en leads."
 - duration: 7s
 - transition_in: crossfade
-- status: outline
+- status: built
 - src: compositions/frames/03-marketing-hub.html
 - type: feature_showcase
 - persuasion: Progressive disclosure + Causal chain (visitante → lead)
@@ -74,7 +74,7 @@ keyMessage: Marketing Hub atrae gente y la registra en el CRM como lead.
 - voiceover: "Sales Hub recoge ese lead: pipeline, reuniones, cotizaciones… hasta cerrar la venta."
 - duration: 7s
 - transition_in: crossfade
-- status: outline
+- status: built
 - src: compositions/frames/04-sales-hub.html
 - type: feature_showcase
 - persuasion: Signposting (primero… luego…) + Demonstration (el punto recorre el pipeline)
@@ -90,7 +90,7 @@ keyMessage: Ventas trabaja sobre la misma ficha que creó marketing.
 - voiceover: "Y Service Hub cuida al cliente después: tickets, chat, ayuda. Y todo el equipo ve el mismo historial."
 - duration: 8s
 - transition_in: crossfade
-- status: outline
+- status: built
 - src: compositions/frames/05-service-hub.html
 - type: benefit_highlight
 - persuasion: Callback (las líneas del frame 3 y 4 se reactivan) + Demonstration
@@ -106,7 +106,7 @@ keyMessage: Marketing, ventas y servicio ven lo mismo porque comparten el CRM.
 - voiceover: "Y si lo necesitas, más piezas: Content para tu web, Operations para tus datos, Commerce para cobrar."
 - duration: 7s
 - transition_in: crossfade
-- status: outline
+- status: built
 - src: compositions/frames/06-y-ademas.html
 - type: feature_showcase
 - persuasion: Rule of three + Numbered enumeration
@@ -122,7 +122,7 @@ keyMessage: Cada Hub extra se engancha al mismo CRM.
 - voiceover: "Por encima trabaja Breeze, la IA de HubSpot: usa esos datos para escribir, resumir y responder por ti."
 - duration: 7s
 - transition_in: crossfade
-- status: outline
+- status: built
 - src: compositions/frames/07-breeze-ia.html
 - type: benefit_highlight
 - persuasion: Causal chain (datos compartidos → IA útil) + Rule of three
@@ -138,7 +138,7 @@ keyMessage: Como todos los datos están juntos, la IA puede trabajar con todos e
 - voiceover: "Un centro, muchas piezas, un mismo cliente. Así funciona HubSpot."
 - duration: 8s
 - transition_in: zoom-through
-- status: outline
+- status: built
 - src: compositions/frames/08-asi-funciona.html
 - type: branding
 - persuasion: Distillation + Callback (el caos del frame 1 ahora ordenado)
