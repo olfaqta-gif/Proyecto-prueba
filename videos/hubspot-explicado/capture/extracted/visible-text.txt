@@ -1,0 +1,17 @@
+Petición del usuario (verbatim): "quiero un video con motion graphics que me ayude a entender como funciona hubspot puedes guiarte de www.hubspot.com"
+Forma visual pedida: "Como un diagrama que se va armando pieza a pieza"
+
+Fuente de información (hubspot.com bloqueado por la red del entorno; conocimiento general de la plataforma):
+- HubSpot es una plataforma de clientes (customer platform) todo-en-uno para marketing, ventas y servicio al cliente.
+- Su núcleo es el Smart CRM: una base de datos única con contactos, empresas, negocios (deals) y tickets, y el historial de cada interacción. El CRM base es gratuito.
+- Sobre el CRM se conectan los "Hubs", que comparten los mismos datos:
+  - Marketing Hub: atraer visitantes y convertirlos en leads — email, formularios, landing pages, anuncios, redes sociales, automatizaciones.
+  - Sales Hub: convertir leads en clientes — pipeline de negocios, secuencias de emails, reuniones, cotizaciones, previsiones.
+  - Service Hub: cuidar y retener clientes — tickets, chat y bandeja compartida, base de conocimiento, encuestas de satisfacción.
+  - Content Hub: crear y gestionar la web, blog y contenido.
+  - Operations Hub (Data Hub): sincronizar y limpiar datos entre HubSpot y otras apps.
+  - Commerce Hub: cobros, facturas, suscripciones y pagos.
+- Breeze: la capa de IA de HubSpot (Breeze Copilot, agentes Breeze e inteligencia de datos) que trabaja sobre todos los Hubs.
+- Cientos de integraciones en el App Marketplace.
+- Idea central: una sola fuente de verdad del cliente; cada equipo ve el mismo historial, sin herramientas sueltas ni datos duplicados.
+- Recorrido típico del cliente: visitante → lead → cliente → promotor.
