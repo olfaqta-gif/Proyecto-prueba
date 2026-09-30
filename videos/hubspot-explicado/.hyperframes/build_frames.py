@@ -131,7 +131,7 @@ def wires(fid, nids, hot=(), pulse=()):
 
 def dot(fid, labels, x, y):
     p = f"f{fid}"
-    spans = "".join(f'<span id="{p}-dl{i}">{l}</span>' for i, l in enumerate(labels))
+    spans = "".join(f'<span id="{p}-dl{i}" data-layout-allow-overlap>{l}</span>' for i, l in enumerate(labels))
     return f'<div id="{p}-dot" class="{p}-dot" data-layout-allow-overlap style="transform:translate({x}px,{y}px)"><i></i><em>{spans}</em></div>'
 
 def words(fid, key, text_parts):
