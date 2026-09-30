@@ -402,7 +402,7 @@ def f08():
         js.append(J_words(fid, f"l{li}-", len(lines[li]), t, 0.12))
     js.append(J_fade(f"#{p}-k", 2.76, 0.6))
     js.append(f'tl.fromTo("#{p}-camclip, #{p}-ovclip",{{opacity:1}},{{opacity:0,duration:0.4,ease:"power2.in"}},{DUR[fid] - 0.4});')
-    overlay = (f'<div id="{p}-k" class="{p}-kicker" style="right:5.5cqw;top:4cqw">así funciona hubspot</div>'
+    overlay = (f'<div id="{p}-k" class="{p}-kicker" style="left:5.5cqw;top:4cqw">así funciona hubspot</div>'
                f'<div style="position:absolute;left:5.5cqw;bottom:20%;font-weight:900;font-size:6.4cqw;letter-spacing:-.04em;line-height:1.06">{"".join(html_lines)}</div>')
     return page(fid, "asi-funciona", world, overlay, "\n      ".join(js))
 
