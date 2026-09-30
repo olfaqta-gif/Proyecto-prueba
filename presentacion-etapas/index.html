@@ -1,0 +1,819 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>Etapa 1 vs Etapa 2 — Ahorro de tiempo</title>
+    <script src="./assets/gsap.min.js"></script>
+    <style>
+      @font-face {
+        font-family: "Inter";
+        src: url("./assets/Inter.woff2") format("woff2");
+        font-weight: 100 900;
+        font-style: normal;
+      }
+      :root {
+        --bg: #0b0d12;
+        --ink: #f5f5f7;
+        --muted: #a1a7b3;
+        --line: #262a33;
+        --manual: #ff7a59;
+        --e1: #34d3b4;
+        --e2: #9b8cff;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: var(--bg);
+      }
+      #root {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: "Inter", system-ui, sans-serif;
+        letter-spacing: -0.02em;
+      }
+
+      /* ---------- Shared background ---------- */
+      .bg {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+      }
+      .glow {
+        position: absolute;
+        width: 1400px;
+        height: 1400px;
+        border-radius: 50%;
+        filter: blur(40px);
+        opacity: 0.55;
+      }
+      #glow-a {
+        left: -500px;
+        top: -700px;
+        background: radial-gradient(circle, rgba(52, 211, 180, 0.28), rgba(52, 211, 180, 0) 65%);
+      }
+      #glow-b {
+        left: 1000px;
+        top: 300px;
+        background: radial-gradient(circle, rgba(155, 140, 255, 0.28), rgba(155, 140, 255, 0) 65%);
+      }
+      .footer {
+        position: absolute;
+        left: 120px;
+        right: 120px;
+        bottom: 56px;
+        display: flex;
+        justify-content: space-between;
+        font-size: 26px;
+        color: var(--muted);
+        letter-spacing: 0.02em;
+      }
+
+      /* ---------- Scenes ---------- */
+      .scene {
+        position: absolute;
+        inset: 0;
+      }
+      .stage {
+        position: absolute;
+        inset: 0;
+        padding: 130px 160px 150px;
+        display: flex;
+        flex-direction: column;
+        gap: 56px;
+      }
+      .kicker {
+        font-size: 30px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.16em;
+        color: var(--muted);
+      }
+      h1,
+      h2 {
+        font-weight: 700;
+        line-height: 1.04;
+        letter-spacing: -0.035em;
+      }
+      h1 {
+        font-size: 112px;
+        max-width: 1500px;
+      }
+      h2 {
+        font-size: 76px;
+        max-width: 1560px;
+      }
+      .t-e1 {
+        color: var(--e1);
+      }
+      .t-e2 {
+        color: var(--e2);
+      }
+      .t-manual {
+        color: var(--manual);
+      }
+
+      /* S1 — title */
+      #s1 .stage {
+        justify-content: center;
+      }
+      .pills {
+        display: flex;
+        gap: 28px;
+      }
+      .pill {
+        display: block;
+        padding: 18px 40px;
+        border-radius: 999px;
+        font-size: 40px;
+        font-weight: 600;
+        border: 3px solid currentColor;
+      }
+
+      /* S2 — today */
+      .today {
+        display: flex;
+        align-items: center;
+        gap: 120px;
+        flex: 1;
+      }
+      .big-stat {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        width: 520px;
+        flex-shrink: 0;
+      }
+      .big-num {
+        font-size: 300px;
+        font-weight: 800;
+        line-height: 0.9;
+        letter-spacing: -0.06em;
+        font-variant-numeric: tabular-nums;
+      }
+      .big-num small {
+        font-size: 120px;
+        letter-spacing: -0.03em;
+      }
+      .big-cap {
+        font-size: 40px;
+        color: var(--muted);
+      }
+      .breakdown {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 34px;
+      }
+      .brow {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .brow-label {
+        display: flex;
+        justify-content: space-between;
+        font-size: 40px;
+        font-weight: 500;
+      }
+      .brow-label b {
+        font-weight: 700;
+      }
+      .track {
+        position: relative;
+        height: 22px;
+        width: 100%;
+        border-radius: 11px;
+        background: var(--line);
+        overflow: hidden;
+      }
+      .fill {
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        border-radius: 11px;
+        background: var(--manual);
+        transform-origin: left center;
+      }
+
+      /* S3 / S4 — stage bars */
+      .bar-block {
+        display: flex;
+        flex-direction: column;
+        gap: 22px;
+      }
+      .bar-legend {
+        display: flex;
+        justify-content: space-between;
+        font-size: 40px;
+        font-weight: 600;
+      }
+      .bar {
+        position: relative;
+        width: 100%;
+        height: 150px;
+        border-radius: 24px;
+        overflow: hidden;
+        background: var(--line);
+      }
+      .bar-base {
+        position: absolute;
+        inset: 0;
+        background: var(--manual);
+        transform-origin: left center;
+      }
+      .bar-saved {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        transform-origin: right center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 64px;
+        font-weight: 800;
+        color: #0b0d12;
+      }
+      #s3 .bar-saved {
+        width: 45%;
+        background: var(--e1);
+      }
+      #s4 .bar-saved {
+        width: 80%;
+        background: var(--e2);
+      }
+      .bar-num {
+        display: block;
+      }
+      .bar-left {
+        position: absolute;
+        left: 40px;
+        top: 0;
+        bottom: 0;
+        display: flex;
+        align-items: center;
+        font-size: 56px;
+        font-weight: 800;
+        color: #0b0d12;
+      }
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 22px;
+      }
+      .chip {
+        display: block;
+        padding: 18px 32px;
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.06);
+        border: 2px solid var(--line);
+        font-size: 40px;
+        font-weight: 500;
+      }
+      .chip.strong {
+        border-color: currentColor;
+        font-weight: 700;
+      }
+
+      /* S5 — chart */
+      .chart-wrap {
+        flex: 1;
+        position: relative;
+      }
+      .chart {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+      }
+      .chart text {
+        font-family: "Inter", system-ui, sans-serif;
+      }
+
+      /* S6 — result */
+      .cards {
+        display: flex;
+        gap: 48px;
+        align-items: stretch;
+        flex: 1;
+      }
+      .card {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 18px;
+        padding: 36px 56px;
+        border-radius: 36px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 3px solid var(--line);
+      }
+      .card-label {
+        font-size: 44px;
+        font-weight: 700;
+      }
+      .card-num {
+        white-space: nowrap;
+        font-size: 140px;
+        font-weight: 800;
+        line-height: 0.95;
+        letter-spacing: -0.05em;
+        font-variant-numeric: tabular-nums;
+      }
+      .card-num small {
+        font-size: 64px;
+      }
+      .card-sub {
+        font-size: 40px;
+        color: var(--muted);
+      }
+      .delta {
+        width: 340px;
+        flex-shrink: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        border-radius: 36px;
+        background: var(--e2);
+        color: #0b0d12;
+      }
+      .delta-num {
+        white-space: nowrap;
+        font-size: 96px;
+        font-weight: 800;
+        letter-spacing: -0.05em;
+      }
+      .delta-cap {
+        font-size: 40px;
+        font-weight: 600;
+        text-align: center;
+        line-height: 1.15;
+        padding: 0 24px;
+      }
+
+      /* S7 — recommendation */
+      .road {
+        position: relative;
+        display: flex;
+        gap: 48px;
+        flex: 1;
+        align-items: flex-start;
+        padding-top: 20px;
+      }
+      .road-line {
+        position: absolute;
+        left: 40px;
+        right: 40px;
+        top: 58px;
+        height: 6px;
+        border-radius: 3px;
+        background: linear-gradient(90deg, var(--e1), var(--e2));
+        transform-origin: left center;
+      }
+      .step {
+        position: relative;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 22px;
+      }
+      .dot {
+        width: 76px;
+        height: 76px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 36px;
+        font-weight: 800;
+        color: #0b0d12;
+      }
+      .step-when {
+        font-size: 34px;
+        font-weight: 600;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+      }
+      .step-what {
+        font-size: 48px;
+        font-weight: 700;
+        line-height: 1.12;
+      }
+      .step-gain {
+        font-size: 40px;
+        font-weight: 600;
+      }
+      .closing {
+        font-size: 44px;
+        color: var(--muted);
+      }
+    </style>
+  </head>
+  <body>
+    <script type="application/hyperframes-slideshow+json">
+      {
+        "slides": [
+          {
+            "sceneId": "portada",
+            "startTime": 0,
+            "endTime": 6,
+            "notes": "Presentar el objetivo: comparar cuánto tiempo recuperamos con cada etapa. Aclarar que los números son simulados, solo como referencia."
+          },
+          {
+            "sceneId": "hoy",
+            "startTime": 6,
+            "endTime": 15,
+            "fragments": [8.8, 11.0],
+            "notes": "Punto de partida: 40 horas por semana de trabajo manual. Luego mostrar en qué se van esas horas."
+          },
+          {
+            "sceneId": "etapa-1",
+            "startTime": 15,
+            "endTime": 24,
+            "fragments": [17.0, 19.2, 21.0],
+            "notes": "Etapa 1: automatiza captura y validación. Ahorra 18 h/semana (45%) y está lista en 4 semanas."
+          },
+          {
+            "sceneId": "etapa-2",
+            "startTime": 24,
+            "endTime": 33,
+            "fragments": [26.0, 28.2, 30.0],
+            "notes": "Etapa 2: incluye Etapa 1 más integración y reportes automáticos. Ahorra 32 h/semana (80%) pero toma 10 semanas."
+          },
+          {
+            "sceneId": "curva",
+            "startTime": 33,
+            "endTime": 45,
+            "fragments": [34.8, 37.6, 40.4, 42.2],
+            "notes": "Ahorro acumulado en 12 meses. Etapa 1 empieza antes; Etapa 2 la alcanza en la semana 18 y a partir de ahí la supera."
+          },
+          {
+            "sceneId": "resultado",
+            "startTime": 45,
+            "endTime": 53,
+            "fragments": [48.4, 50.0],
+            "notes": "Al año: 864 h vs 1,344 h. La diferencia son 480 horas, unos 3 meses de trabajo de una persona."
+          },
+          {
+            "sceneId": "recomendacion",
+            "startTime": 53,
+            "endTime": 61,
+            "fragments": [56.9, 58.6],
+            "notes": "Propuesta: arrancar con Etapa 1 para capturar ahorro rápido y construir Etapa 2 encima. Siguiente paso: validar supuestos con datos reales."
+          }
+        ]
+      }
+    </script>
+
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="61"
+      data-width="1920"
+      data-height="1080"
+    >
+      <!-- Shared background, whole deck -->
+      <div id="bg" class="bg clip" data-start="0" data-duration="61" data-track-index="0">
+        <div id="glow-a" class="glow"></div>
+        <div id="glow-b" class="glow"></div>
+        <div class="footer">
+          <span>Etapa 1 vs Etapa 2 · Ahorro de tiempo · Datos simulados, solo referencia</span>
+        </div>
+      </div>
+
+      <!-- S1 · Portada -->
+      <section id="s1" class="scene clip" data-start="0" data-duration="6" data-track-index="1">
+        <div class="stage">
+          <div class="kicker" id="s1-kicker">Simulación · Referencia</div>
+          <h1 id="s1-title">¿Cuánto tiempo nos ahorramos con cada etapa?</h1>
+          <div class="pills">
+            <span class="pill t-e1" id="s1-p1">Etapa 1</span>
+            <span class="pill t-e2" id="s1-p2">Etapa 2</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- S2 · Hoy -->
+      <section id="s2" class="scene clip" data-start="6" data-duration="9" data-track-index="1">
+        <div class="stage">
+          <div class="kicker">Punto de partida</div>
+          <h2 id="s2-title">Hoy el proceso manual consume <span class="t-manual">40 horas</span> cada semana</h2>
+          <div class="today">
+            <div class="big-stat" id="s2-stat">
+              <div class="big-num t-manual"><span id="s2-count">40</span><small> h</small></div>
+              <div class="big-cap">por semana, todo manual</div>
+            </div>
+            <div class="breakdown">
+              <div class="brow">
+                <div class="brow-label"><span>Captura de datos</span><b>14 h</b></div>
+                <div class="track"><div class="fill" style="width: 100%"></div></div>
+              </div>
+              <div class="brow">
+                <div class="brow-label"><span>Validación y correcciones</span><b>10 h</b></div>
+                <div class="track"><div class="fill" style="width: 71.4%"></div></div>
+              </div>
+              <div class="brow">
+                <div class="brow-label"><span>Armado de reportes</span><b>9 h</b></div>
+                <div class="track"><div class="fill" style="width: 64.3%"></div></div>
+              </div>
+              <div class="brow">
+                <div class="brow-label"><span>Seguimiento y envíos</span><b>7 h</b></div>
+                <div class="track"><div class="fill" style="width: 50%"></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- S3 · Etapa 1 -->
+      <section id="s3" class="scene clip" data-start="15" data-duration="9" data-track-index="1">
+        <div class="stage">
+          <div class="kicker t-e1">Etapa 1 · Automatización base</div>
+          <h2 id="s3-title">Etapa 1 recupera <span class="t-e1">18 horas por semana</span> y está lista en 4 semanas</h2>
+          <div class="bar-block">
+            <div class="bar-legend">
+              <span class="t-manual">Horas manuales que quedan</span>
+              <span class="t-e1">Horas recuperadas</span>
+            </div>
+            <div class="bar">
+              <div class="bar-base" id="s3-base"></div>
+              <div class="bar-left" id="s3-left">22 h</div>
+              <div class="bar-saved" id="s3-saved"><span class="bar-num" id="s3-num">−18 h</span></div>
+            </div>
+          </div>
+          <div class="chips" id="s3-chips">
+            <span class="chip">Captura automática</span>
+            <span class="chip">Validación asistida</span>
+            <span class="chip strong t-e1">45% menos trabajo manual</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- S4 · Etapa 2 -->
+      <section id="s4" class="scene clip" data-start="24" data-duration="9" data-track-index="1">
+        <div class="stage">
+          <div class="kicker t-e2">Etapa 2 · Automatización completa</div>
+          <h2 id="s4-title">Etapa 2 recupera <span class="t-e2">32 horas por semana</span>, pero tarda 10 semanas</h2>
+          <div class="bar-block">
+            <div class="bar-legend">
+              <span class="t-manual">Horas manuales que quedan</span>
+              <span class="t-e2">Horas recuperadas</span>
+            </div>
+            <div class="bar">
+              <div class="bar-base" id="s4-base"></div>
+              <div class="bar-left" id="s4-left">8 h</div>
+              <div class="bar-saved" id="s4-saved"><span class="bar-num" id="s4-num">−32 h</span></div>
+            </div>
+          </div>
+          <div class="chips" id="s4-chips">
+            <span class="chip">Todo lo de Etapa 1</span>
+            <span class="chip">Integración entre sistemas</span>
+            <span class="chip">Reportes automáticos</span>
+            <span class="chip strong t-e2">80% menos trabajo manual</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- S5 · Curva acumulada -->
+      <section id="s5" class="scene clip" data-start="33" data-duration="12" data-track-index="1">
+        <div class="stage" style="gap: 36px">
+          <div class="kicker">Ahorro acumulado · 12 meses</div>
+          <h2 id="s5-title">Etapa 2 alcanza a Etapa 1 en la <span class="t-e2">semana 18</span> y luego la supera</h2>
+          <div class="chart-wrap">
+            <svg class="chart" viewBox="0 0 1600 700" preserveAspectRatio="xMidYMid meet">
+              <g id="s5-axes" fill="#a1a7b3" font-size="30">
+                <line x1="80" y1="640" x2="1560" y2="640" stroke="#3a3f4a" stroke-width="3" />
+                <line x1="80" y1="468.6" x2="1560" y2="468.6" stroke="#262a33" stroke-width="2" />
+                <line x1="80" y1="297.1" x2="1560" y2="297.1" stroke="#262a33" stroke-width="2" />
+                <line x1="80" y1="125.7" x2="1560" y2="125.7" stroke="#262a33" stroke-width="2" />
+                <text x="64" y="650" text-anchor="end">0</text>
+                <text x="64" y="479" text-anchor="end">400</text>
+                <text x="64" y="307" text-anchor="end">800</text>
+                <text x="64" y="136" text-anchor="end">1200 h</text>
+                <text x="80" y="690" text-anchor="middle">Inicio</text>
+                <text x="450" y="690" text-anchor="middle">Mes 3</text>
+                <text x="820" y="690" text-anchor="middle">Mes 6</text>
+                <text x="1190" y="690" text-anchor="middle">Mes 9</text>
+                <text x="1560" y="690" text-anchor="middle">Mes 12</text>
+              </g>
+              <path
+                id="s5-e1"
+                d="M80 640 L193.85 640 L1560 269.7"
+                fill="none"
+                stroke="#34d3b4"
+                stroke-width="10"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                id="s5-e2"
+                d="M80 640 L364.6 640 L1560 64"
+                fill="none"
+                stroke="#9b8cff"
+                stroke-width="10"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <g id="s5-e1-label" fill="#34d3b4" font-size="40" font-weight="800">
+                <text x="1540" y="395" text-anchor="end">Etapa 1 · 864 h</text>
+              </g>
+              <g id="s5-e2-label" fill="#9b8cff" font-size="40" font-weight="800">
+                <text x="1500" y="50" text-anchor="end">Etapa 2 · 1,344 h</text>
+              </g>
+              <g id="s5-cross">
+                <line x1="584.1" y1="534.2" x2="584.1" y2="640" stroke="#f5f5f7" stroke-width="3" stroke-dasharray="8 8" />
+                <circle cx="584.1" cy="534.2" r="18" fill="#f5f5f7" />
+                <text x="612" y="600" fill="#f5f5f7" font-size="38" font-weight="700">Semana 18 · cruce</text>
+              </g>
+            </svg>
+          </div>
+        </div>
+      </section>
+
+      <!-- S6 · Resultado -->
+      <section id="s6" class="scene clip" data-start="45" data-duration="8" data-track-index="1">
+        <div class="stage">
+          <div class="kicker">Resultado a 12 meses</div>
+          <h2 id="s6-title">En un año, Etapa 2 ahorra <span class="t-e2">480 horas más</span> que Etapa 1</h2>
+          <div class="cards">
+            <div class="card" id="s6-c1">
+              <div class="card-label t-e1">Etapa 1</div>
+              <div class="card-num"><span id="s6-n1">864</span><small> h</small></div>
+              <div class="card-sub">≈ 5.4 meses-persona</div>
+            </div>
+            <div class="card" id="s6-c2">
+              <div class="card-label t-e2">Etapa 2</div>
+              <div class="card-num"><span id="s6-n2">1,344</span><small> h</small></div>
+              <div class="card-sub">≈ 8.4 meses-persona</div>
+            </div>
+            <div class="delta" id="s6-delta">
+              <div class="delta-num">+480 h</div>
+              <div class="delta-cap">a favor de Etapa 2</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- S7 · Recomendación -->
+      <section id="s7" class="scene clip" data-start="53" data-duration="8" data-track-index="1">
+        <div class="stage">
+          <div class="kicker">Recomendación</div>
+          <h2 id="s7-title">Arrancar con <span class="t-e1">Etapa 1</span> y escalar a <span class="t-e2">Etapa 2</span> sin perder ahorro</h2>
+          <div class="road">
+            <div class="road-line" id="s7-line"></div>
+            <div class="step" id="s7-st1">
+              <div class="dot" style="background: var(--e1)">1</div>
+              <div class="step-when">Semanas 0–4</div>
+              <div class="step-what">Lanzar Etapa 1</div>
+              <div class="step-gain t-e1">−18 h por semana</div>
+            </div>
+            <div class="step" id="s7-st2">
+              <div class="dot" style="background: #6fb0d9">2</div>
+              <div class="step-when">Semanas 4–10</div>
+              <div class="step-what">Construir Etapa 2 con el ahorro ya activo</div>
+              <div class="step-gain" style="color: #6fb0d9">Sin frenar la operación</div>
+            </div>
+            <div class="step" id="s7-st3">
+              <div class="dot" style="background: var(--e2)">3</div>
+              <div class="step-when">Semana 10 en adelante</div>
+              <div class="step-what">Etapa 2 completa</div>
+              <div class="step-gain t-e2">−32 h por semana</div>
+            </div>
+          </div>
+          <div class="closing" id="s7-close">Siguiente paso: validar estos supuestos con datos reales del equipo.</div>
+        </div>
+      </section>
+    </div>
+
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      const IN = "power3.out";
+
+      // Count-up helper: tweens a proxy and writes formatted integers.
+      function countUp(id, to, at, dur) {
+        const el = document.getElementById(id);
+        const proxy = { v: 0 };
+        tl.fromTo(
+          proxy,
+          { v: 0 },
+          {
+            v: to,
+            duration: dur,
+            ease: "power2.out",
+            onUpdate: () => {
+              el.textContent = Math.round(proxy.v).toLocaleString("en-US");
+            },
+          },
+          at,
+        );
+      }
+
+      // Scene entrance / exit on the inner .stage (never on the .clip itself).
+      function sceneInOut(sel, start, end, isLast) {
+        const stage = document.querySelector(sel + " .stage");
+        tl.fromTo(stage, { opacity: 0, scale: 0.97 }, { opacity: 1, scale: 1, duration: 0.7, ease: IN }, start);
+        if (!isLast) {
+          tl.to(stage, { opacity: 0, scale: 1.02, duration: 0.45, ease: "power2.in" }, end - 0.45);
+        }
+      }
+
+      function rise(target, at, opts) {
+        tl.fromTo(
+          target,
+          { opacity: 0, y: 40 },
+          Object.assign({ opacity: 1, y: 0, duration: 0.8, ease: IN }, opts || {}),
+          at,
+        );
+      }
+
+      // Background drift across the whole deck
+      tl.fromTo("#glow-a", { x: 0, y: 0 }, { x: 420, y: 260, duration: 61, ease: "none" }, 0);
+      tl.fromTo("#glow-b", { x: 0, y: 0 }, { x: -520, y: -180, duration: 61, ease: "none" }, 0);
+
+      // S1 · Portada (0–6)
+      sceneInOut("#s1", 0, 6);
+      rise("#s1-kicker", 0.2);
+      rise("#s1-title", 0.45, { duration: 1.0 });
+      tl.fromTo(
+        ["#s1-p1", "#s1-p2"],
+        { opacity: 0, scale: 0.8 },
+        { opacity: 1, scale: 1, duration: 0.6, ease: "back.out(1.8)", stagger: 0.25 },
+        1.6,
+      );
+
+      // S2 · Hoy (6–15)
+      sceneInOut("#s2", 6, 15);
+      rise("#s2-title", 6.2);
+      rise("#s2-stat", 7.0);
+      countUp("s2-count", 40, 7.0, 1.6);
+      rise("#s2 .brow", 8.9, { stagger: 0.18, duration: 0.6 });
+      tl.fromTo("#s2 .fill", { scaleX: 0 }, { scaleX: 1, duration: 0.9, ease: IN, stagger: 0.18 }, 9.0);
+
+      // S3 · Etapa 1 (15–24)
+      sceneInOut("#s3", 15, 24);
+      rise("#s3-title", 15.2);
+      tl.fromTo("#s3-base", { scaleX: 0 }, { scaleX: 1, duration: 0.8, ease: IN }, 16.0);
+      tl.fromTo("#s3-saved", { scaleX: 0 }, { scaleX: 1, duration: 1.1, ease: "expo.out" }, 17.4);
+      tl.fromTo(["#s3-left", "#s3-num"], { opacity: 0 }, { opacity: 1, duration: 0.4 }, 18.4);
+      rise("#s3-chips .chip", 19.4, { stagger: 0.2, duration: 0.6 });
+
+      // S4 · Etapa 2 (24–33)
+      sceneInOut("#s4", 24, 33);
+      rise("#s4-title", 24.2);
+      tl.fromTo("#s4-base", { scaleX: 0 }, { scaleX: 1, duration: 0.8, ease: IN }, 25.0);
+      tl.fromTo("#s4-saved", { scaleX: 0 }, { scaleX: 1, duration: 1.1, ease: "expo.out" }, 26.4);
+      tl.fromTo(["#s4-left", "#s4-num"], { opacity: 0 }, { opacity: 1, duration: 0.4 }, 27.4);
+      rise("#s4-chips .chip", 28.4, { stagger: 0.2, duration: 0.6 });
+
+      // S5 · Curva (33–45)
+      sceneInOut("#s5", 33, 45);
+      rise("#s5-title", 33.2);
+      tl.fromTo("#s5-axes", { opacity: 0 }, { opacity: 1, duration: 0.8 }, 33.8);
+      ["s5-e1", "s5-e2"].forEach((id, i) => {
+        const path = document.getElementById(id);
+        const len = Math.ceil(path.getTotalLength());
+        path.style.strokeDasharray = len;
+        tl.fromTo(path, { strokeDashoffset: len }, { strokeDashoffset: 0, duration: 2.0, ease: "power2.inOut" }, i === 0 ? 35.0 : 38.0);
+      });
+      tl.fromTo("#s5-e1-label", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.5, ease: IN }, 36.8);
+      tl.fromTo("#s5-e2-label", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.5, ease: IN }, 39.8);
+      tl.fromTo("#s5-cross", { opacity: 0 }, { opacity: 1, duration: 0.6, ease: IN }, 40.6);
+
+      // S6 · Resultado (45–53)
+      sceneInOut("#s6", 45, 53);
+      rise("#s6-title", 45.2);
+      rise(["#s6-c1", "#s6-c2"], 46.0, { stagger: 0.2 });
+      countUp("s6-n1", 864, 46.2, 1.8);
+      countUp("s6-n2", 1344, 46.4, 1.8);
+      tl.fromTo("#s6-delta", { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.7, ease: "back.out(1.6)" }, 48.8);
+
+      // S7 · Recomendación (53–61)
+      sceneInOut("#s7", 53, 61, true);
+      rise("#s7-title", 53.2);
+      tl.fromTo("#s7-line", { scaleX: 0 }, { scaleX: 1, duration: 2.2, ease: "power2.inOut" }, 54.2);
+      rise(["#s7-st1", "#s7-st2", "#s7-st3"], 54.3, { stagger: 0.7, duration: 0.7 });
+      rise("#s7-close", 57.4);
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>
