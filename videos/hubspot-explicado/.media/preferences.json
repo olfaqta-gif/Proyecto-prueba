@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "preferences": {
+    "destination": {
+      "value": "desktop",
+      "confirmed_in": [
+        "hubspot-explicado"
+      ],
+      "updated_at": "2026-09-30T16:30:12.871Z"
+    },
+    "aspect": {
+      "value": "1920x1080",
+      "confirmed_in": [
+        "hubspot-explicado"
+      ],
+      "updated_at": "2026-09-30T16:30:12.937Z"
+    },
+    "language": {
+      "value": "es",
+      "confirmed_in": [
+        "hubspot-explicado"
+      ],
+      "updated_at": "2026-09-30T16:30:13.008Z"
+    },
+    "flow": {
+      "value": "automation",
+      "confirmed_in": [
+        "hubspot-explicado"
+      ],
+      "updated_at": "2026-09-30T16:30:13.065Z"
+    },
+    "storyboard": {
+      "value": "yes",
+      "confirmed_in": [
+        "hubspot-explicado"
+      ],
+      "updated_at": "2026-09-30T16:30:13.141Z"
+    }
+  },
+  "sightings": {}
+}
