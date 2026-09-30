@@ -12,14 +12,21 @@
         font-weight: 100 900;
         font-style: normal;
       }
+      /* ============ PALETA DE MARCA ============
+         Paleta provisional azul marino + celeste + dorado (estilo banca).
+         Para usar los colores oficiales, reemplaza SOLO estos valores. */
       :root {
-        --bg: #0b0d12;
-        --ink: #f5f5f7;
-        --muted: #a1a7b3;
-        --line: #262a33;
-        --manual: #ff7a59;
-        --e1: #34d3b4;
-        --e2: #9b8cff;
+        --bg: #06162e; /* fondo */
+        --ink: #f4f7fb; /* texto principal */
+        --muted: #a9b6c8; /* texto secundario */
+        --line: #1d3050; /* líneas, pistas, bordes */
+        --axis: #33496b; /* eje del gráfico */
+        --manual: #ff7a5c; /* horas manuales (situación actual) */
+        --e1: #3fb6e8; /* Etapa 1 */
+        --e2: #f5b83d; /* Etapa 2 */
+        --mid: #9fd0c4; /* transición Etapa 1 → 2 */
+        --on-accent: #06162e; /* texto sobre barras/tarjetas de color */
+        --panel: rgba(255, 255, 255, 0.05); /* tarjetas y chips */
       }
       * {
         margin: 0;
@@ -62,12 +69,12 @@
       #glow-a {
         left: -500px;
         top: -700px;
-        background: radial-gradient(circle, rgba(52, 211, 180, 0.28), rgba(52, 211, 180, 0) 65%);
+        background: radial-gradient(circle, color-mix(in srgb, var(--e1) 28%, transparent), transparent 65%);
       }
       #glow-b {
         left: 1000px;
         top: 300px;
-        background: radial-gradient(circle, rgba(155, 140, 255, 0.28), rgba(155, 140, 255, 0) 65%);
+        background: radial-gradient(circle, color-mix(in srgb, var(--e2) 24%, transparent), transparent 65%);
       }
       .footer {
         position: absolute;
@@ -246,7 +253,7 @@
         justify-content: center;
         font-size: 64px;
         font-weight: 800;
-        color: #0b0d12;
+        color: var(--on-accent);
       }
       #s3 .bar-saved {
         width: 45%;
@@ -268,7 +275,7 @@
         align-items: center;
         font-size: 56px;
         font-weight: 800;
-        color: #0b0d12;
+        color: var(--on-accent);
       }
       .chips {
         display: flex;
@@ -279,7 +286,7 @@
         display: block;
         padding: 18px 32px;
         border-radius: 18px;
-        background: rgba(255, 255, 255, 0.06);
+        background: var(--panel);
         border: 2px solid var(--line);
         font-size: 40px;
         font-weight: 500;
@@ -319,7 +326,7 @@
         gap: 18px;
         padding: 36px 56px;
         border-radius: 36px;
-        background: rgba(255, 255, 255, 0.05);
+        background: var(--panel);
         border: 3px solid var(--line);
       }
       .card-label {
@@ -351,7 +358,7 @@
         gap: 12px;
         border-radius: 36px;
         background: var(--e2);
-        color: #0b0d12;
+        color: var(--on-accent);
       }
       .delta-num {
         white-space: nowrap;
@@ -402,7 +409,7 @@
         justify-content: center;
         font-size: 36px;
         font-weight: 800;
-        color: #0b0d12;
+        color: var(--on-accent);
       }
       .step-when {
         font-size: 34px;
@@ -599,11 +606,11 @@
           <h2 id="s5-title">Etapa 2 alcanza a Etapa 1 en la <span class="t-e2">semana 18</span> y luego la supera</h2>
           <div class="chart-wrap">
             <svg class="chart" viewBox="0 0 1600 700" preserveAspectRatio="xMidYMid meet">
-              <g id="s5-axes" fill="#a1a7b3" font-size="30">
-                <line x1="80" y1="640" x2="1560" y2="640" stroke="#3a3f4a" stroke-width="3" />
-                <line x1="80" y1="468.6" x2="1560" y2="468.6" stroke="#262a33" stroke-width="2" />
-                <line x1="80" y1="297.1" x2="1560" y2="297.1" stroke="#262a33" stroke-width="2" />
-                <line x1="80" y1="125.7" x2="1560" y2="125.7" stroke="#262a33" stroke-width="2" />
+              <g id="s5-axes" style="fill: var(--muted)" font-size="30">
+                <line x1="80" y1="640" x2="1560" y2="640" style="stroke: var(--axis)" stroke-width="3" />
+                <line x1="80" y1="468.6" x2="1560" y2="468.6" style="stroke: var(--line)" stroke-width="2" />
+                <line x1="80" y1="297.1" x2="1560" y2="297.1" style="stroke: var(--line)" stroke-width="2" />
+                <line x1="80" y1="125.7" x2="1560" y2="125.7" style="stroke: var(--line)" stroke-width="2" />
                 <text x="64" y="650" text-anchor="end">0</text>
                 <text x="64" y="479" text-anchor="end">400</text>
                 <text x="64" y="307" text-anchor="end">800</text>
@@ -618,7 +625,7 @@
                 id="s5-e1"
                 d="M80 640 L193.85 640 L1560 269.7"
                 fill="none"
-                stroke="#34d3b4"
+                style="stroke: var(--e1)"
                 stroke-width="10"
                 stroke-linecap="round"
                 stroke-linejoin="round"
@@ -627,21 +634,21 @@
                 id="s5-e2"
                 d="M80 640 L364.6 640 L1560 64"
                 fill="none"
-                stroke="#9b8cff"
+                style="stroke: var(--e2)"
                 stroke-width="10"
                 stroke-linecap="round"
                 stroke-linejoin="round"
               />
-              <g id="s5-e1-label" fill="#34d3b4" font-size="40" font-weight="800">
+              <g id="s5-e1-label" style="fill: var(--e1)" font-size="40" font-weight="800">
                 <text x="1540" y="395" text-anchor="end">Etapa 1 · 864 h</text>
               </g>
-              <g id="s5-e2-label" fill="#9b8cff" font-size="40" font-weight="800">
+              <g id="s5-e2-label" style="fill: var(--e2)" font-size="40" font-weight="800">
                 <text x="1500" y="50" text-anchor="end">Etapa 2 · 1,344 h</text>
               </g>
               <g id="s5-cross">
-                <line x1="584.1" y1="534.2" x2="584.1" y2="640" stroke="#f5f5f7" stroke-width="3" stroke-dasharray="8 8" />
-                <circle cx="584.1" cy="534.2" r="18" fill="#f5f5f7" />
-                <text x="612" y="600" fill="#f5f5f7" font-size="38" font-weight="700">Semana 18 · cruce</text>
+                <line x1="584.1" y1="534.2" x2="584.1" y2="640" style="stroke: var(--ink)" stroke-width="3" stroke-dasharray="8 8" />
+                <circle cx="584.1" cy="534.2" r="18" style="fill: var(--ink)" />
+                <text x="612" y="600" style="fill: var(--ink)" font-size="38" font-weight="700">Semana 18 · cruce</text>
               </g>
             </svg>
           </div>
@@ -686,10 +693,10 @@
               <div class="step-gain t-e1">−18 h por semana</div>
             </div>
             <div class="step" id="s7-st2">
-              <div class="dot" style="background: #6fb0d9">2</div>
+              <div class="dot" style="background: var(--mid)">2</div>
               <div class="step-when">Semanas 4–10</div>
               <div class="step-what">Construir Etapa 2 con el ahorro ya activo</div>
-              <div class="step-gain" style="color: #6fb0d9">Sin frenar la operación</div>
+              <div class="step-gain" style="color: var(--mid)">Sin frenar la operación</div>
             </div>
             <div class="step" id="s7-st3">
               <div class="dot" style="background: var(--e2)">3</div>

@@ -7,7 +7,9 @@ Presentación estilo keynote con motion graphics, hecha con [HyperFrames](https:
 
 | Modo | Comando | Qué obtienes |
 | --- | --- | --- |
-| Presentación (keynote) | `npm run present` | Deck navegable: ← / → para avanzar, animaciones por clic, modo presentador con notas (tecla **P**) |
+| **Keynote (recomendado)** | Abrir `keynote/presentacion.html` en el navegador | Un solo archivo, sin instalar nada. Clic o → avanza con animación, ← retrocede, **F** pantalla completa, **N** notas |
+| Regenerar el keynote | `npm run keynote` | Vuelve a crear `keynote/presentacion.html` a partir de `index.html` (hazlo después de cada cambio) |
+| Deck de HyperFrames | `npm run present` | Deck navegable con modo presentador (tecla **P**); los clics saltan a cuadros fijos |
 | Video motion graphics | `npm run render` | MP4 de 61 s con todas las animaciones seguidas |
 | Editar en Studio | `npm run dev` | Timeline visual de HyperFrames |
 
@@ -30,5 +32,9 @@ Requisitos: Node ≥ 22 y FFmpeg (solo para renderizar). GSAP y la fuente Inter 
 - Etapa 2 ahorra 32 h/semana a partir de la semana 10.
 - Ahorro acumulado = ahorro semanal × semanas desde que entra en operación (horizonte de 52 semanas).
 - 1 mes-persona ≈ 160 h.
+
+## Colores
+
+Toda la paleta está en el bloque `PALETA DE MARCA` al inicio del `<style>` de `index.html`. La actual es provisional (azul marino, celeste y dorado); reemplaza esos hex por los oficiales, luego ejecuta `npm run keynote` y `npm run render`.
 
 Para usar datos reales, cambia los números en `index.html` (textos, `countUp(...)`, anchos de las barras y los puntos del gráfico SVG de la diapositiva 5).

@@ -3,6 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "keynote": "node build-keynote.mjs",
     "present": "npx --yes hyperframes@0.8.98 present .",
     "dev": "npx --yes hyperframes@0.8.98 preview",
     "check": "npx --yes hyperframes@0.8.98 check",
