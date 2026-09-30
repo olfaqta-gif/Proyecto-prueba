@@ -52,6 +52,7 @@ html = replaceOnce(html, "  </head>", style);
 const player = `
     <div id="kn-notes"></div>
     <div id="kn-bar">
+      <button id="kn-back" title="Volver a la presentación (Esc)">&#8617; Volver</button>
       <button id="kn-prev" title="Anterior (←)">&#8592;</button>
       <span id="kn-count">1 / 1</span>
       <button id="kn-next" title="Siguiente (→, espacio, clic)">&#8594;</button>
@@ -63,14 +64,15 @@ const player = `
         var tl = window.__timelines.main;
         var root = document.getElementById("root");
         var manifest = JSON.parse(document.querySelector('script[type="application/hyperframes-slideshow+json"]').textContent);
-        var slides = manifest.slides;
 
-        // Puntos de parada: cada fragmento, o la mitad de la diapositiva si no tiene.
-        var holds = [];
-        slides.forEach(function (s, i) {
-          var times = s.fragments && s.fragments.length ? s.fragments : [(s.startTime + s.endTime) / 2];
-          times.forEach(function (t) { holds.push({ slide: i, t: t }); });
-        });
+        // Secuencias: la principal y los anexos (ramificaciones).
+        var seqs = { main: { label: "", slides: manifest.slides } };
+        (manifest.slideSequences || []).forEach(function (q) { seqs[q.id] = q; });
+
+        // Puntos de parada de una diapositiva: sus fragmentos, o su mitad si no tiene.
+        function holdsOf(sl) {
+          return sl.fragments && sl.fragments.length ? sl.fragments : [(sl.startTime + sl.endTime) / 2];
+        }
 
         // Visibilidad de clips según su ventana de tiempo (lo que hace el runtime de HyperFrames).
         var clips = Array.prototype.filter.call(root.querySelectorAll("[data-start]"), function (el) { return el !== root; });
@@ -89,54 +91,98 @@ const player = `
         addEventListener("resize", fit);
         fit();
 
-        var idx = 0, anim = null;
+        // Pila de navegación: [{ seq, slide, frag }]. El último elemento es la posición actual.
+        var stack = [{ seq: "main", slide: 0, frag: 0 }];
+        var anim = null;
+        function cur() { return stack[stack.length - 1]; }
+        function slideOf(pos) { return seqs[pos.seq].slides[pos.slide]; }
+
         function ui() {
-          var h = holds[idx];
-          document.getElementById("kn-count").textContent = h.slide + 1 + " / " + slides.length;
-          document.getElementById("kn-notes").textContent = slides[h.slide].notes || "";
+          var pos = cur(), q = seqs[pos.seq];
+          var label = pos.seq === "main" ? "" : "Anexo · ";
+          document.getElementById("kn-count").textContent = label + (pos.slide + 1) + " / " + q.slides.length;
+          document.getElementById("kn-back").style.display = stack.length > 1 ? "" : "none";
+          document.getElementById("kn-notes").textContent = slideOf(pos).notes || "";
+        }
+        var target = null;
+        // Si hay una animación en curso, se completa de golpe antes de la siguiente.
+        function finish() {
+          if (anim) { anim.kill(); anim = null; }
+          if (target !== null) { tl.seek(target, false); vis(); target = null; }
         }
         function playTo(t) {
-          if (anim) anim.kill();
-          anim = tl.tweenTo(t, { ease: "none", onUpdate: vis });
+          var dist = Math.abs(t - tl.time());
+          target = t;
+          anim = tl.tweenTo(t, {
+            ease: "none",
+            onUpdate: vis,
+            onComplete: function () { target = null; anim = null; },
+          });
+          anim.timeScale(Math.max(1, dist / 2.5)); // ninguna animación dura más de 2.5 s
         }
-        function go(i, animate) {
-          if (i < 0 || i >= holds.length) return;
-          var prev = holds[idx];
-          idx = i;
-          var h = holds[i];
+        function show(animate, entering) {
+          var pos = cur(), sl = slideOf(pos), t = holdsOf(sl)[pos.frag];
+          finish();
           if (!animate) {
-            if (anim) anim.kill();
-            tl.seek(h.t, false);
+            tl.seek(t, false);
             vis();
-          } else if (h.slide !== prev.slide) {
-            // Nueva diapositiva: arranca desde su inicio y reproduce su entrada.
-            tl.seek(slides[h.slide].startTime, false);
-            vis();
-            playTo(h.t);
           } else {
-            playTo(h.t);
+            if (entering) {
+              // Nueva diapositiva: arranca desde su inicio y reproduce su entrada.
+              tl.seek(sl.startTime, false);
+              vis();
+            }
+            playTo(t);
           }
           ui();
         }
-        function next() { if (idx < holds.length - 1) go(idx + 1, true); }
-        function prev() { go(idx - 1, false); }
+
+        function next() {
+          var pos = cur(), q = seqs[pos.seq];
+          if (pos.frag + 1 < holdsOf(slideOf(pos)).length) { pos.frag++; show(true, false); }
+          else if (pos.slide + 1 < q.slides.length) { pos.slide++; pos.frag = 0; show(true, true); }
+          else if (stack.length > 1) back();
+        }
+        function prev() {
+          var pos = cur();
+          if (pos.frag > 0) { pos.frag--; show(false); }
+          else if (pos.slide > 0) { pos.slide--; pos.frag = holdsOf(slideOf(pos)).length - 1; show(false); }
+          else if (stack.length > 1) back();
+        }
+        function back() {
+          if (stack.length > 1) { stack.pop(); show(false); }
+        }
+        function enterBranch(id) {
+          if (!seqs[id]) return;
+          stack.push({ seq: id, slide: 0, frag: 0 });
+          show(true, true);
+        }
+        function goHome() { stack = [{ seq: "main", slide: 0, frag: 0 }]; show(false); }
 
         document.getElementById("kn-next").onclick = function (e) { e.stopPropagation(); next(); };
         document.getElementById("kn-prev").onclick = function (e) { e.stopPropagation(); prev(); };
+        document.getElementById("kn-back").onclick = function (e) { e.stopPropagation(); back(); };
         document.getElementById("kn-notes-btn").onclick = function (e) { e.stopPropagation(); document.body.classList.toggle("kn-show-notes"); };
         function full() {
           if (document.fullscreenElement) document.exitFullscreen();
           else if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen();
         }
         document.getElementById("kn-full").onclick = function (e) { e.stopPropagation(); full(); };
-        document.addEventListener("click", function (e) { if (!e.target.closest("#kn-bar, #kn-notes")) next(); });
+        document.addEventListener("click", function (e) {
+          if (e.target.closest("#kn-bar, #kn-notes")) return;
+          // Botón de anexo dentro de la diapositiva (solo si ya está visible).
+          var hot = e.target.closest("[data-kn-hotspot]");
+          if (hot && parseFloat(getComputedStyle(hot).opacity) > 0.5) { enterBranch(hot.getAttribute("data-kn-hotspot")); return; }
+          next();
+        });
         document.addEventListener("keydown", function (e) {
           var k = e.key;
           if (k === "ArrowRight" || k === " " || k === "PageDown" || k === "Enter") { e.preventDefault(); next(); }
           else if (k === "ArrowLeft" || k === "PageUp" || k === "Backspace") { e.preventDefault(); prev(); }
+          else if (k === "Escape") back();
           else if (k === "n" || k === "N") document.body.classList.toggle("kn-show-notes");
           else if (k === "f" || k === "F") full();
-          else if (k === "Home") go(0, false);
+          else if (k === "Home") goHome();
         });
         var hideTimer;
         document.addEventListener("mousemove", function () {
@@ -146,10 +192,7 @@ const player = `
         });
 
         // Arranque: reproduce la entrada de la portada.
-        tl.seek(0, false);
-        vis();
-        playTo(holds[0].t);
-        ui();
+        show(true, true);
       })();
     </script>
   </body>`;

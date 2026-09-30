@@ -7,7 +7,7 @@ Presentación estilo keynote con motion graphics, hecha con [HyperFrames](https:
 
 | Modo | Comando | Qué obtienes |
 | --- | --- | --- |
-| **Keynote (recomendado)** | Abrir `keynote/presentacion.html` en el navegador | Un solo archivo, sin instalar nada. Clic o → avanza con animación, ← retrocede, **F** pantalla completa, **N** notas |
+| **Keynote (recomendado)** | Abrir `keynote/presentacion.html` en el navegador | Un solo archivo, sin instalar nada. Clic o → avanza con animación, ← retrocede, **Esc** sale de un anexo, **F** pantalla completa, **N** notas |
 | Regenerar el keynote | `npm run keynote` | Vuelve a crear `keynote/presentacion.html` a partir de `index.html` (hazlo después de cada cambio) |
 | Deck de HyperFrames | `npm run present` | Deck navegable con modo presentador (tecla **P**); los clics saltan a cuadros fijos |
 | Video motion graphics | `npm run render` | MP4 de 61 s con todas las animaciones seguidas |
@@ -24,6 +24,19 @@ Requisitos: Node ≥ 22 y FFmpeg (solo para renderizar). GSAP y la fuente Inter 
 5. **Curva acumulada**: Etapa 2 alcanza a Etapa 1 en la semana 18
 6. **Resultado a 12 meses**: 864 h vs 1,344 h → +480 h para Etapa 2
 7. **Recomendación**: arrancar con Etapa 1 y escalar a Etapa 2
+
+### Anexos (ramificaciones)
+
+Son diapositivas que no están en el recorrido principal; se abren solo si alguien pregunta:
+
+| Botón en la diapositiva | Abre | Diapositivas |
+| --- | --- | --- |
+| 5 · "¿Por qué la semana 18?" | Anexo del cruce | Ecuación donde se igualan los acumulados |
+| 6 · "¿Cómo se calculan las 480 h?" | Anexo del cálculo | Cálculo (18 × 48, 32 × 42) y supuestos |
+
+El botón aparece con el último clic de la diapositiva. Al terminar el anexo (o con **Esc** / "Volver") regresas a la misma diapositiva. Se definen en `slideSequences` y `hotspots` dentro del bloque `application/hyperframes-slideshow+json` de `index.html`, así que también funcionan con `npm run present`.
+
+Nota: `npm run render` exporta la línea de tiempo completa, así que el MP4 incluye los anexos al final (segundos 61 a 85).
 
 ### Supuestos de la simulación
 

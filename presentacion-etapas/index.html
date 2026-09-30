@@ -374,6 +374,66 @@
         padding: 0 24px;
       }
 
+      /* Hotspots (botones que abren un anexo) */
+      .kicker-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .hotspot {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 14px 30px;
+        border-radius: 999px;
+        border: 2px solid var(--e2);
+        background: color-mix(in srgb, var(--e2) 14%, transparent);
+        color: var(--e2);
+        font-size: 34px;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      /* Anexos — ecuaciones */
+      .eqs {
+        display: flex;
+        flex-direction: column;
+      }
+      .eq {
+        display: flex;
+        align-items: center;
+        gap: 48px;
+        padding: 26px 0;
+        border-bottom: 2px solid var(--line);
+      }
+      .eq:last-child {
+        border-bottom: 0;
+      }
+      .eq-tag {
+        width: 320px;
+        flex-shrink: 0;
+        font-size: 44px;
+        font-weight: 700;
+      }
+      .eq-body {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .eq-math {
+        font-size: 64px;
+        font-weight: 700;
+        letter-spacing: -0.03em;
+        font-variant-numeric: tabular-nums;
+      }
+      .eq-note {
+        font-size: 34px;
+        color: var(--muted);
+      }
+      .eq-total .eq-math {
+        font-size: 76px;
+      }
+
       /* S7 — recommendation */
       .road {
         position: relative;
@@ -469,14 +529,30 @@
             "startTime": 33,
             "endTime": 45,
             "fragments": [34.8, 37.6, 40.4, 42.2],
-            "notes": "Ahorro acumulado en 12 meses. Etapa 1 empieza antes; Etapa 2 la alcanza en la semana 18 y a partir de ahí la supera."
+            "notes": "Ahorro acumulado en 12 meses. Etapa 1 empieza antes; Etapa 2 la alcanza en la semana 18 y a partir de ahí la supera. Si preguntan por qué la semana 18, abrir el anexo.",
+            "hotspots": [
+              {
+                "id": "ver-cruce",
+                "label": "¿Por qué la semana 18?",
+                "target": "detalle-cruce",
+                "region": { "x": 67, "y": 10, "w": 25, "h": 7 }
+              }
+            ]
           },
           {
             "sceneId": "resultado",
             "startTime": 45,
             "endTime": 53,
             "fragments": [48.4, 50.0],
-            "notes": "Al año: 864 h vs 1,344 h. La diferencia son 480 horas, unos 3 meses de trabajo de una persona."
+            "notes": "Al año: 864 h vs 1,344 h. La diferencia son 480 horas, unos 3 meses de trabajo de una persona. Si preguntan cómo se calcula, abrir el anexo.",
+            "hotspots": [
+              {
+                "id": "ver-480",
+                "label": "¿Cómo se calculan las 480 h?",
+                "target": "detalle-480",
+                "region": { "x": 61, "y": 10, "w": 31, "h": 7 }
+              }
+            ]
           },
           {
             "sceneId": "recomendacion",
@@ -484,6 +560,40 @@
             "endTime": 61,
             "fragments": [56.9, 58.6],
             "notes": "Propuesta: arrancar con Etapa 1 para capturar ahorro rápido y construir Etapa 2 encima. Siguiente paso: validar supuestos con datos reales."
+          }
+        ],
+        "slideSequences": [
+          {
+            "id": "detalle-480",
+            "label": "Cómo se calculan las 480 h",
+            "slides": [
+              {
+                "sceneId": "anexo-calculo",
+                "startTime": 61,
+                "endTime": 69,
+                "fragments": [63.0, 64.2, 65.6],
+                "notes": "Ahorro semanal × semanas en operación durante el año. Etapa 1 opera 48 semanas, Etapa 2 opera 42."
+              },
+              {
+                "sceneId": "anexo-supuestos",
+                "startTime": 69,
+                "endTime": 77,
+                "notes": "Todo es simulado. Estos son los números a validar con el equipo antes de decidir."
+              }
+            ]
+          },
+          {
+            "id": "detalle-cruce",
+            "label": "Por qué la semana 18",
+            "slides": [
+              {
+                "sceneId": "anexo-cruce",
+                "startTime": 77,
+                "endTime": 85,
+                "fragments": [79.0, 80.0, 81.6],
+                "notes": "Igualamos los dos acumulados y despejamos la semana: 17.7, o sea, durante la semana 18."
+              }
+            ]
           }
         ]
       }
@@ -493,12 +603,12 @@
       id="root"
       data-composition-id="main"
       data-start="0"
-      data-duration="61"
+      data-duration="85"
       data-width="1920"
       data-height="1080"
     >
       <!-- Shared background, whole deck -->
-      <div id="bg" class="bg clip" data-start="0" data-duration="61" data-track-index="0">
+      <div id="bg" class="bg clip" data-start="0" data-duration="85" data-track-index="0">
         <div id="glow-a" class="glow"></div>
         <div id="glow-b" class="glow"></div>
         <div class="footer">
@@ -602,7 +712,10 @@
       <!-- S5 · Curva acumulada -->
       <section id="s5" class="scene clip" data-start="33" data-duration="12" data-track-index="1">
         <div class="stage" style="gap: 36px">
-          <div class="kicker">Ahorro acumulado · 12 meses</div>
+          <div class="kicker-row">
+            <div class="kicker">Ahorro acumulado · 12 meses</div>
+            <div class="hotspot" id="s5-hot" data-kn-hotspot="detalle-cruce">¿Por qué la semana 18? →</div>
+          </div>
           <h2 id="s5-title">Etapa 2 alcanza a Etapa 1 en la <span class="t-e2">semana 18</span> y luego la supera</h2>
           <div class="chart-wrap">
             <svg class="chart" viewBox="0 0 1600 700" preserveAspectRatio="xMidYMid meet">
@@ -658,7 +771,10 @@
       <!-- S6 · Resultado -->
       <section id="s6" class="scene clip" data-start="45" data-duration="8" data-track-index="1">
         <div class="stage">
-          <div class="kicker">Resultado a 12 meses</div>
+          <div class="kicker-row">
+            <div class="kicker">Resultado a 12 meses</div>
+            <div class="hotspot" id="s6-hot" data-kn-hotspot="detalle-480">¿Cómo se calculan las 480 h? →</div>
+          </div>
           <h2 id="s6-title">En un año, Etapa 2 ahorra <span class="t-e2">480 horas más</span> que Etapa 1</h2>
           <div class="cards">
             <div class="card" id="s6-c1">
@@ -708,6 +824,92 @@
           <div class="closing" id="s7-close">Siguiente paso: validar estos supuestos con datos reales del equipo.</div>
         </div>
       </section>
+
+      <!-- ===== ANEXOS (solo se ven desde los botones de las diapositivas 5 y 6) ===== -->
+
+      <!-- A1 · Cálculo de las 480 h -->
+      <section id="a1" class="scene clip" data-start="61" data-duration="8" data-track-index="1">
+        <div class="stage">
+          <div class="kicker t-e2">Anexo · Cómo se calculan las 480 h</div>
+          <h2 id="a1-title">Ahorro semanal × semanas en operación durante el año</h2>
+          <div class="eqs">
+            <div class="eq" id="a1-r1">
+              <div class="eq-tag t-e1">Etapa 1</div>
+              <div class="eq-body">
+                <div class="eq-math">18 h × 48 semanas = <span class="t-e1">864 h</span></div>
+                <div class="eq-note">Opera desde la semana 4: 52 − 4 = 48 semanas</div>
+              </div>
+            </div>
+            <div class="eq" id="a1-r2">
+              <div class="eq-tag t-e2">Etapa 2</div>
+              <div class="eq-body">
+                <div class="eq-math">32 h × 42 semanas = <span class="t-e2">1,344 h</span></div>
+                <div class="eq-note">Opera desde la semana 10: 52 − 10 = 42 semanas</div>
+              </div>
+            </div>
+            <div class="eq eq-total" id="a1-r3">
+              <div class="eq-tag">Diferencia</div>
+              <div class="eq-body">
+                <div class="eq-math">1,344 − 864 = <span class="t-e2">480 h</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- A2 · Supuestos -->
+      <section id="a2" class="scene clip" data-start="69" data-duration="8" data-track-index="1">
+        <div class="stage">
+          <div class="kicker t-e2">Anexo · Supuestos de la simulación</div>
+          <h2 id="a2-title">Son supuestos simulados: hay que validarlos con datos reales</h2>
+          <div class="eqs">
+            <div class="eq a2-row">
+              <div class="eq-tag t-manual">Hoy</div>
+              <div class="eq-math">40 h por semana de trabajo manual</div>
+            </div>
+            <div class="eq a2-row">
+              <div class="eq-tag t-e1">Etapa 1</div>
+              <div class="eq-math">−45% desde la semana 4</div>
+            </div>
+            <div class="eq a2-row">
+              <div class="eq-tag t-e2">Etapa 2</div>
+              <div class="eq-math">−80% desde la semana 10</div>
+            </div>
+            <div class="eq a2-row">
+              <div class="eq-tag">Horizonte</div>
+              <div class="eq-math">52 semanas · 1 mes-persona ≈ 160 h</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- A3 · Cruce en la semana 18 -->
+      <section id="a3" class="scene clip" data-start="77" data-duration="8" data-track-index="1">
+        <div class="stage">
+          <div class="kicker t-e2">Anexo · Por qué la semana 18</div>
+          <h2 id="a3-title">Etapa 2 alcanza a Etapa 1 cuando sus ahorros acumulados son iguales</h2>
+          <div class="eqs">
+            <div class="eq" id="a3-r1">
+              <div class="eq-tag t-e1">Etapa 1</div>
+              <div class="eq-body">
+                <div class="eq-math">18 h × (s − 4)</div>
+                <div class="eq-note">s = semana del año</div>
+              </div>
+            </div>
+            <div class="eq" id="a3-r2">
+              <div class="eq-tag t-e2">Etapa 2</div>
+              <div class="eq-math">32 h × (s − 10)</div>
+            </div>
+            <div class="eq eq-total" id="a3-r3">
+              <div class="eq-tag">Cruce</div>
+              <div class="eq-body">
+                <div class="eq-math">14 s = 248 → s ≈ <span class="t-e2">17.7</span></div>
+                <div class="eq-note">Se igualan durante la semana 18, con ≈ 247 h acumuladas cada una</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
 
     <script>
@@ -752,8 +954,8 @@
       }
 
       // Background drift across the whole deck
-      tl.fromTo("#glow-a", { x: 0, y: 0 }, { x: 420, y: 260, duration: 61, ease: "none" }, 0);
-      tl.fromTo("#glow-b", { x: 0, y: 0 }, { x: -520, y: -180, duration: 61, ease: "none" }, 0);
+      tl.fromTo("#glow-a", { x: 0, y: 0 }, { x: 420, y: 260, duration: 85, ease: "none" }, 0);
+      tl.fromTo("#glow-b", { x: 0, y: 0 }, { x: -520, y: -180, duration: 85, ease: "none" }, 0);
 
       // S1 · Portada (0–6)
       sceneInOut("#s1", 0, 6);
@@ -803,6 +1005,7 @@
       tl.fromTo("#s5-e1-label", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.5, ease: IN }, 36.8);
       tl.fromTo("#s5-e2-label", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.5, ease: IN }, 39.8);
       tl.fromTo("#s5-cross", { opacity: 0 }, { opacity: 1, duration: 0.6, ease: IN }, 40.6);
+      tl.fromTo("#s5-hot", { opacity: 0, x: 30 }, { opacity: 1, x: 0, duration: 0.5, ease: IN }, 41.3);
 
       // S6 · Resultado (45–53)
       sceneInOut("#s6", 45, 53);
@@ -811,13 +1014,33 @@
       countUp("s6-n1", 864, 46.2, 1.8);
       countUp("s6-n2", 1344, 46.4, 1.8);
       tl.fromTo("#s6-delta", { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.7, ease: "back.out(1.6)" }, 48.8);
+      tl.fromTo("#s6-hot", { opacity: 0, x: 30 }, { opacity: 1, x: 0, duration: 0.5, ease: IN }, 49.3);
 
       // S7 · Recomendación (53–61)
-      sceneInOut("#s7", 53, 61, true);
+      sceneInOut("#s7", 53, 61);
       rise("#s7-title", 53.2);
       tl.fromTo("#s7-line", { scaleX: 0 }, { scaleX: 1, duration: 2.2, ease: "power2.inOut" }, 54.2);
       rise(["#s7-st1", "#s7-st2", "#s7-st3"], 54.3, { stagger: 0.7, duration: 0.7 });
       rise("#s7-close", 57.4);
+
+      // A1 · Anexo cálculo (61–69)
+      sceneInOut("#a1", 61, 69);
+      rise("#a1-title", 61.2);
+      rise("#a1-r1", 62.2, { duration: 0.7 });
+      rise("#a1-r2", 63.4, { duration: 0.7 });
+      rise("#a1-r3", 64.7, { duration: 0.7 });
+
+      // A2 · Anexo supuestos (69–77)
+      sceneInOut("#a2", 69, 77);
+      rise("#a2-title", 69.2);
+      rise("#a2 .a2-row", 70.0, { stagger: 0.25, duration: 0.6 });
+
+      // A3 · Anexo cruce (77–85)
+      sceneInOut("#a3", 77, 85, true);
+      rise("#a3-title", 77.2);
+      rise("#a3-r1", 78.2, { duration: 0.7 });
+      rise("#a3-r2", 79.2, { duration: 0.7 });
+      rise("#a3-r3", 80.6, { duration: 0.8 });
 
       window.__timelines = window.__timelines || {};
       window.__timelines["main"] = tl;
