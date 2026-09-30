@@ -34,37 +34,37 @@
 .f04-o{color:#FF7A59}
 .f04-w{display:inline-block;white-space:pre}
 </style>
-  <div id="root" data-composition-id="04-sales-hub" data-width="1920" data-height="1080">
-    <div id="f04-bg" class="f04-bg clip" data-start="0" data-duration="7" data-track-index="0"></div>
-    <div id="f04-camclip" class="f04-cam clip" data-start="0" data-duration="7" data-track-index="1">
+  <div id="root" data-composition-id="04-sales-hub" data-width="1920" data-height="1080" data-duration="5.899">
+    <div id="f04-bg" class="f04-bg clip" data-start="0" data-duration="5.899" data-track-index="0"></div>
+    <div id="f04-camclip" class="f04-cam clip" data-start="0" data-duration="5.899" data-track-index="1">
       <div id="f04-world" class="f04-world"><svg class="f04-wires" viewBox="0 0 1920 1080"><line id="f04-w-marketing" x1="960.0" y1="453.6" x2="326.4" y2="453.6" stroke="#5C7185" stroke-width="2" stroke-dasharray="633.6" stroke-dashoffset="0"/><line id="f04-w-ventas" x1="960.0" y1="453.6" x2="1593.6" y2="453.6" stroke="#5C7185" stroke-width="2" stroke-dasharray="633.6" stroke-dashoffset="0"/><line id="f04-h-ventas" x1="960.0" y1="453.6" x2="1593.6" y2="453.6" stroke="#FF7A59" stroke-width="3" stroke-dasharray="633.6" stroke-dashoffset="0"/></svg><div class="f04-nw" style="left:960.0px;top:453.6px"><div class="f04-node"><div id="f04-crm" class="f04-core "><b id="f04-crm-n">crm</b><div class="f04-tags"><span id="f04-crm-t0">contactos</span><span id="f04-crm-t1">empresas</span><span id="f04-crm-t2">negocios</span><span id="f04-crm-t3">tickets</span></div></div></div></div><div id="f04-mkw" style="opacity:.45"><div class="f04-nw" style="left:326.4px;top:453.6px"><div class="f04-node"><div id="f04-marketing" class="f04-in "><b id="f04-marketing-n">marketing hub</b><div class="f04-tags"><span id="f04-marketing-t0">emails</span><span id="f04-marketing-t1">anuncios</span><span id="f04-marketing-t2">formularios</span></div></div></div></div></div><div class="f04-nw" style="left:1593.6px;top:453.6px"><div class="f04-node"><div id="f04-ventas" class="f04-in f04-act"><b id="f04-ventas-n">sales hub</b><div class="f04-tags"><span id="f04-ventas-t0">pipeline</span><span id="f04-ventas-t1">reuniones</span><span id="f04-ventas-t2">cotizaciones</span></div></div></div></div><div class="f04-nw" style="left:1469px;top:626px"><div class="f04-node"><div id="f04-pc0" style="border-top:2px solid #33475B;padding:.6cqw .5cqw 0;width:6.2cqw;text-align:center;font:500 .9cqw 'IBM Plex Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:#A9B7C4">nuevo</div></div></div><div class="f04-nw" style="left:1594px;top:626px"><div class="f04-node"><div id="f04-pc1" style="border-top:2px solid #33475B;padding:.6cqw .5cqw 0;width:6.2cqw;text-align:center;font:500 .9cqw 'IBM Plex Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:#A9B7C4">propuesta</div></div></div><div class="f04-nw" style="left:1719px;top:626px"><div class="f04-node"><div id="f04-pc2" style="border-top:2px solid #33475B;padding:.6cqw .5cqw 0;width:6.2cqw;text-align:center;font:500 .9cqw 'IBM Plex Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:#A9B7C4">ganado</div></div></div><div id="f04-dot" class="f04-dot" data-layout-allow-overlap style="transform:translate(700px,453.6px)"><i></i><em><span id="f04-dl0" data-layout-allow-overlap>lead</span><span id="f04-dl1" data-layout-allow-overlap>cliente</span></em></div></div>
     </div>
-    <div id="f04-ovclip" class="f04-ov clip" data-start="0" data-duration="7" data-track-index="2"><div id="f04-k" class="f04-kicker" style="left:5.5cqw;top:4cqw">04 / vender</div></div>
+    <div id="f04-ovclip" class="f04-ov clip" data-start="0" data-duration="5.899" data-track-index="2"><div id="f04-k" class="f04-kicker" style="left:5.5cqw;top:4cqw">04 / vender</div></div>
   </div>
   <script src="assets/vendor/gsap.min.js"></script>
   <script>
     (function () {
       const tl = gsap.timeline({ paused: true });
-      tl.fromTo("#f04-world",{x:-155.52,y:-145.8,scale:1.3},{x:-420.48,y:-145.8,scale:1.3,duration:1.1,ease:"power3.inOut"},0.0);
+      tl.fromTo("#f04-world",{x:-155.52,y:-145.8,scale:1.3},{x:-420.48,y:-145.8,scale:1.3,duration:1.0,ease:"power3.inOut"},0.0);
       tl.fromTo("#f04-k",{opacity:0},{opacity:1,duration:0.5,ease:"power2.out"},0.2);
       tl.fromTo("#f04-dl1",{opacity:0},{opacity:0,duration:0.01,ease:"power2.out"},0);
-      tl.fromTo("#f04-w-ventas",{attr:{"stroke-dashoffset":633.6}},{attr:{"stroke-dashoffset":0},duration:0.7,ease:"power3.inOut"},1.0);
-      tl.fromTo("#f04-h-ventas",{attr:{"stroke-dashoffset":633.6}},{attr:{"stroke-dashoffset":0},duration:0.7,ease:"power3.inOut"},1.0);
-      tl.fromTo("#f04-ventas",{opacity:0,y:12},{opacity:1,y:0,duration:0.6,ease:"power3.out"},1.45);
-      tl.fromTo("#f04-dot",{x:700,y:453.6},{x:1250,y:453.6,duration:1.3,ease:"power2.inOut"},1.0);
-      tl.fromTo("#f04-ventas-t0",{opacity:0,y:8},{opacity:1,y:0,duration:0.45,ease:"power3.out"},2.5);
-      tl.fromTo("#f04-ventas-t1",{opacity:0,y:8},{opacity:1,y:0,duration:0.45,ease:"power3.out"},3.1);
-      tl.fromTo("#f04-ventas-t2",{opacity:0,y:8},{opacity:1,y:0,duration:0.45,ease:"power3.out"},3.7);
-      tl.fromTo("#f04-pc0",{opacity:0,y:8},{opacity:1,y:0,duration:0.45,ease:"power3.out"},4.2);
-      tl.fromTo("#f04-pc1",{opacity:0,y:8},{opacity:1,y:0,duration:0.45,ease:"power3.out"},4.3);
-      tl.fromTo("#f04-pc2",{opacity:0,y:8},{opacity:1,y:0,duration:0.45,ease:"power3.out"},4.4);
-      tl.fromTo("#f04-dot",{x:1250,y:453.6},{immediateRender:false,x:1468.6,y:565.6,duration:0.6,ease:"power2.inOut"},4.7);
-      tl.fromTo("#f04-dot",{x:1468.6,y:565.6},{immediateRender:false,x:1593.6,y:565.6,duration:0.4,ease:"power2.inOut"},5.35);
-      tl.fromTo("#f04-dot",{x:1593.6,y:565.6},{immediateRender:false,x:1718.6,y:565.6,duration:0.4,ease:"power2.inOut"},5.85);
-      tl.fromTo("#f04-pc2",{color:"#A9B7C4"},{immediateRender:false,color:"#FF7A59",duration:0.3,ease:"power2.out"},6.2);
-      tl.fromTo("#f04-pc2",{borderColor:"#33475B"},{immediateRender:false,borderColor:"#FF7A59",duration:0.3,ease:"power2.out"},6.2);
-      tl.fromTo("#f04-dl0",{opacity:1},{opacity:0,duration:0.02},6.2);tl.fromTo("#f04-dl1",{opacity:0},{immediateRender:false,opacity:1,duration:0.02},6.2);
-      tl.to({}, { duration: 0 }, 7);
+      tl.fromTo("#f04-w-ventas",{attr:{"stroke-dashoffset":633.6}},{attr:{"stroke-dashoffset":0},duration:0.6,ease:"power3.inOut"},0.15);
+      tl.fromTo("#f04-h-ventas",{attr:{"stroke-dashoffset":633.6}},{attr:{"stroke-dashoffset":0},duration:0.6,ease:"power3.inOut"},0.15);
+      tl.fromTo("#f04-ventas",{opacity:0,y:12},{opacity:1,y:0,duration:0.6,ease:"power3.out"},0.5);
+      tl.fromTo("#f04-dot",{x:700,y:453.6},{x:1250,y:453.6,duration:1.0,ease:"power2.inOut"},0.9);
+      tl.fromTo("#f04-ventas-t0",{opacity:0,y:8},{opacity:1,y:0,duration:0.45,ease:"power3.out"},1.85);
+      tl.fromTo("#f04-ventas-t1",{opacity:0,y:8},{opacity:1,y:0,duration:0.45,ease:"power3.out"},2.37);
+      tl.fromTo("#f04-ventas-t2",{opacity:0,y:8},{opacity:1,y:0,duration:0.45,ease:"power3.out"},2.96);
+      tl.fromTo("#f04-pc0",{opacity:0,y:8},{opacity:1,y:0,duration:0.45,ease:"power3.out"},3.0);
+      tl.fromTo("#f04-pc1",{opacity:0,y:8},{opacity:1,y:0,duration:0.45,ease:"power3.out"},3.1);
+      tl.fromTo("#f04-pc2",{opacity:0,y:8},{opacity:1,y:0,duration:0.45,ease:"power3.out"},3.2);
+      tl.fromTo("#f04-dot",{x:1250,y:453.6},{immediateRender:false,x:1468.6,y:565.6,duration:0.4,ease:"power2.inOut"},3.3);
+      tl.fromTo("#f04-dot",{x:1468.6,y:565.6},{immediateRender:false,x:1593.6,y:565.6,duration:0.35,ease:"power2.inOut"},3.75);
+      tl.fromTo("#f04-dot",{x:1593.6,y:565.6},{immediateRender:false,x:1718.6,y:565.6,duration:0.35,ease:"power2.inOut"},4.15);
+      tl.fromTo("#f04-pc2",{color:"#A9B7C4"},{immediateRender:false,color:"#FF7A59",duration:0.3,ease:"power2.out"},4.6);
+      tl.fromTo("#f04-pc2",{borderColor:"#33475B"},{immediateRender:false,borderColor:"#FF7A59",duration:0.3,ease:"power2.out"},4.6);
+      tl.fromTo("#f04-dl0",{opacity:1},{opacity:0,duration:0.02},4.6);tl.fromTo("#f04-dl1",{opacity:0},{immediateRender:false,opacity:1,duration:0.02},4.6);
+      tl.to({}, { duration: 0 }, 5.399);
       window.__timelines = window.__timelines || {};
       window.__timelines["04-sales-hub"] = tl;
     })();

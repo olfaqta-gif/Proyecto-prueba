@@ -55,7 +55,7 @@ CAM = {
     "emblem": cam((50, 50), 0.55, extra_y=-0.30 * H * 0.55),
 }
 
-DUR = {"01": 6, "02": 8, "03": 7, "04": 7, "05": 8, "06": 7, "07": 7, "08": 8}
+DUR = {"01": 6.039, "02": 7.776, "03": 6.273, "04": 5.399, "05": 6.325, "06": 6.231, "07": 6.359, "08": 6.232}
 
 FRAGMENTS = [  # frame 01/02 scattered pieces: (x%, y%, label, rot)
     (16, 22, "correo", -6), (42, 16, "hoja de cálculo", 4), (72, 24, "chat", -3),
@@ -173,6 +173,10 @@ def J_border(sel, t, a, b, d=0.3):
 def J_color(sel, t, a, b, d=0.3):
     return f'tl.fromTo("{sel}",{{color:"{a}"}},{{color:"{b}",duration:{d},ease:"power2.out"}},{t});'
 
+def J_words_at(fid, key, times, d=0.5):
+    p = f"f{fid}"
+    return "".join(J_appear(f"#{p}-{key}{i}", t, d, 18) for i, t in enumerate(times))
+
 def J_words(fid, key, n, t0, step=0.12, d=0.55):
     p = f"f{fid}"
     return "".join(J_appear(f"#{p}-{key}{i}", round(t0 + i * step, 3), d, 18) for i in range(n))
@@ -237,16 +241,16 @@ def f01():
                      f'<b style="font-size:2.3cqw;font-weight:700;color:{C["muted"]}">{l}</b>'
                      f'<i id="{p}-fd{i}" style="position:absolute;right:-.7cqw;top:-.7cqw;width:1.4cqw;height:1.4cqw;border-radius:50%;background:{C["o"]}"></i>'
                      f'</div></div></div></div></div>')
-    cues = [1.9, 2.7, 3.6, 4.2, 4.4, 4.6, 4.8]
+    cues = [2.61, 3.45, 4.73, 4.95, 5.1, 5.25, 5.4]
     for i, t in enumerate(cues):
         js.append(f'tl.fromTo("#{p}-fc{i}",{{opacity:0,y:16}},{{opacity:1,y:0,duration:0.55,ease:"power3.out"}},{t});')
         js.append(f'tl.fromTo("#{p}-fd{i}",{{scale:0}},{{scale:1,duration:0.35,ease:"power3.out"}},{t + 0.25});')
     # closing in: each fragment drifts 2% toward center (finite)
     for i, (x, y, l, r) in enumerate(FRAGMENTS):
         dx = round((50 - x) * W / 100 * 0.04, 1); dy = round((42 - y) * H / 100 * 0.04, 1)
-        js.append(f'tl.fromTo("#{p}-fr{i}",{{x:0,y:0}},{{x:{dx},y:{dy},duration:1.2,ease:"power2.inOut"}},4.8);')
+        js.append(f'tl.fromTo("#{p}-fr{i}",{{x:0,y:0}},{{x:{dx},y:{dy},duration:1.0,ease:"power2.inOut"}},5.0);')
     stmt = words(fid, "s", [("tus ", 0), ("clientes ", 0), ("están ", 0), ("en ", 1), ("todas ", 1), ("partes", 1)])
-    js.append(J_words(fid, "s", 6, 0.4, 0.14))
+    js.append(J_words_at(fid, "s", [0.0, 0.25, 0.78, 1.13, 1.33, 1.69]))
     overlay = (f'<div id="{p}-k" class="{p}-kicker" style="left:5.5cqw;top:4cqw">01 / el problema</div>'
                f'<div style="position:absolute;left:5.5cqw;bottom:20%;font-weight:900;font-size:6cqw;letter-spacing:-.035em;line-height:1.08;max-width:62cqw">{stmt}</div>')
     return page(fid, "todo-disperso", "".join(frags), overlay, "\n      ".join(js))
@@ -264,11 +268,11 @@ def f02():
         js.append(f'tl.fromTo("#{p}-fr{i}",{{x:0,y:0,scale:1,opacity:1}},{{x:{cx - X:.1f},y:{cy - Y:.1f},scale:0.2,opacity:0,duration:1.1,ease:"power3.inOut"}},{0.25 + i * 0.03:.2f});')
     world = "".join(frags) + node(fid, "crm")
     js.append(f'tl.fromTo("#{p}-crm",{{scale:0.2,opacity:0}},{{scale:1,opacity:1,duration:0.9,ease:"power3.out"}},0.75);')
-    js.append(J_appear(f"#{p}-crm-n", 1.5, 0.6, 8))
-    for i, t in enumerate([3.0, 3.6, 4.2, 4.8]):
+    js.append(J_appear(f"#{p}-crm-n", 2.1, 0.6, 8))
+    for i, t in enumerate([2.98, 3.4, 3.93, 4.6]):
         js.append(J_appear(f"#{p}-crm-t{i}", t, 0.45, 8))
     cap = words(fid, "c", [("una ", 0), ("sola ", 0), ("ficha ", 0), ("por ", 1), ("cliente", 1)])
-    js.append(J_words(fid, "c", 5, 5.5, 0.12))
+    js.append(J_words_at(fid, "c", [5.27, 5.52, 5.82, 6.19, 6.44]))
     overlay = (f'<div id="{p}-k" class="{p}-kicker" style="left:5.5cqw;top:4cqw">02 / el centro</div>'
                f'<div style="position:absolute;left:5.5cqw;bottom:20%;font-weight:700;font-size:3.4cqw;letter-spacing:-.02em;line-height:1">{cap}</div>')
     return page(fid, "el-centro-crm", world, overlay, "\n      ".join(js))
@@ -279,14 +283,14 @@ def f03():
     world = (wires(fid, ["marketing"], hot=["marketing"]) + node(fid, "crm") + node(fid, "marketing", f"{p}-act")
              + dot(fid, ["visitante", "lead"], 610, 453.6))
     js = [J_cam(f"#{p}-world", CAM["full"], CAM["left"], 0.0, 1.1), J_fade(f"#{p}-k", 0.2, 0.5),
-          J_draw(f"#{p}-w-marketing", L, 1.0, 0.7), J_draw(f"#{p}-h-marketing", L, 1.0, 0.7),
-          J_appear(f"#{p}-marketing", 1.45, 0.6)]
-    for i, t in enumerate([2.6, 3.1, 3.7]):
+          J_draw(f"#{p}-w-marketing", L, 0.5, 0.6), J_draw(f"#{p}-h-marketing", L, 0.5, 0.6),
+          J_appear(f"#{p}-marketing", 0.85, 0.6)]
+    for i, t in enumerate([1.7, 2.09, 2.73]):
         js.append(J_appear(f"#{p}-marketing-t{i}", t, 0.45, 8))
-    js.append(f'tl.fromTo("#{p}-dot",{{opacity:0,scale:0.4}},{{opacity:1,scale:1,duration:0.4,ease:"power3.out"}},4.3);')
+    js.append(f'tl.fromTo("#{p}-dot",{{opacity:0,scale:0.4}},{{opacity:1,scale:1,duration:0.4,ease:"power3.out"}},3.4);')
     js.append(J_fade(f"#{p}-dl1", 0, 0.01, 0, 0))
-    js.append(J_move(f"#{p}-dot", (610, 453.6), (700, 453.6), 5.2, 1.2))
-    js.append(J_swap(f"#{p}-dl0", f"#{p}-dl1", 5.8))
+    js.append(J_move(f"#{p}-dot", (610, 453.6), (700, 453.6), 4.4, 1.0))
+    js.append(J_swap(f"#{p}-dl0", f"#{p}-dl1", 5.55))
     overlay = f'<div id="{p}-k" class="{p}-kicker" style="left:5.5cqw;top:4cqw">03 / atraer</div>'
     return page(fid, "marketing-hub", world, overlay, "\n      ".join(js))
 
@@ -303,22 +307,22 @@ def f04():
     world = (wires(fid, ["marketing", "ventas"], hot=["ventas"]) + node(fid, "crm")
              + f'<div id="{p}-mkw" style="opacity:.45">{node(fid, "marketing")}</div>' + node(fid, "ventas", f"{p}-act")
              + pipe + dot(fid, ["lead", "cliente"], 700, 453.6))
-    js = [J_cam(f"#{p}-world", CAM["left"], CAM["right"], 0.0, 1.1), J_fade(f"#{p}-k", 0.2, 0.5),
+    js = [J_cam(f"#{p}-world", CAM["left"], CAM["right"], 0.0, 1.0), J_fade(f"#{p}-k", 0.2, 0.5),
           J_fade(f"#{p}-dl1", 0, 0.01, 0, 0),
-          J_draw(f"#{p}-w-ventas", L, 1.0, 0.7), J_draw(f"#{p}-h-ventas", L, 1.0, 0.7),
-          J_appear(f"#{p}-ventas", 1.45, 0.6),
-          J_move(f"#{p}-dot", (700, 453.6), (1250, 453.6), 1.0, 1.3)]
-    for i, t in enumerate([2.5, 3.1, 3.7]):
+          J_draw(f"#{p}-w-ventas", L, 0.15, 0.6), J_draw(f"#{p}-h-ventas", L, 0.15, 0.6),
+          J_appear(f"#{p}-ventas", 0.5, 0.6),
+          J_move(f"#{p}-dot", (700, 453.6), (1250, 453.6), 0.9, 1.0)]
+    for i, t in enumerate([1.85, 2.37, 2.96]):
         js.append(J_appear(f"#{p}-ventas-t{i}", t, 0.45, 8))
     for i in range(3):
-        js.append(J_appear(f"#{p}-pc{i}", 4.2 + i * 0.1, 0.45, 8))
+        js.append(J_appear(f"#{p}-pc{i}", 3.0 + i * 0.1, 0.45, 8))
     py = sy + 112
-    js.append(J_move(f"#{p}-dot", (1250, 453.6), (cols[0][0], py), 4.7, 0.6))
-    js.append(J_move(f"#{p}-dot", (cols[0][0], py), (cols[1][0], py), 5.35, 0.4))
-    js.append(J_move(f"#{p}-dot", (cols[1][0], py), (cols[2][0], py), 5.85, 0.4))
-    js.append(J_color(f"#{p}-pc2", 6.2, C["muted"], C["o"]))
-    js.append(J_border(f"#{p}-pc2", 6.2, C["border"], C["o"]))
-    js.append(J_swap(f"#{p}-dl0", f"#{p}-dl1", 6.2))
+    js.append(J_move(f"#{p}-dot", (1250, 453.6), (cols[0][0], py), 3.3, 0.4))
+    js.append(J_move(f"#{p}-dot", (cols[0][0], py), (cols[1][0], py), 3.75, 0.35))
+    js.append(J_move(f"#{p}-dot", (cols[1][0], py), (cols[2][0], py), 4.15, 0.35))
+    js.append(J_color(f"#{p}-pc2", 4.6, C["muted"], C["o"]))
+    js.append(J_border(f"#{p}-pc2", 4.6, C["border"], C["o"]))
+    js.append(J_swap(f"#{p}-dl0", f"#{p}-dl1", 4.6))
     overlay = f'<div id="{p}-k" class="{p}-kicker" style="left:5.5cqw;top:4cqw">04 / vender</div>'
     return page(fid, "sales-hub", world, overlay, "\n      ".join(js))
 
@@ -329,19 +333,19 @@ def f05():
     world = (wires(fid, HUBS, hot=HUBS) + node(fid, "crm") + node(fid, "marketing") + node(fid, "ventas")
              + node(fid, "servicio", f"{p}-act") + dot(fid, [""], cx, cy)
              + f'<div id="{p}-tk" class="{p}-kicker" style="left:{cx + 34:.0f}px;top:{648 - 12:.0f}px">ticket abierto</div>')
-    js = [J_cam(f"#{p}-world", CAM["right"], CAM["low"], 0.0, 1.1), J_fade(f"#{p}-k", 0.2, 0.5),
-          J_draw(f"#{p}-w-servicio", L, 1.0, 0.7), J_draw(f"#{p}-h-servicio", L, 1.0, 0.7),
-          J_appear(f"#{p}-servicio", 1.45, 0.6)]
+    js = [J_cam(f"#{p}-world", CAM["right"], CAM["low"], 0.0, 1.0), J_fade(f"#{p}-k", 0.2, 0.5),
+          J_draw(f"#{p}-w-servicio", L, 0.15, 0.6), J_draw(f"#{p}-h-servicio", L, 0.15, 0.6),
+          J_appear(f"#{p}-servicio", 0.5, 0.6)]
     # marketing/sales highlight overlays start hidden, sweep outward on the payoff
     for n in ["marketing", "ventas"]:
-        js.append(J_draw(f"#{p}-h-{n}", wire_len(n), 4.6, 0.9))
-    for i, t in enumerate([2.8, 3.4, 3.9]):
+        js.append(J_draw(f"#{p}-h-{n}", wire_len(n), 3.7, 0.9))
+    for i, t in enumerate([2.19, 2.63, 2.91]):
         js.append(J_appear(f"#{p}-servicio-t{i}", t, 0.45, 8))
-    js.append(f'tl.fromTo("#{p}-dot",{{opacity:0}},{{opacity:1,duration:0.3}},2.8);')
-    js.append(J_move(f"#{p}-dot", (cx, cy), (cx, 648), 2.8, 0.8))
-    js.append(J_appear(f"#{p}-tk", 3.4, 0.45, 6))
-    js.append(J_border(f"#{p}-marketing", 5.3, C["border"], C["o"]))
-    js.append(J_border(f"#{p}-ventas", 5.3, C["border"], C["o"]))
+    js.append(f'tl.fromTo("#{p}-dot",{{opacity:0}},{{opacity:1,duration:0.3}},2.19);')
+    js.append(J_move(f"#{p}-dot", (cx, cy), (cx, 648), 2.19, 0.6))
+    js.append(J_appear(f"#{p}-tk", 2.6, 0.45, 6))
+    js.append(J_border(f"#{p}-marketing", 4.5, C["border"], C["o"]))
+    js.append(J_border(f"#{p}-ventas", 4.5, C["border"], C["o"]))
     overlay = f'<div id="{p}-k" class="{p}-kicker" style="left:5.5cqw;top:4cqw">05 / cuidar</div>'
     return page(fid, "service-hub", world, overlay, "\n      ".join(js))
 
@@ -349,10 +353,10 @@ def f06():
     fid, p = "06", "f06"
     world = (wires(fid, HUBS + MINIS, hot=HUBS + MINIS) + node(fid, "crm")
              + "".join(node(fid, n) for n in HUBS) + "".join(node(fid, n, f"{p}-act") for n in MINIS))
-    js = [J_cam(f"#{p}-world", CAM["low"], CAM["wide"], 0.0, 1.1), J_fade(f"#{p}-k", 0.4, 0.5)]
+    js = [J_cam(f"#{p}-world", CAM["low"], CAM["wide"], 0.0, 1.0), J_fade(f"#{p}-k", 1.1, 0.5)]
     for n in HUBS:  # 05's lit wires cool back to hint
         js.append(J_fade(f"#{p}-h-{n}", 0.2, 0.8, 1, 0))
-    for n, t in zip(MINIS, [2.8, 4.0, 5.2]):
+    for n, t in zip(MINIS, [2.13, 3.26, 4.7]):
         Lm = wire_len(n)
         js += [J_draw(f"#{p}-w-{n}", Lm, t - 0.5, 0.6), J_draw(f"#{p}-h-{n}", Lm, t - 0.5, 0.6),
                J_appear(f"#{p}-{n}", t, 0.5), J_appear(f"#{p}-{n}-t0", t + 0.35, 0.4, 6)]
@@ -369,16 +373,16 @@ def f07():
           J_fade(f"#{p}-k", 0.2, 0.5)]
     for n in MINIS:
         js.append(J_fade(f"#{p}-h-{n}", 0.1, 0.7, 1, 0))
-    js.append(J_appear(f"#{p}-bz", 0.6, 0.6, 10))
+    js.append(J_appear(f"#{p}-bz", 1.1, 0.6, 10))
     for n in allw:
         L = wire_len(n)
-        js.append(J_pulse(f"#{p}-p-{n}", L, 1.8, 1.3))
-        arrive = 1.8 + 1.3 * (L + 90) / (L + 90 + 90)  # approx arrival
-        js.append(J_border(f"#{p}-{n}", round(min(arrive, 3.05), 2), C["border"], C["o"], 0.2))
-        js.append(J_border(f"#{p}-{n}", 3.4, C["o"], C["border"], 0.5))
+        js.append(J_pulse(f"#{p}-p-{n}", L, 2.2, 1.3))
+        arrive = 2.2 + 1.3 * (L + 90) / (L + 90 + 90)  # approx arrival
+        js.append(J_border(f"#{p}-{n}", round(min(arrive, 3.45), 2), C["border"], C["o"], 0.2))
+        js.append(J_border(f"#{p}-{n}", 3.8, C["o"], C["border"], 0.5))
     verbs = "".join(f'<span id="{p}-v{i}" style="display:block;opacity:{o}">{v}</span>'
                     for i, (v, o) in enumerate([("escribe", 1), ("resume", .6), ("responde", .3)]))
-    for i, t in enumerate([4.2, 4.8, 5.4]):
+    for i, t in enumerate([4.03, 4.51, 5.07]):
         o = [1, .6, .3][i]
         js.append(f'tl.fromTo("#{p}-v{i}",{{opacity:0,y:16}},{{opacity:{o},y:0,duration:0.5,ease:"power3.out"}},{t});')
     overlay = (f'<div id="{p}-k" class="{p}-kicker" style="left:5.5cqw;bottom:20%">07 / la ia</div>'
@@ -389,14 +393,14 @@ def f08():
     fid, p = "08", "f08"
     allw = HUBS + MINIS
     world = wires(fid, allw) + node(fid, "crm") + "".join(node(fid, n) for n in allw)
-    js = [J_cam(f"#{p}-world", CAM["wide"], CAM["emblem"], 0.0, 2.0, "power3.out")]
+    js = [J_cam(f"#{p}-world", CAM["wide"], CAM["emblem"], 0.0, 1.6, "power3.out")]
     lines = [[("un ", 0), ("centro.", 0)], [("muchas ", 0), ("piezas.", 0)], [("un ", 1), ("mismo ", 1), ("cliente.", 1)]]
     html_lines = []
     for li, parts in enumerate(lines):
         html_lines.append(f'<div>{words(fid, f"l{li}-", parts)}</div>')
-    for li, t in enumerate([2.2, 3.0, 3.9]):
+    for li, t in enumerate([0.15, 0.61, 1.45]):
         js.append(J_words(fid, f"l{li}-", len(lines[li]), t, 0.12))
-    js.append(J_fade(f"#{p}-k", 4.8, 0.6))
+    js.append(J_fade(f"#{p}-k", 2.76, 0.6))
     js.append(f'tl.fromTo("#{p}-camclip, #{p}-ovclip",{{opacity:1}},{{opacity:0,duration:0.4,ease:"power2.in"}},{DUR[fid] - 0.4});')
     overlay = (f'<div id="{p}-k" class="{p}-kicker" style="right:5.5cqw;top:4cqw">así funciona hubspot</div>'
                f'<div style="position:absolute;left:5.5cqw;bottom:20%;font-weight:900;font-size:6.4cqw;letter-spacing:-.04em;line-height:1.06">{"".join(html_lines)}</div>')

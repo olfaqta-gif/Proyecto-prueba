@@ -1,0 +1,811 @@
+{
+  "bgm": null,
+  "bgm_pending": false,
+  "voices": [
+    {
+      "frame": 1,
+      "path": "assets/voice/01.wav",
+      "duration_s": 6.039,
+      "words": [
+        {
+          "text": "Tus",
+          "start": 0.0,
+          "end": 0.249
+        },
+        {
+          "text": "clientes",
+          "start": 0.249,
+          "end": 0.775
+        },
+        {
+          "text": "están",
+          "start": 0.775,
+          "end": 1.134
+        },
+        {
+          "text": "en",
+          "start": 1.134,
+          "end": 1.328
+        },
+        {
+          "text": "todas",
+          "start": 1.328,
+          "end": 1.688
+        },
+        {
+          "text": "partes:",
+          "start": 1.688,
+          "end": 2.103
+        },
+        {
+          "text": "un",
+          "start": 2.442,
+          "end": 2.611
+        },
+        {
+          "text": "correo",
+          "start": 2.611,
+          "end": 2.972
+        },
+        {
+          "text": "aquí,",
+          "start": 2.972,
+          "end": 3.236
+        },
+        {
+          "text": "una",
+          "start": 3.236,
+          "end": 3.453
+        },
+        {
+          "text": "hoja",
+          "start": 3.453,
+          "end": 3.718
+        },
+        {
+          "text": "de",
+          "start": 3.718,
+          "end": 3.886
+        },
+        {
+          "text": "cálculo",
+          "start": 3.886,
+          "end": 4.295
+        },
+        {
+          "text": "allá,",
+          "start": 4.295,
+          "end": 4.56
+        },
+        {
+          "text": "un",
+          "start": 4.56,
+          "end": 4.728
+        },
+        {
+          "text": "chat",
+          "start": 4.728,
+          "end": 4.993
+        },
+        {
+          "text": "que",
+          "start": 4.993,
+          "end": 5.21
+        },
+        {
+          "text": "nadie",
+          "start": 5.21,
+          "end": 5.523
+        },
+        {
+          "text": "ve.",
+          "start": 5.523,
+          "end": 5.691
+        }
+      ]
+    },
+    {
+      "frame": 2,
+      "path": "assets/voice/02.wav",
+      "duration_s": 7.776,
+      "words": [
+        {
+          "text": "HubSpot",
+          "start": 0.0,
+          "end": 0.439
+        },
+        {
+          "text": "empieza",
+          "start": 0.439,
+          "end": 0.877
+        },
+        {
+          "text": "por",
+          "start": 0.877,
+          "end": 1.11
+        },
+        {
+          "text": "el",
+          "start": 1.11,
+          "end": 1.29
+        },
+        {
+          "text": "centro:",
+          "start": 1.29,
+          "end": 1.678
+        },
+        {
+          "text": "un",
+          "start": 1.813,
+          "end": 2.164
+        },
+        {
+          "text": "CRM.",
+          "start": 2.164,
+          "end": 2.615
+        },
+        {
+          "text": "Contactos,",
+          "start": 2.983,
+          "end": 3.277
+        },
+        {
+          "text": "empresas,",
+          "start": 3.398,
+          "end": 3.928
+        },
+        {
+          "text": "negocios",
+          "start": 3.928,
+          "end": 4.458
+        },
+        {
+          "text": "y",
+          "start": 4.458,
+          "end": 4.597
+        },
+        {
+          "text": "tickets,",
+          "start": 4.597,
+          "end": 5.071
+        },
+        {
+          "text": "en",
+          "start": 5.071,
+          "end": 5.266
+        },
+        {
+          "text": "una",
+          "start": 5.266,
+          "end": 5.517
+        },
+        {
+          "text": "sola",
+          "start": 5.517,
+          "end": 5.824
+        },
+        {
+          "text": "ficha",
+          "start": 5.824,
+          "end": 6.186
+        },
+        {
+          "text": "por",
+          "start": 6.186,
+          "end": 6.437
+        },
+        {
+          "text": "cliente.",
+          "start": 6.437,
+          "end": 6.911
+        }
+      ]
+    },
+    {
+      "frame": 3,
+      "path": "assets/voice/03.wav",
+      "duration_s": 6.273,
+      "words": [
+        {
+          "text": "Se",
+          "start": 0.0,
+          "end": 0.167
+        },
+        {
+          "text": "conecta",
+          "start": 0.167,
+          "end": 0.574
+        },
+        {
+          "text": "Marketing",
+          "start": 0.574,
+          "end": 1.076
+        },
+        {
+          "text": "Hub:",
+          "start": 1.076,
+          "end": 1.291
+        },
+        {
+          "text": "emails,",
+          "start": 1.696,
+          "end": 2.094
+        },
+        {
+          "text": "anuncios",
+          "start": 2.094,
+          "end": 2.598
+        },
+        {
+          "text": "y",
+          "start": 2.598,
+          "end": 2.731
+        },
+        {
+          "text": "formularios",
+          "start": 2.731,
+          "end": 3.395
+        },
+        {
+          "text": "atraen",
+          "start": 3.395,
+          "end": 3.793
+        },
+        {
+          "text": "visitantes…",
+          "start": 3.793,
+          "end": 4.403
+        },
+        {
+          "text": "y",
+          "start": 4.403,
+          "end": 4.536
+        },
+        {
+          "text": "los",
+          "start": 4.536,
+          "end": 4.775
+        },
+        {
+          "text": "convierten",
+          "start": 4.775,
+          "end": 5.385
+        },
+        {
+          "text": "en",
+          "start": 5.385,
+          "end": 5.571
+        },
+        {
+          "text": "leads.",
+          "start": 5.571,
+          "end": 5.916
+        }
+      ]
+    },
+    {
+      "frame": 4,
+      "path": "assets/voice/04.wav",
+      "duration_s": 5.399,
+      "words": [
+        {
+          "text": "Sales",
+          "start": 0.0,
+          "end": 0.331
+        },
+        {
+          "text": "Hub",
+          "start": 0.331,
+          "end": 0.56
+        },
+        {
+          "text": "recoge",
+          "start": 0.56,
+          "end": 0.942
+        },
+        {
+          "text": "ese",
+          "start": 0.942,
+          "end": 1.171
+        },
+        {
+          "text": "lead:",
+          "start": 1.171,
+          "end": 1.451
+        },
+        {
+          "text": "pipeline,",
+          "start": 1.846,
+          "end": 2.373
+        },
+        {
+          "text": "reuniones,",
+          "start": 2.373,
+          "end": 2.955
+        },
+        {
+          "text": "cotizaciones…",
+          "start": 2.955,
+          "end": 3.704
+        },
+        {
+          "text": "hasta",
+          "start": 3.704,
+          "end": 4.064
+        },
+        {
+          "text": "cerrar",
+          "start": 4.064,
+          "end": 4.48
+        },
+        {
+          "text": "la",
+          "start": 4.48,
+          "end": 4.674
+        },
+        {
+          "text": "venta.",
+          "start": 4.674,
+          "end": 5.035
+        }
+      ]
+    },
+    {
+      "frame": 5,
+      "path": "assets/voice/05.wav",
+      "duration_s": 6.325,
+      "words": [
+        {
+          "text": "Y",
+          "start": 0.0,
+          "end": 0.129
+        },
+        {
+          "text": "Service",
+          "start": 0.129,
+          "end": 0.567
+        },
+        {
+          "text": "Hub",
+          "start": 0.567,
+          "end": 0.799
+        },
+        {
+          "text": "cuida",
+          "start": 0.799,
+          "end": 1.134
+        },
+        {
+          "text": "al",
+          "start": 1.134,
+          "end": 1.314
+        },
+        {
+          "text": "cliente",
+          "start": 1.314,
+          "end": 1.752
+        },
+        {
+          "text": "después:",
+          "start": 1.752,
+          "end": 2.19
+        },
+        {
+          "text": "tickets,",
+          "start": 2.19,
+          "end": 2.628
+        },
+        {
+          "text": "chat,",
+          "start": 2.628,
+          "end": 2.911
+        },
+        {
+          "text": "ayuda.",
+          "start": 2.911,
+          "end": 3.246
+        },
+        {
+          "text": "Y",
+          "start": 3.637,
+          "end": 3.744
+        },
+        {
+          "text": "todo",
+          "start": 3.744,
+          "end": 3.978
+        },
+        {
+          "text": "el",
+          "start": 3.978,
+          "end": 4.127
+        },
+        {
+          "text": "equipo",
+          "start": 4.127,
+          "end": 4.447
+        },
+        {
+          "text": "ve",
+          "start": 4.447,
+          "end": 4.596
+        },
+        {
+          "text": "el",
+          "start": 4.596,
+          "end": 4.745
+        },
+        {
+          "text": "mismo",
+          "start": 4.745,
+          "end": 5.022
+        },
+        {
+          "text": "historial.",
+          "start": 5.022,
+          "end": 5.469
+        }
+      ]
+    },
+    {
+      "frame": 6,
+      "path": "assets/voice/06.wav",
+      "duration_s": 6.231,
+      "words": [
+        {
+          "text": "Y",
+          "start": 0.0,
+          "end": 0.142
+        },
+        {
+          "text": "si",
+          "start": 0.142,
+          "end": 0.342
+        },
+        {
+          "text": "lo",
+          "start": 0.342,
+          "end": 0.541
+        },
+        {
+          "text": "necesitas,",
+          "start": 0.541,
+          "end": 1.138
+        },
+        {
+          "text": "más",
+          "start": 1.138,
+          "end": 1.395
+        },
+        {
+          "text": "piezas:",
+          "start": 1.395,
+          "end": 1.822
+        },
+        {
+          "text": "Content",
+          "start": 2.129,
+          "end": 2.567
+        },
+        {
+          "text": "para",
+          "start": 2.567,
+          "end": 2.85
+        },
+        {
+          "text": "tu",
+          "start": 2.85,
+          "end": 3.03
+        },
+        {
+          "text": "web,",
+          "start": 3.03,
+          "end": 3.262
+        },
+        {
+          "text": "Operations",
+          "start": 3.262,
+          "end": 3.854
+        },
+        {
+          "text": "para",
+          "start": 3.854,
+          "end": 4.138
+        },
+        {
+          "text": "tus",
+          "start": 4.138,
+          "end": 4.37
+        },
+        {
+          "text": "datos,",
+          "start": 4.37,
+          "end": 4.705
+        },
+        {
+          "text": "Commerce",
+          "start": 4.705,
+          "end": 5.194
+        },
+        {
+          "text": "para",
+          "start": 5.194,
+          "end": 5.477
+        },
+        {
+          "text": "cobrar.",
+          "start": 5.477,
+          "end": 5.864
+        }
+      ]
+    },
+    {
+      "frame": 7,
+      "path": "assets/voice/07.wav",
+      "duration_s": 6.359,
+      "words": [
+        {
+          "text": "Por",
+          "start": 0.0,
+          "end": 0.243
+        },
+        {
+          "text": "encima",
+          "start": 0.243,
+          "end": 0.647
+        },
+        {
+          "text": "trabaja",
+          "start": 0.647,
+          "end": 1.106
+        },
+        {
+          "text": "Breeze,",
+          "start": 1.106,
+          "end": 1.511
+        },
+        {
+          "text": "la",
+          "start": 1.511,
+          "end": 1.699
+        },
+        {
+          "text": "IA",
+          "start": 1.699,
+          "end": 1.888
+        },
+        {
+          "text": "de",
+          "start": 1.888,
+          "end": 2.077
+        },
+        {
+          "text": "HubSpot:",
+          "start": 2.077,
+          "end": 2.536
+        },
+        {
+          "text": "usa",
+          "start": 2.927,
+          "end": 3.153
+        },
+        {
+          "text": "esos",
+          "start": 3.153,
+          "end": 3.43
+        },
+        {
+          "text": "datos",
+          "start": 3.43,
+          "end": 3.757
+        },
+        {
+          "text": "para",
+          "start": 3.757,
+          "end": 4.034
+        },
+        {
+          "text": "escribir,",
+          "start": 4.034,
+          "end": 4.512
+        },
+        {
+          "text": "resumir",
+          "start": 4.512,
+          "end": 4.939
+        },
+        {
+          "text": "y",
+          "start": 4.939,
+          "end": 5.065
+        },
+        {
+          "text": "responder",
+          "start": 5.065,
+          "end": 5.594
+        },
+        {
+          "text": "por",
+          "start": 5.594,
+          "end": 5.82
+        },
+        {
+          "text": "ti.",
+          "start": 5.82,
+          "end": 5.996
+        }
+      ]
+    },
+    {
+      "frame": 8,
+      "path": "assets/voice/08.wav",
+      "duration_s": 6.232,
+      "words": [
+        {
+          "text": "Un",
+          "start": 0.0,
+          "end": 0.195
+        },
+        {
+          "text": "centro,",
+          "start": 0.195,
+          "end": 0.612
+        },
+        {
+          "text": "muchas",
+          "start": 0.612,
+          "end": 1.03
+        },
+        {
+          "text": "piezas,",
+          "start": 1.03,
+          "end": 1.447
+        },
+        {
+          "text": "un",
+          "start": 1.447,
+          "end": 1.642
+        },
+        {
+          "text": "mismo",
+          "start": 1.642,
+          "end": 2.004
+        },
+        {
+          "text": "cliente.",
+          "start": 2.004,
+          "end": 2.477
+        },
+        {
+          "text": "Así",
+          "start": 2.763,
+          "end": 3.004
+        },
+        {
+          "text": "funciona",
+          "start": 3.004,
+          "end": 3.512
+        },
+        {
+          "text": "HubSpot.",
+          "start": 3.512,
+          "end": 3.966
+        }
+      ]
+    }
+  ],
+  "sfx": [
+    {
+      "frame": 1,
+      "file": "assets/sfx/pop.mp3",
+      "offset_s": 2.61,
+      "duration_s": 0.72,
+      "volume": 0.35
+    },
+    {
+      "frame": 1,
+      "file": "assets/sfx/pop.mp3",
+      "offset_s": 3.45,
+      "duration_s": 0.72,
+      "volume": 0.35
+    },
+    {
+      "frame": 1,
+      "file": "assets/sfx/pop.mp3",
+      "offset_s": 4.73,
+      "duration_s": 0.72,
+      "volume": 0.35
+    },
+    {
+      "frame": 1,
+      "file": "assets/sfx/pop.mp3",
+      "offset_s": 5.1,
+      "duration_s": 0.72,
+      "volume": 0.35
+    },
+    {
+      "frame": 2,
+      "file": "assets/sfx/whoosh.mp3",
+      "offset_s": 0.3,
+      "duration_s": 0.57,
+      "volume": 0.35
+    },
+    {
+      "frame": 2,
+      "file": "assets/sfx/click-soft.mp3",
+      "offset_s": 0.8,
+      "duration_s": 0.37,
+      "volume": 0.35
+    },
+    {
+      "frame": 3,
+      "file": "assets/sfx/click-soft.mp3",
+      "offset_s": 0.85,
+      "duration_s": 0.37,
+      "volume": 0.35
+    },
+    {
+      "frame": 4,
+      "file": "assets/sfx/click-soft.mp3",
+      "offset_s": 0.5,
+      "duration_s": 0.37,
+      "volume": 0.35
+    },
+    {
+      "frame": 4,
+      "file": "assets/sfx/ping.mp3",
+      "offset_s": 4.6,
+      "duration_s": 1.32,
+      "volume": 0.35
+    },
+    {
+      "frame": 5,
+      "file": "assets/sfx/click-soft.mp3",
+      "offset_s": 0.5,
+      "duration_s": 0.37,
+      "volume": 0.35
+    },
+    {
+      "frame": 5,
+      "file": "assets/sfx/chime.mp3",
+      "offset_s": 3.7,
+      "duration_s": 2.5,
+      "volume": 0.35
+    },
+    {
+      "frame": 6,
+      "file": "assets/sfx/click-soft.mp3",
+      "offset_s": 2.13,
+      "duration_s": 0.37,
+      "volume": 0.35
+    },
+    {
+      "frame": 6,
+      "file": "assets/sfx/click-soft.mp3",
+      "offset_s": 3.26,
+      "duration_s": 0.37,
+      "volume": 0.35
+    },
+    {
+      "frame": 6,
+      "file": "assets/sfx/click-soft.mp3",
+      "offset_s": 4.7,
+      "duration_s": 0.37,
+      "volume": 0.35
+    },
+    {
+      "frame": 7,
+      "file": "assets/sfx/sparkle.mp3",
+      "offset_s": 2.2,
+      "duration_s": 1.8,
+      "volume": 0.35
+    },
+    {
+      "frame": 8,
+      "file": "assets/sfx/whoosh.mp3",
+      "offset_s": 0.0,
+      "duration_s": 0.57,
+      "volume": 0.35
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 ---
 format: 1920x1080
-duration: 60s
+duration: 51s
 message: "HubSpot es un CRM central al que se conectan herramientas de marketing, ventas y servicio, y todas comparten los mismos datos del cliente"
 arc: concept-explainer with process
 audience: personas que oyen hablar de HubSpot y quieren entender cómo encajan sus piezas
@@ -40,7 +40,7 @@ Sketch sheet v1 confirmed by the user ("Adelante"): layout, positions, copy and 
 
 - scene: Fragmentos flotando por el lienzo marino — "correo", "hoja de cálculo", "chat", "notas", "facturas" — desconectados, cada uno con un puntito de cliente distinto.
 - voiceover: "Tus clientes están en todas partes: un correo aquí, una hoja de cálculo allá, un chat que nadie ve."
-- duration: 6s
+- duration: 6.039s
 - transition_in: cut
 - status: animated
 - src: compositions/frames/01-todo-disperso.html
@@ -65,7 +65,7 @@ Scene 4 (4.8–6.0s): the fragments drift ~1–2% inward toward the center (the 
 
 - scene: Los fragmentos del frame 1 son absorbidos hacia el centro y se funden en un único nodo "crm"; dentro aparecen cuatro etiquetas: contactos · empresas · negocios · tickets.
 - voiceover: "HubSpot empieza por el centro: un CRM. Contactos, empresas, negocios y tickets, en una sola ficha por cliente."
-- duration: 8s
+- duration: 7.776s
 - transition_in: zoom-through
 - status: animated
 - src: compositions/frames/02-el-centro-crm.html
@@ -91,7 +91,7 @@ Scene 5 (6.6–8.0s): held read — the thesis sits still (held beat).
 
 - scene: Mismo diagrama; la cámara se acerca a la izquierda. Un nodo "marketing" se engancha al CRM con una línea; alrededor aparecen tres etiquetas: emails · anuncios · formularios. El punto naranja "visitante" entra y se convierte en "lead" al tocar el CRM.
 - voiceover: "Se conecta Marketing Hub: emails, anuncios y formularios atraen visitantes… y los convierten en leads."
-- duration: 7s
+- duration: 6.273s
 - transition_in: crossfade
 - status: animated
 - src: compositions/frames/03-marketing-hub.html
@@ -116,7 +116,7 @@ Scene 4 (4.2–7.0s): on "atraen visitantes" an orange dot appears at the market
 
 - scene: Mismo diagrama; la cámara pasa a la derecha. Un nodo "ventas" se engancha al CRM; etiquetas: pipeline · reuniones · cotizaciones. El punto naranja viaja de marketing a ventas y avanza por tres columnas de pipeline hasta "cliente".
 - voiceover: "Sales Hub recoge ese lead: pipeline, reuniones, cotizaciones… hasta cerrar la venta."
-- duration: 7s
+- duration: 5.399s
 - transition_in: crossfade
 - status: animated
 - src: compositions/frames/04-sales-hub.html
@@ -141,7 +141,7 @@ Scene 4 (4.2–7.0s): the pipeline strip (nuevo · propuesta · ganado) appears 
 
 - scene: Mismo diagrama; la cámara baja. Un nodo "servicio" se engancha al CRM; etiquetas: tickets · chat · base de conocimiento. El punto naranja ("cliente") abre un ticket y las líneas hacia marketing y ventas parpadean: todos ven el caso.
 - voiceover: "Y Service Hub cuida al cliente después: tickets, chat, ayuda. Y todo el equipo ve el mismo historial."
-- duration: 8s
+- duration: 6.325s
 - transition_in: crossfade
 - status: animated
 - src: compositions/frames/05-service-hub.html
@@ -167,7 +167,7 @@ Scene 5 (6.4–8.0s): held read — three lit wires, still (held beat).
 
 - scene: Mismo diagrama, plano un poco más abierto; tres nodos más pequeños se enganchan de golpe al anillo exterior: "content" (web y blog) · "operations" (datos) · "commerce" (cobros).
 - voiceover: "Y si lo necesitas, más piezas: Content para tu web, Operations para tus datos, Commerce para cobrar."
-- duration: 7s
+- duration: 6.231s
 - transition_in: crossfade
 - status: animated
 - src: compositions/frames/06-y-ademas.html
@@ -192,7 +192,7 @@ Scene 4 (6.0–7.0s): hold, full system visible.
 
 - scene: Mismo diagrama completo; un pulso naranja nace en el CRM y recorre cada línea hasta todos los nodos; aparece la etiqueta "breeze · ia". Tres verbos junto al pulso: escribe · resume · responde.
 - voiceover: "Por encima trabaja Breeze, la IA de HubSpot: usa esos datos para escribir, resumir y responder por ti."
-- duration: 7s
+- duration: 6.359s
 - transition_in: crossfade
 - status: animated
 - src: compositions/frames/07-breeze-ia.html
@@ -217,7 +217,7 @@ Scene 4 (6.0–7.0s): hold.
 
 - scene: Alejamiento lento: el diagrama entero queda pequeño y quieto en el centro; debajo, la frase final en tipografía grande: "un centro. muchas piezas. un mismo cliente."
 - voiceover: "Un centro, muchas piezas, un mismo cliente. Así funciona HubSpot."
-- duration: 8s
+- duration: 6.232s
 - transition_in: zoom-through
 - status: animated
 - src: compositions/frames/08-asi-funciona.html

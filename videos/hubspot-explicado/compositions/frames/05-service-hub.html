@@ -34,33 +34,33 @@
 .f05-o{color:#FF7A59}
 .f05-w{display:inline-block;white-space:pre}
 </style>
-  <div id="root" data-composition-id="05-service-hub" data-width="1920" data-height="1080">
-    <div id="f05-bg" class="f05-bg clip" data-start="0" data-duration="8" data-track-index="0"></div>
-    <div id="f05-camclip" class="f05-cam clip" data-start="0" data-duration="8" data-track-index="1">
+  <div id="root" data-composition-id="05-service-hub" data-width="1920" data-height="1080" data-duration="6.825">
+    <div id="f05-bg" class="f05-bg clip" data-start="0" data-duration="6.825" data-track-index="0"></div>
+    <div id="f05-camclip" class="f05-cam clip" data-start="0" data-duration="6.825" data-track-index="1">
       <div id="f05-world" class="f05-world"><svg class="f05-wires" viewBox="0 0 1920 1080"><line id="f05-w-marketing" x1="960.0" y1="453.6" x2="326.4" y2="453.6" stroke="#5C7185" stroke-width="2" stroke-dasharray="633.6" stroke-dashoffset="0"/><line id="f05-w-ventas" x1="960.0" y1="453.6" x2="1593.6" y2="453.6" stroke="#5C7185" stroke-width="2" stroke-dasharray="633.6" stroke-dashoffset="0"/><line id="f05-w-servicio" x1="960.0" y1="453.6" x2="960.0" y2="799.2" stroke="#5C7185" stroke-width="2" stroke-dasharray="345.6" stroke-dashoffset="0"/><line id="f05-h-marketing" x1="960.0" y1="453.6" x2="326.4" y2="453.6" stroke="#FF7A59" stroke-width="3" stroke-dasharray="633.6" stroke-dashoffset="0"/><line id="f05-h-ventas" x1="960.0" y1="453.6" x2="1593.6" y2="453.6" stroke="#FF7A59" stroke-width="3" stroke-dasharray="633.6" stroke-dashoffset="0"/><line id="f05-h-servicio" x1="960.0" y1="453.6" x2="960.0" y2="799.2" stroke="#FF7A59" stroke-width="3" stroke-dasharray="345.6" stroke-dashoffset="0"/></svg><div class="f05-nw" style="left:960.0px;top:453.6px"><div class="f05-node"><div id="f05-crm" class="f05-core "><b id="f05-crm-n">crm</b><div class="f05-tags"><span id="f05-crm-t0">contactos</span><span id="f05-crm-t1">empresas</span><span id="f05-crm-t2">negocios</span><span id="f05-crm-t3">tickets</span></div></div></div></div><div class="f05-nw" style="left:326.4px;top:453.6px"><div class="f05-node"><div id="f05-marketing" class="f05-in "><b id="f05-marketing-n">marketing hub</b><div class="f05-tags"><span id="f05-marketing-t0">emails</span><span id="f05-marketing-t1">anuncios</span><span id="f05-marketing-t2">formularios</span></div></div></div></div><div class="f05-nw" style="left:1593.6px;top:453.6px"><div class="f05-node"><div id="f05-ventas" class="f05-in "><b id="f05-ventas-n">sales hub</b><div class="f05-tags"><span id="f05-ventas-t0">pipeline</span><span id="f05-ventas-t1">reuniones</span><span id="f05-ventas-t2">cotizaciones</span></div></div></div></div><div class="f05-nw" style="left:960.0px;top:799.2px"><div class="f05-node"><div id="f05-servicio" class="f05-in f05-act"><b id="f05-servicio-n">service hub</b><div class="f05-tags"><span id="f05-servicio-t0">tickets</span><span id="f05-servicio-t1">chat</span><span id="f05-servicio-t2">ayuda</span></div></div></div></div><div id="f05-dot" class="f05-dot" data-layout-allow-overlap style="transform:translate(960.0px,453.6px)"><i></i><em><span id="f05-dl0" data-layout-allow-overlap></span></em></div><div id="f05-tk" class="f05-kicker" style="left:994px;top:636px">ticket abierto</div></div>
     </div>
-    <div id="f05-ovclip" class="f05-ov clip" data-start="0" data-duration="8" data-track-index="2"><div id="f05-k" class="f05-kicker" style="left:5.5cqw;top:4cqw">05 / cuidar</div></div>
+    <div id="f05-ovclip" class="f05-ov clip" data-start="0" data-duration="6.825" data-track-index="2"><div id="f05-k" class="f05-kicker" style="left:5.5cqw;top:4cqw">05 / cuidar</div></div>
   </div>
   <script src="assets/vendor/gsap.min.js"></script>
   <script>
     (function () {
       const tl = gsap.timeline({ paused: true });
-      tl.fromTo("#f05-world",{x:-420.48,y:-145.8,scale:1.3},{x:-115.2,y:-90.72,scale:1.12,duration:1.1,ease:"power3.inOut"},0.0);
+      tl.fromTo("#f05-world",{x:-420.48,y:-145.8,scale:1.3},{x:-115.2,y:-90.72,scale:1.12,duration:1.0,ease:"power3.inOut"},0.0);
       tl.fromTo("#f05-k",{opacity:0},{opacity:1,duration:0.5,ease:"power2.out"},0.2);
-      tl.fromTo("#f05-w-servicio",{attr:{"stroke-dashoffset":345.6}},{attr:{"stroke-dashoffset":0},duration:0.7,ease:"power3.inOut"},1.0);
-      tl.fromTo("#f05-h-servicio",{attr:{"stroke-dashoffset":345.6}},{attr:{"stroke-dashoffset":0},duration:0.7,ease:"power3.inOut"},1.0);
-      tl.fromTo("#f05-servicio",{opacity:0,y:12},{opacity:1,y:0,duration:0.6,ease:"power3.out"},1.45);
-      tl.fromTo("#f05-h-marketing",{attr:{"stroke-dashoffset":633.6}},{attr:{"stroke-dashoffset":0},duration:0.9,ease:"power3.inOut"},4.6);
-      tl.fromTo("#f05-h-ventas",{attr:{"stroke-dashoffset":633.6}},{attr:{"stroke-dashoffset":0},duration:0.9,ease:"power3.inOut"},4.6);
-      tl.fromTo("#f05-servicio-t0",{opacity:0,y:8},{opacity:1,y:0,duration:0.45,ease:"power3.out"},2.8);
-      tl.fromTo("#f05-servicio-t1",{opacity:0,y:8},{opacity:1,y:0,duration:0.45,ease:"power3.out"},3.4);
-      tl.fromTo("#f05-servicio-t2",{opacity:0,y:8},{opacity:1,y:0,duration:0.45,ease:"power3.out"},3.9);
-      tl.fromTo("#f05-dot",{opacity:0},{opacity:1,duration:0.3},2.8);
-      tl.fromTo("#f05-dot",{x:960.0,y:453.6},{immediateRender:false,x:960.0,y:648,duration:0.8,ease:"power2.inOut"},2.8);
-      tl.fromTo("#f05-tk",{opacity:0,y:6},{opacity:1,y:0,duration:0.45,ease:"power3.out"},3.4);
-      tl.fromTo("#f05-marketing",{borderColor:"#33475B"},{borderColor:"#FF7A59",duration:0.3,ease:"power2.out"},5.3);
-      tl.fromTo("#f05-ventas",{borderColor:"#33475B"},{borderColor:"#FF7A59",duration:0.3,ease:"power2.out"},5.3);
-      tl.to({}, { duration: 0 }, 8);
+      tl.fromTo("#f05-w-servicio",{attr:{"stroke-dashoffset":345.6}},{attr:{"stroke-dashoffset":0},duration:0.6,ease:"power3.inOut"},0.15);
+      tl.fromTo("#f05-h-servicio",{attr:{"stroke-dashoffset":345.6}},{attr:{"stroke-dashoffset":0},duration:0.6,ease:"power3.inOut"},0.15);
+      tl.fromTo("#f05-servicio",{opacity:0,y:12},{opacity:1,y:0,duration:0.6,ease:"power3.out"},0.5);
+      tl.fromTo("#f05-h-marketing",{attr:{"stroke-dashoffset":633.6}},{attr:{"stroke-dashoffset":0},duration:0.9,ease:"power3.inOut"},3.7);
+      tl.fromTo("#f05-h-ventas",{attr:{"stroke-dashoffset":633.6}},{attr:{"stroke-dashoffset":0},duration:0.9,ease:"power3.inOut"},3.7);
+      tl.fromTo("#f05-servicio-t0",{opacity:0,y:8},{opacity:1,y:0,duration:0.45,ease:"power3.out"},2.19);
+      tl.fromTo("#f05-servicio-t1",{opacity:0,y:8},{opacity:1,y:0,duration:0.45,ease:"power3.out"},2.63);
+      tl.fromTo("#f05-servicio-t2",{opacity:0,y:8},{opacity:1,y:0,duration:0.45,ease:"power3.out"},2.91);
+      tl.fromTo("#f05-dot",{opacity:0},{opacity:1,duration:0.3},2.19);
+      tl.fromTo("#f05-dot",{x:960.0,y:453.6},{immediateRender:false,x:960.0,y:648,duration:0.6,ease:"power2.inOut"},2.19);
+      tl.fromTo("#f05-tk",{opacity:0,y:6},{opacity:1,y:0,duration:0.45,ease:"power3.out"},2.6);
+      tl.fromTo("#f05-marketing",{borderColor:"#33475B"},{borderColor:"#FF7A59",duration:0.3,ease:"power2.out"},4.5);
+      tl.fromTo("#f05-ventas",{borderColor:"#33475B"},{borderColor:"#FF7A59",duration:0.3,ease:"power2.out"},4.5);
+      tl.to({}, { duration: 0 }, 6.325);
       window.__timelines = window.__timelines || {};
       window.__timelines["05-service-hub"] = tl;
     })();

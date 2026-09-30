@@ -34,12 +34,12 @@
 .f03-o{color:#FF7A59}
 .f03-w{display:inline-block;white-space:pre}
 </style>
-  <div id="root" data-composition-id="03-marketing-hub" data-width="1920" data-height="1080">
-    <div id="f03-bg" class="f03-bg clip" data-start="0" data-duration="7" data-track-index="0"></div>
-    <div id="f03-camclip" class="f03-cam clip" data-start="0" data-duration="7" data-track-index="1">
+  <div id="root" data-composition-id="03-marketing-hub" data-width="1920" data-height="1080" data-duration="6.773">
+    <div id="f03-bg" class="f03-bg clip" data-start="0" data-duration="6.773" data-track-index="0"></div>
+    <div id="f03-camclip" class="f03-cam clip" data-start="0" data-duration="6.773" data-track-index="1">
       <div id="f03-world" class="f03-world"><svg class="f03-wires" viewBox="0 0 1920 1080"><line id="f03-w-marketing" x1="960.0" y1="453.6" x2="326.4" y2="453.6" stroke="#5C7185" stroke-width="2" stroke-dasharray="633.6" stroke-dashoffset="0"/><line id="f03-h-marketing" x1="960.0" y1="453.6" x2="326.4" y2="453.6" stroke="#FF7A59" stroke-width="3" stroke-dasharray="633.6" stroke-dashoffset="0"/></svg><div class="f03-nw" style="left:960.0px;top:453.6px"><div class="f03-node"><div id="f03-crm" class="f03-core "><b id="f03-crm-n">crm</b><div class="f03-tags"><span id="f03-crm-t0">contactos</span><span id="f03-crm-t1">empresas</span><span id="f03-crm-t2">negocios</span><span id="f03-crm-t3">tickets</span></div></div></div></div><div class="f03-nw" style="left:326.4px;top:453.6px"><div class="f03-node"><div id="f03-marketing" class="f03-in f03-act"><b id="f03-marketing-n">marketing hub</b><div class="f03-tags"><span id="f03-marketing-t0">emails</span><span id="f03-marketing-t1">anuncios</span><span id="f03-marketing-t2">formularios</span></div></div></div></div><div id="f03-dot" class="f03-dot" data-layout-allow-overlap style="transform:translate(610px,453.6px)"><i></i><em><span id="f03-dl0" data-layout-allow-overlap>visitante</span><span id="f03-dl1" data-layout-allow-overlap>lead</span></em></div></div>
     </div>
-    <div id="f03-ovclip" class="f03-ov clip" data-start="0" data-duration="7" data-track-index="2"><div id="f03-k" class="f03-kicker" style="left:5.5cqw;top:4cqw">03 / atraer</div></div>
+    <div id="f03-ovclip" class="f03-ov clip" data-start="0" data-duration="6.773" data-track-index="2"><div id="f03-k" class="f03-kicker" style="left:5.5cqw;top:4cqw">03 / atraer</div></div>
   </div>
   <script src="assets/vendor/gsap.min.js"></script>
   <script>
@@ -47,17 +47,17 @@
       const tl = gsap.timeline({ paused: true });
       tl.fromTo("#f03-world",{x:0.0,y:0.0,scale:1.0},{x:-155.52,y:-145.8,scale:1.3,duration:1.1,ease:"power3.inOut"},0.0);
       tl.fromTo("#f03-k",{opacity:0},{opacity:1,duration:0.5,ease:"power2.out"},0.2);
-      tl.fromTo("#f03-w-marketing",{attr:{"stroke-dashoffset":633.6}},{attr:{"stroke-dashoffset":0},duration:0.7,ease:"power3.inOut"},1.0);
-      tl.fromTo("#f03-h-marketing",{attr:{"stroke-dashoffset":633.6}},{attr:{"stroke-dashoffset":0},duration:0.7,ease:"power3.inOut"},1.0);
-      tl.fromTo("#f03-marketing",{opacity:0,y:12},{opacity:1,y:0,duration:0.6,ease:"power3.out"},1.45);
-      tl.fromTo("#f03-marketing-t0",{opacity:0,y:8},{opacity:1,y:0,duration:0.45,ease:"power3.out"},2.6);
-      tl.fromTo("#f03-marketing-t1",{opacity:0,y:8},{opacity:1,y:0,duration:0.45,ease:"power3.out"},3.1);
-      tl.fromTo("#f03-marketing-t2",{opacity:0,y:8},{opacity:1,y:0,duration:0.45,ease:"power3.out"},3.7);
-      tl.fromTo("#f03-dot",{opacity:0,scale:0.4},{opacity:1,scale:1,duration:0.4,ease:"power3.out"},4.3);
+      tl.fromTo("#f03-w-marketing",{attr:{"stroke-dashoffset":633.6}},{attr:{"stroke-dashoffset":0},duration:0.6,ease:"power3.inOut"},0.5);
+      tl.fromTo("#f03-h-marketing",{attr:{"stroke-dashoffset":633.6}},{attr:{"stroke-dashoffset":0},duration:0.6,ease:"power3.inOut"},0.5);
+      tl.fromTo("#f03-marketing",{opacity:0,y:12},{opacity:1,y:0,duration:0.6,ease:"power3.out"},0.85);
+      tl.fromTo("#f03-marketing-t0",{opacity:0,y:8},{opacity:1,y:0,duration:0.45,ease:"power3.out"},1.7);
+      tl.fromTo("#f03-marketing-t1",{opacity:0,y:8},{opacity:1,y:0,duration:0.45,ease:"power3.out"},2.09);
+      tl.fromTo("#f03-marketing-t2",{opacity:0,y:8},{opacity:1,y:0,duration:0.45,ease:"power3.out"},2.73);
+      tl.fromTo("#f03-dot",{opacity:0,scale:0.4},{opacity:1,scale:1,duration:0.4,ease:"power3.out"},3.4);
       tl.fromTo("#f03-dl1",{opacity:0},{opacity:0,duration:0.01,ease:"power2.out"},0);
-      tl.fromTo("#f03-dot",{x:610,y:453.6},{immediateRender:false,x:700,y:453.6,duration:1.2,ease:"power2.inOut"},5.2);
-      tl.fromTo("#f03-dl0",{opacity:1},{opacity:0,duration:0.02},5.8);tl.fromTo("#f03-dl1",{opacity:0},{immediateRender:false,opacity:1,duration:0.02},5.8);
-      tl.to({}, { duration: 0 }, 7);
+      tl.fromTo("#f03-dot",{x:610,y:453.6},{immediateRender:false,x:700,y:453.6,duration:1.0,ease:"power2.inOut"},4.4);
+      tl.fromTo("#f03-dl0",{opacity:1},{opacity:0,duration:0.02},5.55);tl.fromTo("#f03-dl1",{opacity:0},{immediateRender:false,opacity:1,duration:0.02},5.55);
+      tl.to({}, { duration: 0 }, 6.273);
       window.__timelines = window.__timelines || {};
       window.__timelines["03-marketing-hub"] = tl;
     })();
