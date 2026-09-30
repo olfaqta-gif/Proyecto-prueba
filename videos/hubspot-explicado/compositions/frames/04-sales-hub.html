@@ -1,0 +1,72 @@
+<template>
+  <style>
+@font-face{font-family:'Barlow';font-weight:400;font-style:normal;src:url('assets/fonts/barlow-latin-400-normal.woff2') format('woff2')}
+@font-face{font-family:'Barlow';font-weight:600;font-style:normal;src:url('assets/fonts/barlow-latin-600-normal.woff2') format('woff2')}
+@font-face{font-family:'Barlow';font-weight:700;font-style:normal;src:url('assets/fonts/barlow-latin-700-normal.woff2') format('woff2')}
+@font-face{font-family:'Barlow';font-weight:800;font-style:normal;src:url('assets/fonts/barlow-latin-800-normal.woff2') format('woff2')}
+@font-face{font-family:'Barlow';font-weight:900;font-style:normal;src:url('assets/fonts/barlow-latin-900-normal.woff2') format('woff2')}
+@font-face{font-family:'IBM Plex Mono';font-weight:400;font-style:normal;src:url('assets/fonts/ibm-plex-mono-latin-400-normal.woff2') format('woff2')}
+@font-face{font-family:'IBM Plex Mono';font-weight:500;font-style:normal;src:url('assets/fonts/ibm-plex-mono-latin-500-normal.woff2') format('woff2')}
+#root{position:absolute;inset:0;width:1920px;height:1080px;overflow:hidden;container-type:size;font-family:'Barlow',sans-serif;color:#F5F8FA}
+.f04-bg{position:absolute;inset:0;background-color:#213343;background-image:linear-gradient(rgba(51,71,91,.28) 1px,transparent 1px),linear-gradient(90deg,rgba(51,71,91,.28) 1px,transparent 1px);background-size:6cqw 6cqw;background-position:center}
+.f04-cam{position:absolute;inset:0}
+.f04-world{position:absolute;left:0;top:0;width:1920px;height:1080px;transform-origin:0 0;will-change:transform}
+.f04-wires{position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:visible}
+.f04-wires line{fill:none;stroke-linecap:butt}
+.f04-nw{position:absolute;width:0;height:0}
+.f04-node{position:absolute;left:0;top:0;transform:translate(-50%,-50%);}
+.f04-in{background:#1B2A38;border:1px solid #33475B;padding:1.1cqw 1.6cqw;text-align:center;white-space:nowrap}
+.f04-in b{display:block;font-weight:800;font-size:2.2cqw;letter-spacing:-.02em;line-height:1;text-transform:lowercase}
+.f04-tags{display:flex;gap:.7cqw;justify-content:center;margin-top:.8cqw}
+.f04-tags span{display:inline-block;font:500 .85cqw 'IBM Plex Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:#A9B7C4}
+.f04-core{width:17cqw;height:17cqw;border-radius:50%;background:#FF7A59;color:#213343;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.f04-core b{font-weight:900;font-size:4.4cqw;letter-spacing:-.04em;line-height:1}
+.f04-core .f04-tags{flex-wrap:wrap;width:12.5cqw;row-gap:.35cqw;column-gap:.9cqw}
+.f04-core .f04-tags span{color:#213343;font-size:.95cqw}
+.f04-mini{padding:.7cqw 1.1cqw} .f04-mini b{font-size:1.6cqw} .f04-mini .f04-tags span{font-size:.8cqw}
+.f04-act{border-color:#FF7A59} .f04-act b{color:#FF7A59}
+.f04-dot{position:absolute;left:0;top:0;width:0;height:0}
+.f04-dot i{position:absolute;left:-.8cqw;top:-.8cqw;width:1.6cqw;height:1.6cqw;border-radius:50%;background:#FF7A59;box-shadow:0 0 0 .55cqw rgba(255,122,89,.2)}
+.f04-dot em{position:absolute;left:0;top:1.4cqw;transform:translateX(-50%);font:500 .95cqw 'IBM Plex Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:#FF7A59;white-space:nowrap;font-style:normal}
+.f04-dot em span{position:absolute;left:50%;top:0;transform:translateX(-50%)}
+.f04-kicker{position:absolute;font:500 1cqw 'IBM Plex Mono',monospace;letter-spacing:.14em;text-transform:uppercase;color:#FF7A59}
+.f04-ov{position:absolute;inset:0}
+.f04-o{color:#FF7A59}
+.f04-w{display:inline-block;white-space:pre}
+</style>
+  <div id="root" data-composition-id="04-sales-hub" data-width="1920" data-height="1080">
+    <div id="f04-bg" class="f04-bg clip" data-start="0" data-duration="7" data-track-index="0"></div>
+    <div id="f04-camclip" class="f04-cam clip" data-start="0" data-duration="7" data-track-index="1">
+      <div id="f04-world" class="f04-world"><svg class="f04-wires" viewBox="0 0 1920 1080"><line id="f04-w-marketing" x1="960.0" y1="453.6" x2="326.4" y2="453.6" stroke="#5C7185" stroke-width="2" stroke-dasharray="633.6" stroke-dashoffset="0"/><line id="f04-w-ventas" x1="960.0" y1="453.6" x2="1593.6" y2="453.6" stroke="#5C7185" stroke-width="2" stroke-dasharray="633.6" stroke-dashoffset="0"/><line id="f04-h-ventas" x1="960.0" y1="453.6" x2="1593.6" y2="453.6" stroke="#FF7A59" stroke-width="3" stroke-dasharray="633.6" stroke-dashoffset="0"/></svg><div class="f04-nw" style="left:960.0px;top:453.6px"><div class="f04-node"><div id="f04-crm" class="f04-core "><b id="f04-crm-n">crm</b><div class="f04-tags"><span id="f04-crm-t0">contactos</span><span id="f04-crm-t1">empresas</span><span id="f04-crm-t2">negocios</span><span id="f04-crm-t3">tickets</span></div></div></div></div><div id="f04-mkw" style="opacity:.45"><div class="f04-nw" style="left:326.4px;top:453.6px"><div class="f04-node"><div id="f04-marketing" class="f04-in "><b id="f04-marketing-n">marketing hub</b><div class="f04-tags"><span id="f04-marketing-t0">emails</span><span id="f04-marketing-t1">anuncios</span><span id="f04-marketing-t2">formularios</span></div></div></div></div></div><div class="f04-nw" style="left:1593.6px;top:453.6px"><div class="f04-node"><div id="f04-ventas" class="f04-in f04-act"><b id="f04-ventas-n">sales hub</b><div class="f04-tags"><span id="f04-ventas-t0">pipeline</span><span id="f04-ventas-t1">reuniones</span><span id="f04-ventas-t2">cotizaciones</span></div></div></div></div><div class="f04-nw" style="left:1469px;top:626px"><div class="f04-node"><div id="f04-pc0" style="border-top:2px solid #33475B;padding:.6cqw .5cqw 0;width:6.2cqw;text-align:center;font:500 .9cqw 'IBM Plex Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:#A9B7C4">nuevo</div></div></div><div class="f04-nw" style="left:1594px;top:626px"><div class="f04-node"><div id="f04-pc1" style="border-top:2px solid #33475B;padding:.6cqw .5cqw 0;width:6.2cqw;text-align:center;font:500 .9cqw 'IBM Plex Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:#A9B7C4">propuesta</div></div></div><div class="f04-nw" style="left:1719px;top:626px"><div class="f04-node"><div id="f04-pc2" style="border-top:2px solid #33475B;padding:.6cqw .5cqw 0;width:6.2cqw;text-align:center;font:500 .9cqw 'IBM Plex Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:#A9B7C4">ganado</div></div></div><div id="f04-dot" class="f04-dot" data-layout-allow-overlap style="transform:translate(700px,453.6px)"><i></i><em><span id="f04-dl0">lead</span><span id="f04-dl1">cliente</span></em></div></div>
+    </div>
+    <div id="f04-ovclip" class="f04-ov clip" data-start="0" data-duration="7" data-track-index="2"><div id="f04-k" class="f04-kicker" style="left:5.5cqw;top:4cqw">04 / vender</div></div>
+  </div>
+  <script src="assets/vendor/gsap.min.js"></script>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      tl.fromTo("#f04-world",{x:-155.52,y:-145.8,scale:1.3},{x:-420.48,y:-145.8,scale:1.3,duration:1.1,ease:"power3.inOut"},0.0);
+      tl.fromTo("#f04-k",{opacity:0},{opacity:1,duration:0.5,ease:"power2.out"},0.2);
+      tl.fromTo("#f04-dl1",{opacity:0},{opacity:0,duration:0.01,ease:"power2.out"},0);
+      tl.fromTo("#f04-w-ventas",{attr:{"stroke-dashoffset":633.6}},{attr:{"stroke-dashoffset":0},duration:0.7,ease:"power3.inOut"},1.0);
+      tl.fromTo("#f04-h-ventas",{attr:{"stroke-dashoffset":633.6}},{attr:{"stroke-dashoffset":0},duration:0.7,ease:"power3.inOut"},1.0);
+      tl.fromTo("#f04-ventas",{opacity:0,y:12},{opacity:1,y:0,duration:0.6,ease:"power3.out"},1.45);
+      tl.fromTo("#f04-dot",{x:700,y:453.6},{x:1250,y:453.6,duration:1.3,ease:"power2.inOut"},1.0);
+      tl.fromTo("#f04-ventas-t0",{opacity:0,y:8},{opacity:1,y:0,duration:0.45,ease:"power3.out"},2.5);
+      tl.fromTo("#f04-ventas-t1",{opacity:0,y:8},{opacity:1,y:0,duration:0.45,ease:"power3.out"},3.1);
+      tl.fromTo("#f04-ventas-t2",{opacity:0,y:8},{opacity:1,y:0,duration:0.45,ease:"power3.out"},3.7);
+      tl.fromTo("#f04-pc0",{opacity:0,y:8},{opacity:1,y:0,duration:0.45,ease:"power3.out"},4.2);
+      tl.fromTo("#f04-pc1",{opacity:0,y:8},{opacity:1,y:0,duration:0.45,ease:"power3.out"},4.3);
+      tl.fromTo("#f04-pc2",{opacity:0,y:8},{opacity:1,y:0,duration:0.45,ease:"power3.out"},4.4);
+      tl.fromTo("#f04-dot",{x:1250,y:453.6},{immediateRender:false,x:1468.6,y:565.6,duration:0.6,ease:"power2.inOut"},4.7);
+      tl.fromTo("#f04-dot",{x:1468.6,y:565.6},{immediateRender:false,x:1593.6,y:565.6,duration:0.4,ease:"power2.inOut"},5.35);
+      tl.fromTo("#f04-dot",{x:1593.6,y:565.6},{immediateRender:false,x:1718.6,y:565.6,duration:0.4,ease:"power2.inOut"},5.85);
+      tl.fromTo("#f04-pc2",{color:"#A9B7C4"},{immediateRender:false,color:"#FF7A59",duration:0.3,ease:"power2.out"},6.2);
+      tl.fromTo("#f04-pc2",{borderColor:"#33475B"},{immediateRender:false,borderColor:"#FF7A59",duration:0.3,ease:"power2.out"},6.2);
+      tl.fromTo("#f04-dl0",{opacity:1},{opacity:0,duration:0.02},6.2);tl.fromTo("#f04-dl1",{opacity:0},{immediateRender:false,opacity:1,duration:0.02},6.2);
+      tl.to({}, { duration: 0 }, 7);
+      window.__timelines = window.__timelines || {};
+      window.__timelines["04-sales-hub"] = tl;
+    })();
+  </script>
+</template>

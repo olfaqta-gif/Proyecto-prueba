@@ -1,0 +1,68 @@
+<template>
+  <style>
+@font-face{font-family:'Barlow';font-weight:400;font-style:normal;src:url('assets/fonts/barlow-latin-400-normal.woff2') format('woff2')}
+@font-face{font-family:'Barlow';font-weight:600;font-style:normal;src:url('assets/fonts/barlow-latin-600-normal.woff2') format('woff2')}
+@font-face{font-family:'Barlow';font-weight:700;font-style:normal;src:url('assets/fonts/barlow-latin-700-normal.woff2') format('woff2')}
+@font-face{font-family:'Barlow';font-weight:800;font-style:normal;src:url('assets/fonts/barlow-latin-800-normal.woff2') format('woff2')}
+@font-face{font-family:'Barlow';font-weight:900;font-style:normal;src:url('assets/fonts/barlow-latin-900-normal.woff2') format('woff2')}
+@font-face{font-family:'IBM Plex Mono';font-weight:400;font-style:normal;src:url('assets/fonts/ibm-plex-mono-latin-400-normal.woff2') format('woff2')}
+@font-face{font-family:'IBM Plex Mono';font-weight:500;font-style:normal;src:url('assets/fonts/ibm-plex-mono-latin-500-normal.woff2') format('woff2')}
+#root{position:absolute;inset:0;width:1920px;height:1080px;overflow:hidden;container-type:size;font-family:'Barlow',sans-serif;color:#F5F8FA}
+.f02-bg{position:absolute;inset:0;background-color:#213343;background-image:linear-gradient(rgba(51,71,91,.28) 1px,transparent 1px),linear-gradient(90deg,rgba(51,71,91,.28) 1px,transparent 1px);background-size:6cqw 6cqw;background-position:center}
+.f02-cam{position:absolute;inset:0}
+.f02-world{position:absolute;left:0;top:0;width:1920px;height:1080px;transform-origin:0 0;will-change:transform}
+.f02-wires{position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:visible}
+.f02-wires line{fill:none;stroke-linecap:butt}
+.f02-nw{position:absolute;width:0;height:0}
+.f02-node{position:absolute;left:0;top:0;transform:translate(-50%,-50%);}
+.f02-in{background:#1B2A38;border:1px solid #33475B;padding:1.1cqw 1.6cqw;text-align:center;white-space:nowrap}
+.f02-in b{display:block;font-weight:800;font-size:2.2cqw;letter-spacing:-.02em;line-height:1;text-transform:lowercase}
+.f02-tags{display:flex;gap:.7cqw;justify-content:center;margin-top:.8cqw}
+.f02-tags span{display:inline-block;font:500 .85cqw 'IBM Plex Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:#A9B7C4}
+.f02-core{width:17cqw;height:17cqw;border-radius:50%;background:#FF7A59;color:#213343;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.f02-core b{font-weight:900;font-size:4.4cqw;letter-spacing:-.04em;line-height:1}
+.f02-core .f02-tags{flex-wrap:wrap;width:12.5cqw;row-gap:.35cqw;column-gap:.9cqw}
+.f02-core .f02-tags span{color:#213343;font-size:.95cqw}
+.f02-mini{padding:.7cqw 1.1cqw} .f02-mini b{font-size:1.6cqw} .f02-mini .f02-tags span{font-size:.8cqw}
+.f02-act{border-color:#FF7A59} .f02-act b{color:#FF7A59}
+.f02-dot{position:absolute;left:0;top:0;width:0;height:0}
+.f02-dot i{position:absolute;left:-.8cqw;top:-.8cqw;width:1.6cqw;height:1.6cqw;border-radius:50%;background:#FF7A59;box-shadow:0 0 0 .55cqw rgba(255,122,89,.2)}
+.f02-dot em{position:absolute;left:0;top:1.4cqw;transform:translateX(-50%);font:500 .95cqw 'IBM Plex Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:#FF7A59;white-space:nowrap;font-style:normal}
+.f02-dot em span{position:absolute;left:50%;top:0;transform:translateX(-50%)}
+.f02-kicker{position:absolute;font:500 1cqw 'IBM Plex Mono',monospace;letter-spacing:.14em;text-transform:uppercase;color:#FF7A59}
+.f02-ov{position:absolute;inset:0}
+.f02-o{color:#FF7A59}
+.f02-w{display:inline-block;white-space:pre}
+</style>
+  <div id="root" data-composition-id="02-el-centro-crm" data-width="1920" data-height="1080">
+    <div id="f02-bg" class="f02-bg clip" data-start="0" data-duration="8" data-track-index="0"></div>
+    <div id="f02-camclip" class="f02-cam clip" data-start="0" data-duration="8" data-track-index="1">
+      <div id="f02-world" class="f02-world"><div class="f02-nw" style="left:307px;top:238px"><div class="f02-node"><div id="f02-fr0"><div style="transform:rotate(-6deg)"><div class="f02-in" style="padding:.9cqw 1.4cqw"><b style="font-size:2.3cqw;font-weight:700;color:#A9B7C4">correo</b></div></div></div></div></div><div class="f02-nw" style="left:806px;top:173px"><div class="f02-node"><div id="f02-fr1"><div style="transform:rotate(4deg)"><div class="f02-in" style="padding:.9cqw 1.4cqw"><b style="font-size:2.3cqw;font-weight:700;color:#A9B7C4">hoja de cálculo</b></div></div></div></div></div><div class="f02-nw" style="left:1382px;top:259px"><div class="f02-node"><div id="f02-fr2"><div style="transform:rotate(-3deg)"><div class="f02-in" style="padding:.9cqw 1.4cqw"><b style="font-size:2.3cqw;font-weight:700;color:#A9B7C4">chat</b></div></div></div></div></div><div class="f02-nw" style="left:538px;top:454px"><div class="f02-node"><div id="f02-fr3"><div style="transform:rotate(5deg)"><div class="f02-in" style="padding:.9cqw 1.4cqw"><b style="font-size:2.3cqw;font-weight:700;color:#A9B7C4">notas</b></div></div></div></div></div><div class="f02-nw" style="left:1574px;top:626px"><div class="f02-node"><div id="f02-fr4"><div style="transform:rotate(-5deg)"><div class="f02-in" style="padding:.9cqw 1.4cqw"><b style="font-size:2.3cqw;font-weight:700;color:#A9B7C4">facturas</b></div></div></div></div></div><div class="f02-nw" style="left:1690px;top:389px"><div class="f02-node"><div id="f02-fr5"><div style="transform:rotate(3deg)"><div class="f02-in" style="padding:.9cqw 1.4cqw"><b style="font-size:2.3cqw;font-weight:700;color:#A9B7C4">whatsapp</b></div></div></div></div></div><div class="f02-nw" style="left:1075px;top:475px"><div class="f02-node"><div id="f02-fr6"><div style="transform:rotate(-2deg)"><div class="f02-in" style="padding:.9cqw 1.4cqw"><b style="font-size:2.3cqw;font-weight:700;color:#A9B7C4">post-it</b></div></div></div></div></div><div class="f02-nw" style="left:960.0px;top:453.6px"><div class="f02-node"><div id="f02-crm" class="f02-core "><b id="f02-crm-n">crm</b><div class="f02-tags"><span id="f02-crm-t0">contactos</span><span id="f02-crm-t1">empresas</span><span id="f02-crm-t2">negocios</span><span id="f02-crm-t3">tickets</span></div></div></div></div></div>
+    </div>
+    <div id="f02-ovclip" class="f02-ov clip" data-start="0" data-duration="8" data-track-index="2"><div id="f02-k" class="f02-kicker" style="left:5.5cqw;top:4cqw">02 / el centro</div><div style="position:absolute;left:5.5cqw;bottom:20%;font-weight:700;font-size:3.4cqw;letter-spacing:-.02em;line-height:1"><span id="f02-c0" class="f02-w">una </span><span id="f02-c1" class="f02-w">sola </span><span id="f02-c2" class="f02-w">ficha </span><span id="f02-c3" class="f02-w f02-o">por </span><span id="f02-c4" class="f02-w f02-o">cliente</span></div></div>
+  </div>
+  <script src="assets/vendor/gsap.min.js"></script>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      tl.fromTo("#f02-k",{opacity:0},{opacity:1,duration:0.5,ease:"power2.out"},0.1);
+      tl.fromTo("#f02-fr0",{x:0,y:0,scale:1,opacity:1},{x:652.8,y:216.0,scale:0.2,opacity:0,duration:1.1,ease:"power3.inOut"},0.25);
+      tl.fromTo("#f02-fr1",{x:0,y:0,scale:1,opacity:1},{x:153.6,y:280.8,scale:0.2,opacity:0,duration:1.1,ease:"power3.inOut"},0.28);
+      tl.fromTo("#f02-fr2",{x:0,y:0,scale:1,opacity:1},{x:-422.4,y:194.4,scale:0.2,opacity:0,duration:1.1,ease:"power3.inOut"},0.31);
+      tl.fromTo("#f02-fr3",{x:0,y:0,scale:1,opacity:1},{x:422.4,y:0.0,scale:0.2,opacity:0,duration:1.1,ease:"power3.inOut"},0.34);
+      tl.fromTo("#f02-fr4",{x:0,y:0,scale:1,opacity:1},{x:-614.4,y:-172.8,scale:0.2,opacity:0,duration:1.1,ease:"power3.inOut"},0.37);
+      tl.fromTo("#f02-fr5",{x:0,y:0,scale:1,opacity:1},{x:-729.6,y:64.8,scale:0.2,opacity:0,duration:1.1,ease:"power3.inOut"},0.40);
+      tl.fromTo("#f02-fr6",{x:0,y:0,scale:1,opacity:1},{x:-115.2,y:-21.6,scale:0.2,opacity:0,duration:1.1,ease:"power3.inOut"},0.43);
+      tl.fromTo("#f02-crm",{scale:0.2,opacity:0},{scale:1,opacity:1,duration:0.9,ease:"power3.out"},0.75);
+      tl.fromTo("#f02-crm-n",{opacity:0,y:8},{opacity:1,y:0,duration:0.6,ease:"power3.out"},1.5);
+      tl.fromTo("#f02-crm-t0",{opacity:0,y:8},{opacity:1,y:0,duration:0.45,ease:"power3.out"},3.0);
+      tl.fromTo("#f02-crm-t1",{opacity:0,y:8},{opacity:1,y:0,duration:0.45,ease:"power3.out"},3.6);
+      tl.fromTo("#f02-crm-t2",{opacity:0,y:8},{opacity:1,y:0,duration:0.45,ease:"power3.out"},4.2);
+      tl.fromTo("#f02-crm-t3",{opacity:0,y:8},{opacity:1,y:0,duration:0.45,ease:"power3.out"},4.8);
+      tl.fromTo("#f02-c0",{opacity:0,y:18},{opacity:1,y:0,duration:0.55,ease:"power3.out"},5.5);tl.fromTo("#f02-c1",{opacity:0,y:18},{opacity:1,y:0,duration:0.55,ease:"power3.out"},5.62);tl.fromTo("#f02-c2",{opacity:0,y:18},{opacity:1,y:0,duration:0.55,ease:"power3.out"},5.74);tl.fromTo("#f02-c3",{opacity:0,y:18},{opacity:1,y:0,duration:0.55,ease:"power3.out"},5.86);tl.fromTo("#f02-c4",{opacity:0,y:18},{opacity:1,y:0,duration:0.55,ease:"power3.out"},5.98);
+      tl.to({}, { duration: 0 }, 8);
+      window.__timelines = window.__timelines || {};
+      window.__timelines["02-el-centro-crm"] = tl;
+    })();
+  </script>
+</template>

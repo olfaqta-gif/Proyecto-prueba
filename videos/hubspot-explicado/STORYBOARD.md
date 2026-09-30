@@ -42,7 +42,7 @@ Sketch sheet v1 confirmed by the user ("Adelante"): layout, positions, copy and 
 - voiceover: "Tus clientes están en todas partes: un correo aquí, una hoja de cálculo allá, un chat que nadie ve."
 - duration: 6s
 - transition_in: cut
-- status: built
+- status: animated
 - src: compositions/frames/01-todo-disperso.html
 - type: hook
 - persuasion: Pain validation + Concretization (datos dispersos → fragmentos visibles)
@@ -67,7 +67,7 @@ Scene 4 (4.8–6.0s): the fragments drift ~1–2% inward toward the center (the 
 - voiceover: "HubSpot empieza por el centro: un CRM. Contactos, empresas, negocios y tickets, en una sola ficha por cliente."
 - duration: 8s
 - transition_in: zoom-through
-- status: built
+- status: animated
 - src: compositions/frames/02-el-centro-crm.html
 - type: product_intro
 - persuasion: Frame-then-fill (el centro primero, luego su contenido) + Progressive disclosure
@@ -93,7 +93,7 @@ Scene 5 (6.6–8.0s): held read — the thesis sits still (held beat).
 - voiceover: "Se conecta Marketing Hub: emails, anuncios y formularios atraen visitantes… y los convierten en leads."
 - duration: 7s
 - transition_in: crossfade
-- status: built
+- status: animated
 - src: compositions/frames/03-marketing-hub.html
 - type: feature_showcase
 - persuasion: Progressive disclosure + Causal chain (visitante → lead)
@@ -118,7 +118,7 @@ Scene 4 (4.2–7.0s): on "atraen visitantes" an orange dot appears at the market
 - voiceover: "Sales Hub recoge ese lead: pipeline, reuniones, cotizaciones… hasta cerrar la venta."
 - duration: 7s
 - transition_in: crossfade
-- status: built
+- status: animated
 - src: compositions/frames/04-sales-hub.html
 - type: feature_showcase
 - persuasion: Signposting (primero… luego…) + Demonstration (el punto recorre el pipeline)
@@ -143,7 +143,7 @@ Scene 4 (4.2–7.0s): the pipeline strip (nuevo · propuesta · ganado) appears 
 - voiceover: "Y Service Hub cuida al cliente después: tickets, chat, ayuda. Y todo el equipo ve el mismo historial."
 - duration: 8s
 - transition_in: crossfade
-- status: built
+- status: animated
 - src: compositions/frames/05-service-hub.html
 - type: benefit_highlight
 - persuasion: Callback (las líneas del frame 3 y 4 se reactivan) + Demonstration
@@ -169,7 +169,7 @@ Scene 5 (6.4–8.0s): held read — three lit wires, still (held beat).
 - voiceover: "Y si lo necesitas, más piezas: Content para tu web, Operations para tus datos, Commerce para cobrar."
 - duration: 7s
 - transition_in: crossfade
-- status: built
+- status: animated
 - src: compositions/frames/06-y-ademas.html
 - type: feature_showcase
 - persuasion: Rule of three + Numbered enumeration
@@ -194,7 +194,7 @@ Scene 4 (6.0–7.0s): hold, full system visible.
 - voiceover: "Por encima trabaja Breeze, la IA de HubSpot: usa esos datos para escribir, resumir y responder por ti."
 - duration: 7s
 - transition_in: crossfade
-- status: built
+- status: animated
 - src: compositions/frames/07-breeze-ia.html
 - type: benefit_highlight
 - persuasion: Causal chain (datos compartidos → IA útil) + Rule of three
@@ -219,7 +219,7 @@ Scene 4 (6.0–7.0s): hold.
 - voiceover: "Un centro, muchas piezas, un mismo cliente. Así funciona HubSpot."
 - duration: 8s
 - transition_in: zoom-through
-- status: built
+- status: animated
 - src: compositions/frames/08-asi-funciona.html
 - type: branding
 - persuasion: Distillation + Callback (el caos del frame 1 ahora ordenado)
