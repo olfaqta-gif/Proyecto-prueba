@@ -29,7 +29,11 @@ que cambia cuando vienes de Jarvis:
    (si falta numpy/scipy: `python3 -m pip install numpy scipy`). Si no se pueden
    instalar (sin acceso a pypi.org), entrega la previa y el caption y avisa a Jarvis
    que el video quedó pendiente por eso.
-6. Si existe `/mnt/project-files`, copia la carpeta `salida/<slug>/<estilo>/` (videos y
+6. **Si viene de un plan** (Jarvis te pasa la ruta del plan y el id de la publicación):
+   usa su `estilo` y `formatos`, y su `idea` y `gancho` como punto de partida del copy
+   (puedes mejorarlos, sin romper las reglas). Al terminar los videos, márcala:
+   `python3 planificador/planificar.py marcar <plan> <id> hecho --nota "<carpeta de salida>"`.
+7. Si existe `/mnt/project-files`, copia la carpeta `salida/<slug>/<estilo>/` (videos y
    previas) y `caption.txt` a `/mnt/project-files/anuncios/<slug>/`.
 
 Nunca publiques en redes. Responde a Jarvis con: estilo usado, rutas de los videos por formato, caption y previas, el

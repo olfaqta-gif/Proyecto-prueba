@@ -16,6 +16,7 @@ del repositorio:
 | Los N con mejores reseñas | `python3 lector-farmasi/leer.py mejores N [--filtro "dr c tuna"] [--min-resenas 50]` |
 | Buscar por nombre | `python3 lector-farmasi/leer.py buscar "tea tree"` |
 | Ficha de uno o varios | `python3 lector-farmasi/leer.py producto <código o palabras> [más…]` |
+| El catálogo completo (para el estratega) | `python3 lector-farmasi/leer.py catalogo` (unos 4 minutos; queda en `lector-farmasi/salida/catalogo.json`) |
 | Dejarlo listo para el agente de contenido | `python3 lector-farmasi/leer.py producto <código> --destino agente-contenido/productos` |
 
 - `mejores` lee el catálogo completo la primera vez del día (unos 4 minutos) y luego usa

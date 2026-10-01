@@ -1,0 +1,300 @@
+{
+  "nombre": "Vender más: 2 semanas de otoño (5 al 18 de octubre)",
+  "inicio": "2026-10-05",
+  "basado_en": "Análisis planificador/analisis/2026-10-05-ventas.json (objetivo ventas) con el catálogo leído el 2026-10-01; todavía no hay resultados ni ventas de Julio guardados.",
+  "objetivo": "Vender más: que más clientas escriban por mensaje para pedir, con productos de miles de reseñas y una palabra clave en cada publicación.",
+  "publico": "Mujeres hispanas en EE. UU. de 25 a 50 años que compran por redes (Instagram, TikTok y Facebook) y cuidan su piel, su maquillaje y su cabello.",
+  "frecuencia": "5 publicaciones por semana (2 anuncios en video) + historias 3 o 4 días por semana. Anuncios a las 7 pm.",
+  "pilares": [
+    {
+      "id": "producto",
+      "nombre": "Producto estrella",
+      "porque": "Anuncios de los productos con más reseñas y mejor calificación de la tienda: es lo que más fácil se vende.",
+      "porcentaje": 35
+    },
+    {
+      "id": "educar",
+      "nombre": "Aprende conmigo",
+      "porque": "Cómo se usa cada producto, para que te vean como la persona que sabe y te pregunten a ti.",
+      "porcentaje": 25
+    },
+    {
+      "id": "confianza",
+      "nombre": "Confianza",
+      "porque": "Reseñas reales de la tienda, preguntas frecuentes y quién eres: quitan el miedo a comprar por redes.",
+      "porcentaje": 25
+    },
+    {
+      "id": "cercania",
+      "nombre": "Cercanía",
+      "porque": "Encuestas y tu día a día: la gente le compra a quien conoce, y las encuestas te dicen qué quieren.",
+      "porcentaje": 15
+    }
+  ],
+  "notas": [
+    "Cada publicación termina con una palabra clave (LABIOS, ELIXIR, PESTAÑAS, etc.). Así sabes qué publicación te trajo cada mensaje: anótalo y cuéntaselo a Jarvis.",
+    "Mezclamos categorías: labios, piel, cabello y ojos. Ningún producto se repite como anuncio en la misma semana.",
+    "Los precios y promociones los pones tú en el caption si quieres; la tienda tiene en promoción casi todos estos productos.",
+    "Ya viene Halloween (31 de octubre): la segunda semana prepara looks de labios oscuros para que te pidan con tiempo.",
+    "En los videos de maquillaje hace falta alguien que modele (tú, tu pareja, una amiga o una clienta con su permiso). Si nadie puede, se graba en el dorso de la mano.",
+    "Las fechas son sugeridas; si un día no puedes, muévelo y avísale a Jarvis."
+  ],
+  "publicaciones": [
+    {
+      "id": 1,
+      "fecha": "2026-10-05",
+      "red": "Historias de Instagram y Facebook",
+      "pilar": "cercania",
+      "tipo": "historia",
+      "idea": "Preséntate y pregunta qué quieren ver estas semanas.",
+      "guion": "Historia 1: tú a cámara con un café: 'Hola, soy Julio y estas dos semanas les voy a mostrar lo que más piden en Farmasi'. Historia 2: encuesta '¿Qué te interesa más?' con opciones Labios, Piel, Cabello, Pestañas. Historia 3: 'Con lo que voten preparo los videos. Si ya quieres algo, escríbeme'.",
+      "llamado": "Escríbeme por mensaje",
+      "estado": "pendiente"
+    },
+    {
+      "id": 2,
+      "fecha": "2026-10-06",
+      "hora": "19:00",
+      "red": "Instagram Reels, TikTok y Facebook",
+      "pilar": "producto",
+      "tipo": "anuncio",
+      "producto": {
+        "codigo": "1001521",
+        "slug": "tinted-lip-plumper-00-glass",
+        "nombre": "Tinted Lip Plumper"
+      },
+      "estilo": "favorito",
+      "formatos": [
+        "9x16",
+        "4x5"
+      ],
+      "idea": "Mi brillo favorito: labios que se ven más llenos y con brillo en una pasada, 8 tonos y 4.97 ★ con 551 reseñas.",
+      "gancho": "El brillo que hace que tus labios se vean más llenos",
+      "caption": "Es de lo nuevo y ya tiene 551 reseñas con 4.97 estrellas. Da brillo y hace que los labios se vean más llenos, y se siente un cosquilleo suave al ponerlo (es normal). Hay 8 tonos: desde Glass transparente hasta Hot Chocolate y Brown Sugar. ¿Cuál te va? Escríbeme LABIOS y te ayudo a escoger.",
+      "llamado": "Escríbeme LABIOS",
+      "porque": "Es el producto con mejor puntaje del análisis: nuevo, 551 reseñas con 4.97 ★, 8 tonos disponibles y la tienda lo está empujando.",
+      "estado": "pendiente"
+    },
+    {
+      "id": 3,
+      "fecha": "2026-10-07",
+      "red": "Instagram Reels y TikTok",
+      "pilar": "educar",
+      "tipo": "reel",
+      "idea": "Cómo desmaquillarte en 30 segundos con el Cleansing Balm (bálsamo que se vuelve aceite).",
+      "producto": {
+        "codigo": "1000649",
+        "slug": "dr-c-tuna-cleansing-balm",
+        "nombre": "Dr. C. Tuna Cleansing Balm"
+      },
+      "guion": "Toma 1: el frasco abierto, texto 'Así se quita hasta el maquillaje que dura todo el día'. Toma 2: tomas un poco con los dedos y lo pones en la cara SECA. Toma 3: masajeas suave; texto 'se vuelve aceite'. Toma 4: enjuagas con agua tibia. Toma 5: 'Y sigues con tu rutina de siempre. Escríbeme BALSAMO'. Si no quieres salir tú, haz las tomas en el dorso de la mano con un poco de labial.",
+      "caption": "Bálsamo desmaquillante de Dr. C. Tuna: se aplica en la cara seca, se vuelve aceite y se enjuaga con agua tibia. Tiene manteca de karité y vitamina E, sin parabenos y dermatológicamente probado. 4.95 ★ con 272 reseñas. Escríbeme BALSAMO.",
+      "llamado": "Escríbeme BALSAMO",
+      "porque": "Novedad de piel con 272 reseñas y 4.95 ★; su modo de uso es fácil de mostrar en video.",
+      "estado": "pendiente"
+    },
+    {
+      "id": 4,
+      "fecha": "2026-10-08",
+      "red": "Instagram (feed) y Facebook",
+      "pilar": "educar",
+      "tipo": "carrusel",
+      "idea": "Cómo escoger el tono de labios para el otoño: claro, rosado, rojo o café.",
+      "guion": "Foto 1: 'Tu tono de labios para el otoño'. Foto 2: si te gusta natural: tonos nude o transparentes. Foto 3: si quieres algo para diario: rosados. Foto 4: para salir: rojos. Foto 5: para el otoño y Halloween: cafés y vino. Foto 6: '¿No sabes cuál? Mándame una foto tuya y te recomiendo. Escríbeme TONO'. Usa fotos de los labiales o muestras en tu mano.",
+      "llamado": "Escríbeme TONO",
+      "estado": "pendiente"
+    },
+    {
+      "id": 5,
+      "fecha": "2026-10-08",
+      "red": "Historias de Instagram y Facebook",
+      "pilar": "confianza",
+      "tipo": "historia",
+      "idea": "Preguntas frecuentes: cómo te pido, cuánto tarda y cómo pago.",
+      "guion": "Historia 1: '¿Cómo te pido?' y respondes en voz: 'me escribes por mensaje y te ayudo'. Historia 2: '¿Cuánto tarda?' y explicas cómo te llega. Historia 3: '¿Cómo pago?' y las formas que aceptas. Historia 4: caja de preguntas 'Pregúntame lo que quieras'.",
+      "llamado": "Mándame tu pregunta",
+      "estado": "pendiente"
+    },
+    {
+      "id": 6,
+      "fecha": "2026-10-09",
+      "hora": "19:00",
+      "red": "Instagram Reels, TikTok y Facebook",
+      "pilar": "producto",
+      "tipo": "anuncio",
+      "producto": {
+        "codigo": "1000991",
+        "slug": "absolute-super-elixir",
+        "nombre": "Absolute Super Elixir"
+      },
+      "estilo": "razones",
+      "formatos": [
+        "9x16",
+        "4x5"
+      ],
+      "idea": "3 razones para tener el Super Elixir en otoño: un solo aceite para cara, cuerpo y puntas del cabello (4.97 ★, 785 reseñas).",
+      "gancho": "Un aceite para cara, cuerpo y cabello",
+      "caption": "Con el frío la piel y el cabello se resecan. El Absolute Super Elixir es un aceite ligero con camelia, baobab, borraja, aguacate y almendra: unas gotas en tu crema, en zonas secas del cuerpo o en las puntas del cabello. Vegano y sin parabenos. 4.97 estrellas con 785 reseñas. Escríbeme ELIXIR.",
+      "llamado": "Escríbeme ELIXIR",
+      "porque": "785 reseñas con 4.97 ★, encaja con el otoño (resequedad) y sirve para tres cosas, lo que da muchas ideas de contenido.",
+      "estado": "pendiente"
+    },
+    {
+      "id": 7,
+      "fecha": "2026-10-10",
+      "red": "Instagram (feed) y Facebook",
+      "pilar": "confianza",
+      "tipo": "carrusel",
+      "idea": "Los 5 productos con más reseñas de la tienda: no te lo digo yo, te lo dicen las clientas.",
+      "guion": "Foto 1: 'Los 5 con más reseñas de mi tienda'. Foto 2: Matte Liquid Lipstick, 4.96 ★ con 1993 reseñas. Foto 3: Gel de Masaje de Pimentón y Chile, 4.97 ★ con 1957 reseñas. Foto 4: Zen Extension Lash Mascara, 4.95 ★ con 1141 reseñas. Foto 5: Reviving Champú, 4.95 ★ con 977 reseñas. Foto 6: Absolute Super Elixir, 4.97 ★ con 785 reseñas. Foto 7: '¿Cuál pruebas primero? Escríbeme TOP5'. Usa la foto de cada producto y una captura de sus estrellas en la tienda.",
+      "llamado": "Escríbeme TOP5",
+      "estado": "pendiente"
+    },
+    {
+      "id": 8,
+      "fecha": "2026-10-11",
+      "red": "Instagram Reels, TikTok y Facebook",
+      "pilar": "producto",
+      "tipo": "reel",
+      "idea": "El champú que más piden: Reviving Champú, cómo se usa en 15 segundos.",
+      "producto": {
+        "codigo": "1000309",
+        "slug": "reviving-champu",
+        "nombre": "Reviving Champú"
+      },
+      "guion": "Toma 1: el frasco en la ducha o el lavamanos, texto 'El champú con 977 reseñas'. Toma 2: pones en la mano como 1 o 2 almendras. Toma 3: masajeas el cuero cabelludo con las yemas hasta hacer espuma. Toma 4: enjuagas. Cierre: 'Para cabello normal a graso. Escríbeme CABELLO'.",
+      "caption": "Reviving Champú de Dr. C. Tuna, con ajo, Capixyl y Trichogen con biotina. Deja el cabello fresco y con brillo, para uso diario en cabello normal a graso. 4.95 ★ con 977 reseñas. Escríbeme CABELLO.",
+      "llamado": "Escríbeme CABELLO",
+      "porque": "Categoría cabello para variar; 977 reseñas con 4.95 ★ y la tienda lo está promocionando.",
+      "estado": "pendiente"
+    },
+    {
+      "id": 9,
+      "fecha": "2026-10-12",
+      "red": "Historias de Instagram y Facebook",
+      "pilar": "cercania",
+      "tipo": "historia",
+      "idea": "Detrás de cámaras: preparando pedidos + encuesta de look para Halloween.",
+      "guion": "Historia 1: tus manos armando un pedido (sin mostrar datos de la clienta), texto 'Así preparo sus pedidos'. Historia 2: encuesta '¿Para Halloween: labios rojos o labios oscuros?'. Historia 3: 'Esta semana les traigo el look. Si quieres apartar tu tono, escríbeme'.",
+      "llamado": "Escríbeme para apartar",
+      "estado": "pendiente"
+    },
+    {
+      "id": 10,
+      "fecha": "2026-10-13",
+      "hora": "19:00",
+      "red": "Instagram Reels, TikTok y Facebook",
+      "pilar": "producto",
+      "tipo": "anuncio",
+      "producto": {
+        "codigo": "1301322",
+        "slug": "zen-extension-lash-mascara",
+        "nombre": "Zen Extension Lash Mascara"
+      },
+      "estilo": "clasico",
+      "formatos": [
+        "9x16",
+        "4x5"
+      ],
+      "idea": "Pestañas definidas y ligeras con la máscara de 1141 reseñas y 4.95 ★.",
+      "gancho": "Pestañas definidas sin sentirlas pesadas",
+      "caption": "La Zen Extension Lash Mascara define y da volumen ligero. Truco: aplícala de la raíz a las puntas en zigzag y repite si quieres más. Sin parabenos y no probada en animales. 4.95 estrellas con 1141 reseñas. Escríbeme PESTAÑAS.",
+      "llamado": "Escríbeme PESTAÑAS",
+      "porque": "Una de las más reseñadas de la tienda (1141, 4.95 ★), categoría ojos que todavía no tiene anuncio.",
+      "estado": "pendiente"
+    },
+    {
+      "id": 11,
+      "fecha": "2026-10-14",
+      "red": "Instagram (feed) y Facebook",
+      "pilar": "producto",
+      "tipo": "carrusel",
+      "idea": "Midnight Touch Blush: los 3 tonos disponibles para el otoño.",
+      "producto": {
+        "codigo": "1001537",
+        "slug": "midnight-touch-blush",
+        "nombre": "Midnight Touch Blush"
+      },
+      "guion": "Foto 1: 'Rubor para el otoño: ¿cuál es el tuyo?'. Foto 2: Pinky Cloud (rosado). Foto 3: Praise. Foto 4: Time to Sparkle. Foto 5: con ácido hialurónico, vitamina C y vitamina E, vegano y sin parabenos. Foto 6: 4.96 ★ con 718 reseñas. 'Escríbeme RUBOR'. Usa muestras en tu mano o en quien modele.",
+      "llamado": "Escríbeme RUBOR",
+      "porque": "718 reseñas con 4.96 ★, la tienda lo promociona; ojo: solo 3 tonos tienen existencia hoy.",
+      "estado": "pendiente"
+    },
+    {
+      "id": 12,
+      "fecha": "2026-10-14",
+      "red": "Historias de Instagram",
+      "pilar": "confianza",
+      "tipo": "historia",
+      "idea": "Capturas de las estrellas en la tienda de los productos de estas semanas.",
+      "guion": "Historia 1: 'Antes de comprar, mira las reseñas'. Historia 2: captura de la página del Tinted Lip Plumper con sus 4.97 ★ y 551 reseñas. Historia 3: captura de la máscara Zen con 4.95 ★ y 1141 reseñas. Historia 4: 'Si te interesa uno, mándame un mensaje'.",
+      "llamado": "Mándame un mensaje",
+      "estado": "pendiente"
+    },
+    {
+      "id": 13,
+      "fecha": "2026-10-15",
+      "red": "Facebook e Instagram (feed)",
+      "pilar": "confianza",
+      "tipo": "post",
+      "idea": "Quién soy y por qué vendo Farmasi.",
+      "guion": "Una foto tuya natural (con tus productos o preparando un pedido). En el texto cuenta en 3 o 4 líneas quién eres, desde cuándo vendes y qué te gusta de ayudar a escoger productos.",
+      "caption": "Mucha gente nueva por aquí, así que me presento: soy Julio, distribuidor independiente de Farmasi. Me gusta ayudarte a escoger lo que de verdad te va, sin complicarte. Pides por mensaje y yo te acompaño en todo. ¿De dónde me escribes? Te leo en comentarios.",
+      "llamado": "Cuéntame de dónde me escribes",
+      "estado": "pendiente"
+    },
+    {
+      "id": 14,
+      "fecha": "2026-10-16",
+      "hora": "19:00",
+      "red": "Instagram Reels, TikTok y Facebook",
+      "pilar": "producto",
+      "tipo": "anuncio",
+      "producto": {
+        "codigo": "1001409",
+        "slug": "matte-liquid-lipstick-01-perfect-rose",
+        "nombre": "Matte Liquid Lipstick"
+      },
+      "estilo": "favorito",
+      "formatos": [
+        "9x16",
+        "4x5",
+        "1x1"
+      ],
+      "idea": "El labial mate más reseñado de la tienda (1993 reseñas, 4.96 ★) con tonos para Halloween: 20 Deep Love y 06 Red Love.",
+      "gancho": "El labial mate que dura todo el día",
+      "caption": "El Matte Liquid Lipstick es el producto con más reseñas de mi tienda: 1993 y 4.96 estrellas. Color intenso que dura todo el día. Para Halloween te recomiendo 20 Deep Love o 06 Red Love, y para diario 10 Nude Essence. Hay 19 tonos disponibles. Escríbeme MATE y aparta el tuyo.",
+      "llamado": "Escríbeme MATE",
+      "porque": "El más reseñado de la tienda (1993, 4.96 ★), muchos tonos disponibles y edición en promoción; sirve para Halloween.",
+      "estado": "pendiente"
+    },
+    {
+      "id": 15,
+      "fecha": "2026-10-17",
+      "red": "Instagram Reels y TikTok",
+      "pilar": "educar",
+      "tipo": "reel",
+      "idea": "Tratamiento de cabello de 30 minutos con el Super Elixir antes de lavar.",
+      "producto": {
+        "codigo": "1000991",
+        "slug": "absolute-super-elixir",
+        "nombre": "Absolute Super Elixir"
+      },
+      "guion": "Toma 1: el frasco, texto 'Tratamiento para el cabello reseco en casa'. Toma 2: frotas unas gotas entre las manos. Toma 3: lo pones de raíz a puntas. Toma 4: texto 'Lo dejas 30 minutos y lavas con champú. 2 veces por semana'. Toma 5: 'En el día, 1 o 2 gotas solo en las puntas. Escríbeme ELIXIR'.",
+      "llamado": "Escríbeme ELIXIR",
+      "estado": "pendiente"
+    },
+    {
+      "id": 16,
+      "fecha": "2026-10-18",
+      "hora": "18:00",
+      "red": "Facebook e Instagram (en vivo)",
+      "pilar": "educar",
+      "tipo": "en-vivo",
+      "idea": "En vivo de 15 minutos: look de otoño con lo de estas semanas y preguntas.",
+      "guion": "Minuto 0-2: saludas y dices que al final respondes preguntas. Minuto 2-10: muestras paso a paso labial mate, rubor y máscara (en ti, en quien modele o en tu mano). Minuto 10-14: respondes preguntas. Cierre: 'Lo que viste hoy me lo pides por mensaje con la palabra LOOK'.",
+      "llamado": "Escríbeme LOOK",
+      "estado": "pendiente"
+    }
+  ]
+}
