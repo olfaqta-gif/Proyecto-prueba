@@ -1,0 +1,484 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Agentes en HubSpot</title>
+<style>
+@font-face{font-family:Lexend;src:url(fonts/lexend.woff2) format('woff2');font-weight:100 900}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;height:1080px;overflow:hidden;background:#071229;font-family:Lexend,sans-serif;color:#1d2b3a}
+.a{position:absolute}
+#stage{position:absolute;inset:0;overflow:hidden;background:radial-gradient(1400px 900px at 50% 35%,#10285a 0%,#0a1a3c 45%,#061026 100%)}
+.glow{position:absolute;border-radius:50%;filter:blur(110px)}
+#dots{position:absolute;inset:-40px;background-image:radial-gradient(rgba(255,255,255,.09) 1.2px,transparent 1.3px);background-size:36px 36px;-webkit-mask-image:radial-gradient(circle at 50% 50%,#000 20%,transparent 75%)}
+.hero{position:absolute;left:0;right:0;text-align:center;color:#fff}
+.logocard{position:absolute;background:#fff;border-radius:24px;box-shadow:0 30px 80px rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center}
+.eyebrow{font-size:20px;letter-spacing:.28em;color:#8fb3ff;font-weight:500}
+
+/* hub */
+.node{position:absolute;width:250px;text-align:center;color:#fff}
+.nic{width:96px;height:96px;border-radius:28px;margin:0 auto;display:flex;align-items:center;justify-content:center;box-shadow:0 20px 50px rgba(0,0,0,.35)}
+.nl{font-size:22px;font-weight:600;margin-top:18px}
+.nd{font-size:16px;color:#a9bde0;margin-top:4px;font-weight:300}
+.core{position:absolute;left:860px;top:440px;width:200px;height:200px;border-radius:50%;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 0 0 14px rgba(255,255,255,.06),0 0 0 30px rgba(255,255,255,.03),0 30px 80px rgba(0,0,0,.4)}
+
+/* títulos de escena */
+.stitle{position:absolute;left:140px;top:44px;color:#fff;transform-origin:0 0;white-space:nowrap}
+.snum{font-size:20px;font-weight:600;padding:6px 14px;border-radius:12px;margin-right:16px;vertical-align:6px}
+.sname{font-size:40px;font-weight:600;letter-spacing:-.01em}
+.ssub{font-size:20px;color:#a9bde0;font-weight:300;margin-top:6px;margin-left:2px}
+
+/* ventana hubspot */
+.win{position:absolute;left:140px;top:150px;width:1640px;height:890px;background:#f4f7fb;border-radius:22px;overflow:hidden;box-shadow:0 50px 120px rgba(0,0,0,.45),0 0 0 1px rgba(255,255,255,.08)}
+.chrome{position:absolute;left:0;right:0;top:0;height:50px;background:#2e3f50;display:flex;align-items:center;padding:0 20px;gap:16px;color:#e8eef5;font-size:15px}
+.srch{width:420px;height:32px;border-radius:16px;border:1.5px solid #6d87a3;display:flex;align-items:center;padding:0 14px;color:#c9d5e2;font-size:14px}
+.whead{position:absolute;left:28px;right:28px;top:66px;height:84px;display:flex;align-items:center;gap:18px}
+.aico{width:62px;height:62px;border-radius:18px;display:flex;align-items:center;justify-content:center;flex:none}
+.wn{font-size:28px;font-weight:600;color:#1d2b3a}
+.ws{font-size:15px;color:#7d93ad;margin-top:2px}
+.status{margin-left:auto;display:flex;align-items:center;gap:10px;font-size:16px;font-weight:500;padding:10px 18px;border-radius:22px;background:#e9f6ef;color:#1f8a57}
+.pd{width:10px;height:10px;border-radius:50%;background:#2fb36b}
+.col{position:absolute;top:166px;bottom:28px}
+.pc{background:#fff;border:1px solid #e1e7ef;border-radius:18px;position:absolute;left:0;right:0;overflow:hidden}
+.pl{font-size:14px;font-weight:600;letter-spacing:.08em;color:#7d93ad;text-transform:uppercase;position:absolute;left:22px;top:20px}
+.li{position:absolute;left:16px;right:16px;height:64px;border-radius:14px;display:flex;align-items:center;gap:14px;padding:0 14px}
+.lav{width:38px;height:38px;border-radius:11px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;font-weight:600;flex:none}
+.ln{font-size:16px;font-weight:600;color:#1d2b3a}
+.lsub{font-size:13px;color:#7d93ad;margin-top:2px}
+.lst{margin-left:auto;font-size:13px;font-weight:500;display:flex;align-items:center;gap:6px;white-space:nowrap}
+.spin{width:16px;height:16px;border-radius:50%;-webkit-mask:radial-gradient(circle,transparent 5px,#000 6px)}
+.ok{width:20px;height:20px;border-radius:50%;background:#2fb36b;color:#fff;font-size:12px;display:flex;align-items:center;justify-content:center;font-weight:700}
+.mt{position:absolute;left:0;right:0;height:150px;background:#fff;border:1px solid #e1e7ef;border-radius:18px;padding:22px 24px}
+.mv{font-size:46px;font-weight:600;color:#1d2b3a;letter-spacing:-.02em;margin-top:8px}
+.ml{font-size:15px;color:#7d93ad}
+.mdelta{position:absolute;right:22px;top:22px;font-size:14px;font-weight:600;color:#1f8a57;background:#e9f6ef;padding:4px 10px;border-radius:10px}
+.tag{display:inline-block;font-size:12px;font-weight:500;padding:3px 9px;border-radius:9px;background:#eef3f9;color:#4a6584;margin-right:6px}
+.caret{display:inline-block;width:2px;height:20px;background:#1d2b3a;vertical-align:-4px;margin-left:1px}
+.bub{position:absolute;max-width:470px;font-size:17px;line-height:1.5;padding:14px 18px}
+.cu{right:22px;background:#2450a0;color:#fff;border-radius:18px 18px 4px 18px}
+.ag{left:22px;background:#f1f5fa;color:#1d2b3a;border-radius:18px 18px 18px 4px}
+.tdots span{display:inline-block;width:8px;height:8px;border-radius:50%;background:#7d93ad;margin-right:5px}
+.th{position:absolute;left:22px;right:22px;height:46px;display:flex;align-items:center;font-size:14px;border-bottom:1px solid #edf1f6}
+.cell{flex:1;padding:0 8px;white-space:nowrap;overflow:hidden;position:relative;height:30px;display:flex;align-items:center}
+.fill{position:absolute;left:4px;right:8px;top:2px;bottom:2px;border-radius:8px}
+.kcol{position:absolute;top:60px;bottom:16px;width:146px;border-radius:14px;background:#f4f7fb}
+.kh{font-size:13px;font-weight:600;color:#4a6584;padding:12px 12px 0;display:flex;justify-content:space-between}
+.kc{position:absolute;width:132px;height:96px;background:#fff;border-radius:12px;border:1px solid #e1e7ef;box-shadow:0 4px 12px rgba(29,43,58,.06);padding:10px 12px;font-size:13px}
+.kc b{display:block;font-size:14px;font-weight:600;color:#1d2b3a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.kc i{font-style:normal;color:#7d93ad;font-size:12px}
+.kc em{font-style:normal;display:block;font-size:16px;font-weight:600;margin-top:8px;color:#1d2b3a}
+.alert{position:absolute;left:16px;right:16px;border-radius:14px;padding:14px 16px;font-size:15px;line-height:1.4;display:flex;gap:12px;align-items:flex-start}
+.dotc{width:10px;height:10px;border-radius:50%;margin-top:6px;flex:none}
+#fade{position:absolute;inset:0;background:#061026;pointer-events:none}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute"><defs><linearGradient id="gOr" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff8f59"/><stop offset="1" stop-color="#ff4f3a"/></linearGradient></defs></svg>
+<div id="stage">
+  <div class="glow" id="g1" style="width:900px;height:900px;background:#2450a0;opacity:.45"></div>
+  <div class="glow" id="g2" style="width:700px;height:700px;background:#10b5e0;opacity:.16"></div>
+  <div class="glow" id="g3" style="width:600px;height:600px;background:#7cb83a;opacity:.10"></div>
+  <div id="dots"></div>
+
+  <!-- INTRO -->
+  <div id="intro" class="a" style="inset:0">
+    <div class="logocard" id="ilogo" style="left:800px;top:250px;width:320px;height:126px"><img src="assets/logo-ficensa.webp" style="width:262px"></div>
+    <div class="hero eyebrow" id="ieye" style="top:440px">BANCO FICENSA · HUBSPOT</div>
+    <div class="hero" id="it1" style="top:490px;font-size:88px;font-weight:600;letter-spacing:-.03em">Agentes de IA</div>
+    <div class="hero" id="it2" style="top:600px;font-size:44px;font-weight:300;color:#cfe0ff">que trabajan dentro de nuestro CRM</div>
+    <div class="a" id="iline" style="left:810px;top:690px;width:300px;height:2px;background:linear-gradient(90deg,transparent,#8fb3ff,transparent)"></div>
+  </div>
+
+  <!-- HUB -->
+  <div id="hub" class="a" style="inset:0">
+    <div class="hero" id="htitle" style="top:70px"><div class="eyebrow">UN EQUIPO DIGITAL, 24/7</div><div style="font-size:50px;font-weight:600;margin-top:14px;letter-spacing:-.02em">Cuatro agentes, un mismo CRM</div></div>
+    <svg class="a" id="hlines" width="1920" height="1080" style="left:0;top:0"></svg>
+    <div class="core" id="hcore"><div id="hcorespk"></div><div style="font-size:17px;font-weight:600;color:#2e3f50;margin-top:8px">HubSpot</div><div style="font-size:13px;color:#7d93ad">Breeze</div></div>
+  </div>
+
+  <div id="scenes"></div>
+
+  <!-- OUTRO -->
+  <div id="outro" class="a" style="inset:0">
+    <div class="hero" id="ot1" style="top:150px;font-size:56px;font-weight:600;letter-spacing:-.02em">Más tiempo para lo que importa:</div>
+    <div class="hero" id="ot2" style="top:226px;font-size:56px;font-weight:300;color:#cfe0ff">nuestros clientes.</div>
+    <div id="orow"></div>
+    <div class="logocard" id="ologo" style="left:790px;top:720px;width:340px;height:134px"><img src="assets/logo-ficensa.webp" style="width:280px"></div>
+    <div class="hero" id="osub" style="top:884px;font-size:18px;color:#a9bde0;letter-spacing:.06em">AGENTES DE IA CON HUBSPOT BREEZE</div>
+    <div class="hero" id="onote" style="top:1022px;font-size:14px;color:#5f7aa6;letter-spacing:.1em">SIMULACIÓN CONCEPTUAL · DATOS DE EJEMPLO</div>
+  </div>
+  <div id="fade"></div>
+</div>
+
+<script>
+const $=id=>document.getElementById(id);
+const cl=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
+const P=(t,a,b)=>cl((t-a)/(b-a));
+const lerp=(a,b,k)=>a+(b-a)*k;
+const eo=x=>1-Math.pow(1-x,3);
+const eio=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
+const esoft=x=>1-Math.pow(1-x,4);
+const eback=x=>{const c1=1.2,c3=c1+1;return 1+c3*Math.pow(x-1,3)+c1*Math.pow(x-1,2)};
+const fmt=n=>Math.round(n).toLocaleString('en-US');
+function S(el,o){ if(typeof el==='string') el=$(el); if(!el) return;
+  const x=o.x||0,y=o.y||0,s=o.s===undefined?1:o.s;
+  el.style.transform=`translate(${x}px,${y}px) scale(${s})`;
+  if(o.o!==undefined){el.style.opacity=o.o;el.style.visibility=o.o<=0.001?'hidden':'visible'}
+  if(o.b!==undefined) el.style.filter=o.b>0.05?`blur(${o.b}px)`:'none';
+}
+const io=(t,a,b,c,d)=>Math.min(esoft(P(t,a,b)), d===undefined?1:1-eio(P(t,c,d)));
+const CUES=[]; const cue=(t,type,v={})=>CUES.push(Object.assign({t:+t.toFixed(3),type},v));
+const SPK=s=>`<svg width="${s}" height="${s}" viewBox="0 0 120 120"><path d="M50 0 C54 34 66 46 100 50 C66 54 54 66 50 100 C46 66 34 54 0 50 C34 46 46 34 50 0Z" fill="url(#gOr)" transform="translate(4,14) scale(.92)"/><path d="M50 0 C54 34 66 46 100 50 C66 54 54 66 50 100 C46 66 34 54 0 50 C34 46 46 34 50 0Z" fill="url(#gOr)" transform="translate(84,2) scale(.3)"/></svg>`;
+$('hcorespk').innerHTML=SPK(64);
+
+/* ---------- agentes ---------- */
+const GL={ // glifos blancos
+ pros:`<svg width="34" height="34" viewBox="0 0 34 34" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round"><circle cx="15" cy="15" r="9"/><path d="M22 22l7 7"/><circle cx="15" cy="15" r="3" fill="#fff"/></svg>`,
+ aten:`<svg width="34" height="34" viewBox="0 0 34 34" fill="none" stroke="#fff" stroke-width="2.6" stroke-linejoin="round"><path d="M5 7h24v15H14l-6 5v-5H5z"/><path d="M11 13h12M11 17h8" stroke-linecap="round"/></svg>`,
+ dato:`<svg width="34" height="34" viewBox="0 0 34 34" fill="none" stroke="#fff" stroke-width="2.6"><ellipse cx="17" cy="8" rx="10" ry="4"/><path d="M7 8v18c0 2.2 4.5 4 10 4s10-1.8 10-4V8M7 17c0 2.2 4.5 4 10 4s10-1.8 10-4"/></svg>`,
+ nego:`<svg width="34" height="34" viewBox="0 0 34 34" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 27h24"/><path d="M7 21l7-7 5 5 9-10"/><path d="M22 9h6v6"/></svg>`,
+};
+const AG=[
+ {k:'pros',c:'#2450a0',n:'Agente de prospección',d:'Investiga, personaliza y agenda',sub:'Investiga empresas, redacta mensajes personalizados y agenda reuniones'},
+ {k:'aten',c:'#0ea5d6',n:'Agente de atención al cliente',d:'Responde 24/7 en todos los canales',sub:'Responde con la base de conocimiento del banco y escala cuando hace falta'},
+ {k:'dato',c:'#6aa832',n:'Agente de calidad de datos',d:'Limpia, completa y unifica',sub:'Detecta duplicados, completa campos y mantiene el CRM confiable'},
+ {k:'nego',c:'#e0a500',n:'Agente de negocios',d:'Pronostica y prioriza el pipeline',sub:'Mueve el pipeline, detecta riesgos y recomienda la siguiente acción'},
+];
+
+const short=n=>{const x=n.replace('Agente de ','');return x[0].toUpperCase()+x.slice(1)};
+/* ---------- tiempos ---------- */
+const TL={intro:[0,5.6],hub:[5.0,12.2]};
+const SCN=[[11.6,23.8],[23.2,35.4],[34.8,47.0],[46.4,58.6]];
+const OUT=58.0, DURATION=67.5;
+window.DURATION=DURATION;
+
+/* ---------- hub: nodos ---------- */
+const HN=[[300,170],[1370,170],[300,740],[1370,740]]; // posiciones (izq, top) de cada nodo
+let hl='';
+AG.forEach((a,i)=>{
+  const n=document.createElement('div'); n.className='node'; n.id='hn'+i;
+  n.style.left=HN[i][0]+'px'; n.style.top=(HN[i][1]+60)+'px';
+  n.innerHTML=`<div class="nic" style="background:${a.c}">${GL[a.k]}</div><div class="nl">${short(a.n)}</div><div class="nd">${a.d}</div>`;
+  $('hub').appendChild(n);
+  const x1=HN[i][0]+125, y1=HN[i][1]+60+48;
+  hl+=`<path id="hp${i}" d="M960 540 L${x1} ${y1}" stroke="rgba(143,179,255,.45)" stroke-width="2" fill="none" stroke-dasharray="4 8"/><circle id="hd${i}" r="5" fill="${a.c}"/>`;
+});
+$('hlines').innerHTML=hl;
+
+/* ---------- ventanas de agentes ---------- */
+function win(i,body){
+  const a=AG[i];
+  return `<div class="stitle" id="st${i}"><span class="snum" style="background:${a.c}">0${i+1}</span><span class="sname">${a.n}</span><div class="ssub">${a.sub}</div></div>
+  <div class="win" id="w${i}">
+    <div class="chrome"><svg width="26" height="26" viewBox="0 0 30 30"><circle cx="15" cy="15" r="7" fill="none" stroke="#ff7a59" stroke-width="4"/><circle cx="15" cy="4" r="3" fill="#ff7a59"/><circle cx="25" cy="21" r="3" fill="#ff7a59"/><circle cx="5" cy="21" r="3" fill="#ff7a59"/></svg>
+      <div class="srch">Buscar en HubSpot</div><span style="display:flex;align-items:center;gap:6px">${SPK(18)} Breeze Agents</span><div style="flex:1"></div>
+      <div style="width:28px;height:28px;border-radius:7px;background:#fff;overflow:hidden;position:relative"><img src="assets/logo-ficensa.webp" style="position:absolute;height:26px;left:2px;top:1px"></div><b style="font-weight:600">Banco Ficensa</b></div>
+    <div class="whead"><div class="aico" style="background:${a.c}">${GL[a.k]}</div><div><div class="wn">${a.n}</div><div class="ws">Breeze Agents · HubSpot · Banco Ficensa</div></div>
+      <div class="status" id="ss${i}"><span class="pd" id="sp${i}"></span><span id="stx${i}">Trabajando</span></div></div>
+    ${body}
+  </div>`;
+}
+const SC=$('scenes');
+function addScene(i,body){const d=document.createElement('div');d.className='a';d.id='sc'+i;d.style.inset='0';d.innerHTML=win(i,body);SC.appendChild(d)}
+
+// ---- 1: prospección ----
+const COMP=[['Agroexport del Valle','Exportación agrícola','AV','#e0a500',['Exportador','350 empleados']],
+ ['Constructora Atlas','Construcción','CA','#2450a0',['Proyecto nuevo','Crecimiento 22%']],
+ ['Textiles Norteños','Manufactura','TN','#c2477a',['Expansión','2 plantas']],
+ ['Café Montaña','Café de especialidad','CM','#6aa832',['Exportador','Certificación']],
+ ['Logística Istmo','Transporte','LI','#0ea5d6',['Flota nueva','Regional']],
+ ['Farmacéutica Sol','Salud','FS','#7a5cc7',['Importador','B2B']]];
+const EMAIL='Hola María, vi que Agroexport del Valle amplió sus exportaciones a Centroamérica este año. En Banco Ficensa tenemos líneas de financiamiento para comercio exterior que pueden acompañar ese crecimiento. ¿Le parece si conversamos 20 minutos el jueves?';
+addScene(0,`
+ <div class="col" style="left:28px;width:440px"><div class="pc" style="top:0;bottom:0"><div class="pl">Empresas objetivo</div>
+  ${COMP.map((c,j)=>`<div class="li" id="p0r${j}" style="top:${60+j*104}px;height:92px;background:#f8fafc"><div class="lav" style="background:${c[3]}">${c[2]}</div>
+   <div style="min-width:0"><div class="ln">${c[0]}</div><div class="lsub">${c[1]}</div><div id="p0g${j}" style="margin-top:6px">${c[4].map(x=>`<span class="tag">${x}</span>`).join('')}</div></div>
+   <div class="lst" id="p0s${j}"></div></div>`).join('')}
+ </div></div>
+ <div class="col" style="left:492px;width:640px"><div class="pc" id="p0mail" style="top:0;bottom:0">
+  <div class="pl">Correo personalizado · borrador del agente</div>
+  <div class="a" style="left:22px;right:22px;top:62px;font-size:15px;color:#4a6584;line-height:2.2">
+   <div style="border-bottom:1px solid #edf1f6"><span style="color:#9aaec4">Para:</span> María López · Gerente financiera, Agroexport del Valle</div>
+   <div style="border-bottom:1px solid #edf1f6"><span style="color:#9aaec4">Asunto:</span> <b style="color:#1d2b3a;font-weight:600">Financiamiento para su expansión regional</b></div></div>
+  <div class="a" id="p0body" style="left:22px;right:22px;top:170px;font-size:19px;line-height:1.65;color:#1d2b3a"></div>
+  <div class="a" id="p0why" style="left:22px;right:22px;top:470px;border-radius:14px;background:#eef3fb;padding:14px 16px;font-size:14px;color:#2450a0;line-height:1.5">
+   ${SPK(16)} <b style="font-weight:600">Por qué este mensaje:</b> noticia de expansión regional + visitas a la página de comercio exterior esta semana.</div>
+  <div class="a" style="left:22px;right:22px;bottom:22px;display:flex;gap:12px;align-items:center">
+   <span class="tag">Tono: profesional</span><span class="tag">Personalización alta</span><div style="flex:1"></div>
+   <div id="p0btn" style="background:#2450a0;color:#fff;font-size:16px;font-weight:600;padding:12px 22px;border-radius:12px">Enviar y agendar</div></div>
+ </div></div>
+ <div class="col" style="left:1156px;width:456px">
+  <div class="mt" id="p0m0" style="top:0"><div class="ml">Empresas investigadas</div><div class="mv" id="p0v0">0</div><div class="mdelta">hoy</div></div>
+  <div class="mt" id="p0m1" style="top:170px"><div class="ml">Correos personalizados</div><div class="mv" id="p0v1">0</div><div class="mdelta">41% apertura</div></div>
+  <div class="mt" id="p0m2" style="top:340px"><div class="ml">Reuniones agendadas</div><div class="mv" id="p0v2">0</div><div class="mdelta" id="p0d2">+1</div></div>
+  <div class="pc" id="p0m3" style="top:510px;bottom:0"><div class="pl">Próxima reunión</div>
+   <div class="a" style="left:22px;right:22px;top:58px;display:flex;gap:14px;align-items:center"><div style="width:58px;height:62px;border-radius:12px;background:#eef3fb;text-align:center;color:#2450a0"><div style="font-size:12px;font-weight:600;margin-top:8px">JUE</div><div style="font-size:24px;font-weight:600">14</div></div>
+   <div><div class="ln">Agroexport del Valle</div><div class="lsub">10:00 · Videollamada · 20 min</div></div></div></div>
+ </div>`);
+
+// ---- 2: atención ----
+const CH=[['WhatsApp','Consulta de tarjeta','#25a35a'],['Chat web','Apertura de cuenta','#0ea5d6'],['Correo','Estado de préstamo','#2450a0'],['WhatsApp','Cambio de PIN','#25a35a'],['Chat web','Horario de agencias','#0ea5d6'],['Correo','Constancia de saldo','#2450a0']];
+addScene(1,`
+ <div class="col" style="left:28px;width:440px"><div class="pc" style="top:0;bottom:0"><div class="pl">Conversaciones en curso</div>
+  ${CH.map((c,j)=>`<div class="li" id="p1r${j}" style="top:${60+j*84}px;height:72px;background:#f8fafc"><div class="lav" style="background:${c[2]};font-size:11px">${c[0][0]}${c[0][1]=='h'?'A':c[0][1].toUpperCase()}</div>
+   <div><div class="ln" style="font-size:15px">${c[1]}</div><div class="lsub">${c[0]}</div></div><div class="lst" id="p1s${j}"></div></div>`).join('')}
+ </div></div>
+ <div class="col" style="left:492px;width:640px"><div class="pc" style="top:0;bottom:0">
+  <div class="pl">Chat web · Cliente empresarial</div>
+  <div class="bub cu" id="c0" style="top:66px">Hola, ¿qué necesito para abrir una cuenta empresarial?</div>
+  <div class="bub ag tdots" id="c1" style="top:150px"><span></span><span></span><span></span></div>
+  <div class="bub ag" id="c2" style="top:150px;width:520px">Con gusto. Para abrir una cuenta empresarial necesitas:
+   <div id="c2l" style="margin-top:8px;line-height:1.8"><div>• RTN de la empresa</div><div>• Escritura de constitución</div><div>• Identidad del representante legal</div></div>
+   <div id="c2s" style="margin-top:10px;font-size:13px;color:#2450a0;display:flex;align-items:center;gap:6px">${SPK(14)} Fuente: Base de conocimiento · Cuentas empresariales</div></div>
+  <div class="bub cu" id="c3" style="top:420px">¿Puedo agendar una cita en agencia?</div>
+  <div class="bub ag tdots" id="c4" style="top:504px"><span></span><span></span><span></span></div>
+  <div class="bub ag" id="c5" style="top:504px;width:520px">Listo, reservé tu cita para el <b style="font-weight:600">martes 10:00</b> en Agencia Centro y te envié la lista de requisitos por correo.
+   <div id="c5c" style="margin-top:10px;display:flex;gap:8px"><span class="tag" style="background:#e3f5fb;color:#0b7fa6">📅 Cita creada</span><span class="tag" style="background:#e9f6ef;color:#1f8a57">✓ Registro en HubSpot</span></div></div>
+ </div></div>
+ <div class="col" style="left:1156px;width:456px">
+  <div class="mt" id="p1m0" style="top:0;height:230px"><div class="ml">Resueltas sin escalar</div>
+   <svg class="a" style="right:28px;top:40px" width="150" height="150" viewBox="0 0 150 150"><circle cx="75" cy="75" r="62" fill="none" stroke="#eef3f9" stroke-width="14"/><circle id="p1ring" cx="75" cy="75" r="62" fill="none" stroke="#0ea5d6" stroke-width="14" stroke-linecap="round" stroke-dasharray="389.6" stroke-dashoffset="389.6" transform="rotate(-90 75 75)"/></svg>
+   <div class="mv" id="p1v0" style="font-size:56px;margin-top:40px">0%</div><div class="ml">de las consultas</div></div>
+  <div class="mt" id="p1m1" style="top:250px"><div class="ml">Primera respuesta</div><div class="mv"><span id="p1v1">0</span> s</div><div class="mdelta">promedio</div></div>
+  <div class="mt" id="p1m2" style="top:420px"><div class="ml">Satisfacción del cliente</div><div class="mv"><span id="p1v2">0.0</span><span style="font-size:24px;color:#9aaec4"> / 5</span></div></div>
+  <div class="pc" id="p1m3" style="top:590px;bottom:0;background:#fff8e6;border-color:#f6e2a8"><div class="pl" style="color:#a87a00">Escalado a un asesor</div>
+   <div class="a" style="left:22px;right:22px;top:54px;font-size:14px;line-height:1.5;color:#5b4a14">Caso de préstamo enviado a <b style="font-weight:600">Ana Rivera</b> con resumen y contexto completo.</div></div>
+ </div>`);
+
+// ---- 3: datos ----
+const DR=[['Grupo Textil Norte','—','San Pedro Sula','Manufactura','Noroccidente'],
+ ['Inversiones Marea','—','La Ceiba','Turismo','Atlántida'],
+ ['Inversiones Marea S.A.','dup','La Ceiba','',''],
+ ['Agrícola San Juan','—','Choluteca','Agroindustria','Sur'],
+ ['Servicios Delta','—','Tegucigalpa','Servicios','Centro'],
+ ['Distribuidora Rex','—','Comayagua','Comercio','Centro']];
+addScene(2,`
+ <div class="col" style="left:28px;width:440px"><div class="pc" style="top:0;bottom:0"><div class="pl">Reglas de calidad</div>
+  ${['Fusionar duplicados','Completar industria','Asignar región por ciudad','Normalizar teléfonos','Validar correos'].map((r,j)=>`<div class="li" id="p2r${j}" style="top:${60+j*84}px;height:70px;background:#f8fafc"><div class="lst" id="p2s${j}" style="margin:0;width:24px"></div><div class="ln" style="font-size:16px">${r}</div><div class="lsub" id="p2n${j}" style="margin-left:auto"></div></div>`).join('')}
+ </div></div>
+ <div class="col" style="left:492px;width:640px"><div class="pc" style="top:0;bottom:0"><div class="pl">Contactos · Empresas</div>
+  <div class="th" style="top:54px;color:#7d93ad;font-weight:600"><div class="cell" style="flex:1.6">Empresa</div><div class="cell">Ciudad</div><div class="cell">Industria</div><div class="cell">Región</div></div>
+  ${DR.map((r,j)=>`<div class="th" id="p2t${j}" style="top:${100+j*70}px;height:70px;font-size:15px"><div class="cell" style="flex:1.6;font-weight:600;color:#1d2b3a">${r[0]}${r[1]==='dup'?'<span class="tag" id="p2dup" style="margin-left:8px;background:#fdecec;color:#c23b3b">Duplicado</span>':''}</div><div class="cell">${r[2]}</div>
+   <div class="cell"><span class="fill" id="p2f${j}a"></span><span style="position:relative" id="p2x${j}a">—</span></div><div class="cell"><span class="fill" id="p2f${j}b"></span><span style="position:relative" id="p2x${j}b">—</span></div></div>`).join('')}
+  <div class="a" id="p2merge" style="left:22px;right:22px;bottom:22px;height:60px;border-radius:14px;background:#eef7e6;display:flex;align-items:center;gap:12px;padding:0 18px;font-size:15px;color:#3f7d12"><span class="ok" style="background:#6aa832">✓</span><span><b style="font-weight:600">Inversiones Marea</b> fusionado · se conservó el historial de ambos registros</span></div>
+ </div></div>
+ <div class="col" style="left:1156px;width:456px">
+  <div class="pc" id="p2g" style="top:0;height:340px"><div class="pl">Calidad de datos del CRM</div>
+   <svg class="a" style="left:58px;top:80px" width="340" height="190" viewBox="0 0 340 190"><path d="M30 170 A140 140 0 0 1 310 170" fill="none" stroke="#eef3f9" stroke-width="24" stroke-linecap="round"/><path id="p2arc" d="M30 170 A140 140 0 0 1 310 170" fill="none" stroke="#6aa832" stroke-width="24" stroke-linecap="round" stroke-dasharray="439.8" stroke-dashoffset="439.8"/></svg>
+   <div class="a" style="left:0;right:0;top:180px;text-align:center"><div class="mv" id="p2v" style="font-size:64px;margin:0">0%</div><div class="ml" id="p2vl">antes: 61%</div></div></div>
+  <div class="mt" id="p2m1" style="top:356px"><div class="ml">Duplicados fusionados</div><div class="mv" id="p2v1">0</div></div>
+  <div class="mt" id="p2m2" style="top:522px"><div class="ml">Campos completados</div><div class="mv" id="p2v2">0</div></div>
+ </div>`);
+
+// ---- 4: negocios ----
+const KC=[['Calificado','#9aaec4'],['Propuesta','#2450a0'],['Negociación','#e0a500'],['Ganado','#2fb36b']];
+const DEALS=[ // [nombre, monto, colInicio, filaInicio, colFin, filaFin, tMoverse]
+ ['Logística Istmo','L 3.2M',0,0,0,0,0],['Farmacéutica Sol','L 1.1M',0,1,0,1,0],
+ ['Constructora Atlas','L 4.8M',1,0,2,1,3.0],['Café Montaña','L 1.4M',1,1,1,0,3.0],
+ ['Agroexport del Valle','L 6.5M',2,0,3,0,4.6],['Textiles Norteños','L 2.2M',2,1,2,0,4.6]];
+addScene(3,`
+ <div class="col" style="left:28px;width:440px"><div class="pc" style="top:0;bottom:0"><div class="pl">Alertas y acciones del agente</div>
+  <div class="alert" id="p3a0" style="top:60px;background:#e9f6ef;color:#1f6b45"><span class="dotc" style="background:#2fb36b"></span><div><b style="font-weight:600">Agroexport del Valle</b> pasó a Ganado. Se notificó al equipo de crédito.</div></div>
+  <div class="alert" id="p3a1" style="top:170px;background:#fdf1ef;color:#9a3a26"><span class="dotc" style="background:#e5603f"></span><div><b style="font-weight:600">Textiles Norteños</b> sin actividad en 14 días. Riesgo de pérdida.</div></div>
+  <div class="alert" id="p3a2" style="top:280px;background:#eef3fb;color:#24427e"><span class="dotc" style="background:#2450a0"></span><div>Tarea creada: <b style="font-weight:600">llamar al gerente financiero</b> mañana 9:00 · asignada a Luis Mejía.</div></div>
+  <div class="alert" id="p3a3" style="top:390px;background:#fff8e6;color:#6b5210"><span class="dotc" style="background:#e0a500"></span><div>Siguiente mejor acción: ofrecer <b style="font-weight:600">línea de comercio exterior</b> a 3 clientes similares.</div></div>
+ </div></div>
+ <div class="col" style="left:492px;width:640px"><div class="pc" style="top:0;bottom:0"><div class="pl">Pipeline · Banca empresarial</div>
+  ${KC.map((k,j)=>`<div class="kcol" style="left:${16+j*154}px"><div class="kh"><span><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${k[1]};margin-right:6px"></span>${k[0]}</span></div></div>`).join('')}
+  ${DEALS.map((d,j)=>`<div class="kc" id="p3k${j}"><b>${d[0]}</b><i>Banca empresarial</i><em>${d[1]}</em><div class="a" id="p3f${j}" style="left:0;right:0;bottom:0;height:4px"></div></div>`).join('')}
+  <div class="a" id="p3risk" style="z-index:10;font-size:12px;font-weight:600;color:#fff;background:#e5603f;padding:4px 10px;border-radius:9px;white-space:nowrap">⚠ Riesgo</div>
+ </div></div>
+ <div class="col" style="left:1156px;width:456px">
+  <div class="pc" id="p3fc" style="top:0;height:390px"><div class="pl">Pronóstico del trimestre</div>
+   <div class="a" style="left:22px;top:52px"><span class="mv" id="p3v" style="font-size:46px">L 0.0M</span> <span class="tag" id="p3up" style="background:#e9f6ef;color:#1f8a57;font-size:14px;vertical-align:10px">▲ 12%</span></div>
+   <svg class="a" style="left:22px;top:140px" width="410" height="230" viewBox="0 0 410 230">
+    <line x1="0" y1="60" x2="410" y2="60" stroke="#eef3f9"/><line x1="0" y1="130" x2="410" y2="130" stroke="#eef3f9"/><line x1="0" y1="200" x2="410" y2="200" stroke="#eef3f9"/>
+    <path id="p3area" d="M0 190 C60 180 90 165 140 150 S230 120 280 95 S360 55 410 40 L410 220 L0 220Z" fill="#e0a500" opacity=".12"/>
+    <path id="p3line" d="M0 190 C60 180 90 165 140 150 S230 120 280 95 S360 55 410 40" fill="none" stroke="#e0a500" stroke-width="4" stroke-linecap="round" stroke-dasharray="520" stroke-dashoffset="520"/>
+    <path d="M0 195 C80 190 160 182 240 170 S360 150 410 140" fill="none" stroke="#c4d0de" stroke-width="2.5" stroke-dasharray="6 7"/>
+    <circle id="p3dot" r="7" fill="#fff" stroke="#e0a500" stroke-width="4" cx="410" cy="40"/></svg></div>
+  <div class="mt" id="p3m1" style="top:406px;height:136px"><div class="ml">Negocios priorizados hoy</div><div class="mv" id="p3v1">0</div></div>
+  <div class="mt" id="p3m2" style="top:558px;height:136px"><div class="ml">Tiempo ahorrado al equipo</div><div class="mv"><span id="p3v2">0</span> h<span style="font-size:20px;color:#9aaec4"> / semana</span></div></div>
+ </div>`);
+
+/* ---------- outro: fila de agentes ---------- */
+const OSTAT=['11 reuniones agendadas','82% resuelto sin escalar','97% calidad de datos','L 48.2M pronosticados'];
+$('orow').innerHTML=AG.map((a,i)=>`<div class="node" id="on${i}" style="left:${300+i*340}px;top:380px;width:300px"><div class="nic" style="background:${a.c};width:84px;height:84px;border-radius:24px">${GL[a.k]}</div><div class="nl" style="font-size:20px">${short(a.n)}</div><div class="nd">${OSTAT[i]}</div></div>`).join('');
+
+/* ---------- sonidos (sutiles) ---------- */
+cue(0.2,'pad_start');
+cue(0.6,'air'); cue(1.0,'bell',{n:0}); cue(2.0,'soft',{n:1}); cue(2.6,'soft',{n:2});
+cue(TL.hub[0]+0.1,'air');
+AG.forEach((a,i)=>{cue(TL.hub[0]+1.2+i*0.45,'soft',{n:i})});
+cue(TL.hub[0]+3.4,'bell',{n:2});
+SCN.forEach(([s,e],i)=>{
+  cue(s-0.1,'air'); cue(s+0.7,'soft',{n:i});
+  cue(e-1.9,'bell',{n:i}); // tarea completada
+});
+cue(OUT-0.1,'air'); AG.forEach((a,i)=>cue(OUT+1.4+i*0.18,'soft',{n:i+2})); cue(OUT+3.0,'bell',{n:4}); cue(OUT+3.05,'final');
+cue(DURATION-2.5,'pad_end');
+
+/* ---------- seek ---------- */
+const typ=(txt,t,a,cps)=>txt.slice(0,Math.max(0,Math.floor((t-a)*cps)));
+function setStatus(i,r,dur){
+  const done=r>dur-1.9;
+  $('ss'+i).style.background=done?'#e9f6ef':'#eef3fb'; $('ss'+i).style.color=done?'#1f8a57':'#2450a0';
+  $('stx'+i).textContent=done?'Tarea completada':'Trabajando…';
+  const sp=$('sp'+i); sp.style.background=done?'#2fb36b':'#2450a0';
+  sp.style.boxShadow=done?'none':`0 0 0 ${4+3*Math.sin(r*5)}px rgba(36,80,160,.18)`;
+}
+function rowStatus(el,r,a,b,okTxt,workTxt='Investigando…'){
+  if(r<a){el.innerHTML='';return}
+  if(r<b){el.innerHTML=`<span class="spin" style="background:conic-gradient(from ${r*400}deg,#2450a0 0 30%,#dbe5f3 30% 100%)"></span><span style="color:#2450a0">${workTxt}</span>`;return}
+  el.innerHTML=`<span class="ok">✓</span><span style="color:#1f8a57">${okTxt}</span>`;
+}
+function seek(t){
+  // fondo
+  S('g1',{x:200+Math.sin(t*.15)*220,y:-200+Math.cos(t*.12)*120});
+  S('g2',{x:1100+Math.cos(t*.13)*200,y:400+Math.sin(t*.17)*140});
+  S('g3',{x:500+Math.sin(t*.11)*300,y:650+Math.cos(t*.09)*80});
+  $('dots').style.transform=`translate(${(t*6)%36}px,${(t*3)%36}px)`;
+
+  // intro
+  const iOn=t<TL.intro[1]; $('intro').style.display=iOn?'block':'none';
+  if(iOn){ const out=P(t,4.6,5.5);
+    const lg=esoft(P(t,.5,1.6)); S('ilogo',{o:lg*(1-out),y:(1-lg)*30-out*20,s:.94+.06*lg});
+    const e=esoft(P(t,1.4,2.3)); S('ieye',{o:e*(1-out),y:(1-e)*16});
+    const a=esoft(P(t,1.8,2.9)); S('it1',{o:a*(1-out),y:(1-a)*30,b:(1-a)*6});
+    const b=esoft(P(t,2.4,3.5)); S('it2',{o:b*(1-out),y:(1-b)*24});
+    const l=esoft(P(t,2.8,3.8)); $('iline').style.transform=`scaleX(${l})`; $('iline').style.opacity=1-out;
+  }
+  // hub
+  const [h0,h1]=TL.hub; const hOn=t>h0&&t<h1; $('hub').style.display=hOn?'block':'none';
+  if(hOn){ const r=t-h0; const out=eio(P(t,h1-1.0,h1));
+    const ti=esoft(P(r,.2,1.2)); S('htitle',{o:ti*(1-out),y:(1-ti)*20});
+    const c=esoft(P(r,.4,1.4)); S('hcore',{o:c*(1-out),s:(.85+.15*c)*(1+out*.3)});
+    AG.forEach((a,i)=>{const p=esoft(P(r,1.2+i*.45,2.2+i*.45));
+      // el nodo 0 se acerca al final (transición a la escena 1)
+      const z=i===0?out:0;
+      S('hn'+i,{o:p*(1-out*(i===0?.2:1)),y:(1-p)*24, x:z*(-HN[0][0]+835)*0, s:1+z*.25});
+      const ln=$('hp'+i); const L=Math.hypot(HN[i][0]+125-960,HN[i][1]+108-540);
+      ln.style.opacity=p*(1-out); ln.setAttribute('stroke-dashoffset',(1-p)*L);
+      const d=$('hd'+i); const k=((r*.35+i*.25)%1); d.setAttribute('cx',lerp(960,HN[i][0]+125,k)); d.setAttribute('cy',lerp(540,HN[i][1]+108,k));
+      d.style.opacity=p*(1-out)*Math.sin(k*Math.PI);
+    });
+    $('hub').style.transform=`scale(${1+out*.08})`; $('hub').style.transformOrigin='50% 50%';
+  }
+  // escenas
+  SCN.forEach(([s,e],i)=>{
+    const on=t>s&&t<e; $('sc'+i).style.display=on?'block':'none'; if(!on) return;
+    const r=t-s, dur=e-s;
+    const tin=esoft(P(r,0,1.0)), tout=eio(P(r,dur-.8,dur));
+    S('st'+i,{o:tin*(1-tout),y:(1-tin)*20-tout*10});
+    const wi=esoft(P(r,.35,1.5));
+    S('w'+i,{o:wi*(1-tout),y:(1-wi)*70+tout*-30,s:(.97+.03*wi)*(1+r*.0012)*(1-tout*.02)});
+    setStatus(i,r,dur);
+    // aparición de columnas
+    const cols=$('w'+i).querySelectorAll('.col');
+    cols.forEach((c,j)=>{const p=esoft(P(r,1.0+j*.18,1.8+j*.18)); S(c,{o:p,y:(1-p)*24})});
+    if(i===0) scene0(r); if(i===1) scene1(r); if(i===2) scene2(r); if(i===3) scene3(r);
+  });
+  // outro
+  const oOn=t>OUT; $('outro').style.display=oOn?'block':'none';
+  if(oOn){const r=t-OUT;
+    const a=esoft(P(r,.3,1.3)); S('ot1',{o:a,y:(1-a)*24}); const b=esoft(P(r,.7,1.7)); S('ot2',{o:b,y:(1-b)*24});
+    AG.forEach((x,i)=>{const p=esoft(P(r,1.4+i*.18,2.4+i*.18)); S('on'+i,{o:p,y:(1-p)*30})});
+    const l=esoft(P(r,2.9,4.0)); S('ologo',{o:l,y:(1-l)*24,s:.95+.05*l});
+    const sb=esoft(P(r,3.5,4.4)); S('osub',{o:sb});
+    S('onote',{o:esoft(P(r,4.2,5.0))*.9});
+  }
+  $('fade').style.opacity=Math.max(1-P(t,0,.6),P(t,DURATION-1.4,DURATION));
+}
+
+function scene0(r){
+  COMP.forEach((c,j)=>{const p=esoft(P(r,1.3+j*.12,1.9+j*.12)); S('p0r'+j,{o:p,x:(1-p)*-16});
+    const a=2.0+j*.75; rowStatus($('p0s'+j),r,a,a+1.0,'Listo');
+    const g=esoft(P(r,a+1.0,a+1.4)); S('p0g'+j,{o:g});
+    $('p0r'+j).style.background=(r>a&&r<a+1.0)?'#eef3fb':'#f8fafc';
+  });
+  const tx=typ(EMAIL,r,3.2,52); $('p0body').innerHTML=tx.replace('Banco Ficensa','<b style="font-weight:600;color:#2450a0">Banco Ficensa</b>')+(r>3.0&&tx.length<EMAIL.length?'<span class="caret"></span>':'');
+  const w=esoft(P(r,7.9,8.5)); S('p0why',{o:w,y:(1-w)*12});
+  const sent=r>9.0; const bp=P(r,8.8,9.0);
+  $('p0btn').textContent=sent?'✓ Enviado · reunión propuesta':'Enviar y agendar';
+  $('p0btn').style.background=sent?'#2fb36b':'#2450a0'; S('p0btn',{s:1-Math.sin(bp*Math.PI)*.05});
+  const k=esoft(P(r,1.6,10)); $('p0v0').textContent=fmt(128*k); $('p0v1').textContent=fmt(42*esoft(P(r,2.4,10.2)));
+  $('p0v2').textContent=r>9.4?'11':fmt(10*esoft(P(r,2.4,8)));
+  const d=esoft(P(r,9.4,9.9)); S('p0d2',{o:d,s:.8+.2*d});
+  const m=esoft(P(r,9.6,10.3)); S('p0m3',{o:m,y:(1-m)*16});
+}
+function scene1(r){
+  CH.forEach((c,j)=>{const p=esoft(P(r,1.3+j*.12,1.9+j*.12)); S('p1r'+j,{o:p,x:(1-p)*-16});
+    const a=1.9+j*1.1; rowStatus($('p1s'+j),r,a,a+1.2,j===2?'Escalado':'Resuelto','Respondiendo…');
+    if(j===2&&r>a+1.2) $('p1s'+j).innerHTML='<span class="ok" style="background:#e0a500">↗</span><span style="color:#a87a00">Escalado</span>';
+  });
+  const B=(id,a)=>{const p=esoft(P(r,a,a+.5)); S(id,{o:p,y:(1-p)*14})};
+  B('c0',1.6);
+  const dots=(id,a,b)=>{const on=r>a&&r<b; S(id,{o:on?1:0}); $(id).querySelectorAll('span').forEach((s,k)=>s.style.transform=`translateY(${-Math.max(0,Math.sin(r*9-k*.8))*4}px)`)};
+  dots('c1',2.2,3.3); B('c2',3.3);
+  $('c2l').querySelectorAll('div').forEach((d,k)=>{const p=esoft(P(r,3.6+k*.25,4.0+k*.25)); S(d,{o:p,x:(1-p)*10})});
+  B('c2s',4.6);
+  B('c3',5.8); dots('c4',6.3,7.3); B('c5',7.3); B('c5c',8.0);
+  const rp=esoft(P(r,2.0,7.0)); $('p1ring').setAttribute('stroke-dashoffset',389.6*(1-.82*rp)); $('p1v0').textContent=Math.round(82*rp)+'%';
+  $('p1v1').textContent=Math.round(lerp(0,8,esoft(P(r,2.2,6))));
+  $('p1v2').textContent=(4.8*esoft(P(r,2.4,7))).toFixed(1);
+  const h=esoft(P(r,5.0,5.6)); S('p1m3',{o:h,y:(1-h)*16});
+}
+function scene2(r){
+  const RULE=[[2.0,'3,412'],[3.2,'12,880'],[4.4,'4,205'],[5.6,'1,820'],[6.8,'610']];
+  RULE.forEach(([a,n],j)=>{const p=esoft(P(r,1.3+j*.12,1.9+j*.12)); S('p2r'+j,{o:p,x:(1-p)*-16});
+    const el=$('p2s'+j); if(r<a) el.innerHTML='<span style="width:20px;height:20px;border-radius:50%;border:2px solid #d5deea;display:block"></span>';
+    else if(r<a+.9) el.innerHTML=`<span class="spin" style="background:conic-gradient(from ${r*400}deg,#6aa832 0 30%,#e2eed6 30% 100%)"></span>`;
+    else el.innerHTML='<span class="ok" style="background:#6aa832">✓</span>';
+    $('p2n'+j).textContent=r>a+.9?n:''; });
+  DR.forEach((d,j)=>{const p=esoft(P(r,1.4+j*.1,2.0+j*.1));
+    const isDup=j===2; const m=isDup?eio(P(r,2.6,3.3)):0;
+    S('p2t'+j,{o:p*(1-m),x:(1-p)*12, y: (j>2?-70*eio(P(r,2.6,3.3)):0) + (isDup?-40*m:0)});
+    if(isDup) return;
+    ['a','b'].forEach((c,k)=>{const a=3.6+(j>2?j-1:j)*.55+k*.25; const f=P(r,a,a+.4);
+      const fill=$(`p2f${j}${c}`), x=$(`p2x${j}${c}`);
+      if(r<a){fill.style.background='#fff4dc';x.textContent='—';x.style.color='#c9a24a'}
+      else{x.textContent=d[k?4:3];x.style.color='#1d2b3a';fill.style.background=`rgba(106,168,50,${.18*(1-P(r,a+.4,a+1.6))})`; S(x,{o:esoft(f)})}
+    });
+  });
+  const dupTag=$('p2dup'); if(dupTag) S(dupTag,{s:1+.08*Math.sin(r*6)*(r>2.0&&r<2.6)});
+  const mg=esoft(P(r,3.3,3.9)); S('p2merge',{o:mg,y:(1-mg)*12});
+  const g=lerp(.61,.97,esoft(P(r,2.0,8.4))); const gi=esoft(P(r,1.4,2.0));
+  $('p2arc').setAttribute('stroke-dashoffset',439.8*(1-g*gi)); $('p2v').textContent=Math.round(g*100*gi)+'%';
+  $('p2v1').textContent=fmt(3412*esoft(P(r,2.0,7))); $('p2v2').textContent=fmt(18905*esoft(P(r,3.2,8.6)));
+}
+function scene3(r){
+  const slot=(c,f)=>[16+c*154+7,60+38+f*108];
+  DEALS.forEach((d,j)=>{const el=$('p3k'+j); const ap=esoft(P(r,1.3+j*.08,1.9+j*.08));
+    const m=d[6]?eio(P(r,d[6],d[6]+.9)):0;
+    const [x0,y0]=slot(d[2],d[3]),[x1,y1]=slot(d[4],d[5]);
+    const lift=Math.sin(m*Math.PI);
+    el.style.left=lerp(x0,x1,m)+'px'; el.style.top=lerp(y0,y1,m)+'px';
+    S(el,{o:ap,y:(1-ap)*14-lift*10,s:1+lift*.05});
+    el.style.boxShadow=lift>0.01?`0 ${12*lift}px ${30*lift}px rgba(29,43,58,${.18*lift})`:'0 4px 12px rgba(29,43,58,.06)';
+    el.style.zIndex=lift>0?5:1;
+    const won=j===4&&r>d[6]+.9; $('p3f'+j).style.background=won?'#2fb36b':(j===5&&r>6.0?'#e5603f':'transparent');
+    if(won) el.style.borderColor=`rgba(47,179,107,${1-P(r,d[6]+.9,d[6]+2.5)*.6})`; else el.style.borderColor=(j===5&&r>6.0)?'#f3c3b6':'#e1e7ef';
+  });
+  // marca de riesgo sobre Textiles Norteños (columna 2, fila 0 tras moverse)
+  const rk=esoft(P(r,6.0,6.5)); const [rx,ry]=slot(2,0); const kx=$('p3k5');
+  S('p3risk',{o:rk,s:.8+.2*rk}); $('p3risk').style.left=(parseFloat(kx.style.left)+64)+'px'; $('p3risk').style.top=(parseFloat(kx.style.top)+64)+'px';
+  [2.2,5.8,6.6,7.6].forEach((a,j)=>{const p=esoft(P(r,a,a+.6)); S('p3a'+j,{o:p,y:(1-p)*16})});
+  const lp=esoft(P(r,2.0,8.0)); $('p3line').setAttribute('stroke-dashoffset',520*(1-lp)); $('p3area').style.opacity=.12*lp;
+  const dt=$('p3dot'); dt.style.opacity=P(r,7.6,8.0);
+  $('p3v').textContent='L '+(48.2*esoft(P(r,2.0,8.0))).toFixed(1)+'M'; S('p3up',{o:esoft(P(r,7.8,8.3))});
+  $('p3v1').textContent=fmt(14*esoft(P(r,2.4,7.5))); $('p3v2').textContent=fmt(26*esoft(P(r,2.6,8.5)));
+}
+// cues internos de escenas (sutiles)
+(function(){const s=SCN.map(x=>x[0]);
+  COMP.forEach((c,j)=>cue(s[0]+3.0+j*.75,'tick'));
+  for(let k=0;k<EMAIL.length;k+=3) if(EMAIL[k]!==' ') cue(s[0]+3.2+k/52,'key');
+  cue(s[0]+8.9,'click'); cue(s[0]+9.4,'soft',{n:3});
+  cue(s[1]+1.6,'msg'); cue(s[1]+3.3,'msg2'); cue(s[1]+5.8,'msg'); cue(s[1]+7.3,'msg2'); CH.forEach((c,j)=>cue(s[1]+3.1+j*1.1,'tick'));
+  [2.9,4.1,5.3,6.5,7.7].forEach(a=>cue(s[2]+a,'tick')); cue(s[2]+2.7,'whisk'); cue(s[2]+3.4,'soft',{n:1});
+  cue(s[3]+3.0,'whisk'); cue(s[3]+4.6,'whisk'); cue(s[3]+5.5,'soft',{n:4}); cue(s[3]+6.0,'tick'); [2.2,5.8,6.6,7.6].forEach(a=>cue(s[3]+a,'tick'));
+})();
+CUES.sort((a,b)=>a.t-b.t); window.CUES=CUES;
+window.seek=seek; seek(0);
+</script>
+</body>
+</html>
