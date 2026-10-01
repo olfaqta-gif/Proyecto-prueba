@@ -1,0 +1,46 @@
+{
+  "fuente": "https://www.farmasius.com/farmasi/product-detail/dr-c-tuna-age-reversist-all-night-beauty-mask?pid=1000269",
+  "leido": "2026-10-01",
+  "codigo": "1000269",
+  "slug": "dr-c-tuna-age-reversist-all-night-beauty-mask",
+  "nombre": "Dr. C. Tuna Age Reversist All Night Beauty Mask",
+  "marca": "Dr. C. Tuna",
+  "etiquetas_tienda": [
+    "SUPER WEEKEND",
+    "UP TO 40% OFF"
+  ],
+  "contenido": "",
+  "descripcion": "Dr. C. Tuna Age Reversist All Night Beauty Mask is a luxurious overnight treatment infused with Golden Vitamin C — a powerful blend of Ascorbic Acid and Gold that enhances absorption and provides exceptional antioxidant protection. It deeply nourishes, smooths, and revitalizes the skin while you sleep, helping you wake up with a radiant, youthful glow.",
+  "resultados_declarados": "Clinically proven to boost collagen by 52%.* Tested and approved by an internationally recognized, independent, and accredited laboratory.",
+  "ingredientes_clave": "Powered by Vitamin C Complex enhanced with Glutathione and Colloidal Gold to brighten and protect, Multivitamin Complex (A, C, E, F) to nourish and defend, Sodium PCA for hydration, and Laminaria Digitata Extract to support collagen production. Clinically tested to provide up to 52% collagen increase for smoother, firmer skin.",
+  "ingredientes_inci": "Water (Aqua), Glycerin, Sorbitol, Lecithin, Tocopheryl Acetate, Glyceryl Linoleate, Retinyl Palmitate, Sodium Ascorbyl Phosphate, Xanthan Gum, Phenoxyethanol, Caprylyl Glycol, Disodium EDTA, Glyceryl Caprylate, Sodium PCA, Laminaria Digitata Extract, Phenethyl Alcohol, Sodium Carrageenan, Sea Salt, Acrylates/C10-30 Alkyl Acrylate Crosspolymer, Triethanolamine, Phenoxyethanol, Ascorbic Acid, Colloidal Gold, Glutathione, Propanediol, 1,2-Hexanediol, Sodium Polyacrylate, Fragrance (Parfum), Ethylhexylglycerin.",
+  "modo_de_uso": "Apply to clean skin before bedtime, avoiding the eye area. Massage gently until absorbed and leave on overnight. Rinse off in the morning. Use twice a week or more often as needed. Suitable for all skin types.",
+  "atributos": [
+    "Free from parabens, SLS, and GMOs. Dermatologically tested, cruelty-free, and formulated with vegan-friendly ingredients suitable for all skin types."
+  ],
+  "precauciones": "",
+  "resenas": {
+    "promedio": 4.98,
+    "cantidad": 508
+  },
+  "tonos": [],
+  "imagenes_url": [
+    "https://content.farmasius.com/Product/1000269_400_1.webp",
+    "https://content.farmasius.com/Product/1000269_400_2.webp",
+    "https://content.farmasius.com/Product/1000269_400_3.webp"
+  ],
+  "disponible": true,
+  "nuevo": false,
+  "edicion_limitada": false,
+  "descontinuado": false,
+  "imagen": "producto.jpg",
+  "para_ficha": {
+    "imagen": "producto.jpg",
+    "producto.nombre": "Age Reversist All Night Beauty Mask",
+    "producto.nombre_corto": "Dr. C. Tuna · Farmasi",
+    "producto.dato": {
+      "destacado": "★★★★★",
+      "texto": "4.98 · 508 reseñas"
+    }
+  }
+}
