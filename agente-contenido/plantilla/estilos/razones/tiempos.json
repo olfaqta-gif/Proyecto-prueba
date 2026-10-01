@@ -1,0 +1,10 @@
+{
+  "_nota": "Línea de tiempo del estilo «3 razones» (segundos). La leen la plantilla HTML y sonido.py. Si la ficha trae solo 2 beneficios, generar.py hace que la razón 2 dure hasta razon.sale.",
+  "duracion": 15.0,
+  "bpm": 84,
+  "gancho":   { "entra": 0.0, "kicker": 0.1, "numero": 0.25, "linea1": 0.7, "linea2": 1.05, "sale": 2.3 },
+  "producto": { "entra": 2.3, "foto": 2.5, "categoria": 2.8, "nombre": 2.95, "dato": 3.3, "sale": 4.6 },
+  "razon":    { "r1": 4.6, "r2": 6.6, "r3": 8.6, "sale": 10.6 },
+  "cierre":   { "entra": 10.6, "marca": 10.75, "foto": 10.9, "frase": 11.2, "precio": 11.6, "boton": 11.9, "aviso": 12.3 },
+  "previa": ["gancho.linea2+0.9", "producto.dato+0.9", "razon.r1+1.2", "razon.r2+1.2", "razon.r3+1.2", "duracion-0.1"]
+}

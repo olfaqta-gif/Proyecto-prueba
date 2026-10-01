@@ -1,0 +1,133 @@
+<!-- Estilo 3 RAZONES: conteo directo. Número gigante, pantallas divididas y una razón por pantalla con barra tipo historia. -->
+<style>
+  .wipe{animation:wipe .55s cubic-bezier(.7,0,.2,1) var(--in) both}
+  @keyframes wipe{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0)}}
+  .baja{animation:baja .6s cubic-bezier(.7,0,.2,1) var(--in) both}
+  @keyframes baja{from{clip-path:inset(0 0 100% 0)}to{clip-path:inset(0)}}
+  .sube{animation:sube .6s cubic-bezier(.7,0,.2,1) var(--in) both}
+  @keyframes sube{from{clip-path:inset(100% 0 0 0)}to{clip-path:inset(0)}}
+  .zoom{animation:zoom .9s cubic-bezier(.2,1,.3,1) var(--d) both}
+  @keyframes zoom{from{opacity:0;transform:scale(1.35)}to{opacity:1;transform:none}}
+  .izq{animation:izq .7s cubic-bezier(.2,1,.3,1) var(--d) both}
+  @keyframes izq{from{opacity:0;transform:translateX(-160u)}to{opacity:1;transform:none}}
+  .linea{height:10u;width:180u;background:var(--brillo);border-radius:10u;animation:linea .6s cubic-bezier(.7,0,.2,1) var(--d) both;transform-origin:left}
+  @keyframes linea{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+
+  /* 1 gancho */
+  .gancho{background:var(--fondo);display:flex;flex-direction:column;justify-content:center;padding:0 100u}
+  .gancho .kicker{margin-bottom:30u}
+  .gancho .numero{font-size:620u;font-weight:900;line-height:.82;letter-spacing:-30u;color:var(--acento);margin-left:-20u}
+  .gancho .l1{font-size:96u;font-weight:900;line-height:1.02;letter-spacing:-3u;text-transform:uppercase;margin-top:30u;max-width:100%}
+  .gancho .l2{font-size:104u;color:var(--brillo);margin-top:16u;max-width:100%}
+  [data-orient="h"] .gancho{display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto auto auto;column-gap:80u;align-content:center;padding:0 160u}
+  [data-orient="h"] .gancho .numero{grid-row:1 / 4;grid-column:1;align-self:center}
+  [data-orient="h"] .gancho .kicker{grid-column:2;align-self:end}
+  [data-orient="h"] .gancho .l1,[data-orient="h"] .gancho .l2{grid-column:2}
+
+  /* pantallas divididas (producto y cierre) */
+  .split{display:grid;grid-template-rows:58fr 42fr}
+  .split .panel{background:#fff;display:grid;place-items:center;position:relative;overflow:hidden}
+  .prod .panel img{position:absolute;left:12%;top:10%;width:76%;height:80%;object-fit:contain}
+  .split .bajo{position:relative;background:var(--fondo);padding:70u 100u;display:flex;flex-direction:column;justify-content:center}
+  [data-orient="h"] .split{grid-template-rows:none;grid-template-columns:50fr 50fr}
+
+  .prod .bajo small{font-size:34u;font-weight:700;letter-spacing:8u;text-transform:uppercase;color:var(--brillo)}
+  .prod .nombre{font-size:84u;font-weight:900;line-height:1.02;letter-spacing:-2u;margin-top:18u;max-width:100%}
+  .prod .pill{margin-top:36u;align-self:flex-start;display:inline-flex;gap:16u;align-items:center;font-size:38u;font-weight:700;
+    padding:14u 30u;border-radius:14u;background:var(--acento);color:#fff}
+  .prod .linea{margin-top:34u}
+
+  /* razones */
+  .razon{display:flex;flex-direction:column;padding:110u 100u 140u}
+  .rz1{background:var(--acento)} .rz2{background:var(--fondo2)} .rz3{background:var(--fondo)}
+  .barra{display:flex;gap:16u}
+  .barra i{flex:1;height:12u;border-radius:12u;background:rgba(255,255,255,.28);overflow:hidden;position:relative}
+  .barra i.llena{background:#fff}
+  .barra i.activa::after{content:"";position:absolute;inset:0;background:#fff;transform-origin:left;animation:llenar 1.9s linear var(--d) both}
+  @keyframes llenar{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+  .razon .num{font-size:400u;font-weight:900;line-height:.9;letter-spacing:-16u;color:var(--brillo);margin-top:auto}
+  .razon .txt{font-size:112u;font-weight:900;line-height:1.02;letter-spacing:-4u;margin-top:40u;max-width:100%}
+  .razon .mini{position:absolute;top:190u;right:100u;width:230u;height:230u;border-radius:50%;background:#fff;display:grid;place-items:center;
+    box-shadow:0 20u 50u rgba(0,0,0,.3)}
+  .razon .mini img{max-width:70%;max-height:72%;object-fit:contain}
+  [data-orient="h"] .razon{padding:90u 160u 110u}
+  [data-orient="h"] .razon .txt{max-width:1300u}
+  [data-orient="h"] .razon .mini{top:auto;bottom:110u;right:160u;width:300u;height:300u}
+  [data-formato="1x1"] .razon .num{font-size:300u}
+
+  /* cierre */
+  .cierre .panel{background:linear-gradient(160deg,var(--acento2),var(--acento));display:flex;flex-direction:column;align-items:center;justify-content:center;gap:50u}
+  .cierre .marca{font-weight:500;font-size:80u;letter-spacing:32u;margin-right:-32u;color:#fff}
+  .cierre .foto{width:520u;height:520u;border-radius:50%;background:#fff;display:grid;place-items:center;box-shadow:0 30u 70u rgba(0,0,0,.25)}
+  .cierre .foto img{max-width:72%;max-height:74%}
+  .cierre .bajo{align-items:center;text-align:center;padding-bottom:150u}
+  .cierre .frase{font-size:88u;font-weight:900;line-height:1.02;letter-spacing:-3u;max-width:100%}
+  .cierre .frase .serif{color:var(--brillo);display:block;font-size:94u}
+  .cierre .precio{margin-top:28u;font-size:44u;font-weight:700}
+  .cierre .btnwrap{margin-top:50u}
+  .cierre .usuario{margin-top:26u;font-size:38u;font-weight:700}
+  .cierre .aviso{bottom:40u;left:60u;right:60u}
+  [data-orient="h"] .cierre .split{grid-template-columns:42fr 58fr}
+  [data-formato="1x1"] .cierre .split,[data-formato="4x5"] .cierre .split{grid-template-rows:40fr 60fr}
+  [data-formato="1x1"] .cierre .foto{width:380u;height:380u}
+  [data-formato="1x1"] .cierre .panel{gap:30u}
+</style>
+
+<!-- 1 · gancho -->
+<div class="abs out" data-out="gancho.sale"><div class="abs gancho in" data-in="gancho.entra">
+  <div class="kicker rise" data-d="gancho.kicker" data-txt="gancho.kicker" data-si="gancho.kicker"></div>
+  <div class="numero stamp" data-d="gancho.numero" data-cuenta="beneficios.lista"></div>
+  <div class="l1 izq fit" data-lineas="2" data-d="gancho.linea1" data-txt="gancho.linea1"></div>
+  <div class="l2 serif izq fit" data-lineas="2" data-d="gancho.linea2" data-txt="gancho.linea2"></div>
+</div></div>
+
+<!-- 2 · producto -->
+<div class="abs out" data-out="producto.sale"><div class="abs split prod">
+  <div class="panel baja" data-in="producto.entra"><img class="zoom" data-d="producto.foto" data-img alt=""></div>
+  <div class="bajo sube" data-in="producto.entra">
+    <small class="izq" data-d="producto.categoria" data-txt="producto.categoria"></small>
+    <div class="nombre izq fit" data-lineas="2" data-d="producto.nombre" data-txt="producto.nombre"></div>
+    <div class="pill izq" data-d="producto.dato" data-si="producto.dato"><b data-txt="producto.dato.destacado"></b><span data-txt="producto.dato.texto"></span></div>
+  </div>
+</div></div>
+
+<!-- 3 · razón 1 -->
+<div class="abs out" data-out="razon.r2"><div class="abs razon rz1 wipe" data-in="razon.r1" data-si="beneficios.lista.0">
+  <div class="barra"><i class="activa" data-d="razon.r1+0.3"></i><i class=""></i><i class="" data-si="beneficios.lista.2"></i></div>
+  <div class="mini pop" data-d="razon.r1+0.45"><img data-img alt=""></div>
+  <div class="num zoom" data-d="razon.r1+0.15">01</div>
+  <div class="txt izq fit" data-lineas="3" data-d="razon.r1+0.35" data-txt="beneficios.lista.0"></div>
+</div></div>
+
+<!-- 4 · razón 2 -->
+<div class="abs out" data-out="razon.r3"><div class="abs razon rz2 wipe" data-in="razon.r2" data-si="beneficios.lista.1">
+  <div class="barra"><i class="llena"></i><i class="activa" data-d="razon.r2+0.3"></i><i class="" data-si="beneficios.lista.2"></i></div>
+  <div class="mini pop" data-d="razon.r2+0.45"><img data-img alt=""></div>
+  <div class="num zoom" data-d="razon.r2+0.15">02</div>
+  <div class="txt izq fit" data-lineas="3" data-d="razon.r2+0.35" data-txt="beneficios.lista.1"></div>
+</div></div>
+
+<!-- 5 · razón 3 -->
+<div class="abs out" data-out="razon.sale"><div class="abs razon rz3 wipe" data-in="razon.r3" data-si="beneficios.lista.2">
+  <div class="barra"><i class="llena"></i><i class="llena"></i><i class="activa" data-d="razon.r3+0.3" data-si="beneficios.lista.2"></i></div>
+  <div class="mini pop" data-d="razon.r3+0.45"><img data-img alt=""></div>
+  <div class="num zoom" data-d="razon.r3+0.15">03</div>
+  <div class="txt izq fit" data-lineas="3" data-d="razon.r3+0.35" data-txt="beneficios.lista.2"></div>
+</div></div>
+
+<!-- 6 · cierre -->
+<div class="abs cierre"><div class="abs split">
+  <div class="panel baja" data-in="cierre.entra">
+    <div class="marca stamp" data-d="cierre.marca">FARMASi</div>
+    <div class="foto pop" data-d="cierre.foto"><img class="float" data-img alt=""></div>
+  </div>
+  <div class="bajo sube" data-in="cierre.entra">
+    <div class="frase rise fit" data-d="cierre.frase"><span data-txt="cierre.frase1"></span><span class="serif" data-txt="cierre.frase2"></span></div>
+    <div class="precio rise" data-d="cierre.precio" data-si="cierre.precio" data-txt="cierre.precio"></div>
+    <div class="btnwrap rise" data-d="cierre.boton"><div class="btn"><span data-txt="cierre.boton_pre"></span> “<b data-txt="cierre.palabra"></b>” 💬</div></div>
+    <div class="usuario rise" data-d="cierre.boton" data-si="cierre.usuario" data-txt="cierre.usuario"></div>
+    <div class="aviso rise" data-d="cierre.aviso" data-txt="cierre.aviso"></div>
+  </div>
+</div></div>
+
+<div class="abs grain"></div>

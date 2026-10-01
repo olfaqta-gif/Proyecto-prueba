@@ -1,14 +1,14 @@
 // Captura el anuncio cuadro por cuadro (o unas vistas previas) con Chromium.
-// Uso: node render.cjs <anuncio.html> <preview|full> <carpeta> <duracion> [tiempos de preview separados por coma]
+// Uso: node render.cjs <anuncio.html> <preview|full> <carpeta> <duracion> [tiempos de preview separados por coma] [ancho] [alto]
 const { chromium } = require('playwright');
 const { mkdirSync } = require('fs');
 const path = require('path');
 (async () => {
-  const [,, html, mode = 'preview', out = 'frames', dur = '15', previews = ''] = process.argv;
+  const [,, html, mode = 'preview', out = 'frames', dur = '15', previews = '', w = '1080', h = '1920'] = process.argv;
   const fps = 30, D = parseFloat(dur);
   mkdirSync(out, { recursive: true });
   const browser = await chromium.launch();
-  const page = await browser.newPage({ viewport: { width: 1080, height: 1920 } });
+  const page = await browser.newPage({ viewport: { width: +w, height: +h } });
   await page.goto('file://' + path.resolve(html) + '?render');
   await page.evaluate(() => document.fonts.ready);
   await page.evaluate(() => window.__ajustar());

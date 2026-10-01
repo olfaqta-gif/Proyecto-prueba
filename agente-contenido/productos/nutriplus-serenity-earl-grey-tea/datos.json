@@ -1,0 +1,58 @@
+{
+  "fuente": "https://www.farmasius.com/farmasi/product-detail/nutriplus-serenity-earl-grey-tea?pid=1000820",
+  "leido": "2026-10-01",
+  "codigo": "1000820",
+  "slug": "nutriplus-serenity-earl-grey-tea",
+  "nombre": "Nutriplus Serenity Earl Grey Tea",
+  "marca": "Nutriplus",
+  "etiquetas_tienda": [
+    "MEN'S DAY",
+    "BLACK FRIDAY",
+    "UP TO 40% OFF",
+    "BOGO - 12 HOUR ONLY",
+    "BOGO",
+    "Nutriplus",
+    "Shop by Benefit",
+    "Digestive Health",
+    "Shots",
+    "Nutrition",
+    "Shop by Type",
+    "Shakes & Powders",
+    "Energy - Mind",
+    "Shop by Brand",
+    "Coffees & Teas"
+  ],
+  "contenido": "",
+  "descripcion": "Enjoy a little serenity for the body, mind, and soul. This delicious floral blend of bergamot-flavored tea, known as Earl Grey, contains no caffeine or sugar and is perfect for relaxation or sweet dreams. Serenity Tea is a convenient stick tea you can enjoy anytime, anywhere.",
+  "resultados_declarados": "",
+  "ingredientes_clave": "",
+  "ingredientes_inci": "Maltodextrin, Black Tea Extract (Camellia sinensis, leaf), Natural Earl Grey Flavor, Green Tea Extract (Camellia sinensis, leaf), Citric Acid (Acidity Regulator), Cardamom Extract (Elettaria cardamomum, fruit), Mallow Extract (Malva sp., flower), Hibiscus Extract (Hibiscus sabdariffa, flower).",
+  "modo_de_uso": "Open your herbal tea sachet and pour it into an empty cup. Add hot or cold water and watch your tea dissolve. Enjoy an authentic tea experience at home or on the go.",
+  "atributos": [],
+  "precauciones": "",
+  "resenas": {
+    "promedio": 5,
+    "cantidad": 51
+  },
+  "tonos": [],
+  "imagenes_url": [
+    "https://content.farmasius.com/Product/1000820_400.webp",
+    "https://content.farmasius.com/Product/1000820_400_2.webp"
+  ],
+  "disponible": true,
+  "nuevo": false,
+  "edicion_limitada": false,
+  "descontinuado": false,
+  "imagen": "producto.jpg",
+  "para_ficha": {
+    "imagen": "producto.jpg",
+    "producto": {
+      "nombre": "Serenity Earl Grey Tea",
+      "nombre_corto": "Nutriplus · Farmasi",
+      "dato": {
+        "destacado": "★★★★★",
+        "texto": "5 · 51 reseñas"
+      }
+    }
+  }
+}

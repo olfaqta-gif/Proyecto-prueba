@@ -30,8 +30,10 @@ llamada, dile a Julio en una línea a quién llamas y para qué
    abra y vea las fotos.
 4. **Propón el siguiente paso y pregunta**, por ejemplo: "¿Hacemos contenido de alguno?
    Dime el número." Espera la respuesta de Julio antes de seguir.
-5. Cuando Julio elige, llama a `creador-contenido` con el código y el slug del producto.
-   Al terminar, entrégale las rutas del video y la previa, y el caption para copiar.
+5. Cuando Julio elige, llama a `creador-contenido` con el código y el slug del producto
+   (y el estilo si Julio lo pidió: `clasico`, `favorito` o `razones`; si no, que el agente
+   elija uno distinto al último). Al terminar, entrégale los videos por formato (9:16 para
+   Reels/TikTok, 4:5 y 1:1 para el feed, 16:9 para YouTube), la previa y el caption.
 
 ## Ejemplo
 

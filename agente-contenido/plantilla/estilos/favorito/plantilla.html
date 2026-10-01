@@ -1,0 +1,143 @@
+<!-- Estilo MI FAVORITO: tipo TikTok. Fondo claro, texto palabra por palabra, recuadros de subtítulo, foto en tarjeta. -->
+<style>
+  #stage{background:var(--crema);color:var(--fondo)}
+  .escena{background:var(--crema)}
+  .wipe-up{animation:wipeUp .5s cubic-bezier(.7,0,.2,1) var(--in) both}
+  .wipe-left{animation:wipeLeft .5s cubic-bezier(.7,0,.2,1) var(--in) both}
+  @keyframes wipeUp{from{clip-path:inset(100% 0 0 0)}to{clip-path:inset(0)}}
+  @keyframes wipeLeft{from{clip-path:inset(0 0 0 100%)}to{clip-path:inset(0)}}
+  .slide{animation:slide .75s cubic-bezier(.2,1.2,.3,1) var(--d) both}
+  @keyframes slide{from{opacity:0;transform:translateY(240u) rotate(var(--rot,0deg))}to{opacity:1;transform:rotate(var(--rot,0deg))}}
+  .entraIzq{animation:entraIzq .6s cubic-bezier(.2,1.3,.4,1) var(--d) both}
+  .entraDer{animation:entraDer .6s cubic-bezier(.2,1.3,.4,1) var(--d) both}
+  @keyframes entraIzq{from{opacity:0;transform:translateX(-120%) rotate(var(--rot))}to{opacity:1;transform:rotate(var(--rot))}}
+  @keyframes entraDer{from{opacity:0;transform:translateX(120%) rotate(var(--rot))}to{opacity:1;transform:rotate(var(--rot))}}
+  .palabra{display:inline-block;animation:palabra .35s cubic-bezier(.2,1.6,.4,1) var(--d) both}
+  @keyframes palabra{from{opacity:0;transform:scale(.3) translateY(40u)}to{opacity:1;transform:none}}
+  .wobble{animation:wobble 1.6s ease-in-out infinite alternate}
+  @keyframes wobble{from{transform:rotate(-4deg)}to{transform:rotate(4deg) scale(1.04)}}
+  .caja{display:inline;padding:.08em .32em;-webkit-box-decoration-break:clone;box-decoration-break:clone;border-radius:.18em;line-height:1.5}
+  .circulo{position:absolute;border-radius:50%}
+  .puntos{background-image:radial-gradient(color-mix(in srgb,var(--fondo) 18%,transparent) 3u,transparent 3.5u);background-size:46u 46u;opacity:.6}
+
+  /* 1 gancho */
+  .gancho{background:var(--acento);color:#fff;padding:0 80u}
+  .gancho .kicker{background:var(--fondo);color:var(--brillo);padding:14u 30u;border-radius:60u;font-size:30u;letter-spacing:6u;margin-bottom:60u}
+  .gancho .l{font-weight:900;font-size:118u;line-height:1.02;letter-spacing:-3u;text-transform:uppercase;max-width:100%}
+  .gancho .l2wrap{margin-top:56u;transform:rotate(-3deg)}
+  .gancho .l2{font-weight:900;font-size:84u;color:var(--fondo);max-width:100%}
+  .gancho .l2 .caja{background:var(--brillo)}
+  .gancho .c1{width:560u;height:560u;background:var(--acento2);opacity:.45;right:-200u;top:-160u}
+  .gancho .c2{width:420u;height:420u;background:var(--fondo2);opacity:.35;left:-180u;bottom:-120u}
+  [data-orient="h"] .gancho .l{max-width:1600u}
+
+  /* 2 producto */
+  .prod{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:80u;padding:0 80u}
+  .prod .c1{width:900u;height:900u;background:var(--acento2);opacity:.55;left:50%;top:44%;transform:translate(-50%,-50%)}
+  [data-orient="h"] .prod .c1{left:28%;top:50%}
+  .tarjeta{position:relative;width:700u;height:820u;background:#fff;border-radius:60u;display:grid;place-items:center;flex:none;
+    box-shadow:0 40u 90u color-mix(in srgb,var(--fondo) 30%,transparent);--rot:3deg}
+  .tarjeta img{max-width:80%;max-height:80%;object-fit:contain}
+  .sticker{position:absolute;top:-70u;right:-90u;width:270u;height:270u;border-radius:50%;background:var(--fondo);color:#fff;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:30u;
+    box-shadow:0 18u 40u rgba(0,0,0,.25)}
+  .sticker b{font-size:54u;color:var(--brillo);letter-spacing:-2u;line-height:1}
+  .sticker span{font-size:30u;font-weight:800;line-height:1.15;margin-top:10u}
+  .prod .info{text-align:center;max-width:100%}
+  .prod small{display:block;font-size:34u;font-weight:800;letter-spacing:6u;text-transform:uppercase;color:var(--acento);margin-bottom:18u}
+  .prod .nombre{font-size:72u;font-weight:900;letter-spacing:-1u;color:#fff}
+  .prod .nombre .caja{background:var(--fondo)}
+  [data-orient="h"] .prod{flex-direction:row;gap:150u}
+  [data-orient="h"] .tarjeta{width:640u;height:760u}
+  [data-orient="h"] .prod .info{text-align:left;max-width:900u}
+  [data-formato="1x1"] .tarjeta,[data-formato="4x5"] .tarjeta{width:620u;height:700u}
+  [data-formato="1x1"] .prod{gap:60u}
+
+  /* 3 beneficios */
+  .ben{display:flex;flex-direction:column;justify-content:center;gap:70u;padding:120u 90u}
+  .ben h2{font-size:96u;font-weight:900;line-height:1;letter-spacing:-3u;max-width:100%}
+  .ben h2 .serif{color:var(--acento)}
+  .ben .lista{display:flex;flex-direction:column;gap:44u;align-items:flex-start}
+  .ben .item{font-size:62u;font-weight:900;letter-spacing:-1u;padding:30u 44u;border-radius:30u;max-width:100%;
+    box-shadow:0 18u 40u color-mix(in srgb,var(--fondo) 22%,transparent)}
+  .ben .i1{background:var(--fondo);color:#fff;--rot:-2deg}
+  .ben .i2{background:var(--acento);color:#fff;--rot:2deg;align-self:flex-end}
+  .ben .i3{background:var(--brillo);color:var(--fondo);--rot:-1.5deg}
+  .bmini{position:absolute;right:80u;bottom:120u;width:280u;height:280u;border-radius:40u;background:#fff;display:grid;place-items:center;
+    box-shadow:0 20u 50u color-mix(in srgb,var(--fondo) 25%,transparent)}
+  .bmini img{max-width:78%;max-height:78%;object-fit:contain}
+  [data-formato="1x1"] .bmini,[data-formato="4x5"] .bmini{display:none}
+  [data-orient="h"] .ben{display:grid;grid-template-columns:1fr 1.2fr;column-gap:120u;align-items:center;padding:100u 140u}
+  [data-orient="h"] .bmini{left:140u;right:auto;bottom:110u;width:240u;height:240u}
+
+  /* 4 cierre */
+  .cierre{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 80u 140u}
+  .cierre .marca{font-weight:500;font-size:72u;letter-spacing:30u;margin-right:-30u;color:var(--fondo)}
+  .cierre .tarjeta{width:380u;height:420u;margin-top:60u;border-radius:44u;--rot:-3deg}
+  .cierre .frase{margin-top:70u;font-size:88u;font-weight:900;line-height:1.05;letter-spacing:-3u;max-width:100%}
+  .cierre .frase .f2{display:inline-block;margin-top:14u;color:#fff;transform:rotate(-2deg)}
+  .cierre .frase .f2 .caja{background:var(--acento)}
+  .cierre .precio{margin-top:36u;font-size:46u;font-weight:800}
+  .cierre .btnwrap{margin-top:64u}
+  .cierre .btn{background:var(--fondo);color:var(--brillo)}
+  .cierre .btn span{color:#fff}
+  .cierre .usuario{margin-top:34u;font-size:40u;font-weight:800}
+  .cierre .aviso{color:color-mix(in srgb,var(--fondo) 70%,transparent)}
+  [data-formato="1x1"] .cierre .tarjeta,[data-orient="h"] .cierre .tarjeta{display:none}
+  [data-formato="4x5"] .cierre .tarjeta{width:300u;height:330u}
+</style>
+
+<!-- 1 · gancho -->
+<div class="abs out" data-out="gancho.sale"><div class="abs center gancho in" data-in="gancho.entra">
+  <div class="circulo c1"></div><div class="circulo c2"></div>
+  <div class="kicker pop" data-d="gancho.kicker" data-txt="gancho.kicker" data-si="gancho.kicker"></div>
+  <div class="l fit" data-palabras="gancho.linea1" data-paso="gancho.paso" data-txt="gancho.linea1"></div>
+  <div class="l2wrap stamp" data-d="gancho.linea2"><div class="l2 fit" data-lineas="2"><span class="caja" data-txt="gancho.linea2"></span></div></div>
+</div></div>
+
+<!-- 2 · producto -->
+<div class="abs out" data-out="producto.sale"><div class="abs escena wipe-up" data-in="producto.entra">
+  <div class="abs puntos"></div>
+  <div class="abs prod">
+    <div class="circulo c1"></div>
+    <div class="tarjeta slide" data-d="producto.tarjeta">
+      <img class="float" data-img alt="">
+      <div class="sticker pop" data-d="producto.sticker" data-si="producto.dato"><div class="wobble" style="display:flex;flex-direction:column;align-items:center"><b data-txt="producto.dato.destacado"></b><span data-txt="producto.dato.texto"></span></div></div>
+    </div>
+    <div class="info">
+      <small class="rise" data-d="producto.categoria" data-txt="producto.categoria"></small>
+      <div class="nombre rise fit" data-lineas="2" data-d="producto.nombre"><span class="caja" data-txt="producto.nombre"></span></div>
+    </div>
+  </div>
+</div></div>
+
+<!-- 3 · beneficios -->
+<div class="abs out" data-out="beneficios.sale"><div class="abs escena wipe-left" data-in="beneficios.entra">
+  <div class="abs puntos"></div>
+  <div class="abs ben">
+    <h2 class="rise fit" data-d="beneficios.titulo" data-txt="beneficios.titulo"></h2>
+    <div class="lista">
+      <div class="item i1 entraIzq fit" data-lineas="2" data-d="beneficios.b1" data-si="beneficios.lista.0" data-txt="beneficios.lista.0"></div>
+      <div class="item i2 entraDer fit" data-lineas="2" data-d="beneficios.b2" data-si="beneficios.lista.1" data-txt="beneficios.lista.1"></div>
+      <div class="item i3 entraIzq fit" data-lineas="2" data-d="beneficios.b3" data-si="beneficios.lista.2" data-txt="beneficios.lista.2"></div>
+    </div>
+  </div>
+  <div class="bmini pop" data-d="beneficios.mini"><img class="float" data-img alt=""></div>
+</div></div>
+
+<!-- 4 · cierre -->
+<div class="abs escena wipe-up" data-in="cierre.entra">
+  <div class="abs puntos"></div>
+  <div class="circulo c1" style="position:absolute;width:1000u;height:1000u;background:var(--acento2);opacity:.4;left:50%;top:-380u;transform:translateX(-50%)"></div>
+  <div class="abs cierre">
+    <div class="marca stamp" data-d="cierre.marca">FARMASi</div>
+    <div class="tarjeta slide" data-d="cierre.tarjeta"><img class="float" data-img alt=""></div>
+    <div class="frase rise fit" data-d="cierre.frase"><span data-txt="cierre.frase1"></span><br><span class="f2"><span class="caja" data-txt="cierre.frase2"></span></span></div>
+    <div class="precio rise" data-d="cierre.precio" data-si="cierre.precio" data-txt="cierre.precio"></div>
+    <div class="btnwrap rise" data-d="cierre.boton"><div class="btn"><span data-txt="cierre.boton_pre"></span> “<b data-txt="cierre.palabra"></b>” 💬</div></div>
+    <div class="usuario rise" data-d="cierre.boton" data-si="cierre.usuario" data-txt="cierre.usuario"></div>
+    <div class="aviso rise" data-d="cierre.aviso" data-txt="cierre.aviso"></div>
+  </div>
+</div>
+
+<div class="abs grain"></div>

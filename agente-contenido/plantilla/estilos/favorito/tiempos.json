@@ -1,0 +1,10 @@
+{
+  "_nota": "Línea de tiempo del estilo «mi favorito» (segundos). La leen la plantilla HTML y sonido.py. El gancho entra palabra por palabra cada 0.14 s desde gancho.linea1.",
+  "duracion": 15.0,
+  "bpm": 118,
+  "gancho":      { "entra": 0.0,  "kicker": 0.1, "linea1": 0.25, "paso": 0.14, "linea2": 1.35, "sale": 2.55 },
+  "producto":    { "entra": 2.5,  "tarjeta": 2.6, "categoria": 3.0, "nombre": 3.2, "sticker": 3.7, "sale": 6.0 },
+  "beneficios":  { "entra": 5.95, "titulo": 6.1, "b1": 6.7, "b2": 7.5, "b3": 8.3, "mini": 8.9, "sale": 10.4 },
+  "cierre":      { "entra": 10.35, "marca": 10.5, "tarjeta": 10.6, "frase": 11.0, "precio": 11.4, "boton": 11.8, "aviso": 12.2 },
+  "previa": ["gancho.linea2+0.9", "producto.sticker+1.0", "beneficios.b3+0.9", "cierre.aviso+1.0", "duracion-0.1"]
+}
