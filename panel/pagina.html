@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Panel de Jarvis</title>
+<style>
+  :root {
+    --fondo: #faf6f7; --panel: #ffffff; --texto: #2a2226; --suave: #7a6b72;
+    --linea: #eadfe3; --marca: #c2185b; --marca-suave: #fde7ef; --oro: #b8860b;
+    --burbuja-yo: #c2185b; --burbuja-yo-texto: #fff;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --fondo: #17131a; --panel: #211b24; --texto: #f3eaee; --suave: #b3a3ab;
+      --linea: #362d3a; --marca: #f06292; --marca-suave: #3a2130; --oro: #e0b84c;
+      --burbuja-yo: #ad1457; --burbuja-yo-texto: #fff;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
+         background: var(--fondo); color: var(--texto); height: 100vh; display: flex; }
+  aside { width: 330px; flex: none; background: var(--panel); border-right: 1px solid var(--linea);
+          overflow-y: auto; padding: 18px 16px 30px; }
+  main { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+  h1 { font-size: 18px; margin: 0 0 2px; }
+  .sub { color: var(--suave); font-size: 13px; margin: 0 0 18px; }
+  h2 { font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--suave);
+       margin: 22px 0 8px; }
+  .tarjeta { display: flex; gap: 10px; padding: 10px; border: 1px solid var(--linea);
+             border-radius: 12px; margin-bottom: 8px; position: relative; transition: .2s; }
+  .tarjeta .ico { width: 38px; height: 38px; border-radius: 10px; display: grid; place-items: center;
+                  font-size: 20px; flex: none; }
+  .tarjeta b { display: block; font-size: 14px; }
+  .tarjeta .desc { font-size: 12.5px; color: var(--suave); display: -webkit-box;
+                   -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .tarjeta.abierta .desc { -webkit-line-clamp: unset; }
+  .tarjeta .estado { font-size: 12px; margin-top: 4px; color: var(--marca); min-height: 0; }
+  .tarjeta.jefe { border-color: var(--oro); }
+  .tarjeta.activa { border-color: var(--marca); background: var(--marca-suave); }
+  .luz { position: absolute; top: 10px; right: 10px; width: 9px; height: 9px; border-radius: 50%;
+         background: #bdb3b8; }
+  .activa .luz { background: #43a047; box-shadow: 0 0 0 0 #43a04788; animation: latido 1.2s infinite; }
+  @keyframes latido { 70% { box-shadow: 0 0 0 8px #43a04700; } }
+  .chip-lista { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip-hab { font-size: 12px; padding: 3px 9px; border-radius: 99px; background: var(--marca-suave);
+              color: var(--texto); }
+  .trabajo { display: block; font-size: 13px; padding: 6px 8px; border-radius: 8px; color: var(--texto);
+             text-decoration: none; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .trabajo:hover { background: var(--marca-suave); }
+  .trabajo span { color: var(--suave); font-size: 11px; margin-right: 6px; }
+  .vacio { color: var(--suave); font-size: 13px; }
+
+  header { padding: 14px 22px; border-bottom: 1px solid var(--linea); background: var(--panel);
+           display: flex; align-items: center; gap: 12px; }
+  header .cara { font-size: 26px; }
+  header .t { flex: 1; } header .t b { display: block; } header .t small { color: var(--suave); }
+  button { font: inherit; cursor: pointer; border-radius: 10px; border: 1px solid var(--linea);
+           background: var(--panel); color: var(--texto); padding: 7px 12px; }
+  button:hover { border-color: var(--marca); }
+  #chat { flex: 1; overflow-y: auto; padding: 22px; display: flex; flex-direction: column; gap: 12px; }
+  .msg { max-width: 760px; padding: 10px 14px; border-radius: 16px; white-space: normal;
+         overflow-wrap: anywhere; }
+  .msg.yo { align-self: flex-end; background: var(--burbuja-yo); color: var(--burbuja-yo-texto);
+            border-bottom-right-radius: 4px; white-space: pre-wrap; }
+  .msg.jarvis { align-self: flex-start; background: var(--panel); border: 1px solid var(--linea);
+                border-bottom-left-radius: 4px; }
+  .msg.jarvis p { margin: 0 0 8px; } .msg.jarvis p:last-child { margin: 0; }
+  .msg.jarvis ul, .msg.jarvis ol { margin: 4px 0 8px; padding-left: 22px; }
+  .msg.jarvis a { color: var(--marca); }
+  .msg.jarvis code { background: var(--marca-suave); padding: 1px 5px; border-radius: 5px; font-size: 13px; }
+  .msg.jarvis table { border-collapse: collapse; margin: 6px 0; font-size: 13.5px; }
+  .msg.jarvis td, .msg.jarvis th { border: 1px solid var(--linea); padding: 4px 8px; text-align: left; }
+  .medios { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+  .medios img { height: 140px; border-radius: 10px; border: 1px solid var(--linea); display: block; }
+  .medios video { height: 260px; max-width: 100%; border-radius: 10px; background: #000; }
+  .msg.error { align-self: center; background: #fdecea; color: #8a1c1c; border: 1px solid #f5c2c0;
+               white-space: pre-wrap; }
+  .actividad { align-self: flex-start; font-size: 13px; color: var(--suave); padding: 2px 6px; }
+  .actividad b { color: var(--texto); font-weight: 600; }
+  .bienvenida { margin: auto; text-align: center; color: var(--suave); max-width: 520px; }
+  .bienvenida .cara { font-size: 46px; }
+  .ideas { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 14px; }
+  .ideas button { font-size: 13.5px; border-radius: 99px; }
+  form { display: flex; gap: 10px; padding: 14px 22px 18px; border-top: 1px solid var(--linea);
+         background: var(--panel); }
+  textarea { flex: 1; font: inherit; resize: none; border-radius: 14px; border: 1px solid var(--linea);
+             padding: 10px 14px; background: var(--fondo); color: var(--texto); min-height: 46px; max-height: 180px; }
+  textarea:focus { outline: 2px solid var(--marca); border-color: transparent; }
+  #enviar { background: var(--marca); color: #fff; border: none; padding: 0 20px; font-weight: 600; }
+  #enviar:disabled { opacity: .5; cursor: default; }
+  .puntos::after { content: "…"; animation: puntos 1s steps(3) infinite; display: inline-block; width: 1em; overflow: hidden; vertical-align: bottom; }
+  @keyframes puntos { from { width: 0 } to { width: 1em } }
+
+  @media (max-width: 800px) {
+    body { flex-direction: column; height: auto; min-height: 100vh; }
+    aside { width: 100%; border-right: none; border-bottom: 1px solid var(--linea); max-height: 45vh; }
+    main { height: 100vh; }
+  }
+</style>
+</head>
+<body>
+<aside>
+  <h1>Panel de Jarvis</h1>
+  <p class="sub">Tu equipo de agentes Farmasi</p>
+  <h2>El jefe</h2>
+  <div id="jefe"></div>
+  <h2>Sus agentes <span id="cuantos"></span></h2>
+  <div id="agentes"></div>
+  <h2>Habilidades</h2>
+  <div id="habilidades" class="chip-lista"></div>
+  <h2>Lo último que hicieron</h2>
+  <div id="trabajos"></div>
+</aside>
+<main>
+  <header>
+    <div class="cara">🧠</div>
+    <div class="t"><b>Jarvis</b><small id="estado-jarvis">Listo para ayudarte</small></div>
+    <button id="parar" hidden>Detener</button>
+    <button id="nueva" title="Empezar una conversación desde cero">Nueva conversación</button>
+  </header>
+  <div id="chat"></div>
+  <form id="formulario">
+    <textarea id="texto" rows="1" placeholder="Escríbele a Jarvis…  (Enter para enviar, Shift+Enter para otra línea)"></textarea>
+    <button id="enviar" type="submit">Enviar</button>
+  </form>
+</main>
+
+<script>
+const $ = (s) => document.querySelector(s);
+const chat = $("#chat"), texto = $("#texto"), enviarBtn = $("#enviar");
+let equipoActual = { agentes: [] };
+let sesion = null, ocupado = false;
+try { sesion = localStorage.getItem("jarvis-sesion"); } catch (e) {}
+let historial = [];
+try { historial = JSON.parse(localStorage.getItem("jarvis-historial") || "[]"); } catch (e) {}
+
+const IDEAS = [
+  "Búscame los 3 productos con mejores reseñas",
+  "¿Qué publico las próximas 2 semanas?",
+  "Hazme un anuncio del Vitamin C Glow Serum",
+  "¿Qué agentes tienes y qué hace cada uno?",
+];
+
+function esc(s) { return String(s).replace(/[&<>"]/g, (c) => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
+
+function enlaceArchivo(ruta) {
+  return `<a href="/archivo?ruta=${encodeURIComponent(ruta)}" target="_blank">${esc(ruta.split("/").pop())}</a>`;
+}
+const PATRON_RUTA = /^[\w.\-\/]+\.(mp4|html|jpg|jpeg|png|json|txt|csv|webp)$/i;
+
+// Markdown sencillo: negritas, listas, tablas, `rutas` → enlaces.
+function formatear(md) {
+  const medios = [];
+  const enLinea = (t) => esc(t)
+    .replace(/`([^`]+)`/g, (_, c) => { const r = c.replace(/&amp;/g, "&"); if (!PATRON_RUTA.test(r)) return `<code>${c}</code>`;
+      if (/\.(mp4|jpe?g|png|webp)$/i.test(r) && !medios.includes(r)) medios.push(r);
+      return enlaceArchivo(r); })
+    .replace(/\*\*([^*]+)\*\*/g, "<b>$1</b>")
+    .replace(/\[([^\]]+)\]\((https?:[^)]+)\)/g, '<a href="$2" target="_blank">$1</a>');
+  const lineas = md.split("\n"); let html = "", lista = null, tabla = null;
+  const cerrar = () => { if (lista) { html += `</${lista}>`; lista = null; } if (tabla) { html += "</table>"; tabla = null; } };
+  for (const l of lineas) {
+    let m;
+    if (/^\s*\|/.test(l)) {
+      if (/^\s*\|[\s:\-|]+\|\s*$/.test(l)) continue;
+      if (!tabla) { cerrar(); html += "<table>"; tabla = true; }
+      const celdas = l.trim().replace(/^\||\|$/g, "").split("|");
+      html += "<tr>" + celdas.map((c) => `<td>${enLinea(c.trim())}</td>`).join("") + "</tr>";
+    } else if ((m = l.match(/^\s*[-*•]\s+(.*)/))) {
+      if (lista !== "ul") { cerrar(); html += "<ul>"; lista = "ul"; }
+      html += `<li>${enLinea(m[1])}</li>`;
+    } else if ((m = l.match(/^\s*\d+[.)]\s+(.*)/))) {
+      if (lista !== "ol") { cerrar(); html += "<ol>"; lista = "ol"; }
+      html += `<li>${enLinea(m[1])}</li>`;
+    } else if ((m = l.match(/^#{1,4}\s+(.*)/))) {
+      cerrar(); html += `<p><b>${enLinea(m[1])}</b></p>`;
+    } else if (l.trim() === "") { cerrar(); }
+    else { cerrar(); html += `<p>${enLinea(l)}</p>`; }
+  }
+  cerrar();
+  if (medios.length) html += '<div class="medios">' + medios.slice(0, 6).map((r) => {
+    const src = `/archivo?ruta=${encodeURIComponent(r)}`;
+    return /\.mp4$/i.test(r) ? `<video src="${src}" controls preload="metadata"></video>`
+                             : `<a href="${src}" target="_blank"><img src="${src}" alt="" loading="lazy"></a>`;
+  }).join("") + "</div>";
+  return html;
+}
+
+function agente(id) {
+  return equipoActual.agentes.find((a) => a.id === id) ||
+    { id, nombre: id.replace(/-/g, " "), icono: "🤖", color: "#888" };
+}
+
+function tarjeta(a, jefe) {
+  return `<div class="tarjeta${jefe ? " jefe" : ""}" data-id="${esc(a.id)}" title="Clic para ver más">
+    <div class="ico" style="background:${a.color}22">${a.icono}</div>
+    <div><b>${esc(a.nombre)}</b><div class="desc">${esc(a.que_hace)}</div><div class="estado"></div></div>
+    <div class="luz"></div></div>`;
+}
+
+async function cargarEquipo() {
+  try {
+    const r = await fetch("/api/equipo"); equipoActual = await r.json();
+    $("#jefe").innerHTML = tarjeta(equipoActual.jefe, true);
+    $("#agentes").innerHTML = equipoActual.agentes.map((a) => tarjeta(a)).join("") ||
+      '<p class="vacio">Todavía no hay agentes.</p>';
+    $("#cuantos").textContent = `(${equipoActual.agentes.length})`;
+    $("#habilidades").innerHTML = equipoActual.habilidades.map((h) =>
+      `<span class="chip-hab" title="${esc(h.que_hace)}">${esc(h.nombre)}</span>`).join("") ||
+      '<span class="vacio">Ninguna</span>';
+    document.querySelectorAll(".tarjeta").forEach((t) => t.onclick = () => t.classList.toggle("abierta"));
+  } catch (e) { $("#agentes").innerHTML = '<p class="vacio">No pude leer el equipo.</p>'; }
+}
+
+async function cargarTrabajos() {
+  try {
+    const lista = await (await fetch("/api/trabajos")).json();
+    const iconos = { Video: "🎬", Plan: "🗓️", Vitrina: "🛍️" };
+    $("#trabajos").innerHTML = lista.map((t) =>
+      `<a class="trabajo" href="/archivo?ruta=${encodeURIComponent(t.ruta)}" target="_blank" title="${esc(t.ruta)}">
+       ${iconos[t.tipo] || "📄"} <span>${t.tipo}</span>${esc(t.ruta.split("/").slice(-3).join(" / "))}</a>`).join("") ||
+      '<p class="vacio">Aún nada. Pídele algo a Jarvis.</p>';
+  } catch (e) {}
+}
+
+function marcarAgente(id, activo, estado) {
+  const t = document.querySelector(`.tarjeta[data-id="${CSS.escape(id)}"]`);
+  if (!t) { if (activo) cargarEquipo(); return; }
+  t.classList.toggle("activa", activo);
+  t.querySelector(".estado").textContent = estado || "";
+}
+
+function agregar(clase, html) {
+  $(".bienvenida")?.remove();
+  const d = document.createElement("div"); d.className = clase; d.innerHTML = html;
+  chat.appendChild(d); chat.scrollTop = chat.scrollHeight; return d;
+}
+
+function guardar() {
+  try {
+    localStorage.setItem("jarvis-historial", JSON.stringify(historial.slice(-80)));
+    if (sesion) localStorage.setItem("jarvis-sesion", sesion); else localStorage.removeItem("jarvis-sesion");
+  } catch (e) {}
+}
+
+function bienvenida() {
+  chat.innerHTML = `<div class="bienvenida"><div class="cara">🧠</div>
+    <p><b>Hola Julio, soy Jarvis.</b><br>Dime qué necesitas y yo llamo al agente que corresponde.
+    Aquí a la izquierda verás quién está trabajando.</p>
+    <div class="ideas">${IDEAS.map((i) => `<button type="button">${esc(i)}</button>`).join("")}</div></div>`;
+  chat.querySelectorAll(".ideas button").forEach((b) => b.onclick = () => { texto.value = b.textContent; mandar(); });
+}
+
+function pintarHistorial() {
+  if (!historial.length) return bienvenida();
+  chat.innerHTML = "";
+  for (const h of historial) {
+    if (h.de === "yo") agregar("msg yo", esc(h.texto));
+    else if (h.de === "jarvis") agregar("msg jarvis", formatear(h.texto));
+    else agregar("actividad", h.html);
+  }
+}
+
+function setOcupado(si, frase) {
+  ocupado = si; enviarBtn.disabled = si; $("#parar").hidden = !si;
+  $("#estado-jarvis").innerHTML = si ? `<span class="puntos">${esc(frase || "Pensando")}</span>` : "Listo para ayudarte";
+  marcarAgente("jarvis", si, si ? (frase || "Pensando") : "");
+}
+
+async function mandar() {
+  const mensaje = texto.value.trim();
+  if (!mensaje || ocupado) return;
+  texto.value = ""; ajustar();
+  agregar("msg yo", esc(mensaje)); historial.push({ de: "yo", texto: mensaje }); guardar();
+  setOcupado(true, "Pensando");
+  let burbuja = null, acumulado = "";
+  const cerrarBurbuja = () => {
+    if (acumulado.trim()) historial.push({ de: "jarvis", texto: acumulado.trim() });
+    burbuja = null; acumulado = ""; guardar();
+  };
+  const actividad = (html) => { agregar("actividad", html); historial.push({ de: "act", html }); };
+
+  try {
+    const r = await fetch("/api/conversar", { method: "POST", headers: { "Content-Type": "application/json" },
+                                               body: JSON.stringify({ mensaje, sesion }) });
+    if (!r.ok) { const e = await r.json().catch(() => ({})); throw new Error(e.error || "No pude hablar con Jarvis."); }
+    const lector = r.body.getReader(), dec = new TextDecoder(); let resto = "";
+    while (true) {
+      const { value, done } = await lector.read(); if (done) break;
+      resto += dec.decode(value, { stream: true });
+      const lineas = resto.split("\n"); resto = lineas.pop();
+      for (const l of lineas) {
+        if (!l.trim()) continue; const ev = JSON.parse(l);
+        if (ev.tipo === "sesion" && ev.sesion) { sesion = ev.sesion; guardar(); }
+        else if (ev.tipo === "corte") { cerrarBurbuja(); }
+        else if (ev.tipo === "texto") {
+          if (!burbuja) burbuja = agregar("msg jarvis", "");
+          acumulado += ev.texto; burbuja.innerHTML = formatear(acumulado); chat.scrollTop = chat.scrollHeight;
+          setOcupado(true, "Escribiendo");
+        } else if (ev.tipo === "agente_empieza") {
+          cerrarBurbuja(); const a = agente(ev.agente);
+          actividad(`${a.icono} Jarvis llamó a <b>${esc(a.nombre)}</b>${ev.tarea ? ": " + esc(ev.tarea) : ""}`);
+          marcarAgente(ev.agente, true, "Trabajando…"); setOcupado(true, `${a.nombre} está trabajando`);
+        } else if (ev.tipo === "agente_hace") {
+          marcarAgente(ev.agente, true, ev.texto + "…");
+        } else if (ev.tipo === "jarvis_hace") {
+          setOcupado(true, ev.texto);
+        } else if (ev.tipo === "agente_termina") {
+          const a = agente(ev.agente); marcarAgente(ev.agente, false, "");
+          actividad(`✅ <b>${esc(a.nombre)}</b> terminó y le pasó el resultado a Jarvis`);
+          setOcupado(true, "Pensando"); cargarTrabajos();
+        } else if (ev.tipo === "error") {
+          cerrarBurbuja(); agregar("msg error", esc(ev.texto));
+        }
+      }
+    }
+  } catch (e) {
+    agregar("msg error", esc(e.message || "Se cortó la conexión con el panel. ¿Sigue abierta la ventana del servidor?"));
+  }
+  cerrarBurbuja(); setOcupado(false); cargarTrabajos(); cargarEquipo();
+}
+
+function ajustar() { texto.style.height = "auto"; texto.style.height = Math.min(texto.scrollHeight, 180) + "px"; }
+texto.addEventListener("input", ajustar);
+texto.addEventListener("keydown", (e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); mandar(); } });
+$("#formulario").onsubmit = (e) => { e.preventDefault(); mandar(); };
+$("#parar").onclick = () => fetch("/api/parar", { method: "POST" });
+$("#nueva").onclick = () => {
+  if (ocupado) return;
+  sesion = null; historial = []; guardar(); bienvenida();
+};
+
+cargarEquipo().then(pintarHistorial); cargarTrabajos();
+setInterval(() => { if (!ocupado) { cargarEquipo(); cargarTrabajos(); } }, 15000);
+</script>
+</body>
+</html>

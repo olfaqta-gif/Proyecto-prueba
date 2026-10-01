@@ -3,6 +3,9 @@ Este es para probar hyperframes
 
 ## Jarvis: el jefe de los agentes
 
+**Panel de Jarvis:** para verlo a él y a sus agentes y conversar en una página web,
+abre `panel/abrir-panel.bat` (Windows) o `panel/abrir-panel.command` (Mac). Ver `panel/README.md`.
+
 Abre este repositorio en Claude Code y escribe `/jarvis` (o háblale a "Jarvis").
 Jarvis conversa contigo y llama a sus tres agentes:
 
