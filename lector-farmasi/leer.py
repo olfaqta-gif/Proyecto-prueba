@@ -320,6 +320,41 @@ def cmd_mejores(a):
         print(f'   {carpeta}/datos.json' + (f' + {foto.name}' if foto else '  (sin foto)'))
     if not top:
         print('Ningún producto cumple el filtro.')
+        return
+    vitrina = destino / 'vitrina.html'
+    vitrina.write_text(hacer_vitrina(top, a.filtro), encoding='utf-8')
+    print(f'\nVitrina para ver con fotos: {vitrina}')
+
+
+def hacer_vitrina(productos, filtro=None):
+    """Página simple con foto, nombre, calificación y descripción de cada producto."""
+    tarjetas = []
+    for i, d in enumerate(productos, 1):
+        r = d['resenas']
+        esc = html.escape
+        tarjetas.append(f'''<article>
+  <span class="n">{i}</span>
+  <img src="{esc(d['slug'])}/producto.jpg" alt="{esc(d['nombre'])}">
+  <h2>{esc(d['nombre'])}</h2>
+  <p class="r">{'★' * round(r['promedio'])} {r['promedio']} · {r['cantidad']} reseñas</p>
+  <p>{esc(d['descripcion'][:260])}{'…' if len(d['descripcion']) > 260 else ''}</p>
+  <p class="c">Código {esc(d['codigo'])} · <a href="{esc(d['fuente'])}">ver en la tienda</a></p>
+</article>''')
+    titulo = 'Mejores reseñas' + (f' · {html.escape(filtro)}' if filtro else '')
+    return f'''<!doctype html><html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>{titulo}</title>
+<style>
+body{{margin:0;font-family:system-ui,sans-serif;background:#faf7f5;color:#2a2224}}
+h1{{text-align:center;font-weight:600;margin:28px 16px 8px}} .sub{{text-align:center;color:#7a6c70;margin:0 16px 24px}}
+main{{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;max-width:1100px;margin:auto;padding:0 16px 40px}}
+article{{background:#fff;border-radius:16px;padding:18px;box-shadow:0 2px 12px #0001;position:relative}}
+img{{width:100%;aspect-ratio:1;object-fit:contain;border-radius:12px;background:#fff}}
+.n{{position:absolute;top:12px;left:12px;background:#c2185b;color:#fff;border-radius:50%;width:32px;height:32px;display:grid;place-items:center;font-weight:700}}
+h2{{font-size:1.1rem;margin:12px 0 4px}} .r{{color:#b8860b;margin:0 0 8px}} .c{{font-size:.85rem;color:#7a6c70}}
+a{{color:#c2185b}}
+</style></head><body><h1>{titulo}</h1><p class="sub">Datos de farmasius.com · leídos el {datetime.date.today().isoformat()}</p>
+<main>{''.join(tarjetas)}</main></body></html>
+'''
 
 
 def main():
