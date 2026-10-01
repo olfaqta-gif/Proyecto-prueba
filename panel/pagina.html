@@ -2,331 +2,493 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>J.A.R.V.I.S. Farmasi</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Jarvis Farmasi</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800&family=Instrument+Sans:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
+  /* Concepto: una sala de mando nocturna con aire de estudio de belleza. Tres zonas de
+     cristal esmerilado (conversación · escenario con Jarvis vivo y su equipo · visor) sobre
+     un fondo ciruela con auroras rosa-durazno-violeta. Un solo look oscuro, a propósito. */
   :root {
-    --fondo: #030a14; --fondo2: #061527; --cian: #38e1ff; --cian-suave: #38e1ff33;
-    --cian-tenue: #38e1ff14; --texto: #d8f6ff; --suave: #7fa9bd; --rosa: #ff4fa3;
-    --verde: #3dffb5; --ambar: #ffb340; --rojo: #ff5c6c;
-    --titulo: "Orbitron", "Segoe UI", sans-serif; --cuerpo: "Rajdhani", "Segoe UI", system-ui, sans-serif;
+    color-scheme: dark;
+    --tinta: #0d0912;          /* fondo ciruela casi negro */
+    --tinta-2: #160f1d;
+    --cristal: rgba(255, 240, 248, .055);
+    --cristal-fuerte: rgba(255, 240, 248, .09);
+    --filo: rgba(255, 225, 240, .12);
+    --texto: #f7eef4;
+    --tenue: #b3a0b4;
+    --apagado: #7d6c80;
+    --rosa: #ff6fae;           /* acento principal */
+    --durazno: #ffb48f;
+    --violeta: #9b8cff;
+    --bien: #6fe3b0;
+    --alerta: #ff7b86;
+    --display: "Unbounded", "Segoe UI", system-ui, sans-serif;
+    --cuerpo: "Instrument Sans", "Segoe UI", system-ui, sans-serif;
+    --mono: "Geist Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+    --radio: 22px;
   }
   * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
   html, body { height: 100%; }
   body {
-    margin: 0; color: var(--texto); font: 500 16px/1.45 var(--cuerpo); overflow: hidden;
+    margin: 0; background: var(--tinta); color: var(--texto);
+    font: 400 15px/1.55 var(--cuerpo); overflow: hidden; -webkit-font-smoothing: antialiased;
+  }
+  /* Auroras de fondo */
+  .aurora { position: fixed; inset: -20%; z-index: 0; pointer-events: none; filter: blur(80px); opacity: .55;
     background:
-      radial-gradient(ellipse at 50% 40%, #0b2a45 0%, transparent 60%),
-      radial-gradient(ellipse at 90% 100%, #2a0b2e55 0%, transparent 50%),
-      var(--fondo);
-  }
-  /* Rejilla y líneas de escaneo de fondo */
-  body::before {
-    content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 0;
-    background-image: linear-gradient(var(--cian-tenue) 1px, transparent 1px),
-                      linear-gradient(90deg, var(--cian-tenue) 1px, transparent 1px);
-    background-size: 44px 44px; mask-image: radial-gradient(ellipse at center, #000 30%, transparent 80%);
-  }
-  body::after {
-    content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 50;
-    background: repeating-linear-gradient(0deg, #ffffff05 0 1px, transparent 1px 3px);
-  }
-  #particulas { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+      radial-gradient(35% 30% at 30% 35%, #ff6fae55, transparent 70%),
+      radial-gradient(30% 28% at 70% 30%, #9b8cff4d, transparent 70%),
+      radial-gradient(35% 30% at 55% 80%, #ffb48f33, transparent 70%);
+    animation: deriva 26s ease-in-out infinite alternate; }
+  @keyframes deriva { to { transform: translate(4%, -3%) rotate(8deg) scale(1.06); } }
+  .grano { position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: .06;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
 
-  .app { position: relative; z-index: 1; height: 100vh; display: grid;
-         grid-template-columns: minmax(330px, 26%) 1fr minmax(340px, 30%);
-         grid-template-rows: 58px 1fr; gap: 14px; padding: 0 14px 14px; }
+  .app { position: relative; z-index: 1; height: 100%; display: grid; gap: 16px;
+         grid-template-columns: minmax(340px, 400px) minmax(0, 1fr) minmax(320px, 380px);
+         grid-template-rows: auto minmax(0, 1fr); padding: 14px 16px 16px; }
 
-  /* Barra superior */
-  .barra { grid-column: 1 / -1; display: flex; align-items: center; gap: 18px;
-           border-bottom: 1px solid var(--cian-suave); }
-  .logo { font: 900 20px var(--titulo); letter-spacing: .32em; color: var(--cian);
-          text-shadow: 0 0 12px var(--cian), 0 0 30px #38e1ff66; }
-  .logo small { font: 600 11px var(--titulo); letter-spacing: .3em; color: var(--rosa);
-                text-shadow: 0 0 10px var(--rosa); margin-left: 10px; }
-  .barra .datos { margin-left: auto; display: flex; gap: 22px; font: 500 12px var(--titulo);
-                  letter-spacing: .14em; color: var(--suave); }
-  .barra .datos b { color: var(--cian); font-weight: 700; }
-  .boton { font: 600 12px var(--titulo); letter-spacing: .12em; text-transform: uppercase;
-           color: var(--cian); background: transparent; border: 1px solid var(--cian-suave);
-           padding: 8px 12px; cursor: pointer; clip-path: polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%); }
-  .boton:hover { background: var(--cian-suave); box-shadow: inset 0 0 12px var(--cian-suave); }
-  .boton.on { background: var(--cian); color: var(--fondo); }
-  .boton.peligro { color: var(--rojo); border-color: #ff5c6c66; }
+  /* Encabezado */
+  header { grid-column: 1 / -1; display: flex; align-items: center; gap: 14px; padding: 2px 4px; }
+  .marca { display: flex; align-items: baseline; gap: 12px; }
+  .marca b { font: 800 22px var(--display); letter-spacing: .02em;
+             background: linear-gradient(100deg, var(--texto) 30%, var(--rosa) 70%, var(--durazno));
+             -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .marca span { font: 500 11px var(--mono); letter-spacing: .16em; text-transform: uppercase; color: var(--tenue); }
+  .pastilla { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 99px;
+              background: var(--cristal); border: 1px solid var(--filo); font: 500 12px var(--mono); color: var(--tenue);
+              font-variant-numeric: tabular-nums; }
+  .pastilla i { width: 7px; height: 7px; border-radius: 50%; background: var(--bien); box-shadow: 0 0 10px var(--bien); }
+  .pastilla.ocupado i { background: var(--rosa); box-shadow: 0 0 10px var(--rosa); animation: latir 1s infinite; }
+  .espacio { flex: 1; }
+  .boton { font: 500 13px var(--cuerpo); color: var(--texto); background: var(--cristal); border: 1px solid var(--filo);
+           border-radius: 99px; padding: 7px 14px; cursor: pointer; display: inline-flex; gap: 7px; align-items: center;
+           transition: background .2s, border-color .2s; }
+  .boton:hover { background: var(--cristal-fuerte); border-color: #ffffff33; }
+  .boton:focus-visible, button:focus-visible { outline: 2px solid var(--rosa); outline-offset: 2px; }
+  .boton.on { background: linear-gradient(120deg, var(--rosa), var(--durazno)); color: #2a0f1d; border-color: transparent; }
+  .boton.peligro { color: var(--alerta); }
 
-  /* Paneles holográficos con esquinas */
-  .holo { position: relative; background: linear-gradient(160deg, #0a2036cc, #04101ecc);
-          border: 1px solid var(--cian-suave); min-height: 0; display: flex; flex-direction: column;
-          box-shadow: inset 0 0 40px #38e1ff10, 0 0 30px #00000080; backdrop-filter: blur(4px); }
-  .holo::before, .holo::after { content: ""; position: absolute; width: 18px; height: 18px;
-          border: 2px solid var(--cian); pointer-events: none; filter: drop-shadow(0 0 4px var(--cian)); }
-  .holo::before { top: -2px; left: -2px; border-right: none; border-bottom: none; }
-  .holo::after { bottom: -2px; right: -2px; border-left: none; border-top: none; }
-  .holo h2 { margin: 0; padding: 10px 14px; font: 700 12px var(--titulo); letter-spacing: .24em;
-             color: var(--cian); border-bottom: 1px solid var(--cian-suave); display: flex; gap: 8px;
-             align-items: center; text-transform: uppercase; }
-  .holo h2::before { content: ""; width: 6px; height: 6px; background: var(--cian);
-                     box-shadow: 0 0 8px var(--cian); }
-  .holo h2 .extra { margin-left: auto; color: var(--suave); font-size: 10px; letter-spacing: .14em; }
+  /* Paneles de cristal */
+  .cristal { background: linear-gradient(180deg, rgba(255,240,248,.075), rgba(255,240,248,.035));
+             border: 1px solid var(--filo); border-radius: var(--radio); backdrop-filter: blur(24px) saturate(140%);
+             -webkit-backdrop-filter: blur(24px) saturate(140%); box-shadow: 0 30px 60px -30px #000c, inset 0 1px 0 #ffffff14;
+             min-height: 0; min-width: 0; display: flex; flex-direction: column; overflow: hidden; }
+  .cab { display: flex; align-items: center; gap: 10px; padding: 16px 18px 12px; }
+  .cab h2 { margin: 0; font: 600 13px var(--display); letter-spacing: .04em; }
+  .cab .meta { margin-left: auto; font: 400 11px var(--mono); color: var(--apagado); letter-spacing: .06em; }
 
-  /* ===== Consola de conversación ===== */
-  #consola { overflow-y: auto; padding: 14px; flex: 1; display: flex; flex-direction: column; gap: 12px;
-             scrollbar-width: thin; scrollbar-color: var(--cian-suave) transparent; }
-  .linea { animation: aparecer .35s ease-out; }
-  @keyframes aparecer { from { opacity: 0; transform: translateY(6px); filter: blur(3px); } }
-  .linea .quien { font: 700 10px var(--titulo); letter-spacing: .22em; margin-bottom: 3px; }
-  .linea.yo { align-self: flex-end; max-width: 88%; text-align: right; }
-  .linea.yo .quien { color: var(--rosa); }
-  .linea.yo .cuerpo { background: #ff4fa31f; border: 1px solid #ff4fa355; padding: 8px 12px;
-                      white-space: pre-wrap; text-align: left; }
-  .linea.jarvis .quien { color: var(--cian); }
-  .linea.jarvis .cuerpo { border-left: 2px solid var(--cian); padding: 2px 0 2px 12px; }
-  .cuerpo p { margin: 0 0 7px; } .cuerpo p:last-child { margin: 0; }
-  .cuerpo ul, .cuerpo ol { margin: 3px 0 7px; padding-left: 20px; }
-  .cuerpo b { color: #fff; }
-  .cuerpo a { color: var(--cian); }
-  .cuerpo code { font-size: 13px; color: var(--ambar); }
-  .cuerpo table { border-collapse: collapse; margin: 6px 0; font-size: 14px; }
-  .cuerpo td { border: 1px solid var(--cian-suave); padding: 3px 7px; }
-  .linea.sistema { font: 500 11px var(--titulo); letter-spacing: .08em; color: var(--suave); }
-  .linea.sistema b { color: var(--verde); font-weight: 600; }
-  .linea.error .cuerpo { color: var(--rojo); border: 1px solid #ff5c6c66; padding: 8px 12px;
-                         background: #ff5c6c14; white-space: pre-wrap; }
-  .cursor::after { content: "▍"; color: var(--cian); animation: parpadeo 1s steps(2) infinite; }
-  @keyframes parpadeo { 50% { opacity: 0; } }
+  /* ===== Conversación ===== */
+  #consola { flex: 1; overflow-y: auto; padding: 6px 18px 18px; display: flex; flex-direction: column; gap: 14px;
+             scrollbar-width: thin; scrollbar-color: #ffffff22 transparent; }
+  .msg { animation: entrar .4s cubic-bezier(.2,.8,.2,1); min-width: 0; }
+  @keyframes entrar { from { opacity: 0; transform: translateY(8px); } }
+  .msg.yo { align-self: flex-end; max-width: 85%; padding: 10px 14px; border-radius: 18px 18px 6px 18px;
+            background: linear-gradient(135deg, #ff6fae, #ff8f9f 60%, #ffb48f); color: #2a0f1d; font-weight: 500;
+            white-space: pre-wrap; box-shadow: 0 10px 30px -12px #ff6fae99; }
+  .msg.jarvis { display: grid; grid-template-columns: 26px minmax(0, 1fr); gap: 10px; }
+  .mini-orbe { width: 26px; height: 26px; border-radius: 50%; margin-top: 2px;
+               background: radial-gradient(circle at 35% 30%, #fff, var(--rosa) 45%, var(--violeta) 90%);
+               box-shadow: 0 0 14px #ff6fae88; }
+  .texto p { margin: 0 0 8px; } .texto p:last-child { margin: 0; }
+  .texto ul, .texto ol { margin: 2px 0 8px; padding-left: 20px; } .texto li { margin: 2px 0; }
+  .texto b { font-weight: 600; color: #fff; }
+  .texto a { color: var(--durazno); text-decoration-color: #ffb48f66; text-underline-offset: 3px; }
+  .texto code { font: 400 12.5px var(--mono); color: var(--durazno); }
+  .texto table { border-collapse: collapse; font-size: 14px; margin: 6px 0; display: block; overflow-x: auto; }
+  .texto td { border-bottom: 1px solid var(--filo); padding: 4px 10px 4px 0; }
+  .escribiendo::after { content: ""; display: inline-block; width: 8px; height: 8px; margin-left: 4px; border-radius: 50%;
+                        background: var(--rosa); animation: latir .8s infinite; vertical-align: middle; }
+  .evento { display: flex; align-items: center; gap: 8px; align-self: flex-start; padding: 6px 12px 6px 6px;
+            border-radius: 99px; background: var(--cristal); border: 1px solid var(--filo); font-size: 13px; color: var(--tenue);
+            max-width: 100%; }
+  .evento .punto { width: 20px; height: 20px; border-radius: 50%; flex: none; display: grid; place-items: center;
+                   font-size: 11px; color: #1b1020; font-weight: 700; }
+  .evento b { color: var(--texto); font-weight: 600; }
+  .evento .h { font: 400 11px var(--mono); color: var(--apagado); }
+  .evento span.t { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .msg.error { align-self: stretch; padding: 10px 14px; border-radius: 14px; background: #ff7b8614;
+               border: 1px solid #ff7b8655; color: #ffc2c8; white-space: pre-wrap; }
+  .saludo h3 { margin: 4px 0 6px; font: 600 20px/1.25 var(--display); text-wrap: balance; }
+  .ideas { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+  .ideas button { font: 500 13.5px var(--cuerpo); color: var(--texto); background: var(--cristal); border: 1px solid var(--filo);
+                  padding: 8px 13px; border-radius: 99px; cursor: pointer; text-align: left; transition: .2s; }
+  .ideas button:hover { border-color: var(--rosa); background: #ff6fae1a; }
 
-  .ideas { display: flex; flex-direction: column; gap: 6px; margin-top: 6px; }
-  .ideas button { text-align: left; font: 500 15px var(--cuerpo); color: var(--texto); background: var(--cian-tenue);
-                  border: 1px solid var(--cian-suave); padding: 7px 10px; cursor: pointer; }
-  .ideas button:hover { border-color: var(--cian); color: #fff; }
-  .ideas button::before { content: "▸ "; color: var(--cian); }
-
-  form { display: flex; gap: 8px; padding: 12px; border-top: 1px solid var(--cian-suave); align-items: flex-end; }
-  textarea { flex: 1; font: 500 16px var(--cuerpo); resize: none; color: #fff; background: #00000055;
-             border: 1px solid var(--cian-suave); padding: 9px 11px; min-height: 42px; max-height: 160px; outline: none; }
-  textarea:focus { border-color: var(--cian); box-shadow: 0 0 14px var(--cian-suave); }
-  textarea::placeholder { color: var(--suave); }
-  .redondo { width: 42px; height: 42px; flex: none; display: grid; place-items: center; cursor: pointer;
-             border: 1px solid var(--cian-suave); background: transparent; color: var(--cian); font-size: 18px; }
-  .redondo:hover { background: var(--cian-suave); }
-  .redondo.escuchando { color: var(--rosa); border-color: var(--rosa); animation: latido 1s infinite; }
-  #enviar { background: var(--cian); color: var(--fondo); border-color: var(--cian); font-weight: 900; }
+  form { margin: 0 14px 14px; display: flex; align-items: flex-end; gap: 6px; padding: 6px; border-radius: 20px;
+         background: #00000040; border: 1px solid var(--filo); transition: border-color .2s, box-shadow .2s; }
+  form:focus-within { border-color: #ff6fae88; box-shadow: 0 0 0 4px #ff6fae1a; }
+  textarea { flex: 1; min-width: 0; font: 400 15px var(--cuerpo); color: var(--texto); background: none; border: none;
+             resize: none; padding: 9px 8px; max-height: 150px; outline: none; }
+  textarea::placeholder { color: var(--apagado); }
+  .icono-btn { width: 38px; height: 38px; flex: none; border-radius: 50%; border: none; cursor: pointer; display: grid;
+               place-items: center; background: transparent; color: var(--tenue); transition: .2s; }
+  .icono-btn:hover { background: var(--cristal-fuerte); color: var(--texto); }
+  .icono-btn svg { width: 19px; height: 19px; }
+  #enviar { background: linear-gradient(135deg, var(--rosa), var(--durazno)); color: #2a0f1d; }
   #enviar:disabled { opacity: .35; cursor: default; }
+  #microfono.escuchando { background: #ff6fae33; color: var(--rosa); animation: latir 1s infinite; }
+  @keyframes latir { 50% { opacity: .45; } }
 
-  /* ===== Sala de mando (Jarvis y sus agentes) ===== */
-  .sala { position: relative; overflow: hidden; }
-  #escenario { position: relative; flex: 1; min-height: 0; }
-  #cables { position: absolute; inset: 0; width: 100%; height: 100%; }
-  #cables line { stroke: var(--cian); stroke-opacity: .22; stroke-width: 1.5; stroke-dasharray: 3 7; }
-  #cables line.activo { stroke: var(--c); stroke-opacity: 1; stroke-width: 2.5; stroke-dasharray: 14 10;
-                        animation: flujo .6s linear infinite; filter: drop-shadow(0 0 6px var(--c)); }
-  @keyframes flujo { to { stroke-dashoffset: -24; } }
-  #cables circle.paquete { fill: #fff; filter: drop-shadow(0 0 6px var(--c)); }
+  /* ===== Escenario ===== */
+  .escenario { position: relative; min-height: 0; min-width: 0; }
+  #orbe { position: absolute; inset: 0; width: 100%; height: 100%; }
+  #haces { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+  #haces path { fill: none; stroke-width: 1.5; stroke-opacity: .22; stroke-dasharray: 2 6; stroke-linecap: round; transition: stroke-opacity .4s; }
+  #haces path.activo { stroke-opacity: .9; stroke-dasharray: none; stroke-width: 2; }
+  #haces circle { fill: #fff; }
+  .jarvis-nombre { position: absolute; transform: translate(-50%, 0); text-align: center; pointer-events: none; }
+  .jarvis-nombre b { display: block; font: 800 28px var(--display); letter-spacing: .06em; }
+  .jarvis-nombre span { font: 500 12px var(--mono); color: var(--tenue); letter-spacing: .08em; }
 
-  .nucleo { position: absolute; width: 230px; height: 230px; transform: translate(-50%, -50%);
-            display: grid; place-items: center; }
-  .anillo { position: absolute; border-radius: 50%; border: 2px solid var(--cian); }
-  .a1 { inset: 0; border-style: dashed; border-width: 1px; opacity: .5; animation: girar 30s linear infinite; }
-  .a2 { inset: 16px; border-color: transparent var(--cian) transparent var(--cian); border-width: 3px;
-        animation: girar 9s linear infinite reverse; filter: drop-shadow(0 0 6px var(--cian)); }
-  .a3 { inset: 36px; border-style: dotted; border-width: 3px; opacity: .7; animation: girar 18s linear infinite; }
-  .a4 { inset: 54px; border-color: var(--cian) transparent; border-width: 2px; animation: girar 4s linear infinite; }
-  .orbe { width: 76px; height: 76px; border-radius: 50%;
-          background: radial-gradient(circle, #fff 0%, #aaf4ff 22%, var(--cian) 45%, #0a5f80 70%, transparent 72%);
-          box-shadow: 0 0 30px var(--cian), 0 0 80px #38e1ff88; animation: respirar 3.2s ease-in-out infinite; }
+  .agente { position: absolute; transform: translate(-50%, -50%); width: 196px; padding: 14px 14px 12px;
+            border-radius: 20px; text-align: center; cursor: pointer; --c: var(--rosa);
+            background: linear-gradient(180deg, rgba(255,240,248,.08), rgba(255,240,248,.03));
+            border: 1px solid var(--filo); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+            box-shadow: 0 24px 40px -24px #000; transition: transform .4s cubic-bezier(.2,.8,.2,1), border-color .3s, box-shadow .3s;
+            animation: flotar 6s ease-in-out infinite; }
+  .agente:nth-of-type(2n) { animation-delay: -3s; }
+  @keyframes flotar { 50% { margin-top: -6px; } }
+  .agente:hover { border-color: #ffffff33; }
+  .agente:focus-visible { outline: 2px solid var(--c); outline-offset: 3px; }
+  .avatar { position: relative; width: 64px; height: 64px; margin: 0 auto 10px; }
+  .avatar svg { width: 64px; height: 64px; display: block; position: relative; z-index: 1; }
+  .avatar .aro { position: absolute; inset: -6px; border-radius: 50%; opacity: 0; transition: opacity .3s;
+                 background: conic-gradient(from 0deg, var(--c), transparent 70%);
+                 -webkit-mask: radial-gradient(circle, transparent 58%, #000 60%); mask: radial-gradient(circle, transparent 58%, #000 60%);
+                 animation: girar 1.1s linear infinite; }
   @keyframes girar { to { transform: rotate(360deg); } }
-  @keyframes respirar { 50% { transform: scale(.9); box-shadow: 0 0 20px var(--cian), 0 0 50px #38e1ff55; } }
-  .nucleo.pensando .a2 { animation-duration: 1.6s; } .nucleo.pensando .a4 { animation-duration: .9s; }
-  .nucleo.pensando .orbe { animation-duration: 1s; }
-  .nucleo.hablando .orbe { animation: hablar .28s ease-in-out infinite alternate; }
-  @keyframes hablar { to { transform: scale(1.14); box-shadow: 0 0 46px var(--cian), 0 0 120px #38e1ffaa; } }
-  .nucleo .nombre { position: absolute; bottom: -44px; text-align: center; width: 260px; }
-  .nombre b { display: block; font: 900 17px var(--titulo); letter-spacing: .4em; color: #fff;
-              text-shadow: 0 0 12px var(--cian); }
-  .nombre span { font: 600 11px var(--titulo); letter-spacing: .18em; color: var(--cian); text-transform: uppercase; }
+  .avatar .parpado { transform-origin: center; transform-box: fill-box; animation: parpadear 5s infinite; }
+  @keyframes parpadear { 0%, 94%, 100% { transform: scaleY(1); } 97% { transform: scaleY(.1); } }
+  .agente h4 { margin: 0; font: 600 13px var(--display); letter-spacing: .02em; }
+  .agente p { margin: 4px 0 10px; font-size: 12.5px; line-height: 1.35; color: var(--tenue); }
+  .chip { display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px; border-radius: 99px; font: 500 11px var(--mono);
+          background: #ffffff0d; color: var(--apagado); max-width: 100%; }
+  .chip span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .chip i { width: 6px; height: 6px; border-radius: 50%; background: currentColor; flex: none; }
+  .agente.activo { border-color: color-mix(in srgb, var(--c) 70%, transparent);
+                   box-shadow: 0 0 0 1px color-mix(in srgb, var(--c) 40%, transparent), 0 20px 60px -10px color-mix(in srgb, var(--c) 45%, transparent);
+                   transform: translate(-50%, -50%) scale(1.06); }
+  .agente.activo .aro { opacity: 1; }
+  .agente.activo .chip { color: var(--c); background: color-mix(in srgb, var(--c) 14%, transparent); }
+  .agente.activo .chip i { animation: latir .8s infinite; }
+  .agente.listo .chip { color: var(--bien); background: #6fe3b01a; }
+  .agente.nuevo { animation: llegar .9s cubic-bezier(.2,.8,.2,1), flotar 6s ease-in-out .9s infinite; }
+  @keyframes llegar { from { opacity: 0; transform: translate(-50%, -50%) scale(.6); filter: blur(6px); } }
+  .ficha { position: absolute; left: 50%; bottom: 8px; transform: translateX(-50%); width: min(520px, calc(100% - 16px));
+           padding: 14px 16px; border-radius: 18px; background: #1a1220ee; border: 1px solid var(--filo);
+           backdrop-filter: blur(20px); font-size: 14px; color: var(--tenue); z-index: 5; }
+  .ficha h4 { margin: 0 0 4px; font: 600 14px var(--display); color: var(--texto); }
+  .ficha small { display: block; margin-top: 8px; font: 400 11px var(--mono); color: var(--apagado); }
+  .contador { position: absolute; left: 8px; top: 4px; font: 400 11px var(--mono); color: var(--apagado); letter-spacing: .06em; line-height: 1.8; }
+  .contador b { color: var(--texto); font-weight: 500; }
 
-  .agente { position: absolute; width: 150px; transform: translate(-50%, -50%); text-align: center;
-            cursor: pointer; transition: filter .3s; --c: var(--cian); }
-  .agente .marco { width: 104px; height: 116px; margin: 0 auto; position: relative; display: grid; place-items: center;
-                   clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
-                   background: linear-gradient(180deg, color-mix(in srgb, var(--c) 30%, transparent), #04101ecc); }
-  .agente .borde { position: absolute; inset: 0; width: 104px; height: 116px; left: 50%; transform: translateX(-50%); }
-  .agente .borde polygon { fill: none; stroke: var(--c); stroke-width: 2; opacity: .55; }
-  .agente svg.robot { width: 70px; height: 70px; animation: flotar 4s ease-in-out infinite; }
-  .agente:nth-child(2n) svg.robot { animation-delay: -2s; }
-  @keyframes flotar { 50% { transform: translateY(-5px); } }
-  .agente .ojo { fill: var(--c); opacity: .55; }
-  .agente .titulo { margin-top: 8px; font: 700 12px var(--titulo); letter-spacing: .12em; color: #fff;
-                    text-transform: uppercase; text-shadow: 0 0 8px var(--c); }
-  .agente .rol { font-size: 13px; color: var(--suave); line-height: 1.2; margin-top: 2px; }
-  .agente .estado { font: 600 10px var(--titulo); letter-spacing: .1em; margin-top: 6px; color: var(--c);
-                    min-height: 14px; text-transform: uppercase; }
-  .agente .estado::before { content: "● "; }
-  .agente.activo .borde polygon { opacity: 1; stroke-width: 3; filter: drop-shadow(0 0 6px var(--c)); }
-  .agente.activo .marco { background: linear-gradient(180deg, color-mix(in srgb, var(--c) 60%, transparent), #04101ecc); }
-  .agente.activo .ojo { opacity: 1; animation: escanear .5s ease-in-out infinite alternate; filter: drop-shadow(0 0 4px var(--c)); }
-  @keyframes escanear { to { transform: translateX(3px); } }
-  .agente.activo svg.robot { animation: trabajar .45s ease-in-out infinite alternate; }
-  @keyframes trabajar { to { transform: translateY(-4px) rotate(-3deg); } }
-  .agente.activo .estado { animation: parpadeo 1s steps(2) infinite; }
-  .agente.listo .estado { color: var(--verde); }
-  .agente.nuevo { animation: llegar 1s ease-out; }
-  @keyframes llegar { from { opacity: 0; filter: blur(8px) brightness(3); } }
-  .ficha { position: absolute; left: 14px; bottom: 14px; right: 14px; max-width: 520px; padding: 12px 14px;
-           background: #04101ef0; border: 1px solid var(--c, var(--cian)); font-size: 15px; display: none; z-index: 3; }
-  .ficha.ver { display: block; animation: aparecer .25s; }
-  .ficha b { font: 700 13px var(--titulo); letter-spacing: .14em; color: var(--c, var(--cian)); }
-  .ficha small { display: block; color: var(--suave); margin-top: 6px; font-size: 13px; }
-  .radar { position: absolute; left: 14px; top: 46px; font: 500 10px var(--titulo); letter-spacing: .14em;
-           color: var(--suave); line-height: 1.8; pointer-events: none; }
-  .radar b { color: var(--cian); }
+  /* ===== Visor ===== */
+  #visor { position: relative; margin: 0 14px; border-radius: 16px; overflow: hidden; background: #00000059;
+           aspect-ratio: 4 / 5; max-height: 46vh; display: grid; place-items: center; flex: none; }
+  #visor img, #visor video { max-width: 100%; max-height: 100%; object-fit: contain; animation: revelar .7s cubic-bezier(.2,.8,.2,1); }
+  #visor iframe { width: 100%; height: 100%; border: 0; background: #fff; animation: revelar .7s cubic-bezier(.2,.8,.2,1); }
+  @keyframes revelar { from { opacity: 0; transform: scale(1.04); filter: blur(12px); } }
+  .vacio-visor { text-align: center; padding: 20px; color: var(--apagado); font-size: 13.5px; }
+  .vacio-visor .marco { width: 70px; height: 70px; margin: 0 auto 12px; border-radius: 20px; border: 1.5px dashed #ffffff26;
+                        display: grid; place-items: center; color: var(--tenue); }
+  .info-visor { display: flex; align-items: center; gap: 10px; padding: 12px 18px 4px; min-width: 0; }
+  .info-visor .etiqueta { font: 500 10px var(--mono); letter-spacing: .12em; padding: 3px 8px; border-radius: 6px;
+                          background: #ffb48f22; color: var(--durazno); flex: none; }
+  .info-visor .nombre { flex: 1; min-width: 0; font-size: 13.5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .info-visor a { font-size: 13px; color: var(--texto); text-decoration: none; padding: 5px 11px; border-radius: 99px;
+                  border: 1px solid var(--filo); flex: none; }
+  .info-visor a:hover { background: var(--cristal-fuerte); }
+  .sub { padding: 14px 18px 8px; font: 500 11px var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--apagado);
+         display: flex; justify-content: space-between; }
+  #archivo { flex: 1; overflow-y: auto; padding: 0 14px 14px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+             gap: 8px; grid-auto-rows: max-content; align-content: start; scrollbar-width: thin; scrollbar-color: #ffffff22 transparent; }
+  .mini { aspect-ratio: 1; width: 100%; height: auto; border-radius: 12px; overflow: hidden; position: relative; cursor: pointer; border: 1px solid var(--filo);
+          background: var(--cristal); display: grid; place-items: center; padding: 0; color: var(--tenue); transition: .2s; }
+  .mini img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .mini .ico { font-size: 22px; }
+  .mini small { position: absolute; left: 0; right: 0; bottom: 0; padding: 14px 6px 5px; font: 400 10px var(--mono);
+                color: #fff; background: linear-gradient(transparent, #000c); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: left; }
+  .mini:hover { transform: translateY(-2px); border-color: #ffffff40; }
+  .mini.sel { border-color: var(--rosa); box-shadow: 0 0 0 2px #ff6fae55; }
+  .nada { grid-column: 1 / -1; color: var(--apagado); font-size: 13.5px; padding: 6px 4px; }
 
-  /* ===== Pantalla de resultados ===== */
-  .derecha { display: grid; grid-template-rows: minmax(0, 1fr) auto; grid-template-columns: minmax(0, 1fr); gap: 14px; min-height: 0; min-width: 0; }
-  .app > * { min-width: 0; }
-  #pantalla { flex: 1; min-height: 0; display: grid; grid-template: minmax(0, 1fr) / minmax(0, 1fr); place-items: center; padding: 12px; position: relative; overflow: hidden; }
-  #pantalla::after { content: ""; position: absolute; left: 0; right: 0; height: 40%; top: -40%; pointer-events: none;
-                     background: linear-gradient(180deg, transparent, #38e1ff14, transparent); animation: barrido 5s linear infinite; }
-  @keyframes barrido { to { top: 100%; } }
-  #pantalla img, #pantalla video { max-width: 100%; max-height: 100%; object-fit: contain;
-                                   border: 1px solid var(--cian-suave); box-shadow: 0 0 30px #38e1ff22; animation: materializar .6s ease-out; }
-  #pantalla iframe { width: 100%; height: 100%; border: 1px solid var(--cian-suave); background: #fff; animation: materializar .6s ease-out; }
-  @keyframes materializar { from { opacity: 0; filter: blur(10px) brightness(2.5) hue-rotate(60deg); transform: scale(.96); } }
-  .espera { text-align: center; color: var(--suave); font: 500 12px var(--titulo); letter-spacing: .16em; }
-  .espera .holo-icono { font-size: 54px; filter: drop-shadow(0 0 12px var(--cian)); opacity: .7; margin-bottom: 10px;
-                        animation: respirar 3s ease-in-out infinite; }
-  #pie-pantalla { padding: 8px 14px; border-top: 1px solid var(--cian-suave); font-size: 14px; display: flex; gap: 10px; align-items: center; }
-  #pie-pantalla span { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--suave); }
-  #pie-pantalla a { color: var(--cian); font: 600 11px var(--titulo); letter-spacing: .1em; text-decoration: none; }
-  #archivo { display: flex; max-width: 100%; gap: 8px; overflow-x: auto; padding: 12px; scrollbar-width: thin; scrollbar-color: var(--cian-suave) transparent; }
-  .mini { flex: none; width: 92px; cursor: pointer; text-align: center; font-size: 11px; color: var(--suave);
-          border: 1px solid var(--cian-suave); background: #00000044; padding: 4px; }
-  .mini:hover, .mini.sel { border-color: var(--cian); color: #fff; box-shadow: 0 0 12px var(--cian-suave); }
-  .mini .vista { height: 70px; display: grid; place-items: center; font-size: 26px; overflow: hidden; }
-  .mini .vista img { width: 100%; height: 100%; object-fit: cover; }
-  .mini div:last-child { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 3px; }
-  .vacio { color: var(--suave); font-size: 14px; padding: 4px; }
-
-  /* Arranque */
-  #arranque { position: fixed; inset: 0; z-index: 100; background: var(--fondo); display: grid; place-items: center;
-              font: 600 13px var(--titulo); letter-spacing: .2em; color: var(--cian); transition: opacity .6s; }
-  #arranque.fuera { opacity: 0; pointer-events: none; }
-  #arranque pre { font: inherit; margin: 0; line-height: 2; }
-
-  @media (max-width: 1100px) {
+  @media (max-width: 1180px) {
     body { overflow: auto; }
-    .app { height: auto; grid-template-columns: 1fr; grid-template-rows: auto; }
-    .sala { height: 560px; order: -1; } .consola-panel { height: 70vh; } .derecha { height: 640px; }
-    .barra .datos { display: none; }
-    .barra { order: -2; flex-wrap: wrap; gap: 8px; padding: 8px 0; }
+    .app { height: auto; grid-template-columns: minmax(0, 1fr); }
+    .escenario { order: -1; height: 620px; }
+    .conversacion { height: 75vh; }
+    header { flex-wrap: wrap; order: -2; }
   }
-  @media (max-width: 600px) {
-    body { overflow-x: hidden; } .logo { font-size: 15px; } .logo small { display: none; }
-    .nucleo { scale: .62; } .agente { scale: .78; } .radar { display: none; } .sala { height: 600px; }
+  @media (max-width: 560px) {
+    .app { padding-inline: 16px; }
+    .escenario { height: 640px; }
+    .agente { width: 150px; padding: 10px; } .agente p { display: none; }
+    .jarvis-nombre b { font-size: 20px; } .contador { display: none; }
+    .marca span, #hora { display: none; }
   }
-  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; } }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
 </style>
 </head>
 <body>
-<canvas id="particulas"></canvas>
-<div id="arranque"><pre id="arranque-texto"></pre></div>
+<div class="aurora"></div><div class="grano"></div>
 
 <div class="app">
-  <div class="barra">
-    <div class="logo">J.A.R.V.I.S.<small>FARMASI · ISA</small></div>
-    <div class="datos">
-      <div>AGENTES <b id="d-agentes">0</b></div>
-      <div>ESTADO <b id="d-estado">EN LÍNEA</b></div>
-      <div><b id="d-hora">--:--</b></div>
-    </div>
-    <button class="boton" id="voz" title="Jarvis lee en voz alta sus respuestas">🔊 Voz</button>
-    <button class="boton peligro" id="parar" hidden>■ Detener</button>
-    <button class="boton" id="nueva">↺ Nueva</button>
-  </div>
+  <header>
+    <div class="marca"><b>Jarvis</b><span>Farmasi · Isa</span></div>
+    <div class="pastilla" id="estado"><i></i><span id="estado-texto">En línea</span></div>
+    <div class="espacio"></div>
+    <div class="pastilla" id="hora">--:--</div>
+    <button class="boton" id="voz" type="button" title="Jarvis lee sus respuestas en voz alta">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14"/></svg>Voz</button>
+    <button class="boton peligro" id="parar" type="button" hidden>Detener</button>
+    <button class="boton" id="nueva" type="button">Nueva conversación</button>
+  </header>
 
-  <section class="holo consola-panel">
-    <h2>Canal de comunicación <span class="extra" id="d-sesion">SESIÓN NUEVA</span></h2>
+  <section class="cristal conversacion">
+    <div class="cab"><h2>Conversación</h2><span class="meta" id="sesion">nueva</span></div>
     <div id="consola"></div>
     <form id="formulario">
-      <button type="button" class="redondo" id="microfono" title="Hablarle a Jarvis">🎙</button>
-      <textarea id="texto" rows="1" placeholder="Escríbele a Jarvis…"></textarea>
-      <button type="submit" class="redondo" id="enviar" title="Enviar">➤</button>
+      <button type="button" class="icono-btn" id="microfono" title="Hablarle a Jarvis" aria-label="Hablarle a Jarvis">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v4"/></svg></button>
+      <textarea id="texto" rows="1" placeholder="Pídele algo a Jarvis…" aria-label="Mensaje para Jarvis"></textarea>
+      <button type="submit" class="icono-btn" id="enviar" title="Enviar" aria-label="Enviar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
     </form>
   </section>
 
-  <section class="holo sala">
-    <h2>Sala de mando <span class="extra">Toca un agente para ver qué hace</span></h2>
-    <div class="radar" id="radar"></div>
-    <div id="escenario">
-      <svg id="cables"></svg>
-      <div class="nucleo" id="nucleo">
-        <div class="anillo a1"></div><div class="anillo a2"></div><div class="anillo a3"></div><div class="anillo a4"></div>
-        <div class="orbe"></div>
-        <div class="nombre"><b>JARVIS</b><span id="estado-jarvis">En espera</span></div>
-      </div>
-      <div id="agentes"></div>
-      <div class="ficha" id="ficha"></div>
-    </div>
+  <section class="escenario" id="escenario" aria-label="Jarvis y su equipo">
+    <canvas id="orbe"></canvas>
+    <svg id="haces"></svg>
+    <div class="contador" id="contador"></div>
+    <div class="jarvis-nombre" id="jarvis-nombre"><b>Jarvis</b><span id="jarvis-estado">Listo para ayudarte</span></div>
+    <div id="agentes"></div>
+    <div class="ficha" id="ficha" hidden></div>
   </section>
 
-  <div class="derecha">
-    <section class="holo">
-      <h2>Pantalla de resultados <span class="extra" id="d-tipo"></span></h2>
-      <div id="pantalla"><div class="espera"><div class="holo-icono">◈</div>AQUÍ APARECERÁ LO QUE<br>JARVIS Y SU EQUIPO PRODUZCAN</div></div>
-      <div id="pie-pantalla" hidden><span id="pie-nombre"></span><a id="pie-abrir" target="_blank">ABRIR ⤢</a></div>
-    </section>
-    <section class="holo">
-      <h2>Archivo de trabajos <span class="extra" id="d-trabajos"></span></h2>
-      <div id="archivo"></div>
-    </section>
-  </div>
+  <section class="cristal">
+    <div class="cab"><h2>Visor</h2><span class="meta" id="tipo"></span></div>
+    <div id="visor"><div class="vacio-visor"><div class="marco">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="m3 16 5-5 4 4 3-3 6 6"/><circle cx="16" cy="9" r="1.6"/></svg></div>
+      Aquí verás las fotos, videos y planes<br>que te entregue el equipo.</div></div>
+    <div class="info-visor" id="info-visor" hidden><span class="etiqueta" id="etiqueta"></span><span class="nombre" id="nombre-visor"></span><a id="abrir" target="_blank" rel="noopener">Abrir</a></div>
+    <div class="sub"><span>Archivo</span><span id="cuenta"></span></div>
+    <div id="archivo"></div>
+  </section>
 </div>
 
 <script>
 const $ = (s) => document.querySelector(s);
-const consola = $("#consola"), texto = $("#texto"), enviarBtn = $("#enviar");
-const NS = "http://www.w3.org/2000/svg";
+const consola = $("#consola"), texto = $("#texto"), enviarBtn = $("#enviar"), NS = "http://www.w3.org/2000/svg";
+const MOVIMIENTO = !matchMedia("(prefers-reduced-motion: reduce)").matches;
 let equipo = { agentes: [], habilidades: [] }, sesion = null, ocupado = false, vozActiva = false;
-let historial = [], resultados = [];
+let historial = [], resultados = [], delServidor = [], conocidos = new Set();
 try { sesion = localStorage.getItem("jarvis-sesion"); historial = JSON.parse(localStorage.getItem("jarvis-historial") || "[]");
-      vozActiva = localStorage.getItem("jarvis-voz") === "1"; } catch (e) {}
+      vozActiva = localStorage.getItem("jarvis-voz") === "1"; } catch (e) { historial = []; }
 
-const IDEAS = [
-  "Búscame los 3 productos con mejores reseñas",
-  "¿Qué publico las próximas 2 semanas?",
-  "Hazme un anuncio del Vitamin C Glow Serum",
-  "Preséntame a tu equipo",
-];
-const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const IDEAS = ["Búscame los 3 productos con mejores reseñas", "¿Qué publico las próximas 2 semanas?",
+               "Hazme un anuncio del Vitamin C Glow Serum", "Preséntame a tu equipo"];
+const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 const urlArchivo = (r) => `/archivo?ruta=${encodeURIComponent(r)}`;
 const PATRON_RUTA = /^[\w.\-\/]+\.(mp4|html|jpg|jpeg|png|json|txt|csv|webp)$/i;
 const ES_MEDIO = /\.(mp4|jpe?g|png|webp|html)$/i;
+const hora = () => new Date().toLocaleTimeString("es", { hour: "2-digit", minute: "2-digit" });
+setInterval(() => { $("#hora").textContent = new Date().toLocaleTimeString("es", { hour: "2-digit", minute: "2-digit", second: "2-digit" }); }, 1000);
 
-/* ---------- Arranque ---------- */
-(async function arranque() {
-  const lineas = ["INICIANDO J.A.R.V.I.S. …", "CONECTANDO CON EL EQUIPO DE AGENTES …", "CARGANDO ARCHIVO DE TRABAJOS …", "SISTEMAS EN LÍNEA ✓"];
-  const t = $("#arranque-texto");
-  for (const l of lineas) { t.textContent += l + "\n"; await new Promise((r) => setTimeout(r, 260)); }
-  setTimeout(() => $("#arranque").classList.add("fuera"), 250);
-})();
-
-/* ---------- Partículas de fondo ---------- */
-(function particulas() {
-  const c = $("#particulas"), x = c.getContext("2d"); let ps = [];
-  const tam = () => { c.width = innerWidth; c.height = innerHeight;
-    ps = Array.from({ length: 70 }, () => ({ x: Math.random() * c.width, y: Math.random() * c.height,
-      v: .15 + Math.random() * .4, r: Math.random() * 1.6 + .3 })); };
-  tam(); addEventListener("resize", tam);
-  (function cuadro() {
-    x.clearRect(0, 0, c.width, c.height);
-    for (const p of ps) { p.y -= p.v; if (p.y < 0) { p.y = c.height; p.x = Math.random() * c.width; }
-      x.fillStyle = "rgba(56,225,255,.45)"; x.beginPath(); x.arc(p.x, p.y, p.r, 0, 7); x.fill(); }
+/* ---------- Núcleo de Jarvis: una forma viva dibujada en canvas ---------- */
+const orbe = { modo: "reposo", energia: 0, x: 0, y: 0, r: 80 };
+(function animarOrbe() {
+  const c = $("#orbe"), x = c.getContext("2d");
+  let t = 0, ultimo = performance.now();
+  const capas = [
+    { col: ["#ff8fc0", "#e0407f", "#7a1d4800"], fase: 0, k: [3, 5, 2], dx: -.18, dy: -.1 },
+    { col: ["#ffc6a8", "#ff9a6b", "#8a3a1a00"], fase: 2.1, k: [4, 2, 6], dx: .2, dy: .05 },
+    { col: ["#c9bfff", "#7d6bff", "#2d1f8000"], fase: 4.2, k: [2, 6, 3], dx: 0, dy: .2 },
+  ];
+  function cuadro(ahora) {
+    const dpr = Math.min(devicePixelRatio || 1, 2), w = c.clientWidth, h = c.clientHeight;
+    if (c.width !== w * dpr || c.height !== h * dpr) { c.width = w * dpr; c.height = h * dpr; }
+    x.setTransform(dpr, 0, 0, dpr, 0, 0); x.clearRect(0, 0, w, h);
+    const dt = Math.min(ahora - ultimo, 50) / 1000; ultimo = ahora;
+    const meta = { reposo: 0, pensando: 1, hablando: .7 }[orbe.modo] ?? 0;
+    orbe.energia += (meta - orbe.energia) * Math.min(1, dt * 3);
+    t += dt * (MOVIMIENTO ? (.5 + orbe.energia * 1.6) : 0);
+    const { x: cx, y: cy, r: R } = orbe;
+    // Halo
+    const halo = x.createRadialGradient(cx, cy, R * .4, cx, cy, R * 2.6);
+    halo.addColorStop(0, `rgba(255,111,174,${.22 + orbe.energia * .18})`); halo.addColorStop(1, "rgba(255,111,174,0)");
+    x.fillStyle = halo; x.beginPath(); x.arc(cx, cy, R * 2.6, 0, 7); x.fill();
+    // Órbitas finas
+    x.save(); x.translate(cx, cy);
+    for (let i = 0; i < 3; i++) {
+      x.save(); x.rotate(t * (i % 2 ? -.25 : .18) + i); x.scale(1, .34 + i * .08);
+      x.strokeStyle = `rgba(255,225,240,${.10 + orbe.energia * .08})`; x.lineWidth = 1;
+      x.beginPath(); x.arc(0, 0, R * (1.55 + i * .28), 0, 7); x.stroke();
+      const a = t * (1 + i * .4) + i * 2; x.fillStyle = ["#ff8fc0", "#ffb48f", "#b4a8ff"][i];
+      x.beginPath(); x.arc(Math.cos(a) * R * (1.55 + i * .28), Math.sin(a) * R * (1.55 + i * .28), 2.6, 0, 7); x.fill();
+      x.restore();
+    }
+    x.restore();
+    // Forma viva: tres capas que se mezclan
+    x.globalCompositeOperation = "lighter";
+    const amp = .045 + orbe.energia * .08 + (orbe.modo === "hablando" ? Math.abs(Math.sin(t * 9)) * .05 : 0);
+    for (const capa of capas) {
+      x.beginPath();
+      for (let i = 0; i <= 96; i++) {
+        const th = i / 96 * Math.PI * 2;
+        const d = Math.sin(capa.k[0] * th + t * 1.3 + capa.fase) * .5 + Math.sin(capa.k[1] * th - t * 1.7 + capa.fase) * .3 + Math.sin(capa.k[2] * th + t * .7) * .3;
+        const rr = R * (1 + amp * d);
+        const px = cx + Math.cos(th) * rr, py = cy + Math.sin(th) * rr;
+        i ? x.lineTo(px, py) : x.moveTo(px, py);
+      }
+      const ox = cx + R * capa.dx * Math.cos(t * .6 + capa.fase), oy = cy + R * capa.dy * Math.sin(t * .5 + capa.fase);
+      const g = x.createRadialGradient(ox, oy, R * .05, cx, cy, R * 1.12);
+      g.addColorStop(0, capa.col[0]); g.addColorStop(.55, capa.col[1]); g.addColorStop(1, capa.col[2]);
+      x.fillStyle = g; x.globalAlpha = .5; x.fill();
+    }
+    x.globalAlpha = 1; x.globalCompositeOperation = "source-over";
+    // Brillo de vidrio
+    const brillo = x.createRadialGradient(cx - R * .35, cy - R * .45, 0, cx - R * .35, cy - R * .45, R * .55);
+    brillo.addColorStop(0, "rgba(255,255,255,.55)"); brillo.addColorStop(1, "rgba(255,255,255,0)");
+    x.fillStyle = brillo; x.beginPath(); x.arc(cx - R * .35, cy - R * .45, R * .55, 0, 7); x.fill();
     requestAnimationFrame(cuadro);
-  })();
+  }
+  requestAnimationFrame(cuadro);
 })();
-setInterval(() => { $("#d-hora").textContent = new Date().toLocaleTimeString("es", { hour: "2-digit", minute: "2-digit", second: "2-digit" }); }, 1000);
+
+/* ---------- Caras de los agentes ---------- */
+function cara(n, color) {
+  const id = "g" + Math.random().toString(36).slice(2, 8);
+  const ojos = [
+    '<g class="parpado"><ellipse cx="25" cy="31" rx="3.6" ry="5.2"/><ellipse cx="39" cy="31" rx="3.6" ry="5.2"/></g>',
+    '<g class="parpado"><rect x="19" y="28" width="26" height="6" rx="3"/></g>',
+    '<g class="parpado"><circle cx="25" cy="31" r="4.4"/><circle cx="39" cy="31" r="4.4"/></g><circle cx="26.4" cy="29.6" r="1.4" fill="#fff"/><circle cx="40.4" cy="29.6" r="1.4" fill="#fff"/>',
+    '<g class="parpado"><path d="M20 32 q5 -6 10 0 M34 32 q5 -6 10 0" fill="none" stroke="#1b1020" stroke-width="3" stroke-linecap="round"/></g>',
+  ][n % 4];
+  return `<svg viewBox="0 0 64 64" aria-hidden="true"><defs><radialGradient id="${id}" cx="35%" cy="30%" r="75%">
+      <stop offset="0" stop-color="#fff"/><stop offset=".35" stop-color="${color}"/><stop offset="1" stop-color="${color}" stop-opacity=".55"/></radialGradient></defs>
+    <circle cx="32" cy="32" r="28" fill="url(#${id})"/><circle cx="32" cy="32" r="28" fill="none" stroke="#ffffff55"/>
+    <g fill="#1b1020">${ojos}</g><path d="M27 42 q5 3.5 10 0" fill="none" stroke="#1b1020" stroke-width="2.4" stroke-linecap="round"/></svg>`;
+}
+
+/* ---------- Escenario ---------- */
+function pintarEquipo() {
+  $("#agentes").innerHTML = equipo.agentes.map((a, i) => `
+    <div class="agente${conocidos.size && !conocidos.has(a.id) ? " nuevo" : ""}" data-id="${esc(a.id)}" style="--c:${a.color}" tabindex="0" role="button" aria-label="${esc(a.nombre)}">
+      <div class="avatar"><div class="aro"></div>${cara(a.cara ?? i, a.color)}</div>
+      <h4>${esc(a.nombre)}</h4><p>${esc(a.rol || "")}</p>
+      <span class="chip"><i></i><span>En espera</span></span>
+    </div>`).join("");
+  equipo.agentes.forEach((a) => conocidos.add(a.id));
+  $("#contador").innerHTML = `EQUIPO <b>${equipo.agentes.length}</b> AGENTES<br>HABILIDADES <b>${equipo.habilidades.length}</b>`;
+  document.querySelectorAll(".agente").forEach((el) => {
+    el.onclick = (e) => { e.stopPropagation(); verFicha(el.dataset.id); };
+    el.onkeydown = (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); verFicha(el.dataset.id); } };
+  });
+  ubicar();
+}
+function ubicar() {
+  const esc_ = $("#escenario"), w = esc_.clientWidth, h = esc_.clientHeight, n = equipo.agentes.length;
+  const angosto = w < 560;
+  const cx = w / 2, cy = h * (angosto ? .5 : .47);
+  orbe.x = cx; orbe.y = cy; orbe.r = Math.max(46, Math.min(w, h) * (angosto ? .12 : .13));
+  const jn = $("#jarvis-nombre"); jn.style.left = cx + "px"; jn.style.top = (cy + orbe.r * 1.25) + "px";
+  const rx = Math.max(130, w / 2 - (angosto ? 80 : 115)), ry = Math.max(150, h / 2 - (angosto ? 80 : 95));
+  const haces = $("#haces"); haces.innerHTML = "";
+  document.querySelectorAll(".agente").forEach((el, i) => {
+    const ang = -Math.PI / 2 + (i + .5) * (2 * Math.PI / Math.max(n, 1));
+    const ax = cx + rx * Math.cos(ang), ay = cy + ry * Math.sin(ang);
+    el.style.left = ax + "px"; el.style.top = ay + "px";
+    const color = getComputedStyle(el).getPropertyValue("--c").trim();
+    const mx = (cx + ax) / 2 + (ay - cy) * .18, my = (cy + ay) / 2 - (ax - cx) * .18;
+    const d = `M${cx},${cy} Q${mx},${my} ${ax},${ay}`;
+    const p = document.createElementNS(NS, "path");
+    p.setAttribute("d", d); p.setAttribute("stroke", color); p.dataset.id = el.dataset.id;
+    haces.appendChild(p);
+    if (el.classList.contains("activo")) encenderHaz(el.dataset.id, true);
+  });
+}
+addEventListener("resize", ubicar);
+function encenderHaz(id, si) {
+  const p = document.querySelector(`#haces path[data-id="${CSS.escape(id)}"]`); if (!p) return;
+  p.classList.toggle("activo", si);
+  document.querySelectorAll(`#haces circle[data-id="${CSS.escape(id)}"]`).forEach((c) => c.remove());
+  if (!si || !MOVIMIENTO) return;
+  for (let k = 0; k < 3; k++) {
+    const c = document.createElementNS(NS, "circle"); c.setAttribute("r", k ? 2.2 : 3.4); c.dataset.id = id;
+    c.style.filter = `drop-shadow(0 0 6px ${p.getAttribute("stroke")})`;
+    const m = document.createElementNS(NS, "animateMotion");
+    m.setAttribute("dur", "1.5s"); m.setAttribute("repeatCount", "indefinite"); m.setAttribute("begin", `${-k * .5}s`);
+    m.setAttribute("path", p.getAttribute("d")); c.appendChild(m); p.parentNode.appendChild(c);
+  }
+}
+function verFicha(id) {
+  const a = equipo.agentes.find((x) => x.id === id), f = $("#ficha");
+  if (!a || (!f.hidden && f.dataset.id === id)) { f.hidden = true; return; }
+  f.dataset.id = id;
+  f.innerHTML = `<h4>${esc(a.nombre)}</h4>${esc(a.que_hace)}<small>Herramientas · ${esc(a.herramientas || "—")}</small>`;
+  f.hidden = false;
+}
+document.addEventListener("click", (e) => { if (!e.target.closest("#ficha")) $("#ficha").hidden = true; });
+
+function marcarAgente(id, estado, txt) {
+  const el = document.querySelector(`.agente[data-id="${CSS.escape(id)}"]`); if (!el) return;
+  el.classList.toggle("activo", estado === "activo"); el.classList.toggle("listo", estado === "listo");
+  el.querySelector(".chip span").textContent = txt || (estado === "listo" ? "Listo ✓" : "En espera");
+  encenderHaz(id, estado === "activo");
+}
+function estadoJarvis(modo, frase) {
+  orbe.modo = modo || "reposo";
+  $("#jarvis-estado").textContent = frase || "Listo para ayudarte";
+  $("#estado").classList.toggle("ocupado", !!modo); $("#estado-texto").textContent = modo ? "Trabajando" : "En línea";
+}
+
+/* ---------- Visor ---------- */
+function tipoDe(r) {
+  if (/\.mp4$/i.test(r)) return "VIDEO";
+  if (/\.html$/i.test(r)) return /plan/i.test(r) ? "PLAN" : "VITRINA";
+  return /previa/i.test(r) ? "PREVIA" : "FOTO";
+}
+function nombreBonito(r) {
+  const partes = r.split("/"), carpeta = partes.length > 1 ? partes[partes.length - 2] : "";
+  return (carpeta && !/^(salida|planes)$/.test(carpeta) ? carpeta + " · " : "") + partes[partes.length - 1];
+}
+function mostrar(r) {
+  const src = urlArchivo(r), t = tipoDe(r), carpeta = r.slice(0, r.lastIndexOf("/") + 1);
+  const portada = [...resultados, ...delServidor].find((x) => x.startsWith(carpeta) && /previa.*\.jpe?g$/i.test(x));
+  $("#visor").innerHTML = t === "VIDEO" ? `<video src="${src}" ${portada ? `poster="${urlArchivo(portada)}"` : ""} controls autoplay muted loop playsinline></video>`
+    : /\.html$/i.test(r) ? `<iframe src="${src}" title="${esc(r)}"></iframe>` : `<img src="${src}" alt="${esc(nombreBonito(r))}">`;
+  $("#info-visor").hidden = false; $("#etiqueta").textContent = t; $("#tipo").textContent = t.toLowerCase();
+  $("#nombre-visor").textContent = nombreBonito(r); $("#nombre-visor").title = r; $("#abrir").href = src;
+  document.querySelectorAll(".mini").forEach((m) => m.classList.toggle("sel", m.dataset.ruta === r));
+}
+function agregarResultado(r, ya) { if (!resultados.includes(r)) resultados.unshift(r); pintarArchivo(); if (ya) mostrar(r); }
+function pintarArchivo() {
+  const todas = [...resultados, ...delServidor.filter((r) => !resultados.includes(r))].slice(0, 45);
+  const iconos = { VIDEO: "▶", PLAN: "▦", VITRINA: "◫" };
+  $("#archivo").innerHTML = todas.map((r) => {
+    const t = tipoDe(r), img = /\.(jpe?g|png|webp)$/i.test(r);
+    return `<button type="button" class="mini" data-ruta="${esc(r)}" title="${esc(r)}">${img ? `<img src="${urlArchivo(r)}" alt="" loading="lazy">` : `<span class="ico">${iconos[t] || "▢"}</span>`}<small>${esc(r.split("/").slice(-2, -1)[0] || t)}</small></button>`;
+  }).join("") || '<div class="nada">Todavía no hay trabajos guardados.</div>';
+  $("#cuenta").textContent = todas.length ? todas.length + " elementos" : "";
+  document.querySelectorAll(".mini").forEach((m) => m.onclick = () => mostrar(m.dataset.ruta));
+}
+async function cargarTrabajos() {
+  try { delServidor = (await (await fetch("/api/trabajos")).json()).map((t) => t.ruta); pintarArchivo();
+        if ($("#info-visor").hidden && delServidor.length) mostrar(delServidor.find((r) => /\.mp4$/i.test(r)) || delServidor[0]); } catch (e) {}
+}
+async function cargarEquipo() {
+  try {
+    const nuevo = await (await fetch("/api/equipo")).json();
+    const cambio = JSON.stringify(nuevo.agentes.map((a) => a.id)) !== JSON.stringify(equipo.agentes.map((a) => a.id));
+    equipo = nuevo; if (cambio || !document.querySelector(".agente")) pintarEquipo();
+  } catch (e) {}
+}
 
 /* ---------- Texto con formato ---------- */
 function formatear(md) {
@@ -334,7 +496,7 @@ function formatear(md) {
     .replace(/`([^`]+)`/g, (_, c) => { const r = c.replace(/&amp;/g, "&");
       return PATRON_RUTA.test(r) ? `<a href="#" data-ruta="${esc(r)}">${esc(r.split("/").pop())}</a>` : `<code>${c}</code>`; })
     .replace(/\*\*([^*]+)\*\*/g, "<b>$1</b>")
-    .replace(/\[([^\]]+)\]\((https?:[^)]+)\)/g, '<a href="$2" target="_blank">$1</a>');
+    .replace(/\[([^\]]+)\]\((https?:[^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
   let html = "", lista = null, tabla = null;
   const cerrar = () => { if (lista) { html += `</${lista}>`; lista = null; } if (tabla) { html += "</table>"; tabla = null; } };
   for (const l of md.split("\n")) {
@@ -354,157 +516,42 @@ function formatear(md) {
 const rutasEn = (md) => [...md.matchAll(/`([^`]+)`/g)].map((m) => m[1]).filter((r) => PATRON_RUTA.test(r) && ES_MEDIO.test(r));
 consola.addEventListener("click", (e) => { const a = e.target.closest("a[data-ruta]"); if (a) { e.preventDefault(); mostrar(a.dataset.ruta); } });
 
-/* ---------- Robots (cada agente tiene su cara) ---------- */
-function robot(i) {
-  const v = i % 4;
-  const cabeza = [
-    '<rect x="14" y="20" width="52" height="44" rx="10"/>',
-    '<path d="M40 14 L66 28 L66 56 L40 70 L14 56 L14 28 Z"/>',
-    '<circle cx="40" cy="42" r="27"/>',
-    '<path d="M16 30 Q40 6 64 30 L64 60 Q40 72 16 60 Z"/>',
-  ][v];
-  const antena = ['<line x1="40" y1="20" x2="40" y2="8"/><circle cx="40" cy="7" r="3" class="ojo"/>',
-                  '<line x1="26" y1="22" x2="20" y2="10"/><line x1="54" y1="22" x2="60" y2="10"/>',
-                  '<path d="M22 22 L16 12 M58 22 L64 12"/>', '<line x1="40" y1="12" x2="40" y2="4"/>'][v];
-  const ojos = ['<rect class="ojo" x="24" y="34" width="12" height="8" rx="2"/><rect class="ojo" x="44" y="34" width="12" height="8" rx="2"/>',
-                '<rect class="ojo" x="22" y="36" width="36" height="7" rx="3"/>',
-                '<circle class="ojo" cx="30" cy="40" r="6"/><circle class="ojo" cx="50" cy="40" r="6"/>',
-                '<circle class="ojo" cx="40" cy="38" r="8"/>'][v];
-  const boca = ['<path d="M30 54 h20" />', '<path d="M28 54 h4 m4 0 h8 m4 0 h4"/>', '<path d="M32 54 q8 5 16 0"/>', '<rect x="30" y="52" width="20" height="4" rx="2"/>'][v];
-  return `<svg class="robot" viewBox="0 0 80 80" fill="none" stroke="var(--c)" stroke-width="2.4" stroke-linecap="round">
-    ${antena}<g fill="#04101e">${cabeza}</g>${ojos}<g opacity=".8">${boca}</g>
-    <line x1="10" y1="40" x2="14" y2="40"/><line x1="66" y1="40" x2="70" y2="40"/></svg>`;
+/* ---------- Conversación ---------- */
+function quitarSaludo() { consola.querySelector(".saludo")?.remove(); }
+function msgYo(t) { quitarSaludo(); const d = document.createElement("div"); d.className = "msg yo"; d.textContent = t; consola.appendChild(d); bajar(); }
+function msgJarvis(html) {
+  quitarSaludo(); const d = document.createElement("div"); d.className = "msg jarvis";
+  d.innerHTML = `<div class="mini-orbe"></div><div class="texto">${html}</div>`; consola.appendChild(d); bajar();
+  return d.querySelector(".texto");
 }
-
-/* ---------- Sala de mando ---------- */
-let conocidos = new Set();
-function pintarEquipo() {
-  const caja = $("#agentes");
-  caja.innerHTML = equipo.agentes.map((a, i) => `
-    <div class="agente${conocidos.size && !conocidos.has(a.id) ? " nuevo" : ""}" data-id="${esc(a.id)}" style="--c:${a.color}">
-      <div class="marco">${robot(a.cara ?? i)}</div>
-      <svg class="borde" viewBox="0 0 104 116"><polygon points="52,1 103,29.5 103,86.5 52,115 1,86.5 1,29.5"/></svg>
-      <div class="titulo">${esc(a.nombre)}</div><div class="rol">${esc(a.rol || "")}</div><div class="estado">En espera</div>
-    </div>`).join("");
-  equipo.agentes.forEach((a) => conocidos.add(a.id));
-  $("#d-agentes").textContent = equipo.agentes.length;
-  $("#radar").innerHTML = `AGENTES ACTIVOS: <b>${equipo.agentes.length}</b><br>HABILIDADES: <b>${equipo.habilidades.length}</b><br>` +
-    equipo.habilidades.map((h) => "▸ " + esc(h.nombre).toUpperCase()).join("<br>");
-  caja.querySelectorAll(".agente").forEach((el) => el.onclick = (e) => { e.stopPropagation(); verFicha(el.dataset.id); });
-  ubicar();
+function eventoHtml(color, simbolo, html) {
+  return `<span class="punto" style="background:${color}">${simbolo}</span><span class="t">${html}</span>`;
 }
-function ubicar() {
-  const esc_ = $("#escenario"), w = esc_.clientWidth, h = esc_.clientHeight;
-  const cx = w / 2, cy = h / 2 - 10, n = equipo.agentes.length;
-  const m = w < 600 ? 70 : 95, rx = Math.max(110, w / 2 - m), ry = Math.max(140, h / 2 - m);
-  const nuc = $("#nucleo"); nuc.style.left = cx + "px"; nuc.style.top = cy + "px";
-  const cables = $("#cables"); cables.innerHTML = "";
-  document.querySelectorAll(".agente").forEach((el, i) => {
-    const ang = -Math.PI / 2 + (i + .5) * (2 * Math.PI / Math.max(n, 1));
-    const x = cx + rx * Math.cos(ang), y = cy + ry * Math.sin(ang);
-    el.style.left = x + "px"; el.style.top = y + "px";
-    const l = document.createElementNS(NS, "line");
-    l.setAttribute("x1", cx); l.setAttribute("y1", cy); l.setAttribute("x2", x); l.setAttribute("y2", y - 20);
-    l.dataset.id = el.dataset.id; l.style.setProperty("--c", getComputedStyle(el).getPropertyValue("--c"));
-    if (el.classList.contains("activo")) l.classList.add("activo");
-    cables.appendChild(l);
-  });
-}
-addEventListener("resize", ubicar);
-function verFicha(id) {
-  const a = equipo.agentes.find((x) => x.id === id); const f = $("#ficha");
-  if (!a || (f.classList.contains("ver") && f.dataset.id === id)) { f.classList.remove("ver"); return; }
-  f.dataset.id = id; f.style.setProperty("--c", a.color);
-  f.innerHTML = `<b>${esc(a.nombre).toUpperCase()}</b><div>${esc(a.que_hace)}</div><small>Herramientas: ${esc(a.herramientas || "—")}</small>`;
-  f.classList.add("ver");
-}
-document.addEventListener("click", (e) => { if (!e.target.closest(".ficha")) $("#ficha").classList.remove("ver"); });
-
-function marcarAgente(id, estado, texto) {
-  const el = document.querySelector(`.agente[data-id="${CSS.escape(id)}"]`);
-  if (!el) return;
-  el.classList.toggle("activo", estado === "activo"); el.classList.toggle("listo", estado === "listo");
-  el.querySelector(".estado").textContent = texto || (estado === "listo" ? "Tarea completada" : "En espera");
-  const l = document.querySelector(`#cables line[data-id="${CSS.escape(id)}"]`);
-  if (l) l.classList.toggle("activo", estado === "activo");
-}
-function estadoJarvis(modo, frase) {
-  $("#nucleo").className = "nucleo " + (modo || "");
-  $("#estado-jarvis").textContent = frase || "En espera";
-  $("#d-estado").textContent = modo ? "TRABAJANDO" : "EN LÍNEA";
-}
-
-/* ---------- Pantalla de resultados ---------- */
-function tipoDe(r) {
-  if (/\.mp4$/i.test(r)) return "VIDEO";
-  if (/\.html$/i.test(r)) return /plan/i.test(r) ? "PLAN" : "VITRINA";
-  return /previa/i.test(r) ? "PREVIA" : "IMAGEN";
-}
-function mostrar(r) {
-  const p = $("#pantalla"), src = urlArchivo(r), t = tipoDe(r);
-  const carpeta = r.slice(0, r.lastIndexOf("/") + 1);
-  const portada = [...resultados, ...delServidor].find((x) => x.startsWith(carpeta) && /previa.*\.jpe?g$/i.test(x));
-  p.innerHTML = t === "VIDEO" ? `<video src="${src}" ${portada ? `poster="${urlArchivo(portada)}"` : ""} controls autoplay muted loop playsinline></video>`
-             : /\.html$/i.test(r) ? `<iframe src="${src}"></iframe>` : `<img src="${src}" alt="">`;
-  $("#d-tipo").textContent = t; $("#pie-pantalla").hidden = false;
-  $("#pie-nombre").textContent = r; $("#pie-abrir").href = src;
-  document.querySelectorAll(".mini").forEach((m) => m.classList.toggle("sel", m.dataset.ruta === r));
-}
-function agregarResultado(r, mostrarYa) {
-  if (!resultados.includes(r)) resultados.unshift(r);
-  pintarArchivo(); if (mostrarYa) mostrar(r);
-}
-let delServidor = [];
-function pintarArchivo() {
-  const todas = [...resultados, ...delServidor.filter((r) => !resultados.includes(r))].slice(0, 40);
-  const icono = { VIDEO: "🎬", PLAN: "🗓️", VITRINA: "🛍️" };
-  $("#archivo").innerHTML = todas.map((r) => {
-    const t = tipoDe(r), vista = /\.(jpe?g|png|webp)$/i.test(r) ? `<img src="${urlArchivo(r)}" loading="lazy" alt="">` : icono[t] || "📄";
-    const nombre = r.split("/").slice(-2, -1)[0] || r;
-    return `<div class="mini" data-ruta="${esc(r)}" title="${esc(r)}"><div class="vista">${vista}</div><div>${esc(nombre)}</div></div>`;
-  }).join("") || '<div class="vacio">Aún no hay trabajos. Pídele algo a Jarvis.</div>';
-  $("#d-trabajos").textContent = todas.length ? todas.length + " ELEMENTOS" : "";
-  document.querySelectorAll(".mini").forEach((m) => m.onclick = () => mostrar(m.dataset.ruta));
-}
-async function cargarTrabajos() {
-  try { delServidor = (await (await fetch("/api/trabajos")).json()).map((t) => t.ruta); pintarArchivo();
-        if (!$("#d-tipo").textContent && delServidor.length) mostrar(delServidor.find((r) => /\.mp4$/i.test(r)) || delServidor[0]); } catch (e) {}
-}
-async function cargarEquipo() {
-  try {
-    const nuevo = await (await fetch("/api/equipo")).json();
-    const cambio = JSON.stringify(nuevo.agentes.map((a) => a.id)) !== JSON.stringify(equipo.agentes.map((a) => a.id));
-    equipo = nuevo; if (cambio || !document.querySelector(".agente")) pintarEquipo();
-  } catch (e) {}
-}
-
-/* ---------- Consola ---------- */
-function linea(clase, quien, html) {
-  $(".ideas")?.closest(".linea")?.remove();
-  const d = document.createElement("div"); d.className = "linea " + clase;
-  d.innerHTML = (quien ? `<div class="quien">${quien}</div>` : "") + `<div class="cuerpo">${html}</div>`;
-  consola.appendChild(d); consola.scrollTop = consola.scrollHeight; return d.querySelector(".cuerpo");
-}
-const hora = () => new Date().toLocaleTimeString("es", { hour: "2-digit", minute: "2-digit" });
-function sistema(html) { linea("sistema", "", `[${hora()}] ${html}`); historial.push({ de: "sis", html: `[${hora()}] ${html}` }); }
+function msgEvento(html) { quitarSaludo(); const d = document.createElement("div"); d.className = "msg evento"; d.innerHTML = html; consola.appendChild(d); bajar(); }
+function msgError(t) { quitarSaludo(); const d = document.createElement("div"); d.className = "msg error"; d.textContent = t; consola.appendChild(d); bajar(); }
+function evento(html) { msgEvento(html); historial.push({ de: "evento", html }); }
+const bajar = () => { consola.scrollTop = consola.scrollHeight; };
 function guardar() {
   try { localStorage.setItem("jarvis-historial", JSON.stringify(historial.slice(-100)));
         sesion ? localStorage.setItem("jarvis-sesion", sesion) : localStorage.removeItem("jarvis-sesion"); } catch (e) {}
-  $("#d-sesion").textContent = sesion ? "SESIÓN " + sesion.slice(0, 8).toUpperCase() : "SESIÓN NUEVA";
+  $("#sesion").textContent = sesion ? "sesión " + sesion.slice(0, 6) : "nueva";
 }
-function bienvenida() {
+function saludo() {
   consola.innerHTML = "";
-  linea("jarvis", "JARVIS", `<p>Buenas, Julio. Todos los sistemas están en línea y el equipo está listo.</p><p>¿En qué trabajamos hoy?</p>
-    <div class="ideas">${IDEAS.map((i) => `<button type="button">${esc(i)}</button>`).join("")}</div>`);
-  consola.querySelectorAll(".ideas button").forEach((b) => b.onclick = () => { texto.value = b.textContent; mandar(); });
+  const d = document.createElement("div"); d.className = "msg jarvis saludo";
+  d.innerHTML = `<div class="mini-orbe"></div><div class="texto"><h3>Hola, Julio.</h3>
+    <p>El equipo está listo. Dime qué necesitas: yo llamo al agente que corresponde y aquí ves cómo trabaja.</p>
+    <div class="ideas">${IDEAS.map((i) => `<button type="button">${esc(i)}</button>`).join("")}</div></div>`;
+  consola.appendChild(d);
+  d.querySelectorAll(".ideas button").forEach((b) => b.onclick = () => { texto.value = b.textContent; mandar(); });
 }
 function pintarHistorial() {
-  if (!historial.length) return bienvenida();
+  if (!historial.length) return saludo();
   consola.innerHTML = "";
   for (const h of historial) {
-    if (h.de === "yo") linea("yo", "JULIO", esc(h.texto));
-    else if (h.de === "jarvis") { linea("jarvis", "JARVIS", formatear(h.texto)); rutasEn(h.texto).forEach((r) => agregarResultado(r, false)); }
-    else linea("sistema", "", h.html);
+    if (h.de === "yo") msgYo(h.texto);
+    else if (h.de === "jarvis") { msgJarvis(formatear(h.texto)); rutasEn(h.texto).forEach((r) => agregarResultado(r, false)); }
+    else if (h.de === "evento") msgEvento(h.html);
   }
   if (resultados.length) mostrar(resultados[0]);
 }
@@ -512,45 +559,46 @@ function pintarHistorial() {
 /* ---------- Voz ---------- */
 function hablar(md) {
   if (!vozActiva || !("speechSynthesis" in window)) return;
-  const limpio = md.replace(/`[^`]*`/g, "").replace(/[*#|_>]/g, "").replace(/\s+/g, " ").trim();
-  if (!limpio) return;
+  const limpio = md.replace(/`[^`]*`/g, "").replace(/[*#|_>]/g, "").replace(/\s+/g, " ").trim(); if (!limpio) return;
   const u = new SpeechSynthesisUtterance(limpio); u.lang = "es-MX"; u.rate = 1.03;
-  const voz = speechSynthesis.getVoices().find((v) => /^es/i.test(v.lang)); if (voz) u.voice = voz;
-  u.onstart = () => $("#nucleo").classList.add("hablando"); u.onend = () => $("#nucleo").classList.remove("hablando");
+  const v = speechSynthesis.getVoices().find((x) => /^es/i.test(x.lang)); if (v) u.voice = v;
+  u.onstart = () => { if (!ocupado) orbe.modo = "hablando"; }; u.onend = () => { if (!ocupado) orbe.modo = "reposo"; };
   speechSynthesis.speak(u);
 }
 $("#voz").classList.toggle("on", vozActiva);
 $("#voz").onclick = () => { vozActiva = !vozActiva; $("#voz").classList.toggle("on", vozActiva);
-  try { localStorage.setItem("jarvis-voz", vozActiva ? "1" : "0"); } catch (e) {} if (!vozActiva) speechSynthesis?.cancel(); };
+  try { localStorage.setItem("jarvis-voz", vozActiva ? "1" : "0"); } catch (e) {}
+  if (!vozActiva && "speechSynthesis" in window) speechSynthesis.cancel(); };
 const Reconocer = window.SpeechRecognition || window.webkitSpeechRecognition;
 if (!Reconocer) $("#microfono").hidden = true;
 else $("#microfono").onclick = () => {
-  const r = new Reconocer(); r.lang = "es-MX"; r.interimResults = true;
-  $("#microfono").classList.add("escuchando");
+  const r = new Reconocer(); r.lang = "es-MX"; r.interimResults = true; $("#microfono").classList.add("escuchando");
   r.onresult = (e) => { texto.value = [...e.results].map((x) => x[0].transcript).join(""); ajustar(); };
   r.onend = () => { $("#microfono").classList.remove("escuchando"); if (texto.value.trim()) mandar(); };
+  r.onerror = () => msgError("No pude usar el micrófono. Revisa que el navegador tenga permiso para usarlo.");
   r.start();
 };
 
-/* ---------- Conversar ---------- */
-function setOcupado(si) { ocupado = si; enviarBtn.disabled = si; $("#parar").hidden = !si; if (!si) estadoJarvis("", "En espera"); }
+/* ---------- Hablar con Jarvis ---------- */
+function setOcupado(si) { ocupado = si; enviarBtn.disabled = si; $("#parar").hidden = !si; if (!si) estadoJarvis("", ""); }
+const agenteDe = (id) => equipo.agentes.find((x) => x.id === id) || { nombre: id, color: "#b3a0b4" };
 
 async function mandar() {
   const mensaje = texto.value.trim(); if (!mensaje || ocupado) return;
-  texto.value = ""; ajustar(); speechSynthesis?.cancel();
-  linea("yo", "JULIO", esc(mensaje)); historial.push({ de: "yo", texto: mensaje }); guardar();
-  setOcupado(true); estadoJarvis("pensando", "Analizando tu pedido");
+  texto.value = ""; ajustar(); if ("speechSynthesis" in window) speechSynthesis.cancel();
+  msgYo(mensaje); historial.push({ de: "yo", texto: mensaje }); guardar();
+  setOcupado(true); estadoJarvis("pensando", "Pensando…");
   document.querySelectorAll(".agente.listo").forEach((el) => marcarAgente(el.dataset.id, ""));
   let caja = null, acumulado = "";
   const cerrarCaja = () => {
-    if (caja) caja.classList.remove("cursor");
+    caja?.classList.remove("escribiendo");
     const t = acumulado.trim();
     if (t) { historial.push({ de: "jarvis", texto: t }); rutasEn(t).forEach((r, i) => agregarResultado(r, i === 0)); hablar(t); }
     caja = null; acumulado = ""; guardar();
   };
   try {
     const r = await fetch("/api/conversar", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ mensaje, sesion }) });
-    if (!r.ok) { const e = await r.json().catch(() => ({})); throw new Error(e.error || "No pude hablar con Jarvis."); }
+    if (!r.ok) { const e = await r.json().catch(() => ({})); throw new Error(e.error || "Jarvis no respondió. Vuelve a intentarlo."); }
     const lector = r.body.getReader(), dec = new TextDecoder(); let resto = "";
     while (true) {
       const { value, done } = await lector.read(); if (done) break;
@@ -561,32 +609,32 @@ async function mandar() {
         if (ev.tipo === "sesion" && ev.sesion) { sesion = ev.sesion; guardar(); }
         else if (ev.tipo === "corte") cerrarCaja();
         else if (ev.tipo === "texto") {
-          if (!caja) { caja = linea("jarvis", "JARVIS", ""); caja.classList.add("cursor"); }
-          acumulado += ev.texto; caja.innerHTML = formatear(acumulado); consola.scrollTop = consola.scrollHeight;
-          estadoJarvis("hablando", "Respondiendo");
+          if (!caja) { caja = msgJarvis(""); caja.classList.add("escribiendo"); }
+          acumulado += ev.texto; caja.innerHTML = formatear(acumulado); bajar();
+          estadoJarvis("hablando", "Respondiendo…");
         } else if (ev.tipo === "agente_empieza") {
-          cerrarCaja(); const a = equipo.agentes.find((x) => x.id === ev.agente) || { nombre: ev.agente };
-          sistema(`JARVIS → <b>${esc(a.nombre).toUpperCase()}</b>${ev.tarea ? ": " + esc(ev.tarea) : ""}`);
-          marcarAgente(ev.agente, "activo", "Trabajando"); estadoJarvis("pensando", "Coordinando a " + a.nombre);
+          cerrarCaja(); const a = agenteDe(ev.agente);
+          evento(eventoHtml(a.color, "→", `Jarvis llamó a <b>${esc(a.nombre)}</b>${ev.tarea ? ` <span class="h">· ${esc(ev.tarea)}</span>` : ""}`));
+          marcarAgente(ev.agente, "activo", "Trabajando…"); estadoJarvis("pensando", `Coordinando a ${a.nombre}`);
         } else if (ev.tipo === "agente_hace") marcarAgente(ev.agente, "activo", ev.texto);
         else if (ev.tipo === "jarvis_hace") estadoJarvis("pensando", ev.texto);
         else if (ev.tipo === "agente_termina") {
-          const a = equipo.agentes.find((x) => x.id === ev.agente) || { nombre: ev.agente };
-          marcarAgente(ev.agente, "listo"); sistema(`<b>${esc(a.nombre).toUpperCase()}</b> → JARVIS: tarea completada ✓`);
-          estadoJarvis("pensando", "Revisando resultados"); cargarTrabajos();
-        } else if (ev.tipo === "error") { cerrarCaja(); linea("error", "SISTEMA", esc(ev.texto)); }
+          const a = agenteDe(ev.agente); marcarAgente(ev.agente, "listo");
+          evento(eventoHtml(a.color, "✓", `<b>${esc(a.nombre)}</b> terminó <span class="h">· ${hora()}</span>`));
+          estadoJarvis("pensando", "Revisando resultados…"); cargarTrabajos();
+        } else if (ev.tipo === "error") { cerrarCaja(); msgError(ev.texto); }
       }
     }
-  } catch (e) { linea("error", "SISTEMA", esc(e.message || "Se cortó la conexión. ¿Sigue abierta la ventana del panel?")); }
+  } catch (e) { msgError(e.message || "Se cortó la conexión. Revisa que la ventana del panel siga abierta."); }
   cerrarCaja(); setOcupado(false); cargarTrabajos(); cargarEquipo();
 }
 
-function ajustar() { texto.style.height = "auto"; texto.style.height = Math.min(texto.scrollHeight, 160) + "px"; }
+function ajustar() { texto.style.height = "auto"; texto.style.height = Math.min(texto.scrollHeight, 150) + "px"; }
 texto.addEventListener("input", ajustar);
 texto.addEventListener("keydown", (e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); mandar(); } });
 $("#formulario").onsubmit = (e) => { e.preventDefault(); mandar(); };
 $("#parar").onclick = () => fetch("/api/parar", { method: "POST" });
-$("#nueva").onclick = () => { if (ocupado) return; sesion = null; historial = []; resultados = []; guardar(); bienvenida(); pintarArchivo(); };
+$("#nueva").onclick = () => { if (ocupado) return; sesion = null; historial = []; resultados = []; guardar(); saludo(); pintarArchivo(); };
 
 cargarEquipo().then(() => { pintarHistorial(); guardar(); });
 cargarTrabajos();
