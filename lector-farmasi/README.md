@@ -39,7 +39,7 @@ python3 leer.py catalogo            # los ~630, tarda unos minutos
 | `modo_de_uso`, `precauciones`, `atributos`, `contenido` | vegano, sin parabenos, 30 ml… |
 | `resenas` | `promedio` (4.95) y `cantidad` (496) |
 | `tonos` | para maquillaje: cada tono con su código y si hay stock |
-| `para_ficha` | los campos de `ficha.json` que salen tal cual: `imagen`, `producto.nombre`, `producto.nombre_corto`, `producto.dato` (★ y reseñas) |
+| `para_ficha` | con la misma forma de `ficha.json`: `imagen` y `producto` (`nombre`, `nombre_corto`, `dato` con ★ y reseñas) |
 
 Los precios no se leen a propósito (se manejan aparte). `leido` guarda la fecha de lectura.
 Las reseñas individuales (textos) no vienen en la página; solo el promedio y la cantidad.

@@ -195,11 +195,14 @@ def para_ficha(d, foto):
         dato = {'destacado': '★' * max(1, round(r['promedio'])),
                 'texto': f'{r["promedio"]:.2f}'.rstrip('0').rstrip('.') + f' · {r["cantidad"]} reseñas'}
     marca = d['marca'] or 'Farmasi'
-    return {
+    nombre = re.sub(rf'^{re.escape(d["marca"])}\s+', '', d['nombre']) if d['marca'] else d['nombre']
+    return {  # misma forma que ficha.json: se copia tal cual y se completa el resto
         'imagen': foto.name if foto else '',
-        'producto.nombre': re.sub(rf'^{re.escape(d["marca"])}\s+', '', d['nombre']) if d['marca'] else d['nombre'],
-        'producto.nombre_corto': f'{marca} · Farmasi' if marca != 'Farmasi' else 'Farmasi',
-        'producto.dato': dato,
+        'producto': {
+            'nombre': nombre,
+            'nombre_corto': f'{marca} · Farmasi' if marca != 'Farmasi' else 'Farmasi',
+            'dato': dato,
+        },
     }
 
 
