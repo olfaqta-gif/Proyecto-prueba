@@ -2,13 +2,17 @@
 
 Una página web en tu computadora para **ver a Jarvis y a sus agentes** y **conversar con él**.
 
-La oficina de Jarvis, en azul:
+La oficina de Jarvis, en 3D y en azul:
 
-- **La oficina (centro):** cada agente es un robot en su escritorio. Cuando Jarvis lo llama,
-  el robot va flotando a la mesa de reuniones, bajo el holograma de Jarvis, y un globito
-  dice qué está haciendo ("Leyendo la tienda farmasius.com…"). Arriba, la "Misión en curso"
-  muestra el pedido, el tiempo y los pasos. Al terminar, el resultado aparece sobre la mesa
-  y el robot vuelve a su escritorio.
+- **La oficina (centro):** una oficina en miniatura, como una maqueta, con ventanal a la
+  ciudad, escritorios, cafetería y plantas. Cada agente es un robot con brazos y piernas,
+  sentado en su escritorio escribiendo en su laptop. Cuando Jarvis lo llama, el robot se
+  levanta, camina hasta la mesa de reuniones bajo el holograma de Jarvis (con su objeto de
+  trabajo en la mano: lupa, cámara, tableta…) y la cámara se acerca a la reunión. Un globito
+  dice qué está haciendo ("Leyendo la tienda farmasius.com…") y arriba la "Misión en curso"
+  muestra el pedido, el tiempo y los pasos. Al terminar, el robot festeja, el resultado
+  aparece flotando sobre la mesa y el robot vuelve caminando a su escritorio.
+  Toca un robot para ver qué hace. Necesita un navegador moderno (Chrome o Edge).
 - **Conversación (izquierda):** la conversación con Jarvis. Puedes escribir o
   tocar el micrófono 🎙 y hablarle (en Chrome). Con el botón 🔊 Voz, Jarvis lee sus respuestas.
 - **Visor (derecha):** muestra en grande la foto, el video o el plan que

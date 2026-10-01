@@ -340,6 +340,13 @@ class Manejador(BaseHTTPRequestHandler):
         url = urlparse(self.path)
         if url.path in ("/", "/index.html"):
             self.responder(200, (PANEL / "pagina.html").read_bytes(), "text/html; charset=utf-8")
+        elif url.path.startswith("/panel/") and url.path.endswith(".js"):
+            # Programas de la página (la oficina 3D y su librería), solo dentro de panel/
+            destino = (PANEL / url.path[len("/panel/"):]).resolve()
+            if PANEL in destino.parents and destino.is_file():
+                self.responder(200, destino.read_bytes(), "text/javascript; charset=utf-8")
+            else:
+                self.responder(404, "{}")
         elif url.path == "/api/equipo":
             self.responder(200, json.dumps(equipo(), ensure_ascii=False))
         elif url.path == "/api/trabajos":
