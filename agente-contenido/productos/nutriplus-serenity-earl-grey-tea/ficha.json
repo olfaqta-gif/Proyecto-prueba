@@ -1,0 +1,85 @@
+{
+  "paleta": "lavanda",
+  "imagen": "producto.jpg",
+  "gancho": {
+    "kicker": "Tu pausa del día",
+    "linea1": "¿Necesitas un momento para ti?",
+    "linea2": "Prepárate un té."
+  },
+  "producto": {
+    "categoria": "Té Earl Grey",
+    "nombre": "Serenity Earl Grey Tea",
+    "nombre_corto": "Nutriplus · Farmasi",
+    "dato": {
+      "destacado": "★★★★★",
+      "texto": "5 · 51 reseñas"
+    }
+  },
+  "beneficios": {
+    "titulo": "Lo que te va a gustar",
+    "lista": [
+      "Sabor floral a bergamota",
+      "Sin azúcar",
+      "En sobre: frío o caliente"
+    ]
+  },
+  "cierre": {
+    "frase1": "Un sorbo de calma",
+    "frase2": "donde estés.",
+    "precio": "",
+    "boton_pre": "Escríbeme",
+    "palabra": "TÉ",
+    "usuario": "",
+    "aviso": "Distribuidora independiente Farmasi. Calificación publicada en la tienda oficial de la marca. Este producto no pretende diagnosticar, tratar ni curar enfermedades."
+  },
+  "caption": {
+    "texto": "¿Necesitas un momento solo para ti? 🫖\n\nEl Serenity Earl Grey Tea de Nutriplus es mi pausa favorita del día:\n🌸 Sabor floral a bergamota\n🍬 Sin azúcar\n🧊 Viene en sobre: lo disuelves en agua fría o caliente, en casa o donde estés\n\n⭐ 5 de calificación en 51 reseñas.\n\n👉 Escríbeme \"TÉ\" por mensaje y te cuento cómo pedirlo.",
+    "hashtags": [
+      "farmasi",
+      "nutriplus",
+      "earlgrey",
+      "tedelatarde",
+      "momentoparami",
+      "autocuidado",
+      "bienestar",
+      "relax",
+      "farmasilatina"
+    ],
+    "aviso": "Distribuidora independiente Farmasi. Este producto no pretende diagnosticar, tratar ni curar enfermedades."
+  },
+  "estilo": "clasico",
+  "estilos": {
+    "favorito": {
+      "gancho": {
+        "kicker": "Mi pausa favorita",
+        "linea1": "El té que me tomo cada tarde",
+        "linea2": "Y no lleva azúcar"
+      },
+      "beneficios": {
+        "titulo": "Por qué me encanta"
+      },
+      "cierre": {
+        "frase1": "Tu momento de calma",
+        "frase2": "en un sobre."
+      }
+    },
+    "razones": {
+      "gancho": {
+        "kicker": "Serenity Earl Grey Tea",
+        "linea1": "razones para probar",
+        "linea2": "este té"
+      },
+      "beneficios": {
+        "lista": [
+          "Sabor floral a bergamota",
+          "No lleva azúcar",
+          "Lo preparas frío o caliente"
+        ]
+      },
+      "cierre": {
+        "frase1": "Tu nueva pausa",
+        "frase2": "favorita."
+      }
+    }
+  }
+}

@@ -1,0 +1,116 @@
+<!-- Estilo CLÁSICO: problema → solución. Fondo oscuro con brillos, producto en halo, lista de beneficios con check. -->
+<style>
+  .colorbg{background:linear-gradient(160deg,var(--acento2) 0%,var(--acento) 45%,var(--fondo2) 100%)}
+
+  /* 1 gancho */
+  .gancho .l{font-weight:900;font-size:104u;line-height:1.06;letter-spacing:-3u;max-width:900u}
+  .gancho .l2{margin-top:24u;color:var(--brillo);font-size:112u}
+  .gancho .kicker{margin-bottom:60u}
+  [data-orient="h"] .gancho .l{max-width:1500u}
+
+  /* 2 producto */
+  .prod{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:90u}
+  .halo{width:780u;height:780u;border-radius:50%;display:grid;place-items:center;background:#fff;flex:none;
+    box-shadow:0 0 0 18u rgba(255,255,255,.18),0 0 0 44u rgba(255,255,255,.07),0 0 220u 60u color-mix(in srgb,var(--acento) 55%,transparent)}
+  .halo img{max-width:72%;max-height:72%;object-fit:contain;display:block}
+  .tag{text-align:center;padding:0 80u;max-width:100%}
+  .tag small{display:block;font-size:36u;font-weight:700;color:var(--brillo);letter-spacing:6u;text-transform:uppercase;margin-bottom:14u}
+  .tag .nombre{font-weight:800;font-size:76u;line-height:1.05;letter-spacing:-1u}
+  .pill{margin-top:34u;display:inline-flex;align-items:center;gap:16u;background:rgba(255,255,255,.1);
+    border:2u solid rgba(255,255,255,.25);padding:16u 34u;border-radius:60u;font-size:40u;font-weight:700}
+  .pill b{color:var(--brillo);letter-spacing:4u}
+  [data-orient="h"] .prod{flex-direction:row;gap:120u}
+  [data-orient="h"] .halo{width:900u;height:900u}
+  [data-orient="h"] .tag{text-align:left;padding:0;max-width:1000u}
+  [data-orient="h"] .tag .nombre{font-size:96u}
+
+  /* 3 beneficios */
+  .ben{display:grid;grid-template-rows:auto 1fr auto;grid-template-areas:"head" "lista" "mini";padding:200u 90u 150u;gap:60u}
+  .ben .head{grid-area:head;text-align:center}
+  .ben h2{font-family:"Playfair Display",serif;font-style:italic;font-weight:800;font-size:84u;line-height:1.08;color:var(--fondo);margin-top:20u}
+  .ben .kicker{color:var(--fondo)}
+  .ben .lista{grid-area:lista;display:flex;flex-direction:column;gap:46u;justify-content:center}
+  .ben .row{display:flex;align-items:center;gap:40u;background:rgba(255,255,255,.92);color:var(--fondo);border-radius:44u;
+    padding:38u 48u;box-shadow:0 24u 60u rgba(0,0,0,.25)}
+  .ben .ico{width:110u;height:110u;border-radius:32u;background:var(--fondo);display:grid;place-items:center;flex:none}
+  .ben .ico svg{width:60u;height:60u;stroke:var(--brillo);fill:none;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+  .ben .txt{font-weight:800;font-size:58u;line-height:1.08;letter-spacing:-1u;flex:1;min-width:0}
+  .ben .mini-prod{grid-area:mini;justify-self:center;width:260u;height:260u;border-radius:50%;background:#fff;
+    display:grid;place-items:center;box-shadow:0 18u 50u rgba(0,0,0,.3)}
+  .ben .mini-prod img{max-width:70%;max-height:73%;object-fit:contain}
+  [data-formato="4x5"] .ben{padding:110u 90u 90u;gap:44u}
+  [data-formato="1x1"] .ben{padding:90u 110u;grid-template-rows:auto 1fr;grid-template-areas:"head" "lista"}
+  [data-formato="1x1"] .ben .mini-prod{display:none}
+  [data-orient="h"] .ben{padding:120u 140u;grid-template-columns:1fr 1.25fr;grid-template-rows:1fr auto;
+    grid-template-areas:"head lista" "mini lista";column-gap:120u}
+  [data-orient="h"] .ben .head{align-self:end;text-align:left}
+  [data-orient="h"] .ben .mini-prod{justify-self:start;align-self:start;margin-top:30u}
+
+  /* 4 cierre */
+  .cierre .marca{font-weight:500;font-size:84u;letter-spacing:34u;margin-right:-34u}
+  .cierre .mini{width:340u;height:340u;border-radius:50%;background:#fff;margin-top:70u;display:grid;place-items:center;flex:none;
+    box-shadow:0 0 0 14u rgba(255,255,255,.15),0 30u 80u rgba(0,0,0,.35)}
+  .cierre .mini img{max-width:70%;max-height:73%;object-fit:contain}
+  .cierre .frase{font-size:92u;font-weight:900;line-height:1.02;letter-spacing:-3u;margin-top:70u;max-width:100%}
+  .cierre .frase .serif{display:block;color:var(--brillo);font-size:100u;margin-top:10u}
+  .cierre .precio{margin-top:40u;font-size:48u;font-weight:700}
+  .cierre .btnwrap{margin-top:70u}
+  .usuario{margin-top:40u;font-size:40u;font-weight:700}
+  [data-formato="1x1"] .cierre{padding-bottom:110u}
+  [data-formato="1x1"] .cierre .mini{display:none}
+  [data-formato="4x5"] .cierre{padding-bottom:90u}
+  [data-orient="h"] .cierre{padding-bottom:90u}
+  [data-orient="h"] .cierre .mini{display:none}
+  [data-orient="h"] .cierre .frase .serif{display:inline;margin-left:.25em}
+</style>
+
+<div class="abs"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div></div>
+<div class="abs out" data-out="beneficios.sale"><div class="abs colorbg in" data-in="beneficios.entra"></div></div>
+<div class="abs" id="sparks"></div>
+
+<!-- 1 · gancho -->
+<div class="abs out" data-out="gancho.sale"><div class="abs center gancho in" data-in="gancho.entra">
+  <div class="kicker rise" data-d="gancho.kicker" data-txt="gancho.kicker"></div>
+  <div class="l rise fit" data-d="gancho.linea1" data-txt="gancho.linea1"></div>
+  <div class="l l2 serif rise fit" data-d="gancho.linea2" data-txt="gancho.linea2"></div>
+</div></div>
+<div class="abs flash" data-d="flash"></div>
+
+<!-- 2 · producto -->
+<div class="abs out" data-out="producto.sale"><div class="abs in" data-in="producto.entra">
+  <div class="prod">
+    <div class="halo pop" data-d="producto.halo"><img class="float" data-img alt=""></div>
+    <div class="tag">
+      <small class="rise" data-d="producto.categoria" data-txt="producto.categoria"></small>
+      <div class="nombre rise fit" data-d="producto.nombre" data-txt="producto.nombre"></div>
+      <div class="rise" data-d="producto.dato" data-si="producto.dato"><div class="pill"><b data-txt="producto.dato.destacado"></b><span data-txt="producto.dato.texto"></span></div></div>
+    </div>
+  </div>
+</div></div>
+
+<!-- 3 · beneficios -->
+<div class="abs out" data-out="beneficios.sale"><div class="abs ben in" data-in="beneficios.entra">
+  <div class="head">
+    <div class="kicker rise" data-d="beneficios.titulo" data-txt="producto.nombre_corto"></div>
+    <h2 class="rise fit" data-d="beneficios.titulo" data-txt="beneficios.titulo"></h2>
+  </div>
+  <div class="lista">
+    <div class="row pop" data-d="beneficios.b1" data-si="beneficios.lista.0"><div class="ico"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></svg></div><div class="txt fit" data-lineas="2" data-txt="beneficios.lista.0"></div></div>
+    <div class="row pop" data-d="beneficios.b2" data-si="beneficios.lista.1"><div class="ico"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></svg></div><div class="txt fit" data-lineas="2" data-txt="beneficios.lista.1"></div></div>
+    <div class="row pop" data-d="beneficios.b3" data-si="beneficios.lista.2"><div class="ico"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></svg></div><div class="txt fit" data-lineas="2" data-txt="beneficios.lista.2"></div></div>
+  </div>
+  <div class="mini-prod pop" data-d="beneficios.b3"><img data-img alt=""></div>
+</div></div>
+
+<!-- 4 · cierre -->
+<div class="abs center cierre in" data-in="cierre.entra">
+  <div class="marca stamp" data-d="cierre.marca">FARMASi</div>
+  <div class="mini pop" data-d="cierre.mini"><img class="float" data-img alt=""></div>
+  <div class="frase rise fit" data-d="cierre.frase"><span data-txt="cierre.frase1"></span><span class="serif" data-txt="cierre.frase2"></span></div>
+  <div class="precio rise" data-d="cierre.precio" data-si="cierre.precio" data-txt="cierre.precio"></div>
+  <div class="btnwrap rise" data-d="cierre.boton"><div class="btn"><span data-txt="cierre.boton_pre"></span> “<b data-txt="cierre.palabra"></b>” 💬</div></div>
+  <div class="usuario rise" data-d="cierre.boton" data-si="cierre.usuario" data-txt="cierre.usuario"></div>
+  <div class="aviso rise" data-d="cierre.aviso" data-txt="cierre.aviso"></div>
+</div>
+
+<div class="abs grain"></div>

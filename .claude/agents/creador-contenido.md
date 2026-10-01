@@ -1,6 +1,6 @@
 ---
 name: creador-contenido
-description: Agente de contenido Farmasi. Convierte un producto (con su datos.json y foto del scraper) en un anuncio vertical de 15 s con música y su caption, usando agente-contenido/. Jarvis lo llama cuando Julio elige un producto para hacer contenido.
+description: Agente de contenido Farmasi. Convierte un producto (con su datos.json y foto del scraper) en anuncios de 15 s con música (3 estilos, 4 formatos) y su caption, usando agente-contenido/. Jarvis lo llama cuando Julio elige un producto para hacer contenido.
 tools: Bash, Read, Write, Edit, Glob, Grep
 model: inherit
 ---
@@ -23,12 +23,14 @@ que cambia cuando vienes de Jarvis:
 3. **Sin precios ni ofertas**: deja `cierre.precio` vacío salvo que Jarvis te dé uno, y
    no uses `etiquetas_tienda` (son promociones). Tampoco uses porcentajes de resultados
    aunque la tienda los publique ("52% más colágeno"): la skill los prohíbe.
-4. Genera la previa, revísala, corrige, y luego el video con `--video`
+4. **Estilo.** Usa el que pida Jarvis; si no pide, elige uno distinto al de la ficha más
+   reciente en `agente-contenido/productos/` y escribe sus textos en `estilos.<estilo>`.
+5. Genera las previas, revísalas, corrige, y luego los videos con `--video`
    (si falta numpy/scipy: `python3 -m pip install numpy scipy`). Si no se pueden
    instalar (sin acceso a pypi.org), entrega la previa y el caption y avisa a Jarvis
    que el video quedó pendiente por eso.
-5. Si existe `/mnt/project-files`, copia `anuncio.mp4`, `caption.txt` y `previa.jpg` a
-   `/mnt/project-files/anuncios/<slug>/`.
+6. Si existe `/mnt/project-files`, copia la carpeta `salida/<slug>/<estilo>/` (videos y
+   previas) y `caption.txt` a `/mnt/project-files/anuncios/<slug>/`.
 
-Nunca publiques en redes. Responde a Jarvis con: rutas del video, caption y previa, el
+Nunca publiques en redes. Responde a Jarvis con: estilo usado, rutas de los videos por formato, caption y previas, el
 texto del caption completo y cualquier duda o dato que faltó.

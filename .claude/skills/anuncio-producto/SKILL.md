@@ -1,6 +1,6 @@
 ---
 name: anuncio-producto
-description: Agente de contenido Farmasi. Convierte un producto en un anuncio vertical de 15 s (Reels/TikTok/Stories) con música, más el caption listo para publicar. Úsalo cuando pidan un anuncio, reel, post o video de un producto Farmasi.
+description: Agente de contenido Farmasi. Convierte un producto en anuncios de 15 s con música (3 estilos; formatos 9:16, 4:5, 1:1 y 16:9), más el caption listo para publicar. Úsalo cuando pidan un anuncio, reel, post o video de un producto Farmasi.
 ---
 
 # Agente de contenido: producto Farmasi → video + caption
@@ -35,6 +35,19 @@ reemplaza todo. Reglas de copy:
 - **Cierre**: `frase1` + `frase2` forman una sola idea; `palabra` es la palabra clave que
   ella debe escribirte por mensaje (corta, en mayúsculas, relacionada al producto).
 - **Paleta**: `coral`, `dorado`, `verde`, `lavanda` o `rosa`. Elige la que combine con el envase.
+- **Estilo** (`estilo`): `clasico` (problema → solución, elegante), `favorito` (tipo TikTok,
+  "mi favorito", fondo claro) o `razones` ("3 razones", directo). Para que los anuncios no
+  se vean todos iguales, **no repitas el estilo del anuncio anterior**: mira qué estilo
+  tienen las fichas más recientes en `productos/` y elige otro, salvo que Julio pida uno.
+  Si te piden comparar, usa `--estilo todos`.
+- **Textos por estilo** (`estilos.<estilo>`): cada estilo pide un gancho distinto. Escribe
+  al menos el del estilo elegido; lo que pongas ahí reemplaza a los campos generales:
+  - `favorito`: voz en primera persona ("El té que me tomo cada tarde" / "Y no lleva azúcar"),
+    `beneficios.titulo` tipo "Por qué me encanta".
+  - `razones`: `gancho.linea1` = "razones para probar" (el número lo pone el video),
+    `linea2` = "este té" / "este sérum"; razones un poco más completas (≤ 34 caracteres).
+- **Formatos**: por defecto salen los 4 (9:16, 4:5, 1:1, 16:9). Usa `formatos` en la ficha
+  solo si Julio pide menos.
 - **Aviso**: siempre aclarar "Distribuidora independiente Farmasi" y que los resultados varían.
 - **Caption**: primera línea = gancho (se ve antes del "ver más"), luego beneficios con
   emojis, prueba social si existe, y el llamado a escribir la palabra clave. 5–12 hashtags
@@ -50,9 +63,10 @@ python3 generar.py productos/<slug>
 ```
 
 El script valida la ficha (errores = no genera; avisos = textos largos). Después **abre
-`salida/<slug>/previa/previa.jpg` y míralo**: cinco cuadros, uno por escena. Revisa que
-ningún texto se corte, que el producto se vea completo y que la paleta combine. Corrige la
-ficha y repite hasta que se vea bien.
+las previas `salida/<slug>/<estilo>/previa-<formato>.jpg` y míralas** (al menos 9x16 y
+1x1, que es el más apretado): un cuadro por escena. Revisa que ningún texto se corte, que
+el producto se vea completo y que la paleta combine. Corrige la ficha y repite hasta que
+se vea bien.
 
 ## 4. Voz (opcional)
 
@@ -68,8 +82,9 @@ la voz habla.
 python3 generar.py productos/<slug> --video
 ```
 
-Entrega `salida/<slug>/anuncio.mp4` y el texto de `salida/<slug>/caption.txt`. Si el
-proyecto tiene carpeta compartida (`/mnt/project-files`), copia ambos a
+Entrega los videos `salida/<slug>/<estilo>/anuncio-<formato>.mp4` (dile para qué red
+sirve cada formato) y el texto de `salida/<slug>/caption.txt`. Si el proyecto tiene
+carpeta compartida (`/mnt/project-files`), copia la carpeta `<estilo>/` y el caption a
 `/mnt/project-files/anuncios/<slug>/` y adjúntalos.
 
 **Nunca publiques** en TikTok, Instagram ni ningún otro lado sin que Julio lo pida
