@@ -47,9 +47,9 @@ CONFIG_BASE = {
     "modelo": "",
 }
 
-# Colores de neón para cada agente (el panel tiene fondo oscuro).
-COLORES = ["#ff6fae", "#ffb48f", "#9b8cff", "#ffd479", "#74b9ff", "#5fe0c8",
-           "#e6a6ff", "#8ee59a"]
+# Color de la luz de cada robot (el panel es azul oscuro).
+COLORES = ["#5be3b0", "#ffc15e", "#ff8a7a", "#7fb2ff", "#a99bff", "#4cc9ff",
+           "#f59bd0", "#c6f36b"]
 
 # Proceso de Claude que está corriendo ahora (solo uno a la vez).
 _actual = {"proceso": None}
@@ -121,7 +121,7 @@ def _libre(nombre, opciones, usados):
 
 def equipo():
     """Jarvis + todos los agentes y habilidades que existan ahora mismo en las carpetas."""
-    jefe = {"nombre": "Jarvis", "id": JEFE, "icono": "🧠", "color": "#ff6fae",
+    jefe = {"nombre": "Jarvis", "id": JEFE, "icono": "🧠", "color": "#4cc9ff",
             "rol": "Jefe de operaciones",
             "que_hace": "El jefe. Conversa contigo y decide qué agente trabaja."}
     agentes, habilidades = [], []

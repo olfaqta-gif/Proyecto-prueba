@@ -2,14 +2,16 @@
 
 Una página web en tu computadora para **ver a Jarvis y a sus agentes** y **conversar con él**.
 
-Estilo "sala de mando" futurista, como el Jarvis de las películas:
+La oficina de Jarvis, en azul:
 
-- **Sala de mando (centro):** el núcleo de Jarvis y, alrededor, cada agente como un
-  robot. Cuando Jarvis llama a un agente, la línea entre ellos se enciende, el robot se
-  anima y dice qué está haciendo ("Leyendo la tienda farmasius.com…").
-- **Canal de comunicación (izquierda):** la conversación con Jarvis. Puedes escribir o
+- **La oficina (centro):** cada agente es un robot en su escritorio. Cuando Jarvis lo llama,
+  el robot va flotando a la mesa de reuniones, bajo el holograma de Jarvis, y un globito
+  dice qué está haciendo ("Leyendo la tienda farmasius.com…"). Arriba, la "Misión en curso"
+  muestra el pedido, el tiempo y los pasos. Al terminar, el resultado aparece sobre la mesa
+  y el robot vuelve a su escritorio.
+- **Conversación (izquierda):** la conversación con Jarvis. Puedes escribir o
   tocar el micrófono 🎙 y hablarle (en Chrome). Con el botón 🔊 Voz, Jarvis lee sus respuestas.
-- **Pantalla de resultados (derecha):** muestra en grande la foto, el video o el plan que
+- **Visor (derecha):** muestra en grande la foto, el video o el plan que
   Jarvis te entrega. Abajo, el archivo con todo lo que el equipo ha producido.
 - Los agentes se leen solos de `.claude/agents/`: si se crea uno nuevo, aparece en el
   panel sin tocar nada.
