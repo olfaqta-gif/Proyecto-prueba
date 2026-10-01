@@ -23,6 +23,10 @@ python3 leer.py producto "vitamin c glow serum"
 # Guardar directo en la carpeta de productos del agente de contenido
 python3 leer.py producto 1000290 --destino ../agente-contenido/productos
 
+# Los 3 con mejores reseñas (crea salida/vitrina.html con fotos)
+python3 leer.py mejores 3
+python3 leer.py mejores 5 --filtro "dr c tuna"
+
 # Todo el catálogo (o una parte) en un solo catalogo.json
 python3 leer.py catalogo --filtro "dr c tuna" --destino salida
 python3 leer.py catalogo            # los ~630, tarda unos minutos
