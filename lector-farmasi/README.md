@@ -37,12 +37,11 @@ python3 leer.py catalogo            # los ~630, tarda unos minutos
 | `ingredientes_clave` | activos y para qué sirven |
 | `ingredientes_inci` | lista completa de ingredientes |
 | `modo_de_uso`, `precauciones`, `atributos`, `contenido` | vegano, sin parabenos, 30 ml… |
-| `precio` | `valor`, `regular`, `oferta_pct`, `texto` ("$24.00") |
 | `resenas` | `promedio` (4.95) y `cantidad` (496) |
 | `tonos` | para maquillaje: cada tono con su código y si hay stock |
-| `para_ficha` | los campos de `ficha.json` que salen tal cual: `imagen`, `producto.nombre`, `producto.nombre_corto`, `producto.dato` (★ y reseñas), `cierre.precio` |
+| `para_ficha` | los campos de `ficha.json` que salen tal cual: `imagen`, `producto.nombre`, `producto.nombre_corto`, `producto.dato` (★ y reseñas) |
 
-El precio y las ofertas cambian seguido en la tienda: `leido` guarda la fecha de lectura.
+Los precios no se leen a propósito (se manejan aparte). `leido` guarda la fecha de lectura.
 Las reseñas individuales (textos) no vienen en la página; solo el promedio y la cantidad.
 
 ## Notas

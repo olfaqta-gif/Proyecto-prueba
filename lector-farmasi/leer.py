@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Lector de productos de farmasius.com.
 
-Lee la ficha oficial de cada producto (nombre, descripción, ingredientes, precio,
-calificación y foto) y la guarda como datos.json + producto.jpg, listos para que el
+Lee la ficha oficial de cada producto (nombre, descripción, ingredientes,
+calificación y foto; sin precios) y la guarda como datos.json + producto.jpg, listos para que el
 agente de contenido (agente-contenido/) escriba su ficha.json.
 
 Uso:
@@ -123,7 +123,6 @@ def leer_producto(url):
     if detalle and detalle not in clave:
         clave = (clave + '\n' + detalle).strip()
     tamano = re.search(r'(?:Product size|Size|Net (?:wt|content))\s*:\s*([^\n]+)', limpiar(p.get('content')), re.I)
-    precio, regular = p.get('price'), p.get('retailPrice')
     resenas = p.get('reviews') or {}
     imagenes = [i.get('imageUrl') for i in (p.get('images') or []) if i.get('mediaType', 'image') == 'image']
 
@@ -149,13 +148,6 @@ def leer_producto(url):
         'modo_de_uso': limpiar(p.get('termOfUse')),
         'atributos': [l for l in limpiar(p.get('sustainability')).splitlines() if l],
         'precauciones': limpiar(p.get('precautions')),
-        'precio': {
-            'valor': precio,
-            'regular': regular,
-            'moneda': p.get('currencyCode') or 'USD',
-            'texto': f'{p.get("currency") or "$"}{precio:.2f}' if precio is not None else '',
-            'oferta_pct': round(100 * (1 - precio / regular)) if precio and regular and precio < regular else 0,
-        },
         'resenas': {
             'promedio': resenas.get('avarageRating'),
             'cantidad': resenas.get('count') or 0,
@@ -207,7 +199,6 @@ def para_ficha(d, foto):
         'producto.nombre': re.sub(rf'^{re.escape(d["marca"])}\s+', '', d['nombre']) if d['marca'] else d['nombre'],
         'producto.nombre_corto': f'{marca} · Farmasi' if marca != 'Farmasi' else 'Farmasi',
         'producto.dato': dato,
-        'cierre.precio': d['precio']['texto'],
     }
 
 
@@ -238,8 +229,7 @@ def cmd_producto(a):
         d = leer_producto(resolver(ref, productos))
         carpeta, foto = guardar(d, destino, con_foto=not a.sin_foto)
         r = d['resenas']
-        print(f'✓ {d["nombre"]} — {d["precio"]["texto"]}'
-              + (f' (antes ${d["precio"]["regular"]:.2f})' if d['precio']['oferta_pct'] else '')
+        print(f'✓ {d["nombre"]}'
               + (f' — {r["promedio"]} ★ ({r["cantidad"]} reseñas)' if r['cantidad'] else ' — sin reseñas'))
         print(f'  {carpeta}/datos.json' + (f' + {foto.name}' if foto else '  (sin foto)'))
         if len(a.refs) > 1:
