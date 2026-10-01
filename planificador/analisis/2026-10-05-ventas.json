@@ -1,0 +1,381 @@
+{
+  "creado": "2026-10-01",
+  "catalogo_leido": "2026-10-01",
+  "objetivo": "ventas",
+  "inicio": "2026-10-05",
+  "dias": 14,
+  "temporada": [
+    "Otoño y Halloween"
+  ],
+  "pesos": {
+    "confianza": 0.2,
+    "popularidad": 0.25,
+    "temporada": 0.15,
+    "novedad": 0.05,
+    "contenido": 0.1,
+    "empuje": 0.1,
+    "disponibilidad": 0.05,
+    "tus_ventas": 0.1
+  },
+  "ajuste_resultados": {},
+  "usa_ventas": false,
+  "oportunidades": [
+    {
+      "familia": "Tinted Lip Plumper",
+      "codigo": "1001521",
+      "slug": "tinted-lip-plumper-00-glass",
+      "categoria": "labios",
+      "promedio": 4.97,
+      "resenas": 551,
+      "tonos": 8,
+      "nuevo": true,
+      "edicion_limitada": false,
+      "puntaje": 84.5,
+      "variables": {
+        "confianza": 0.94,
+        "popularidad": 0.83,
+        "novedad": 1.0,
+        "contenido": 1.0,
+        "empuje": 1.0,
+        "disponibilidad": 1.0,
+        "tus_ventas": 0.0,
+        "temporada": 1.0
+      },
+      "porque": "de los más reseñados (551); 4.97 ★ con 551 reseñas; encaja con Otoño y Halloween",
+      "ideas": [
+        "muestra de tonos en tu piel (8 tonos)",
+        "tutorial de cómo se usa",
+        "prueba social: 551 reseñas en la tienda",
+        "lanzamiento: \"llegó lo nuevo\"",
+        "reto de 7 días con tu propia experiencia (sin porcentajes)",
+        "sin parabenos / vegano: por qué importa"
+      ]
+    },
+    {
+      "familia": "Matte Liquid Lipstick",
+      "codigo": "1001409",
+      "slug": "matte-liquid-lipstick-01-perfect-rose",
+      "categoria": "labios",
+      "promedio": 4.96,
+      "resenas": 1993,
+      "tonos": 21,
+      "nuevo": false,
+      "edicion_limitada": true,
+      "puntaje": 80.4,
+      "variables": {
+        "confianza": 0.92,
+        "popularidad": 1.0,
+        "novedad": 0.7,
+        "contenido": 1.0,
+        "empuje": 1.0,
+        "disponibilidad": 0.9,
+        "tus_ventas": 0.0,
+        "temporada": 0.6
+      },
+      "porque": "de los más reseñados (1993); 4.96 ★ con 1993 reseñas; la tienda lo está promocionando",
+      "ideas": [
+        "muestra de tonos en tu piel (21 tonos)",
+        "tutorial de cómo se usa",
+        "prueba social: 1993 reseñas en la tienda",
+        "edición limitada: \"hasta agotar\"",
+        "reto de 7 días con tu propia experiencia (sin porcentajes)",
+        "sin parabenos / vegano: por qué importa"
+      ]
+    },
+    {
+      "familia": "Dr. C. Tuna Cleansing Balm",
+      "codigo": "1000649",
+      "slug": "dr-c-tuna-cleansing-balm",
+      "categoria": "piel",
+      "promedio": 4.95,
+      "resenas": 272,
+      "tonos": 0,
+      "nuevo": true,
+      "edicion_limitada": false,
+      "puntaje": 79.5,
+      "variables": {
+        "confianza": 0.9,
+        "popularidad": 0.74,
+        "novedad": 1.0,
+        "contenido": 0.8,
+        "empuje": 1.0,
+        "disponibilidad": 1.0,
+        "tus_ventas": 0.0,
+        "temporada": 1.0
+      },
+      "porque": "de los más reseñados (272); 4.95 ★ con 272 reseñas; encaja con Otoño y Halloween",
+      "ideas": [
+        "tutorial de cómo se usa",
+        "lanzamiento: \"llegó lo nuevo\"",
+        "reto de 7 días con tu propia experiencia (sin porcentajes)",
+        "sin parabenos / vegano: por qué importa"
+      ]
+    },
+    {
+      "familia": "Zen Extension Lash Mascara",
+      "codigo": "1301322",
+      "slug": "zen-extension-lash-mascara",
+      "categoria": "ojos y cejas",
+      "promedio": 4.95,
+      "resenas": 1141,
+      "tonos": 0,
+      "nuevo": false,
+      "edicion_limitada": false,
+      "puntaje": 79.2,
+      "variables": {
+        "confianza": 0.9,
+        "popularidad": 0.93,
+        "novedad": 0.0,
+        "contenido": 0.8,
+        "empuje": 1.0,
+        "disponibilidad": 1.0,
+        "tus_ventas": 0.0,
+        "temporada": 1.0
+      },
+      "porque": "de los más reseñados (1141); 4.95 ★ con 1141 reseñas; encaja con Otoño y Halloween",
+      "ideas": [
+        "tutorial de cómo se usa",
+        "prueba social: 1141 reseñas en la tienda",
+        "reto de 7 días con tu propia experiencia (sin porcentajes)",
+        "sin parabenos / vegano: por qué importa"
+      ]
+    },
+    {
+      "familia": "Double Lash Extend Mascara",
+      "codigo": "1301518",
+      "slug": "double-lash-extend-mascara",
+      "categoria": "ojos y cejas",
+      "promedio": 4.94,
+      "resenas": 1259,
+      "tonos": 0,
+      "nuevo": false,
+      "edicion_limitada": false,
+      "puntaje": 79.1,
+      "variables": {
+        "confianza": 0.88,
+        "popularidad": 0.94,
+        "novedad": 0.0,
+        "contenido": 0.8,
+        "empuje": 1.0,
+        "disponibilidad": 1.0,
+        "tus_ventas": 0.0,
+        "temporada": 1.0
+      },
+      "porque": "de los más reseñados (1259); 4.94 ★ con 1259 reseñas; encaja con Otoño y Halloween",
+      "ideas": [
+        "tutorial de cómo se usa",
+        "prueba social: 1259 reseñas en la tienda",
+        "reto de 7 días con tu propia experiencia (sin porcentajes)",
+        "sin parabenos / vegano: por qué importa"
+      ]
+    },
+    {
+      "familia": "Absolute Super Elixir",
+      "codigo": "1000991",
+      "slug": "absolute-super-elixir",
+      "categoria": "piel",
+      "promedio": 4.97,
+      "resenas": 785,
+      "tonos": 0,
+      "nuevo": false,
+      "edicion_limitada": false,
+      "puntaje": 78.7,
+      "variables": {
+        "confianza": 0.94,
+        "popularidad": 0.88,
+        "novedad": 0.0,
+        "contenido": 0.8,
+        "empuje": 1.0,
+        "disponibilidad": 1.0,
+        "tus_ventas": 0.0,
+        "temporada": 1.0
+      },
+      "porque": "de los más reseñados (785); 4.97 ★ con 785 reseñas; encaja con Otoño y Halloween",
+      "ideas": [
+        "tutorial de cómo se usa",
+        "prueba social: 785 reseñas en la tienda",
+        "reto de 7 días con tu propia experiencia (sin porcentajes)",
+        "sin parabenos / vegano: por qué importa"
+      ]
+    },
+    {
+      "familia": "Midnight Touch",
+      "codigo": "1001537",
+      "slug": "midnight-touch-blush",
+      "categoria": "maquillaje de rostro",
+      "promedio": 4.96,
+      "resenas": 718,
+      "tonos": 9,
+      "nuevo": true,
+      "edicion_limitada": true,
+      "puntaje": 72.7,
+      "variables": {
+        "confianza": 0.92,
+        "popularidad": 0.87,
+        "novedad": 1.0,
+        "contenido": 1.0,
+        "empuje": 1.0,
+        "disponibilidad": 0.33,
+        "tus_ventas": 0.0,
+        "temporada": 0.4
+      },
+      "porque": "de los más reseñados (718); 4.96 ★ con 718 reseñas; la tienda lo está promocionando",
+      "ideas": [
+        "muestra de tonos en tu piel (9 tonos)",
+        "tutorial de cómo se usa",
+        "explica para qué sirve: Aceite de semilla de Meadowfoam",
+        "prueba social: 718 reseñas en la tienda",
+        "lanzamiento: \"llegó lo nuevo\"",
+        "edición limitada: \"hasta agotar\"",
+        "reto de 7 días con tu propia experiencia (sin porcentajes)",
+        "sin parabenos / vegano: por qué importa"
+      ]
+    },
+    {
+      "familia": "Reviving Champú",
+      "codigo": "1000309",
+      "slug": "reviving-champu",
+      "categoria": "cabello",
+      "promedio": 4.95,
+      "resenas": 977,
+      "tonos": 0,
+      "nuevo": false,
+      "edicion_limitada": false,
+      "puntaje": 71.7,
+      "variables": {
+        "confianza": 0.9,
+        "popularidad": 0.91,
+        "novedad": 0.0,
+        "contenido": 1.0,
+        "empuje": 1.0,
+        "disponibilidad": 1.0,
+        "tus_ventas": 0.0,
+        "temporada": 0.4
+      },
+      "porque": "de los más reseñados (977); 4.95 ★ con 977 reseñas; la tienda lo está promocionando",
+      "ideas": [
+        "tutorial de cómo se usa",
+        "explica para qué sirve: Complejo protector del color",
+        "prueba social: 977 reseñas en la tienda",
+        "reto de 7 días con tu propia experiencia (sin porcentajes)",
+        "sin parabenos / vegano: por qué importa"
+      ]
+    },
+    {
+      "familia": "Gel de Masaje Bálsamo de Pimentón y Chile",
+      "codigo": "1000305",
+      "slug": "gel-de-masaje-balsamo-de-pimenton-y-chile",
+      "categoria": "cuerpo",
+      "promedio": 4.97,
+      "resenas": 1957,
+      "tonos": 0,
+      "nuevo": false,
+      "edicion_limitada": false,
+      "puntaje": 70.7,
+      "variables": {
+        "confianza": 0.94,
+        "popularidad": 1.0,
+        "novedad": 0.0,
+        "contenido": 0.6,
+        "empuje": 1.0,
+        "disponibilidad": 1.0,
+        "tus_ventas": 0.0,
+        "temporada": 0.4
+      },
+      "porque": "de los más reseñados (1957); 4.97 ★ con 1957 reseñas; la tienda lo está promocionando",
+      "ideas": [
+        "tutorial de cómo se usa",
+        "prueba social: 1957 reseñas en la tienda",
+        "sin parabenos / vegano: por qué importa"
+      ]
+    },
+    {
+      "familia": "Her Passion EDP",
+      "codigo": "1000490",
+      "slug": "her-passion-edp",
+      "categoria": "fragancias",
+      "promedio": 4.96,
+      "resenas": 372,
+      "tonos": 0,
+      "nuevo": false,
+      "edicion_limitada": true,
+      "puntaje": 70.4,
+      "variables": {
+        "confianza": 0.92,
+        "popularidad": 0.78,
+        "novedad": 0.7,
+        "contenido": 0.8,
+        "empuje": 1.0,
+        "disponibilidad": 1.0,
+        "tus_ventas": 0.0,
+        "temporada": 0.4
+      },
+      "porque": "de los más reseñados (372); 4.96 ★ con 372 reseñas; la tienda lo está promocionando",
+      "ideas": [
+        "tutorial de cómo se usa",
+        "prueba social: 372 reseñas en la tienda",
+        "edición limitada: \"hasta agotar\"",
+        "sin parabenos / vegano: por qué importa"
+      ]
+    },
+    {
+      "familia": "VFX PRO Camera Ready Foundation",
+      "codigo": "1002023",
+      "slug": "vfx-pro-camera-ready-foundation-00-alabaster",
+      "categoria": "maquillaje de rostro",
+      "promedio": 4.94,
+      "resenas": 708,
+      "tonos": 24,
+      "nuevo": false,
+      "edicion_limitada": false,
+      "puntaje": 70.2,
+      "variables": {
+        "confianza": 0.88,
+        "popularidad": 0.86,
+        "novedad": 0.0,
+        "contenido": 1.0,
+        "empuje": 1.0,
+        "disponibilidad": 1.0,
+        "tus_ventas": 0.0,
+        "temporada": 0.4
+      },
+      "porque": "de los más reseñados (708); 4.94 ★ con 708 reseñas; la tienda lo está promocionando",
+      "ideas": [
+        "muestra de tonos en tu piel (24 tonos)",
+        "tutorial de cómo se usa",
+        "prueba social: 708 reseñas en la tienda",
+        "reto de 7 días con tu propia experiencia (sin porcentajes)",
+        "sin parabenos / vegano: por qué importa"
+      ]
+    },
+    {
+      "familia": "Pistachio Macaron Hand Cream",
+      "codigo": "1002134",
+      "slug": "pistachio-macaron-hand-cream",
+      "categoria": "cuerpo",
+      "promedio": 4.93,
+      "resenas": 237,
+      "tonos": 0,
+      "nuevo": true,
+      "edicion_limitada": true,
+      "puntaje": 69.4,
+      "variables": {
+        "confianza": 0.87,
+        "popularidad": 0.72,
+        "novedad": 1.0,
+        "contenido": 0.8,
+        "empuje": 1.0,
+        "disponibilidad": 1.0,
+        "tus_ventas": 0.0,
+        "temporada": 0.4
+      },
+      "porque": "de los más reseñados (237); 4.93 ★ con 237 reseñas; la tienda lo está promocionando",
+      "ideas": [
+        "tutorial de cómo se usa",
+        "lanzamiento: \"llegó lo nuevo\"",
+        "edición limitada: \"hasta agotar\"",
+        "sin parabenos / vegano: por qué importa"
+      ]
+    }
+  ]
+}

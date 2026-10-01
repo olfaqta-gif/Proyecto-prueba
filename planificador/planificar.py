@@ -10,6 +10,7 @@ Uso (desde la raíz del repositorio):
   python3 planificador/planificar.py revisar planificador/planes/<plan>.json
   python3 planificador/planificar.py siguiente planificador/planes/<plan>.json
   python3 planificador/planificar.py marcar planificador/planes/<plan>.json <id> hecho
+  python3 planificador/planificar.py resultado planificador/planes/<plan>.json <id> --vistas 1500 --mensajes 9 --ventas 3
 
 Solo usa la librería estándar de Python.
 """
@@ -221,6 +222,8 @@ def revisar(plan):
             if prod and not carpeta_producto(prod):
                 avisos.append(f'{etiqueta}: {nombre_producto(prod)} todavía no tiene carpeta en '
                               'agente-contenido/productos (el agente de contenido lo traerá con el scraper)')
+            if not pub.get('porque'):
+                avisos.append(f'{etiqueta}: explica en "porque" por qué este producto (sale de analizar.py)')
             anuncios.append(pub)
         elif not (pub.get('guion') or pub.get('caption')):
             avisos.append(f'{etiqueta}: como lo haces tú, conviene escribir "guion" o "caption"')
@@ -308,6 +311,12 @@ def calendario_html(plan, archivo_plan):
                 if pub.get('tipo') == 'anuncio':
                     detalles.append(f'Estilo {e(pub.get("estilo", ""))} · '
                                     f'{e(", ".join(pub.get("formatos") or ["los 4 formatos"]))}')
+                if pub.get('porque'):
+                    detalles.append(f'<b>Por qué:</b> {e(pub["porque"])}')
+                r = pub.get('resultados')
+                if r:
+                    detalles.append('<b>Resultado:</b> ' + ' · '.join(
+                        f'{r[k]} {k}' for k in ('vistas', 'mensajes', 'ventas') if r.get(k) is not None))
                 if pub.get('gancho'):
                     detalles.append(f'<i>«{e(pub["gancho"])}»</i>')
                 if pub.get('guion'):
@@ -372,7 +381,7 @@ h1 {{ margin:0 0 4px; font-size:26px; }}
 <h1>{e(plan["nombre"])}</h1>
 <p class="sub">Desde el {fecha(plan["inicio"]).strftime("%d/%m/%Y")} · {len(plan["publicaciones"])} publicaciones · {hechos} listas</p>
 <div class="resumen">
-  <div class="caja"><h2>Objetivo</h2>{e(plan["objetivo"])}<br><br><b>Para quién:</b> {e(plan.get("publico", ""))}<br><b>Ritmo:</b> {e(plan.get("frecuencia", ""))}</div>
+  <div class="caja"><h2>Objetivo</h2>{e(plan["objetivo"])}{f'<br><br><b>Basado en:</b> {e(plan["basado_en"])}' if plan.get("basado_en") else ''}<br><br><b>Para quién:</b> {e(plan.get("publico", ""))}<br><b>Ritmo:</b> {e(plan.get("frecuencia", ""))}</div>
   <div class="caja"><h2>Pilares de contenido</h2><ul>{"".join(pilares)}</ul></div>
   {f'<div class="caja notas"><h2>Notas</h2><ul>{notas}</ul></div>' if notas else ''}
 </div>
@@ -439,6 +448,25 @@ def cmd_marcar(a):
     sys.exit(1)
 
 
+def cmd_resultado(a):
+    archivo = Path(a.plan)
+    plan = leer_json(archivo)
+    for p in plan['publicaciones']:
+        if str(p.get('id')) == str(a.id):
+            r = p.setdefault('resultados', {})
+            for k in ('vistas', 'mensajes', 'ventas', 'guardados', 'compartidos'):
+                if getattr(a, k) is not None:
+                    r[k] = getattr(a, k)
+            if p.get('estado', 'pendiente') in ('pendiente', 'hecho'):
+                p['estado'] = 'publicado'
+            escribir_json(archivo, plan)
+            archivo.with_suffix('.html').write_text(calendario_html(plan, archivo), encoding='utf-8')
+            print(f'Resultados de la publicación {a.id} guardados: {r}. El estratega los usará en el próximo plan.')
+            return
+    print(f'No hay publicación con id {a.id} en {archivo}')
+    sys.exit(1)
+
+
 def main():
     ap = argparse.ArgumentParser(description='Planificador de contenido Farmasi')
     sub = ap.add_subparsers(dest='cmd', required=True)
@@ -455,6 +483,12 @@ def main():
     m.add_argument('estado', choices=ESTADOS)
     m.add_argument('--nota', help='dónde quedó el video, etc.')
     m.set_defaults(f=cmd_marcar)
+    r = sub.add_parser('resultado', help='guardar cómo le fue a una publicación (para aprender)')
+    r.add_argument('plan')
+    r.add_argument('id')
+    for k in ('vistas', 'mensajes', 'ventas', 'guardados', 'compartidos'):
+        r.add_argument(f'--{k}', type=int)
+    r.set_defaults(f=cmd_resultado)
     a = ap.parse_args()
     a.f(a)
 

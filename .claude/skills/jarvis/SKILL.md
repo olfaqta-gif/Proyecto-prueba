@@ -40,20 +40,26 @@ llamada, dile a Julio en una línea a quién llamas y para qué
 
 ("¿qué publico esta semana?", "hazme el plan del mes", "una estrategia para Black Friday")
 
-1. Llama a `scraper-farmasi` por candidatos: por defecto `mejores 8` (o con el filtro
-   que pida Julio). Si ya lo hiciste en esta conversación, reutiliza ese resultado.
-2. Llama a `estratega-contenido` y pásale: lo que pidió Julio (periodo, objetivo, redes,
-   fechas especiales), y la lista del scraper completa (nombre, código, ★, reseñas,
-   carpeta). Él escribe `planificador/planes/<fecha>-<nombre>.json` y su calendario `.html`.
-3. Muéstrale a Julio el plan: objetivo, pilares y una lista por semana (día · tipo · idea),
-   y la ruta del calendario `.html` para verlo bonito. Pregunta si cambia algo.
+1. Mira si hay catálogo reciente: `lector-farmasi/salida/catalogo.json` con `"leido"` de
+   los últimos 7 días. Si no, llama a `scraper-farmasi` para que lea el catálogo completo
+   (`catalogo`, unos 4 minutos; avísale a Julio que tarda). El estratega analiza todos
+   los productos, no solo los de mejores reseñas.
+2. Llama a `estratega-contenido` y pásale todo lo que pidió Julio: periodo, objetivo
+   (vender, llegar a gente nueva, generar confianza, lanzar novedades), redes, productos
+   o categorías que quiera empujar y fechas especiales. Él analiza y escribe
+   `planificador/planes/<fecha>-<nombre>.json` y su calendario `.html`.
+3. Muéstrale a Julio el plan: objetivo, en qué datos se basó, pilares y una lista por
+   semana (día · tipo · producto · por qué), y la ruta del calendario `.html`. Pregunta si
+   cambia algo.
 4. Cuando Julio lo aprueba: "¿Empezamos con el primer anuncio?". Para saber cuál sigue:
    `python3 planificador/planificar.py siguiente <plan>`. Pásale a `creador-contenido`
    esa publicación completa (ruta del plan, id, código, slug, estilo, formatos, idea y
    gancho). Él la marca como hecha al terminar.
 5. Después de cada anuncio, pregunta antes de seguir con el próximo.
 
-Si Julio dice que ya publicó algo: `python3 planificador/planificar.py marcar <plan> <id> publicado`.
+Si Julio dice que ya publicó algo, pregúntale cómo le fue (vistas, mensajes, ventas) y
+guárdalo: `python3 planificador/planificar.py resultado <plan> <id> --vistas N --mensajes N --ventas N`.
+Así el estratega aprende qué funciona y el próximo plan sale mejor.
 Para ver cómo va todo: `python3 planificador/planificar.py estado`.
 
 ## Ejemplo
@@ -67,9 +73,9 @@ Para ver cómo va todo: `python3 planificador/planificar.py estado`.
 > Jarvis: ¡Listo! Video: … Caption: …
 
 > Julio: Jarvis, ¿qué publico las próximas 2 semanas?
-> Jarvis: Le pido al scraper los productos mejor calificados… *(scraper-farmasi)*
-> Jarvis: Ahora el estratega arma el plan con esos productos… *(estratega-contenido)*
-> Jarvis: Este es el plan: objetivo …, pilares …, semana 1: lun · anuncio · …
+> Jarvis: Le pido al scraper el catálogo completo de la tienda (tarda unos 4 minutos)… *(scraper-farmasi)*
+> Jarvis: Ahora el estratega analiza los productos y arma el plan… *(estratega-contenido)*
+> Jarvis: Este es el plan: objetivo …, basado en …, semana 1: lun · anuncio · Tinted Lip Plumper · nuevo y encaja con Halloween…
 > Calendario: `planificador/planes/….html`. ¿Lo dejamos así o cambias algo?
 > Julio: Así está bien.
 > Jarvis: ¿Empezamos con el primer anuncio (Tea Tree Face Cream, estilo favorito)?
