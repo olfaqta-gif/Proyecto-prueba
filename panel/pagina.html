@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Oficina de Jarvis</title>
+<title>Oficina de Isa</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=Instrument+Sans:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  /* Concepto: la oficina de Jarvis de noche. Al centro, una oficina limpia en tonos azules
-     con ventanal a la ciudad: cada agente es un robot en su escritorio y, cuando Jarvis lo
-     llama, flota hasta la mesa de reuniones bajo el holograma de Jarvis. A los lados,
+  /* Concepto: la oficina de Isa de noche. Al centro, una oficina limpia en tonos azules
+     con ventanal a la ciudad: cada agente es un robot en su escritorio y, cuando Isa lo
+     llama, flota hasta la mesa de reuniones bajo el holograma de Isa. A los lados,
      paneles de vidrio azul: la conversación y el visor de resultados. Un solo look oscuro. */
   :root {
     color-scheme: dark;
@@ -78,7 +78,7 @@
   @keyframes entrar { from { opacity: 0; transform: translateY(8px); } }
   .msg.yo { align-self: flex-end; max-width: 85%; padding: 10px 14px; border-radius: 18px 18px 6px 18px; color: #fff;
             background: linear-gradient(135deg, #2f6bff, #3f9bff); white-space: pre-wrap; box-shadow: 0 10px 30px -12px #3d7bffaa; }
-  .msg.jarvis { display: grid; grid-template-columns: 26px minmax(0, 1fr); gap: 10px; }
+  .msg.isa { display: grid; grid-template-columns: 26px minmax(0, 1fr); gap: 10px; }
   .mini-orbe { width: 26px; height: 26px; border-radius: 50%; margin-top: 2px;
                background: radial-gradient(circle at 35% 30%, #fff, #7fd8ff 40%, #2f6bff 90%); box-shadow: 0 0 14px #4cc9ff88; }
   .texto p { margin: 0 0 8px; } .texto p:last-child { margin: 0; }
@@ -145,9 +145,9 @@
   .etq-robot .globo::after { content: ""; position: absolute; left: 50%; bottom: -5px; width: 10px; height: 10px; background: inherit;
                              transform: translateX(-50%) rotate(45deg); border-radius: 2px; }
   .etq-robot .globo.listo { background: var(--bien); }
-  .etq-jarvis { text-align: center; white-space: nowrap; pointer-events: none; }
-  .etq-jarvis b { display: block; font: 700 17px var(--titulo); color: #fff; letter-spacing: .02em; text-shadow: 0 0 14px #4cc9ff, 0 2px 6px #0009; }
-  .etq-jarvis span { display: inline-block; margin-top: 2px; font: 500 11px var(--mono); color: var(--hielo); padding: 2px 9px; border-radius: 99px;
+  .etq-isa { text-align: center; white-space: nowrap; pointer-events: none; }
+  .etq-isa b { display: block; font: 700 17px var(--titulo); color: #fff; letter-spacing: .02em; text-shadow: 0 0 14px #4cc9ff, 0 2px 6px #0009; }
+  .etq-isa span { display: inline-block; margin-top: 2px; font: 500 11px var(--mono); color: var(--hielo); padding: 2px 9px; border-radius: 99px;
                      background: #081430b3; border: 1px solid #4cc9ff55; }
   .ayuda-3d { position: absolute; right: 14px; bottom: 12px; font: 500 10.5px var(--mono); color: #cfe6ffaa; pointer-events: none;
               padding: 4px 10px; border-radius: 99px; background: #08143080; }
@@ -212,11 +212,11 @@
 <div class="fondo"></div>
 <div class="app">
   <header>
-    <div class="marca"><b>Jar<em>vis</em></b><span>Farmasi · Isa</span></div>
+    <div class="marca"><b>I<em>sa</em></b><span>Farmasi · Isabella</span></div>
     <div class="pastilla" id="estado"><i></i><span id="estado-texto">En línea</span></div>
     <div class="espacio"></div>
     <div class="pastilla" id="hora">--:--</div>
-    <button class="boton" id="voz" type="button" title="Jarvis lee sus respuestas en voz alta">
+    <button class="boton" id="voz" type="button" title="Isa lee sus respuestas en voz alta">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14"/></svg>Voz</button>
     <button class="boton peligro" id="parar" type="button" hidden>Detener</button>
     <button class="boton" id="nueva" type="button">Nueva conversación</button>
@@ -226,18 +226,18 @@
     <div class="cab"><h2>Conversación</h2><span class="meta" id="sesion">nueva</span></div>
     <div id="consola"></div>
     <form id="formulario">
-      <button type="button" class="icono-btn" id="microfono" title="Hablarle a Jarvis" aria-label="Hablarle a Jarvis">
+      <button type="button" class="icono-btn" id="microfono" title="Hablarle a Isa" aria-label="Hablarle a Isa">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v4"/></svg></button>
-      <textarea id="texto" rows="1" placeholder="Pídele algo a Jarvis…" aria-label="Mensaje para Jarvis"></textarea>
+      <textarea id="texto" rows="1" placeholder="Pídele algo a Isa…" aria-label="Mensaje para Isa"></textarea>
       <button type="submit" class="icono-btn" id="enviar" title="Enviar" aria-label="Enviar">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
     </form>
   </section>
 
-  <section class="escenario" id="escenario" aria-label="La oficina de Jarvis y su equipo, en 3D">
+  <section class="escenario" id="escenario" aria-label="La oficina de Isa y su equipo, en 3D">
     <div class="mision" id="mision" hidden>
       <div class="eti"><span>Misión en curso</span><span id="crono">00:00</span></div>
-      <h3 id="mision-titulo">Jarvis está pensando</h3>
+      <h3 id="mision-titulo">Isa está pensando</h3>
       <div class="barra"><i></i></div>
       <ul id="bitacora"></ul>
     </div>
@@ -261,8 +261,8 @@ const consola = $("#consola"), texto = $("#texto"), enviarBtn = $("#enviar"), NS
 const MOVIMIENTO = !matchMedia("(prefers-reduced-motion: reduce)").matches;
 let equipo = { agentes: [], habilidades: [] }, sesion = null, ocupado = false, vozActiva = false;
 let historial = [], resultados = [], delServidor = [];
-try { sesion = localStorage.getItem("jarvis-sesion"); historial = JSON.parse(localStorage.getItem("jarvis-historial") || "[]");
-      vozActiva = localStorage.getItem("jarvis-voz") === "1"; } catch (e) { historial = []; }
+try { sesion = localStorage.getItem("isa-sesion"); historial = JSON.parse(localStorage.getItem("isa-historial") || "[]");
+      vozActiva = localStorage.getItem("isa-voz") === "1"; } catch (e) { historial = []; }
 
 const IDEAS = ["Búscame los 3 productos con mejores reseñas", "¿Qué publico las próximas 2 semanas?",
                "Hazme un anuncio del Vitamin C Glow Serum", "Preséntame a tu equipo"];
@@ -308,8 +308,8 @@ setInterval(() => { if (!$("#mision").hidden) { const s = Math.floor((Date.now()
   $("#crono").textContent = String(Math.floor(s / 60)).padStart(2, "0") + ":" + String(s % 60).padStart(2, "0"); } }, 500);
 function aparicion(r) { of("mostrarResultado", urlArchivo(r), /\.(jpe?g|png|webp)$/i.test(r)); }
 
-function estadoJarvis(modo, frase) {
-  of("jarvis", modo || "reposo", frase);
+function estadoIsa(modo, frase) {
+  of("isa", modo || "reposo", frase);
   $("#estado").classList.toggle("ocupado", !!modo); $("#estado-texto").textContent = modo ? "Trabajando" : "En línea";
 }
 
@@ -385,21 +385,21 @@ consola.addEventListener("click", (e) => { const a = e.target.closest("a[data-ru
 const bajar = () => { consola.scrollTop = consola.scrollHeight; };
 function quitarSaludo() { consola.querySelector(".saludo")?.remove(); }
 function msgYo(t) { quitarSaludo(); const d = document.createElement("div"); d.className = "msg yo"; d.textContent = t; consola.appendChild(d); bajar(); }
-function msgJarvis(html) { quitarSaludo(); const d = document.createElement("div"); d.className = "msg jarvis";
+function msgIsa(html) { quitarSaludo(); const d = document.createElement("div"); d.className = "msg isa";
   d.innerHTML = `<div class="mini-orbe"></div><div class="texto">${html}</div>`; consola.appendChild(d); bajar(); return d.querySelector(".texto"); }
 const eventoHtml = (color, simbolo, html) => `<span class="punto" style="background:${color}">${simbolo}</span><span class="t">${html}</span>`;
 function msgEvento(html) { quitarSaludo(); const d = document.createElement("div"); d.className = "msg evento"; d.innerHTML = html; consola.appendChild(d); bajar(); }
 function msgError(t) { quitarSaludo(); const d = document.createElement("div"); d.className = "msg error"; d.textContent = t; consola.appendChild(d); bajar(); }
 function evento(html) { msgEvento(html); historial.push({ de: "evento", html }); }
 function guardar() {
-  try { localStorage.setItem("jarvis-historial", JSON.stringify(historial.slice(-100)));
-        sesion ? localStorage.setItem("jarvis-sesion", sesion) : localStorage.removeItem("jarvis-sesion"); } catch (e) {}
+  try { localStorage.setItem("isa-historial", JSON.stringify(historial.slice(-100)));
+        sesion ? localStorage.setItem("isa-sesion", sesion) : localStorage.removeItem("isa-sesion"); } catch (e) {}
   $("#sesion").textContent = sesion ? "sesión " + sesion.slice(0, 6) : "nueva";
 }
 function saludo() {
   consola.innerHTML = "";
-  const d = document.createElement("div"); d.className = "msg jarvis saludo";
-  d.innerHTML = `<div class="mini-orbe"></div><div class="texto"><h3>Hola, Julio.</h3>
+  const d = document.createElement("div"); d.className = "msg isa saludo";
+  d.innerHTML = `<div class="mini-orbe"></div><div class="texto"><h3>Hola, Isabella.</h3>
     <p>El equipo está en sus escritorios. Pídeme algo y verás cómo llamo a cada uno a la mesa para trabajar.</p>
     <div class="ideas">${IDEAS.map((i) => `<button type="button">${esc(i)}</button>`).join("")}</div></div>`;
   consola.appendChild(d);
@@ -410,7 +410,7 @@ function pintarHistorial() {
   consola.innerHTML = "";
   for (const h of historial) {
     if (h.de === "yo") msgYo(h.texto);
-    else if (h.de === "jarvis") { msgJarvis(formatear(h.texto)); rutasEn(h.texto).forEach((r) => agregarResultado(r, false)); }
+    else if (h.de === "isa") { msgIsa(formatear(h.texto)); rutasEn(h.texto).forEach((r) => agregarResultado(r, false)); }
     else if (h.de === "evento") msgEvento(h.html);
   }
   if (resultados.length) mostrar(resultados[0]);
@@ -422,12 +422,12 @@ function hablar(md) {
   const limpio = md.replace(/`[^`]*`/g, "").replace(/[*#|_>]/g, "").replace(/\s+/g, " ").trim(); if (!limpio) return;
   const u = new SpeechSynthesisUtterance(limpio); u.lang = "es-MX"; u.rate = 1.03;
   const v = speechSynthesis.getVoices().find((x) => /^es/i.test(x.lang)); if (v) u.voice = v;
-  u.onstart = () => { if (!ocupado) of("jarvis", "hablando", "Hablando…"); }; u.onend = () => { if (!ocupado) of("jarvis", "reposo"); };
+  u.onstart = () => { if (!ocupado) of("isa", "hablando", "Hablando…"); }; u.onend = () => { if (!ocupado) of("isa", "reposo"); };
   speechSynthesis.speak(u);
 }
 $("#voz").classList.toggle("on", vozActiva);
 $("#voz").onclick = () => { vozActiva = !vozActiva; $("#voz").classList.toggle("on", vozActiva);
-  try { localStorage.setItem("jarvis-voz", vozActiva ? "1" : "0"); } catch (e) {}
+  try { localStorage.setItem("isa-voz", vozActiva ? "1" : "0"); } catch (e) {}
   if (!vozActiva && "speechSynthesis" in window) speechSynthesis.cancel(); };
 const Reconocer = window.SpeechRecognition || window.webkitSpeechRecognition;
 if (!Reconocer) $("#microfono").hidden = true;
@@ -439,28 +439,28 @@ else $("#microfono").onclick = () => {
   r.start();
 };
 
-/* ---------- Hablar con Jarvis ---------- */
-function setOcupado(si) { ocupado = si; enviarBtn.disabled = si; $("#parar").hidden = !si; if (!si) estadoJarvis("", ""); }
+/* ---------- Hablar con Isa ---------- */
+function setOcupado(si) { ocupado = si; enviarBtn.disabled = si; $("#parar").hidden = !si; if (!si) estadoIsa("", ""); }
 const agenteDe = (id) => equipo.agentes.find((x) => x.id === id) || { nombre: id, color: "#9fb6dc" };
 
 async function mandar() {
   const mensaje = texto.value.trim(); if (!mensaje || ocupado) return;
   texto.value = ""; ajustar(); if ("speechSynthesis" in window) speechSynthesis.cancel();
   msgYo(mensaje); historial.push({ de: "yo", texto: mensaje }); guardar();
-  setOcupado(true); estadoJarvis("pensando", "Pensando…");
+  setOcupado(true); estadoIsa("pensando", "Pensando…");
   abrirMision(mensaje.length > 70 ? mensaje.slice(0, 68) + "…" : mensaje);
-  bitacora(`<b style="color:var(--celeste)">Jarvis</b> recibió tu pedido`);
+  bitacora(`<b style="color:var(--celeste)">Isa</b> recibió tu pedido`);
   let caja = null, acumulado = "";
   const cerrarCaja = () => {
     caja?.classList.remove("escribiendo");
     const t = acumulado.trim();
-    if (t) { historial.push({ de: "jarvis", texto: t }); const rs = rutasEn(t);
+    if (t) { historial.push({ de: "isa", texto: t }); const rs = rutasEn(t);
              rs.forEach((r, i) => agregarResultado(r, i === 0)); if (rs[0]) aparicion(rs[0]); hablar(t); }
     caja = null; acumulado = ""; guardar();
   };
   try {
     const r = await fetch("/api/conversar", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ mensaje, sesion }) });
-    if (!r.ok) { const e = await r.json().catch(() => ({})); throw new Error(e.error || "Jarvis no respondió. Vuelve a intentarlo."); }
+    if (!r.ok) { const e = await r.json().catch(() => ({})); throw new Error(e.error || "Isa no respondió. Vuelve a intentarlo."); }
     const lector = r.body.getReader(), dec = new TextDecoder(); let resto = "";
     while (true) {
       const { value, done } = await lector.read(); if (done) break;
@@ -471,22 +471,22 @@ async function mandar() {
         if (ev.tipo === "sesion" && ev.sesion) { sesion = ev.sesion; guardar(); }
         else if (ev.tipo === "corte") cerrarCaja();
         else if (ev.tipo === "texto") {
-          if (!caja) { caja = msgJarvis(""); caja.classList.add("escribiendo"); }
+          if (!caja) { caja = msgIsa(""); caja.classList.add("escribiendo"); }
           acumulado += ev.texto; caja.innerHTML = formatear(acumulado); bajar();
-          estadoJarvis(misionActiva.size ? "pensando" : "hablando", misionActiva.size ? "Coordinando al equipo" : "Respondiendo…");
+          estadoIsa(misionActiva.size ? "pensando" : "hablando", misionActiva.size ? "Coordinando al equipo" : "Respondiendo…");
         } else if (ev.tipo === "agente_empieza") {
           cerrarCaja(); const a = agenteDe(ev.agente); misionActiva.add(ev.agente);
-          evento(eventoHtml(a.color, "→", `Jarvis llamó a <b>${esc(a.nombre)}</b>${ev.tarea ? ` <span class="h">· ${esc(ev.tarea)}</span>` : ""}`));
+          evento(eventoHtml(a.color, "→", `Isa llamó a <b>${esc(a.nombre)}</b>${ev.tarea ? ` <span class="h">· ${esc(ev.tarea)}</span>` : ""}`));
           abrirMision(ev.tarea || null); bitacora(`<b style="color:${a.color}">${esc(a.nombre)}</b> va a la mesa`);
-          of("convocar", ev.agente); of("reunion", true); estadoJarvis("pensando", `Coordinando a ${a.nombre}`);
+          of("convocar", ev.agente); of("reunion", true); estadoIsa("pensando", `Coordinando a ${a.nombre}`);
         } else if (ev.tipo === "agente_hace") {
           const a = agenteDe(ev.agente); of("actividad", ev.agente, ev.texto); bitacora(`<b style="color:${a.color}">${esc(a.nombre)}</b> · ${esc(ev.texto)}`);
-        } else if (ev.tipo === "jarvis_hace") { estadoJarvis("pensando", ev.texto); bitacora(`<b style="color:var(--celeste)">Jarvis</b> · ${esc(ev.texto)}`); }
+        } else if (ev.tipo === "isa_hace") { estadoIsa("pensando", ev.texto); bitacora(`<b style="color:var(--celeste)">Isa</b> · ${esc(ev.texto)}`); }
         else if (ev.tipo === "agente_termina") {
           const a = agenteDe(ev.agente); misionActiva.delete(ev.agente); of("liberar", ev.agente);
           evento(eventoHtml(a.color, "✓", `<b>${esc(a.nombre)}</b> terminó <span class="h">· ${hora()}</span>`));
           bitacora(`<b style="color:${a.color}">${esc(a.nombre)}</b> terminó ✓`);
-          estadoJarvis("pensando", "Revisando resultados…"); cargarTrabajos();
+          estadoIsa("pensando", "Revisando resultados…"); cargarTrabajos();
         } else if (ev.tipo === "error") { cerrarCaja(); msgError(ev.texto); }
       }
     }

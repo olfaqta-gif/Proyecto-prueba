@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-"""Panel de Jarvis: una página en tu computadora para ver a Jarvis y sus agentes y
-conversar con él.
+"""Panel de Isa: una página en tu computadora para ver a Isa y sus agentes y
+conversar con ella.
 
 Uso (desde la carpeta del proyecto):
     python3 panel/servidor.py            → abre http://localhost:8765 en el navegador
@@ -30,9 +30,9 @@ RAIZ = Path(__file__).resolve().parent.parent
 PANEL = Path(__file__).resolve().parent
 AGENTES = RAIZ / ".claude" / "agents"
 HABILIDADES = RAIZ / ".claude" / "skills"
-JEFE = "jarvis"
+JEFE = "isa"
 
-# Herramientas que Jarvis y sus agentes pueden usar sin pedir permiso en la terminal
+# Herramientas que Isa y sus agentes pueden usar sin pedir permiso en la terminal
 # (en la página no hay terminal donde aprobarlas). Se puede cambiar en panel/config.json.
 CONFIG_BASE = {
     "herramientas": [
@@ -120,10 +120,10 @@ def _libre(nombre, opciones, usados):
 
 
 def equipo():
-    """Jarvis + todos los agentes y habilidades que existan ahora mismo en las carpetas."""
-    jefe = {"nombre": "Jarvis", "id": JEFE, "icono": "🧠", "color": "#4cc9ff",
-            "rol": "Jefe de operaciones",
-            "que_hace": "El jefe. Conversa contigo y decide qué agente trabaja."}
+    """Isa + todos los agentes y habilidades que existan ahora mismo en las carpetas."""
+    jefe = {"nombre": "Isa", "id": JEFE, "icono": "🧠", "color": "#4cc9ff",
+            "rol": "Jefa de operaciones",
+            "que_hace": "La jefa. Conversa contigo y decide qué agente trabaja."}
     agentes, habilidades = [], []
     usados_color, usados_cara = set(), set()
     if AGENTES.is_dir():
@@ -173,14 +173,14 @@ def trabajos_recientes(limite=24):
             for fecha, tipo, f in encontrados[:limite]]
 
 
-def instrucciones_jarvis():
+def instrucciones_isa():
     archivo = HABILIDADES / JEFE / "SKILL.md"
-    cuerpo = leer_ficha(archivo)[1] if archivo.exists() else "Eres Jarvis."
+    cuerpo = leer_ficha(archivo)[1] if archivo.exists() else "Eres Isa."
     return cuerpo + """
 
-## Estás en el panel de Jarvis
-Julio te escribe desde una página web (el panel), no desde la terminal: no ve comandos
-ni puede aprobar permisos. Escribe solo lo que él necesita leer, en español sencillo.
+## Estás en el panel de Isa
+Isabella te escribe desde una página web (el panel), no desde la terminal: no ve comandos
+ni puede aprobar permisos. Escribe solo lo que ella necesita leer, en español sencillo.
 Cuando entregues un archivo (video, plan, vitrina, foto), escribe su ruta completa desde
 la carpeta del proyecto, por ejemplo `agente-contenido/salida/serum/favorito/anuncio-9x16.mp4`:
 el panel la convierte en un enlace que abre el archivo.
@@ -228,7 +228,7 @@ def conversar(mensaje, sesion, enviar):
     config = leer_config()
     comando = [claude, "-p", mensaje, "--output-format", "stream-json", "--verbose",
                "--include-partial-messages",
-               "--append-system-prompt", instrucciones_jarvis(),
+               "--append-system-prompt", instrucciones_isa(),
                "--allowedTools", ",".join(config["herramientas"])]
     if config.get("modelo"):
         comando += ["--model", config["modelo"]]
@@ -289,7 +289,7 @@ def conversar(mensaje, sesion, enviar):
                         enviar({"tipo": "agente_hace", "agente": llamadas[padre],
                                 "texto": resumen_de_herramienta(nombre, entrada)})
                     elif not padre:
-                        enviar({"tipo": "jarvis_hace",
+                        enviar({"tipo": "isa_hace",
                                 "texto": resumen_de_herramienta(nombre, entrada)})
             elif tipo == "user" and not padre:
                 for bloque in ev.get("message", {}).get("content", []) or []:
@@ -387,7 +387,7 @@ class Manejador(BaseHTTPRequestHandler):
         with _candado:
             ocupado = _actual["proceso"] is not None
         if ocupado:
-            self.responder(409, json.dumps({"error": "Jarvis todavía está trabajando."}))
+            self.responder(409, json.dumps({"error": "Isa todavía está trabajando."}))
             return
         self.send_response(200)
         self.send_header("Content-Type", "application/x-ndjson; charset=utf-8")
@@ -405,13 +405,13 @@ class Manejador(BaseHTTPRequestHandler):
 
 
 def main():
-    p = argparse.ArgumentParser(description="Panel de Jarvis")
+    p = argparse.ArgumentParser(description="Panel de Isa")
     p.add_argument("--puerto", type=int, default=8765)
     p.add_argument("--sin-navegador", action="store_true")
     a = p.parse_args()
     servidor = ThreadingHTTPServer(("127.0.0.1", a.puerto), Manejador)
     direccion = f"http://localhost:{a.puerto}"
-    print(f"Panel de Jarvis listo en {direccion}")
+    print(f"Panel de Isa listo en {direccion}")
     print("Deja esta ventana abierta mientras lo usas. Para cerrarlo: Ctrl+C.")
     if not shutil.which("claude"):
         print("Aviso: no encontré Claude Code (el programa `claude`). Ver panel/README.md.")

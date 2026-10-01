@@ -1,21 +1,21 @@
 # Planificador de contenido Farmasi
 
 Aquí vive la **estrategia y el calendario** de publicaciones. Lo escribe el agente
-`estratega-contenido` (`.claude/agents/`) y lo coordina Jarvis:
+`estratega-contenido` (`.claude/agents/`) y lo coordina Isa:
 
 ```
-Julio: "Jarvis, hazme el plan de contenido de las próximas 2 semanas para vender más"
+Isabella: "Isa, hazme el plan de contenido de las próximas 2 semanas para vender más"
   │
   ├─► scraper-farmasi       lee el catálogo completo de la tienda (sin precios)
   ├─► estratega-contenido   analiza todos los productos con analizar.py
   │                         y arma plan.json + calendario plan.html
-  │     Jarvis te lo muestra y pregunta: "¿Empezamos con el primer anuncio?"
+  │     Isa te lo muestra y pregunta: "¿Empezamos con el primer anuncio?"
   ├─► creador-contenido     hace cada anuncio del plan y lo marca como "hecho"
-  └─► tú publicas y le cuentas a Jarvis cómo te fue → se guarda en el plan
+  └─► tú publicas y le cuentas a Isa cómo te fue → se guarda en el plan
                             y el próximo análisis aprende de eso
 ```
 
-El archivo del plan es el punto de unión: el estratega lo escribe, Jarvis lo lee para
+El archivo del plan es el punto de unión: el estratega lo escribe, Isa lo lee para
 saber qué sigue, el agente de contenido lo marca cuando termina un video y tus
 resultados quedan guardados ahí para el siguiente plan.
 
@@ -83,7 +83,7 @@ python3 planificador/planificar.py resultado planificador/planes/2026-10-05-vend
 | `basado_en` | qué análisis se usó (archivo, objetivo, fecha del catálogo, resultados) |
 | `objetivo`, `publico`, `frecuencia` | la estrategia en pocas palabras |
 | `pilares` | temas de contenido: `id`, `nombre`, `porque`, `porcentaje` (meta) |
-| `notas` | recomendaciones o preguntas para Julio |
+| `notas` | recomendaciones o preguntas para Isabella |
 | `publicaciones` | el calendario (abajo) |
 
 Cada publicación:

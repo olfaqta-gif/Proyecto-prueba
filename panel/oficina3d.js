@@ -1,10 +1,10 @@
-// La oficina 3D de Jarvis: una oficina en miniatura (estilo maqueta) donde cada agente es un
-// robot que trabaja sentado en su escritorio. Cuando Jarvis lo llama, se levanta, camina
-// hasta la mesa de reuniones bajo el holograma de Jarvis, trabaja ahí y luego vuelve.
+// La oficina 3D de Isa: una oficina en miniatura (estilo maqueta) donde cada agente es un
+// robot que trabaja sentado en su escritorio. Cuando Isa lo llama, se levanta, camina
+// hasta la mesa de reuniones bajo el holograma de Isa, trabaja ahí y luego vuelve.
 //
 // Uso:  const oficina = crearOficina(contenedor, { alTocarAgente(id) {} });
 //       oficina.setEquipo(agentes) · convocar(id) · actividad(id, texto) · liberar(id)
-//       oficina.jarvis("reposo" | "pensando" | "hablando") · mostrarResultado(url)
+//       oficina.isa("reposo" | "pensando" | "hablando") · mostrarResultado(url)
 import { THREE, CSS2DRenderer, CSS2DObject } from "./vendor/three-paquete.js";
 
 const MOVIMIENTO = !matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -17,7 +17,7 @@ const PUESTOS = [
   { x: -1.8, z: -3.75, giro: 0.1 }, { x: 1.3, z: -3.75, giro: 0 },
 ];
 // Lugares alrededor de la mesa de reuniones (primero los del fondo a los lados del holograma,
-// para que la cámara les vea la cara y Jarvis no los tape).
+// para que la cámara les vea la cara y Isa no los tape).
 const LUGARES = [150, 282, 112, 320, 186, 246, 72, 0].map((g) => {
   const a = (g * Math.PI) / 180;
   return new THREE.Vector3(MESA.x + Math.sin(a) * 2.35, 0, MESA.z + Math.cos(a) * 2.35);
@@ -283,7 +283,7 @@ export function crearOficina(contenedor, opciones = {}) {
   const escena = new THREE.Scene();
   const camara = new THREE.PerspectiveCamera(30, 1, 0.1, 200);
   // La cámara se encuadra sola según el tamaño de la ventana: toma de toda la oficina y toma
-  // cercana de la mesa de reuniones (cuando Jarvis convoca al equipo).
+  // cercana de la mesa de reuniones (cuando Isa convoca al equipo).
   const DIRECCION = new THREE.Vector3(0.62, 0.66, 0.85).normalize(), DIRECCION_CERCA = new THREE.Vector3(0.5, 0.36, 0.88).normalize();
   const PUNTOS_LEJOS = [[-8.3, 0, -5.8], [8.3, 0, -5.8], [-8.3, 0, 4.2], [8.3, 0, 4.2], [-8.3, 4.7, -5.8], [8.3, 4.7, -5.8]];
   const PUNTOS_CERCA = [[-3.2, 0, -2.0], [3.2, 0, -2.0], [-3.2, 0, 2.8], [3.2, 0, 2.8], [0, 4.95, 0.6], [-3.2, 3.0, -2.0], [3.2, 3.0, 2.8]];
@@ -364,7 +364,7 @@ export function crearOficina(contenedor, opciones = {}) {
   // Letrero FARMASI y pantalla en la pared izquierda
   const letrero = lienzo(1024, 300, (x, w, h) => {
     x.clearRect(0, 0, w, h); x.fillStyle = "#1f4fd1"; x.font = "800 150px Sora, 'Segoe UI', sans-serif"; x.textAlign = "center";
-    x.fillText("FARMASI", w / 2, 170); x.fillStyle = "#4f6fa8"; x.font = "500 50px 'Segoe UI', sans-serif"; x.fillText("EQUIPO DE JARVIS · ISA", w / 2, 250);
+    x.fillText("FARMASI", w / 2, 170); x.fillStyle = "#4f6fa8"; x.font = "500 50px 'Segoe UI', sans-serif"; x.fillText("EQUIPO DE ISA", w / 2, 250);
   });
   const placaLetrero = new THREE.Mesh(new THREE.PlaneGeometry(4.2, 1.23), new THREE.MeshBasicMaterial({ map: letrero, transparent: true }));
   placaLetrero.position.set(-4.4, 3.35, -5.48); placaLetrero.scale.setScalar(0.85); escena.add(placaLetrero);
@@ -401,7 +401,7 @@ export function crearOficina(contenedor, opciones = {}) {
   // Plantas grandes
   [[-7.3, -4.85, 1.2], [-7.3, 5.0, 1.0], [7.4, 5.1, 0.95], [-0.1, -4.95, 0.75]].forEach(([x, z, e]) => { const p = crearPlanta(e); p.position.set(x, 0, z); escena.add(p); });
 
-  // Mesa de reuniones y el holograma de Jarvis
+  // Mesa de reuniones y el holograma de Isa
   const mesa = new THREE.Group(); mesa.position.copy(MESA); escena.add(mesa);
   mesa.add(malla(new THREE.CylinderGeometry(1.65, 1.6, 0.08, 64), MAT.blanco, 0, 0.78, 0));
   mesa.add(malla(new THREE.TorusGeometry(1.64, 0.025, 8, 80), new THREE.MeshBasicMaterial({ color: 0x4cc9ff, toneMapped: false }), 0, 0.78, 0).rotateX(Math.PI / 2));
@@ -436,10 +436,10 @@ export function crearOficina(contenedor, opciones = {}) {
   const geoPart = new THREE.BufferGeometry(); geoPart.setAttribute("position", new THREE.BufferAttribute(posPart, 3));
   const particulas = new THREE.Points(geoPart, new THREE.PointsMaterial({ color: 0xbff0ff, size: 0.05, transparent: true, opacity: 0.85, depthWrite: false, blending: THREE.AdditiveBlending, toneMapped: false }));
   holograma.add(particulas);
-  const luzJarvis = new THREE.PointLight(0x4cc9ff, 6, 9, 1.6); luzJarvis.position.set(0, 0, 0); holograma.add(luzJarvis);
-  const etiquetaJarvis = document.createElement("div"); etiquetaJarvis.className = "etq-jarvis";
-  etiquetaJarvis.innerHTML = "<b>Jarvis</b><span>Listo para ayudarte</span>";
-  const objJarvis = new CSS2DObject(etiquetaJarvis); objJarvis.position.set(0, -1.35, 0); holograma.add(objJarvis);
+  const luzIsa = new THREE.PointLight(0x4cc9ff, 6, 9, 1.6); luzIsa.position.set(0, 0, 0); holograma.add(luzIsa);
+  const etiquetaIsa = document.createElement("div"); etiquetaIsa.className = "etq-isa";
+  etiquetaIsa.innerHTML = "<b>Isa</b><span>Lista para ayudarte</span>";
+  const objIsa = new CSS2DObject(etiquetaIsa); objIsa.position.set(0, -1.35, 0); holograma.add(objIsa);
 
 
   /* ---------- robots y escritorios ---------- */
@@ -490,7 +490,7 @@ export function crearOficina(contenedor, opciones = {}) {
   async function convocar(id) {
     const r = robots.get(id); if (!r) return;
     if (r.estado !== "sentado" && r.estado !== "volviendo") { globo(r, r.actividad || "Trabajando…"); return; }
-    r.estado = "yendo"; globo(r, "¡Voy!"); estadoEtiqueta(r, "En reunión con Jarvis", "reunion");
+    r.estado = "yendo"; globo(r, "¡Voy!"); estadoEtiqueta(r, "En reunión con Isa", "reunion");
     let libre = LUGARES.findIndex((_, i) => !ocupados.has(i)); if (libre < 0) libre = 0; ocupados.add(libre); r.lugar = libre;
     r.metaSentado = 0; await esperar(650);
     r.objeto.visible = true;
@@ -514,11 +514,11 @@ export function crearOficina(contenedor, opciones = {}) {
     setTimeout(() => { if (r.estado === "sentado") estadoEtiqueta(r, "En su escritorio", ""); }, 7000);
   }
 
-  /* ---------- Jarvis y resultados ---------- */
+  /* ---------- Isa y resultados ---------- */
   let modo = "reposo", energia = 0, enfoque = 0, metaEnfoque = 0;
-  function jarvis(nuevo, frase) {
+  function isa(nuevo, frase) {
     modo = nuevo || "reposo";
-    etiquetaJarvis.querySelector("span").textContent = frase || "Listo para ayudarte";
+    etiquetaIsa.querySelector("span").textContent = frase || "Lista para ayudarte";
   }
   function reunion(si) { metaEnfoque = si ? 1 : 0; }
   const cargador = new THREE.TextureLoader();
@@ -598,7 +598,7 @@ export function crearOficina(contenedor, opciones = {}) {
       h.rotation.z = lado * (0.08 + 2.5 * fe);
       r.codos[i].rotation.x = -0.25 * w - 0.75 * teclear - (i ? 0.7 : 0.1) * ha;
     });
-    // Cabeza: mira alrededor, asiente en reunión y mira a Jarvis
+    // Cabeza: mira alrededor, asiente en reunión y mira a Isa
     r.cabeza.rotation.y = Math.sin(t * 0.5 + r.semilla) * 0.35 * (1 - w) * (1 - ha);
     r.cabeza.rotation.x = Math.sin(t * 3 + r.semilla) * 0.07 * ha - 0.18 * ha + 0.12 * teclear;
     // Parpadeo y luces
@@ -622,7 +622,7 @@ export function crearOficina(contenedor, opciones = {}) {
     nucleo.material.emissiveIntensity = 1.4 + energia * 1.2;
     resplandor.material.opacity = 0.45 + energia * 0.35;
     holograma.position.y = 2.75 + Math.sin(t * 1.2) * 0.06;
-    luzJarvis.intensity = 5 + energia * 6 + pulso * 20;
+    luzIsa.intensity = 5 + energia * 6 + pulso * 20;
     cono.material.opacity = 0.7 + energia * 0.3;
 
     robots.forEach((r) => animarRobot(r, dt, t));
@@ -648,7 +648,7 @@ export function crearOficina(contenedor, opciones = {}) {
   }
   requestAnimationFrame(cuadro);
 
-  const api = { setEquipo, convocar, actividad, liberar, jarvis, reunion, mostrarResultado };
+  const api = { setEquipo, convocar, actividad, liberar, isa, reunion, mostrarResultado };
   window.oficina3d = api;   // útil para probar desde la consola del navegador
   api.depurar = () => ({ cam: camara.position.toArray(), lejos: CAM_LEJOS.toArray(), cerca: CAM_CERCA.toArray(), mira: MIRA_CERCA.toArray(), enfoque, w: contenedor.clientWidth, h: contenedor.clientHeight });
   return api;
