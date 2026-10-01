@@ -1,0 +1,37 @@
+{
+  "paleta": "dorado",
+  "imagen": "producto.jpg",
+  "gancho": {
+    "kicker": "Rutina de 1 minuto",
+    "linea1": "¿Tu piel se ve apagada?",
+    "linea2": "Esto la despierta."
+  },
+  "producto": {
+    "categoria": "Sérum facial",
+    "nombre": "Vitamin C Glow Serum",
+    "nombre_corto": "Dr. C. Tuna · Farmasi",
+    "dato": { "destacado": "★★★★★", "texto": "4.97 · 980 reseñas" }
+  },
+  "beneficios": {
+    "titulo": "Lo que vas a notar",
+    "lista": [
+      "Piel más luminosa",
+      "Tono más parejo",
+      "Ligero, se absorbe rápido"
+    ]
+  },
+  "cierre": {
+    "frase1": "Tu glow diario",
+    "frase2": "empieza hoy.",
+    "precio": "",
+    "boton_pre": "Escríbeme",
+    "palabra": "GLOW",
+    "usuario": "",
+    "aviso": "Distribuidora independiente Farmasi. Los resultados varían según cada piel. Calificación publicada en la tienda oficial de la marca."
+  },
+  "caption": {
+    "texto": "¿Piel apagada, cansada, sin brillo? ✨\n\nEl Vitamin C Glow Serum de Dr. C. Tuna es mi paso favorito de la mañana:\n☀️ Piel más luminosa\n🎯 Tono más parejo\n💧 Textura ligera que se absorbe al instante\n\n⭐ 4.97 de calificación en 980 reseñas.\n\n👉 Escríbeme \"GLOW\" por mensaje y te cuento cómo usarlo y cómo pedirlo.",
+    "hashtags": ["farmasi", "vitaminac", "serumfacial", "skincare", "cuidadodelapiel", "glowup", "pielradiante", "drctuna", "rutinadeskincare"],
+    "aviso": "Distribuidora independiente Farmasi. Los resultados varían según cada piel."
+  }
+}
