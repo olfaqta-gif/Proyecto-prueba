@@ -34,6 +34,7 @@ DESTINO_DEFECTO = AQUI / 'salida'
 
 
 def bajar(url, intentos=3):
+    url = urllib.parse.quote(url, safe=':/?&=%')  # algunas URLs del sitemap traen espacios raros
     req = urllib.request.Request(url, headers={'User-Agent': UA, 'Accept-Language': 'en-US,en;q=0.9'})
     for i in range(intentos):
         try:
@@ -236,6 +237,36 @@ def cmd_producto(a):
             time.sleep(PAUSA)
 
 
+def leer_varios(productos, hilos=3):
+    """Lee muchas páginas con pocas conexiones a la vez. Devuelve (datos, fallos)."""
+    from concurrent.futures import ThreadPoolExecutor
+
+    def uno(p):
+        time.sleep(PAUSA)
+        try:
+            return leer_producto(p['url']), None
+        except Exception as e:
+            return None, {'url': p['url'], 'error': str(e)}
+
+    todos, fallos = [], []
+    with ThreadPoolExecutor(hilos) as ex:
+        for i, (d, fallo) in enumerate(ex.map(uno, productos), 1):
+            if d:
+                todos.append(d)
+            else:
+                fallos.append(fallo)
+            if i % 25 == 0 or i == len(productos):
+                print(f'  leídos {i}/{len(productos)}', file=sys.stderr)
+    return todos, fallos
+
+
+def guardar_catalogo(todos, fallos, archivo):
+    archivo.parent.mkdir(parents=True, exist_ok=True)
+    archivo.write_text(json.dumps({'leido': datetime.date.today().isoformat(), 'fuente': SITIO,
+                                   'productos': todos, 'fallos': fallos},
+                                  ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+
+
 def cmd_catalogo(a):
     productos = mapa_productos()
     if a.filtro:
@@ -243,24 +274,52 @@ def cmd_catalogo(a):
     if a.limite:
         productos = productos[:a.limite]
     destino = Path(a.destino)
-    destino.mkdir(parents=True, exist_ok=True)
-    todos, fallos = [], []
-    for i, p in enumerate(productos, 1):
-        try:
-            d = leer_producto(p['url'])
-            if a.fotos:
-                guardar(d, destino)
-            todos.append(d)
-            print(f'[{i}/{len(productos)}] {d["nombre"]}', file=sys.stderr)
-        except Exception as e:
-            fallos.append({'url': p['url'], 'error': str(e)})
-            print(f'[{i}/{len(productos)}] ✗ {p["slug"]}: {e}', file=sys.stderr)
-        time.sleep(PAUSA)
-    salida = destino / 'catalogo.json'
-    salida.write_text(json.dumps({'leido': datetime.date.today().isoformat(), 'fuente': SITIO,
-                                  'productos': todos, 'fallos': fallos},
-                                 ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+    todos, fallos = leer_varios(productos)
+    if a.fotos:
+        for d in todos:
+            guardar(d, destino)
+    salida = destino / ('catalogo.json' if not (a.filtro or a.limite) else 'catalogo-parcial.json')
+    guardar_catalogo(todos, fallos, salida)
     print(f'{len(todos)} productos en {salida}' + (f' ({len(fallos)} fallaron)' if fallos else ''))
+
+
+NO_VENTA = re.compile(r'tester|sample|muestra|starter-kit|business-kit|catalog|brochure|bag\b')
+
+
+def cmd_mejores(a):
+    """Los N productos mejor calificados (promedio y luego cantidad de reseñas)."""
+    destino = Path(a.destino)
+    cache = destino / 'catalogo.json'
+    hoy = datetime.date.today().isoformat()
+    todos = None
+    if cache.exists() and not a.actualizar:
+        c = json.loads(cache.read_text(encoding='utf-8'))
+        if c.get('leido') == hoy:
+            todos = c['productos']
+            print(f'Usando el catálogo leído hoy ({len(todos)} productos).', file=sys.stderr)
+    if todos is None:
+        productos = mapa_productos()
+        print(f'Leyendo el catálogo completo ({len(productos)} productos)…', file=sys.stderr)
+        todos, fallos = leer_varios(productos)
+        guardar_catalogo(todos, fallos, cache)
+
+    candidatos = [d for d in todos
+                  if d['resenas']['cantidad'] >= a.min_resenas and d['resenas']['promedio']
+                  and d['disponible'] and not d['descontinuado'] and not NO_VENTA.search(d['slug'])]
+    if a.filtro:
+        palabras = [w for w in re.split(r'[\s\-]+', a.filtro.lower()) if w]
+        candidatos = [d for d in candidatos
+                      if all(w in (d['slug'] + ' ' + d['marca'].lower()) for w in palabras)]
+    candidatos.sort(key=lambda d: (d['resenas']['promedio'], d['resenas']['cantidad']), reverse=True)
+
+    top = candidatos[:a.n]
+    for i, d in enumerate(top, 1):
+        carpeta, foto = guardar(d, destino)
+        r = d['resenas']
+        print(f'{i}. {d["nombre"]} — {r["promedio"]} ★ ({r["cantidad"]} reseñas) — código {d["codigo"]}')
+        print(f'   {carpeta}/datos.json' + (f' + {foto.name}' if foto else '  (sin foto)'))
+    if not top:
+        print('Ningún producto cumple el filtro.')
 
 
 def main():
@@ -283,6 +342,14 @@ def main():
     c.add_argument('--limite', type=int, help='máximo de productos a leer')
     c.add_argument('--fotos', action='store_true', help='crear también <slug>/datos.json + foto por producto')
     c.set_defaults(f=cmd_catalogo)
+
+    m = sub.add_parser('mejores', help='los N productos con mejores reseñas (con datos.json y foto)')
+    m.add_argument('n', nargs='?', type=int, default=3)
+    m.add_argument('--filtro', help='solo productos cuyo nombre o marca tenga estas palabras')
+    m.add_argument('--min-resenas', type=int, default=50, help='mínimo de reseñas para contar (defecto 50)')
+    m.add_argument('--actualizar', action='store_true', help='volver a leer el catálogo aunque ya se haya leído hoy')
+    m.add_argument('--destino', default=str(DESTINO_DEFECTO))
+    m.set_defaults(f=cmd_mejores)
 
     a = ap.parse_args()
     a.f(a)
