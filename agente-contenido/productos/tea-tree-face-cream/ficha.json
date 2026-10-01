@@ -1,0 +1,37 @@
+{
+  "paleta": "verde",
+  "imagen": "producto.jpg",
+  "gancho": {
+    "kicker": "Piel grasa o mixta",
+    "linea1": "Brillo a mediodía, granitos…",
+    "linea2": "Te entiendo."
+  },
+  "producto": {
+    "categoria": "Crema facial",
+    "nombre": "Tea Tree Face Cream",
+    "nombre_corto": "Dr. C. Tuna · Farmasi",
+    "dato": { "destacado": "★★★★★", "texto": "4.95 · 496 reseñas" }
+  },
+  "beneficios": {
+    "titulo": "Por qué la amarás",
+    "lista": [
+      "Con aceite de árbol de té",
+      "Hidrata sin dejar brillo",
+      "Ideal para piel mixta"
+    ]
+  },
+  "cierre": {
+    "frase1": "Piel fresca",
+    "frase2": "todo el día.",
+    "precio": "",
+    "boton_pre": "Escríbeme",
+    "palabra": "TEA TREE",
+    "usuario": "",
+    "aviso": "Distribuidora independiente Farmasi. Los resultados varían según cada piel. Calificación publicada en la tienda oficial de la marca."
+  },
+  "caption": {
+    "texto": "Si tu piel brilla antes del mediodía, esto es para ti 🌿\n\nLa Tea Tree Face Cream de Dr. C. Tuna:\n🌱 Con aceite de árbol de té\n💧 Hidrata sin dejar sensación grasosa\n✨ Ideal para piel mixta o grasa\n\n⭐ 4.95 de calificación con casi 500 reseñas.\n\n👉 Escríbeme \"TEA TREE\" y te ayudo a armar tu rutina.",
+    "hashtags": ["farmasi", "teatree", "arboldete", "pielgrasa", "skincare", "cuidadodelapiel", "drctuna", "cremafacial"],
+    "aviso": "Distribuidora independiente Farmasi. Los resultados varían según cada piel."
+  }
+}

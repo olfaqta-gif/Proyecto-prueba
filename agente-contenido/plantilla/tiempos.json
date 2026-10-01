@@ -1,0 +1,9 @@
+{
+  "_nota": "Línea de tiempo única del anuncio (segundos). La leen la plantilla HTML (animaciones) y sonido.py (efectos), así que video y audio siempre quedan sincronizados.",
+  "duracion": 15.0,
+  "gancho":      { "entra": 0.0,  "kicker": 0.1, "linea1": 0.2, "linea2": 0.75, "sale": 2.6 },
+  "flash": 2.75,
+  "producto":    { "entra": 2.7,  "halo": 2.8, "categoria": 3.15, "nombre": 3.35, "dato": 3.9, "sale": 6.3 },
+  "beneficios":  { "entra": 6.4,  "titulo": 6.5, "b1": 6.9, "b2": 7.7, "b3": 8.5, "sale": 10.2 },
+  "cierre":      { "entra": 10.3, "marca": 10.4, "mini": 10.7, "frase": 11.0, "precio": 11.5, "boton": 11.9, "aviso": 12.3 }
+}
