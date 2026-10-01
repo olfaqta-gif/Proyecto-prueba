@@ -1,7 +1,7 @@
 # Video conceptual: Breeze AI dentro de HubSpot
 
 Simulación estilo SaaS (sin voz, solo sonidos) de un agente Breeze que recibe tres peticiones
-y devuelve resultados con motion graphics. 1920×1080, 30 fps, ~58 s.
+y devuelve resultados con motion graphics. 1920×1080, 30 fps, ~59 s.
 
 **Resultado:** `breeze-hubspot.mp4`
 
