@@ -12,6 +12,7 @@ habilidades de `.claude/skills/`: si se crea un agente nuevo, aparece al recarga
 Solo Python estándar.
 """
 import argparse
+import hashlib
 import json
 import mimetypes
 import os
@@ -46,8 +47,9 @@ CONFIG_BASE = {
     "modelo": "",
 }
 
-COLORES = ["#c2185b", "#6a1b9a", "#00897b", "#ef6c00", "#1565c0", "#2e7d32",
-           "#ad1457", "#4527a0", "#00838f", "#d84315"]
+# Colores de neón para cada agente (el panel tiene fondo oscuro).
+COLORES = ["#ff4fa3", "#b388ff", "#3dffb5", "#ffb340", "#5ab0ff", "#c6ff4a",
+           "#ff7a5c", "#7cf3ff", "#ff5cf0", "#ffe14d"]
 
 # Proceso de Claude que está corriendo ahora (solo uno a la vez).
 _actual = {"proceso": None}
@@ -103,21 +105,39 @@ def _icono_en(t):
     return None
 
 
+CARAS = 4  # cuántas caras de robot dibuja la página
+
+
+def _libre(nombre, opciones, usados):
+    """Elige siempre la misma opción para un agente (según su nombre), sin repetir."""
+    inicio = int(hashlib.md5(nombre.encode("utf-8")).hexdigest(), 16) % len(opciones)
+    for k in range(len(opciones)):
+        opcion = opciones[(inicio + k) % len(opciones)]
+        if opcion not in usados or len(usados) >= len(opciones):
+            usados.add(opcion)
+            return opcion
+    return opciones[inicio]
+
+
 def equipo():
     """Jarvis + todos los agentes y habilidades que existan ahora mismo en las carpetas."""
-    jefe = {"nombre": "Jarvis", "id": JEFE, "icono": "🧠", "color": "#b8860b",
+    jefe = {"nombre": "Jarvis", "id": JEFE, "icono": "🧠", "color": "#38e1ff",
+            "rol": "Jefe de operaciones",
             "que_hace": "El jefe. Conversa contigo y decide qué agente trabaja."}
     agentes, habilidades = [], []
+    usados_color, usados_cara = set(), set()
     if AGENTES.is_dir():
-        for i, archivo in enumerate(sorted(AGENTES.glob("*.md"))):
+        for archivo in sorted(AGENTES.glob("*.md")):
             datos, _ = leer_ficha(archivo)
             nombre = datos.get("name", archivo.stem)
             descripcion = datos.get("description", "")
             agentes.append({
                 "id": nombre,
-                "nombre": nombre.replace("-", " ").capitalize(),
+                "nombre": datos.get("apodo") or nombre.replace("-", " ").title(),
+                "rol": descripcion.split(".")[0],
                 "icono": datos.get("icono") or icono_para(nombre, descripcion),
-                "color": COLORES[i % len(COLORES)],
+                "color": datos.get("color-panel") or _libre(nombre, COLORES, usados_color),
+                "cara": _libre(nombre, list(range(CARAS)), usados_cara),
                 "que_hace": descripcion,
                 "herramientas": datos.get("tools", ""),
                 "archivo": str(archivo.relative_to(RAIZ)),
@@ -133,12 +153,14 @@ def equipo():
     return {"jefe": jefe, "agentes": agentes, "habilidades": habilidades}
 
 
-def trabajos_recientes(limite=12):
+def trabajos_recientes(limite=24):
     """Lo último que produjeron los agentes: videos, planes y vitrinas."""
     patrones = [
         ("agente-contenido/salida", "**/*.mp4", "Video"),
         ("planificador/planes", "*.html", "Plan"),
         ("lector-farmasi/salida", "vitrina.html", "Vitrina"),
+        ("lector-farmasi/salida", "*/producto.jpg", "Producto"),
+        ("agente-contenido/salida", "**/previa*.jpg", "Previa"),
     ]
     encontrados = []
     for carpeta, patron, tipo in patrones:
