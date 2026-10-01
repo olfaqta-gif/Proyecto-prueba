@@ -108,6 +108,8 @@ html,body{width:1920px;height:1080px;overflow:hidden;background:#070b1a;font-fam
 .cursor{position:absolute;left:0;top:0;width:34px;height:40px;filter:drop-shadow(0 4px 6px rgba(0,0,0,.3))}
 #flash{position:absolute;inset:0;background:#fff;pointer-events:none}
 .word{position:absolute;left:0;right:0;text-align:center;color:#fff;font-size:150px;font-weight:700;letter-spacing:-.04em;top:400px}
+.logocard{position:absolute;background:#fff;border-radius:26px;box-shadow:0 30px 80px rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center}
+.logocard img{display:block}
 .tag{display:inline-block;border:1.5px solid rgba(255,255,255,.25);border-radius:30px;padding:12px 26px;font-size:22px;color:#dfe7ef;margin:0 8px;background:rgba(255,255,255,.04)}
 </style>
 </head>
@@ -129,6 +131,7 @@ html,body{width:1920px;height:1080px;overflow:hidden;background:#070b1a;font-fam
     <div class="a" id="iring" style="left:810px;top:200px;width:300px;height:300px;border-radius:50%;border:2px solid rgba(255,122,89,.6)"></div>
     <div class="hero" id="ititle" style="top:500px;font-size:120px;font-weight:700;letter-spacing:-.04em"></div>
     <div class="hero" id="isub" style="top:665px;font-size:30px;font-weight:300;color:#b8c4dd;letter-spacing:.02em">Tu agente de IA dentro de HubSpot</div>
+    <div class="logocard" id="ilogo" style="left:810px;top:760px;width:300px;height:120px"><img src="assets/logo-ficensa.webp" style="width:250px"></div>
   </div>
 
   <!-- APP -->
@@ -141,7 +144,7 @@ html,body{width:1920px;height:1080px;overflow:hidden;background:#070b1a;font-fam
       <div class="tico"></div><div class="tico"></div><div class="tico"></div><div class="tico"></div>
       <div style="position:relative"><div class="tico"></div><div style="position:absolute;right:-10px;top:-8px;background:#f2545b;border-radius:9px;font-size:11px;padding:1px 5px">11</div></div>
       <div style="width:1px;height:30px;background:#516f90;margin:0 6px"></div>
-      <div style="display:flex;align-items:center;gap:10px;margin-right:28px"><div style="width:26px;height:26px;border-radius:50%;background:#dfe7ef"></div><b style="font-weight:600">Banco Ficensa</b> ▾</div>
+      <div style="display:flex;align-items:center;gap:10px;margin-right:28px"><div style="width:30px;height:30px;border-radius:8px;background:#fff;overflow:hidden;position:relative"><img src="assets/logo-ficensa.webp" style="position:absolute;height:28px;left:2px;top:1px"></div><b style="font-weight:600">Banco Ficensa</b> ▾</div>
     </div>
     <div class="sidebar" id="sidebar"></div>
 
@@ -200,6 +203,7 @@ html,body{width:1920px;height:1080px;overflow:hidden;background:#070b1a;font-fam
     <div class="hero" id="otitle" style="top:430px;font-size:110px;font-weight:700;letter-spacing:-.04em">Breeze <span style="background:linear-gradient(90deg,#ff8f59,#ff4f3a);-webkit-background-clip:text;background-clip:text;color:transparent">AI</span></div>
     <div class="hero" id="osub" style="top:580px;font-size:34px;font-weight:300;color:#b8c4dd">De la pregunta a la acción, en segundos.</div>
     <div class="hero" id="otags" style="top:680px"><span class="tag">Gráficos al instante</span><span class="tag">Pronósticos de cierre</span><span class="tag">Acciones masivas</span></div>
+    <div class="logocard" id="ologo" style="left:780px;top:790px;width:360px;height:140px"><img src="assets/logo-ficensa.webp" style="width:300px"></div>
     <div class="hero" id="onote" style="top:1010px;font-size:16px;color:#5d6b8a;letter-spacing:.08em">SIMULACIÓN CONCEPTUAL · DATOS DE EJEMPLO</div>
   </div>
   <div id="flash"></div>
@@ -383,7 +387,7 @@ mk(`<div class="fchip" id="f2b" style="left:150px;top:800px">${spk(24)}<div><b>R
 cue(0.15,'pad_start');
 cue(0.35,'shimmer'); cue(1.05,'whoosh_s');
 for(let i=0;i<TITLE.length;i++) if(TITLE[i]!==' ') cue(1.05+i*0.06,'blip',{n:i});
-cue(1.9,'pop_s'); cue(3.15,'riser',{d:1.0}); cue(4.15,'impact');
+cue(1.9,'pop_s'); cue(2.25,'pop'); cue(2.3,'shimmer'); cue(3.15,'riser',{d:1.0}); cue(4.15,'impact');
 for(let i=0;i<stagger.length;i++) cue(4.75+i*0.09,'tap',{n:i});
 cue(5.8,'count',{d:1.2}); cue(8.75,'whoosh');
 cue(9.05,'shimmer');
@@ -401,8 +405,8 @@ cue(E,'count',{d:0.9,fast:1}); for(let i=0;i<6;i++) cue(E+0.55+i*0.13,'pop_s',{n
 const OW=E+2.3; cue(OW-0.9,'riser',{d:0.9}); cue(OW,'impact');
 cue(OW+0.75,'hit'); cue(OW+1.55,'hit'); cue(OW+2.35,'hit');
 cue(OW+3.3,'impact'); cue(OW+3.35,'shimmer'); cue(OW+4.6,'pop_s');cue(OW+4.75,'pop_s');cue(OW+4.9,'pop_s');
-cue(OW+5.6,'pad_end');
-const DURATION=OW+7.8;
+cue(OW+5.25,'pop'); cue(OW+5.3,'chime'); cue(OW+5.6,'pad_end');
+const DURATION=OW+9.6;
 CUES.sort((a,b)=>a.t-b.t);
 window.CUES=CUES; window.DURATION=DURATION;
 
@@ -436,6 +440,7 @@ function seek(t){
     const rp=P(t,.5,2.0); S('iring',{s:.6+rp*1.6,o:(1-rp)*.9*(rp>0?1:0),y:-eio(P(t,.9,1.6))*70});
     titleSp.forEach((s,i)=>{const p=eback(P(t,1.05+i*.06,1.6+i*.06));S(s,{y:(1-p)*80,o:cl(P(t,1.05+i*.06,1.35+i*.06))*(1-P(t,3.2,3.6)),b:(1-cl(p))*8})});
     const sb=io(t,1.9,2.5,3.1,3.5); S('isub',{y:(1-sb)*20,o:sb});
+    const lg=eback(P(t,2.2,2.7)), lgo=P(t,3.15,3.5); S('ilogo',{s:(.7+.3*lg)*(1-lgo*.1),y:(1-cl(lg))*30,o:cl(lg*2)*(1-lgo)});
   }
   /* ---- app ---- */
   const appT=P(t,3.95,4.75);
@@ -568,7 +573,8 @@ function seek(t){
     const tp=eo(P(t,L+.3,L+.9)); S('otitle',{o:tp,y:(1-tp)*50,b:(1-tp)*10,s:1+(1-tp)*.15});
     const sp=eo(P(t,L+.8,L+1.3)); S('osub',{o:sp,y:(1-sp)*30});
     const gp=eo(P(t,L+1.3,L+1.8)); S('otags',{o:gp,y:(1-gp)*30});
-    S('onote',{o:eo(P(t,L+1.8,L+2.4))*.9});
+    const ol=eback(P(t,L+1.9,L+2.45)); S('ologo',{s:.7+.3*ol,y:(1-cl(ol))*40,o:cl(ol*2)});
+    S('onote',{o:eo(P(t,L+2.5,L+3.0))*.9});
   }
   /* ---- flashes ---- */
   const fl=Math.max(0.9*(1-P(t,4.1,4.6))*(t>=4.1?1:0), .5*(1-P(t,OW+3.3,OW+3.8))*(t>=OW+3.3?1:0));
