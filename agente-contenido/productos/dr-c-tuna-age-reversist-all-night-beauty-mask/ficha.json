@@ -1,0 +1,37 @@
+{
+  "paleta": "rosa",
+  "imagen": "producto.jpg",
+  "gancho": {
+    "kicker": "Rutina de noche",
+    "linea1": "¿Despiertas con la piel cansada?",
+    "linea2": "Trabaja mientras duermes."
+  },
+  "producto": {
+    "categoria": "Mascarilla de noche",
+    "nombre": "Age Reversist All Night Beauty Mask",
+    "nombre_corto": "Dr. C. Tuna · Farmasi",
+    "dato": { "destacado": "★★★★★", "texto": "4.98 · 508 reseñas" }
+  },
+  "beneficios": {
+    "titulo": "Lo que vas a notar",
+    "lista": [
+      "Despiertas luminosa",
+      "Más suave y nutrida",
+      "Se siente firme y lisa"
+    ]
+  },
+  "cierre": {
+    "frase1": "Duerme tranquila,",
+    "frase2": "despierta radiante.",
+    "precio": "",
+    "boton_pre": "Escríbeme",
+    "palabra": "NOCHE",
+    "usuario": "",
+    "aviso": "Distribuidora independiente Farmasi. Los resultados varían según cada piel. Calificación publicada en la tienda oficial de la marca."
+  },
+  "caption": {
+    "texto": "¿Despiertas con la piel cansada y sin brillo? 🌙\n\nLa Age Reversist All Night Beauty Mask de Dr. C. Tuna trabaja mientras duermes:\n✨ Despiertas con la piel más luminosa\n💧 Nutre y suaviza durante la noche\n🌹 Con Vitamina C, glutatión y oro coloidal\n\nLa aplicas antes de dormir y la enjuagas en la mañana, 2 veces por semana o más si tu piel lo pide.\n\n⭐ 4.98 de calificación en 508 reseñas.\n\n👉 Escríbeme \"NOCHE\" por mensaje y te cuento cómo usarla y cómo pedirla.",
+    "hashtags": ["farmasi", "drctuna", "agereversist", "mascarillafacial", "mascarilladenoche", "vitaminac", "skincare", "cuidadodelapiel", "pielradiante", "rutinadenoche"],
+    "aviso": "Distribuidora independiente Farmasi. Los resultados varían según cada piel."
+  }
+}
