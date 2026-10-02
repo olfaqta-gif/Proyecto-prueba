@@ -237,7 +237,7 @@ function crearPantallas(G) {
       el.querySelector('.timer b').textContent = `00:${String(s).padStart(2, '0')}`;
     } });
 
-  // 9. Datos de domicilio
+  // 9. Datos (domicilio y más)
   S.push({ html: `${HDR}<div class="cuerpo"><div class="ttl">MIS DATOS PERSONALES</div>
       <div class="campo"><label>Municipio</label><div class="inp sel" id="i9m"><span class="ph">Selecciona</span></div></div>
       <div class="campo"><label>Dirección de la residencia</label><div class="inp" id="i9a"><span class="v"></span></div></div>
@@ -254,7 +254,7 @@ function crearPantallas(G) {
     } });
 
   // 10. Selección de agencia
-  S.push({ html: `${HDR}<div class="cuerpo"><div class="ttl">ELIGE TU AGENCIA<br>MÁS CERCANA</div>${STP(3)}
+  S.push({ html: `${HDR}<div class="cuerpo"><div class="ttl">ELIGE TU AGENCIA<br>MÁS CERCANA</div><div class="sub" style="margin-top:4px;color:#0a9a48">Para retirar tu tarjeta de débito</div>${STP(3)}
       <div class="campo"><label>Localidad</label><div class="inp sel">${D.municipio}</div></div>
       <div class="campo" style="position:relative"><label>Agencias</label><div class="inp sel" id="i10"><span class="ph">Selecciona una agencia</span></div>
         <div class="drop" style="top:64px">${D.agencias.map((a) => `<div>${a}</div>`).join('')}</div></div>
