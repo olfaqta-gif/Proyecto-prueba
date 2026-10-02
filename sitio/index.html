@@ -1,0 +1,666 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Isabella Belleza</title>
+<meta name="description" content="Skincare y maquillaje Farmasi que Isabella prueba de verdad. Encuentra tu rutina y escríbele por WhatsApp.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..700&family=Hanken+Grotesk:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: el tocador de Isabella. Un nombre enorme hecho con los colores de sus productos,
+   un celular con su reel, y debajo: test de rutina, favoritos, videos y "escríbeme". */
+:root {
+  --bg: #f8f4f6;          /* porcelana con un toque rosado */
+  --surface: #ffffff;
+  --ink: #26121d;         /* ciruela casi negra */
+  --muted: #7a6470;
+  --line: #e8dde3;
+  --accent: #b0164f;      /* labial frambuesa */
+  --accent-ink: #ffffff;
+  --soft: #f3e6ec;
+  --vitc: #f08a24;        /* sérum vitamina C */
+  --tea: #8fd3b2;         /* crema tea tree */
+  --gold: #c98f78;        /* mascarilla oro rosa */
+  --lila: #a48fbf;        /* té Serenity */
+  --ok: #1f7a55;
+  --display: "Bodoni Moda", "Didot", "Bodoni 72", Georgia, serif;
+  --body: "Hanken Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --mono: "DM Mono", ui-monospace, Menlo, monospace;
+  --r: 18px;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #150b11; --surface: #20131b; --ink: #f6eaf0; --muted: #b59fab; --line: #3a2631;
+    --accent: #f0588f; --accent-ink: #1a0a12; --soft: #2a1823; --ok: #6fd3a6;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #150b11; --surface: #20131b; --ink: #f6eaf0; --muted: #b59fab; --line: #3a2631;
+  --accent: #f0588f; --accent-ink: #1a0a12; --soft: #2a1823; --ok: #6fd3a6;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font: 16px/1.6 var(--body);
+  -webkit-font-smoothing: antialiased;
+}
+img, video { max-width: 100%; display: block; }
+a { color: inherit; }
+h1, h2, h3 { text-wrap: balance; margin: 0; }
+p { margin: 0; }
+.wrap { max-width: 1160px; margin: 0 auto; padding-inline: 20px; }
+.eyebrow {
+  font: 500 12px/1.2 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--muted);
+}
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  padding: 14px 22px; border-radius: 999px; border: 1.5px solid var(--ink);
+  font: 600 15px/1 var(--body); text-decoration: none; cursor: pointer;
+  background: transparent; color: var(--ink); transition: transform .15s ease, background .15s ease;
+}
+.btn:hover { transform: translateY(-1px); }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.btn:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, a:focus-visible {
+  outline: 3px solid var(--accent); outline-offset: 3px;
+}
+.wa-ico { width: 18px; height: 18px; flex: none; }
+
+/* ---------- barra superior ---------- */
+header.top {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20;
+  background: color-mix(in srgb, var(--bg) 85%, transparent);
+  backdrop-filter: blur(10px); border-bottom: 1px solid var(--line);
+}
+header.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 12px; }
+.logo { font: italic 600 26px/1 var(--display); text-decoration: none; letter-spacing: -.01em; }
+nav.links { display: flex; gap: 22px; font-size: 14px; font-weight: 500; }
+nav.links a { text-decoration: none; color: var(--muted); }
+nav.links a:hover { color: var(--ink); }
+header .btn { padding: 10px 16px; font-size: 14px; }
+@media (max-width: 760px) { nav.links { display: none; } }
+
+/* ---------- portada ---------- */
+.hero { position: relative; overflow: hidden; }
+.hero::before {
+  content: ""; position: absolute; inset: -20% -10% auto -10%; height: 120%; z-index: -1;
+  background:
+    radial-gradient(40% 40% at 78% 30%, color-mix(in srgb, var(--vitc) 28%, transparent), transparent 70%),
+    radial-gradient(35% 35% at 92% 70%, color-mix(in srgb, var(--tea) 30%, transparent), transparent 70%),
+    radial-gradient(40% 40% at 60% 85%, color-mix(in srgb, var(--lila) 26%, transparent), transparent 70%),
+    radial-gradient(30% 30% at 10% 10%, color-mix(in srgb, var(--gold) 22%, transparent), transparent 70%);
+}
+.hero .wrap {
+  display: grid; grid-template-columns: 1.15fr .85fr; gap: 40px; align-items: center;
+  padding-block: 56px 72px;
+}
+.hero-text { min-width: 0; display: grid; gap: 22px; }
+.name {
+  font: italic 500 clamp(76px, 15vw, 188px)/.86 var(--display); letter-spacing: -.035em;
+  background: linear-gradient(100deg, var(--accent) 0%, var(--vitc) 38%, var(--gold) 62%, var(--lila) 100%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  padding-bottom: .06em; margin-left: -.04em;
+  animation: brillo 9s ease-in-out infinite alternate; background-size: 160% 100%;
+}
+@keyframes brillo { from { background-position: 0% 0; } to { background-position: 100% 0; } }
+.lede { font: 400 clamp(20px, 2.3vw, 26px)/1.35 var(--display); max-width: 30ch; }
+.lede em { color: var(--accent); }
+.hero-ctas { display: flex; flex-wrap: wrap; gap: 12px; }
+.trust { display: flex; flex-wrap: wrap; gap: 8px 20px; font: 400 13px/1.4 var(--mono); color: var(--muted); }
+.trust b { color: var(--ink); font-weight: 500; }
+
+.stage { position: relative; justify-self: center; width: min(320px, 100%); }
+.phone {
+  position: relative; aspect-ratio: 9 / 16; width: 100%; max-width: 100%;
+  border-radius: 38px; padding: 10px; background: #120a0f;
+  box-shadow: 0 40px 80px -30px rgba(60, 10, 35, .55), 0 0 0 1px rgba(255,255,255,.06) inset;
+  transform: rotate(2.5deg);
+}
+.phone video { width: 100%; height: 100%; object-fit: cover; border-radius: 29px; background: #222; }
+.photo-card {
+  position: absolute; left: -64px; bottom: 36px; width: 150px; padding: 8px 8px 12px;
+  background: var(--surface); border-radius: 6px; transform: rotate(-7deg);
+  box-shadow: 0 18px 40px -16px rgba(40, 10, 25, .45);
+}
+.photo-card .ph {
+  aspect-ratio: 4 / 5; border-radius: 3px; display: grid; place-items: center; text-align: center;
+  background: linear-gradient(160deg, color-mix(in srgb, var(--gold) 55%, var(--surface)), color-mix(in srgb, var(--lila) 55%, var(--surface)));
+  font: 500 11px/1.3 var(--mono); color: var(--ink); padding: 10px;
+}
+.photo-card span { display: block; margin-top: 8px; font: italic 500 16px/1 var(--display); text-align: center; }
+.chip-float {
+  position: absolute; right: -28px; top: 46px; display: grid; gap: 2px;
+  background: var(--surface); border-radius: 14px; padding: 10px 14px;
+  box-shadow: 0 16px 34px -16px rgba(40, 10, 25, .45); font-size: 13px; max-width: 190px;
+}
+.chip-float .stars { color: var(--vitc); letter-spacing: 2px; font-size: 13px; }
+.chip-float b { font: 500 13px/1.2 var(--mono); }
+@media (max-width: 860px) {
+  .hero .wrap { grid-template-columns: 1fr; padding-block: 32px 56px; }
+  .stage { width: min(260px, 70%); margin-top: 8px; }
+  .photo-card { left: -44%; width: 120px; bottom: 20px; }
+  .chip-float { right: -40%; }
+}
+@media (max-width: 420px) {
+  .photo-card { left: -30%; width: 104px; }
+  .chip-float { right: -26%; max-width: 150px; }
+}
+
+/* ---------- cinta de reseñas ---------- */
+.ribbon { border-block: 1px solid var(--line); overflow: hidden; background: var(--surface); }
+.ribbon-track {
+  display: flex; gap: 48px; width: max-content; padding-block: 14px;
+  font: 400 13px/1 var(--mono); color: var(--muted); animation: correr 40s linear infinite;
+}
+.ribbon-track span b { color: var(--ink); font-weight: 500; }
+.ribbon-track i { font-style: normal; color: var(--vitc); }
+@keyframes correr { to { transform: translateX(-50%); } }
+
+/* ---------- secciones ---------- */
+section.block { padding-block: 88px; }
+.head { display: grid; gap: 12px; margin-bottom: 40px; max-width: 640px; }
+.head h2 { font: 500 clamp(36px, 5vw, 58px)/1.02 var(--display); letter-spacing: -.02em; }
+.head h2 em { color: var(--accent); }
+.head p { color: var(--muted); font-size: 17px; max-width: 56ch; }
+
+/* ---------- test de rutina ---------- */
+.quiz { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 28px; align-items: start; }
+@media (max-width: 860px) { .quiz { grid-template-columns: 1fr; } }
+.q { border: 0; padding: 0; margin: 0 0 26px; min-width: 0; }
+.q legend { font: 600 17px/1.3 var(--body); margin-bottom: 12px; padding: 0; }
+.q legend small { font: 500 12px/1 var(--mono); color: var(--muted); letter-spacing: .1em; margin-right: 10px; }
+.opts { display: flex; flex-wrap: wrap; gap: 8px; }
+.opts input { position: absolute; opacity: 0; pointer-events: none; }
+.opts label {
+  padding: 10px 16px; border: 1.5px solid var(--line); border-radius: 999px; cursor: pointer;
+  font-size: 15px; background: var(--surface); transition: border-color .15s, background .15s;
+}
+.opts label:hover { border-color: var(--muted); }
+.opts input:checked + label { border-color: var(--accent); background: var(--soft); color: var(--ink); font-weight: 600; }
+.opts input:focus-visible + label { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+.result {
+  background: var(--surface); border: 1px solid var(--line); border-radius: 26px; padding: 28px;
+  display: grid; gap: 20px; min-width: 0; position: sticky; top: 90px;
+}
+.result h3 { font: italic 500 30px/1.1 var(--display); }
+.result .why { color: var(--muted); font-size: 15px; }
+.moment { display: grid; gap: 10px; }
+.moment > .eyebrow { display: flex; align-items: center; gap: 8px; }
+.step {
+  display: grid; grid-template-columns: 30px 52px minmax(0, 1fr); gap: 12px; align-items: center;
+  padding: 8px 0; border-top: 1px dashed var(--line);
+}
+.step .n { font: 500 13px/1 var(--mono); color: var(--muted); }
+.step .thumb { width: 52px; height: 52px; border-radius: 12px; background: #fff; object-fit: contain; padding: 4px; border: 1px solid var(--line); }
+.step .thumb.generic { display: grid; place-items: center; font: italic 500 20px/1 var(--display); color: var(--accent); background: var(--soft); border: 0; padding: 0; }
+.step b { display: block; font-size: 15px; line-height: 1.3; }
+.step span { display: block; color: var(--muted); font-size: 13.5px; line-height: 1.4; }
+.result .btn { width: 100%; }
+.note { font-size: 12.5px; color: var(--muted); }
+
+/* ---------- favoritos ---------- */
+.favs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; }
+@media (max-width: 980px) { .favs { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 520px) {
+  .favs { grid-template-columns: 1fr; }
+  .fav { grid-template-columns: 120px minmax(0, 1fr); grid-template-rows: auto; }
+  .fav .pic { aspect-ratio: auto; }
+  .fav .pic::after { inset: 0 0 0 auto; width: 4px; height: auto; }
+  .fav .body { padding: 14px 14px 16px; }
+}
+.fav { display: grid; grid-template-rows: auto 1fr; background: var(--surface); border-radius: var(--r); overflow: hidden; border: 1px solid var(--line); }
+.fav .pic { position: relative; aspect-ratio: 1 / 1; background: #fff; }
+.fav .pic img { width: 100%; height: 100%; object-fit: contain; padding: 18px; transition: transform .4s ease; }
+.fav:hover .pic img { transform: scale(1.05) rotate(-1.5deg); }
+.fav .pic::after { content: ""; position: absolute; inset: auto 0 0 0; height: 6px; background: var(--c); }
+.fav .body { display: grid; gap: 10px; padding: 18px 18px 20px; align-content: start; }
+.fav .brand { font: 500 11px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.fav h3 { font: 500 22px/1.15 var(--display); }
+.fav p { font-size: 14.5px; color: var(--muted); }
+.fav .rate { font: 400 12.5px/1 var(--mono); color: var(--muted); }
+.fav .rate i { font-style: normal; color: var(--vitc); letter-spacing: 1px; }
+.fav .btn { margin-top: 6px; padding: 11px 16px; font-size: 14px; }
+.price-note { margin-top: 18px; font-size: 14px; color: var(--muted); }
+
+/* ---------- videos ---------- */
+.reels { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; }
+@media (max-width: 980px) {
+  .reels { grid-auto-flow: column; grid-auto-columns: minmax(200px, 62%); grid-template-columns: none; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 10px; }
+  .reel { scroll-snap-align: start; }
+}
+.reel { display: grid; gap: 10px; min-width: 0; }
+.reel button {
+  position: relative; padding: 0; border: 0; border-radius: 22px; overflow: hidden; cursor: pointer;
+  aspect-ratio: 9 / 16; width: 100%; background: #222;
+}
+.reel video { width: 100%; height: 100%; object-fit: cover; }
+.reel .play {
+  position: absolute; inset: auto auto 14px 14px; width: 48px; height: 48px; border-radius: 50%;
+  display: grid; place-items: center; background: rgba(255,255,255,.92); color: #26121d;
+  box-shadow: 0 8px 20px rgba(0,0,0,.25); transition: opacity .2s;
+}
+.reel.on .play { opacity: 0; }
+.reel b { font-size: 15px; line-height: 1.35; }
+.reel span { font-size: 13.5px; color: var(--muted); }
+
+/* ---------- contacto ---------- */
+.contact { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: 40px; align-items: start; }
+@media (max-width: 860px) { .contact { grid-template-columns: 1fr; } }
+.ways { display: grid; gap: 12px; }
+.way {
+  display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 14px; align-items: center;
+  padding: 14px 16px; border: 1px solid var(--line); border-radius: 16px; text-decoration: none; background: var(--surface);
+}
+.way:hover { border-color: var(--muted); }
+.way .ic { width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; background: var(--soft); color: var(--accent); }
+.way b { display: block; font-size: 15px; }
+.way span { display: block; font-size: 13.5px; color: var(--muted); overflow-wrap: anywhere; }
+form.card { background: var(--surface); border: 1px solid var(--line); border-radius: 26px; padding: 28px; display: grid; gap: 18px; }
+.field { display: grid; gap: 8px; }
+.field label, .field .lab { font-weight: 600; font-size: 14.5px; }
+.field input[type="text"], .field textarea {
+  width: 100%; font: 400 16px/1.4 var(--body); color: var(--ink); background: var(--bg);
+  border: 1.5px solid var(--line); border-radius: 12px; padding: 12px 14px;
+}
+.field textarea { min-height: 96px; resize: vertical; }
+.preview {
+  background: var(--soft); border-radius: 16px 16px 16px 4px; padding: 14px 16px; font-size: 14.5px;
+  white-space: pre-wrap; overflow-wrap: anywhere;
+}
+.row { display: flex; flex-wrap: wrap; gap: 10px; }
+.row .btn { flex: 1 1 200px; }
+.sent { color: var(--ok); font-size: 14px; }
+
+footer { border-top: 1px solid var(--line); padding-block: 36px 48px; color: var(--muted); font-size: 13.5px; }
+footer .wrap { display: flex; flex-wrap: wrap; gap: 12px 32px; justify-content: space-between; }
+footer .logo { color: var(--ink); }
+
+.demo-flag {
+  background: var(--ink); color: var(--bg); font: 500 12.5px/1.4 var(--mono); text-align: center; padding: 8px 16px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  html { scroll-behavior: auto; }
+}
+</style>
+</head>
+<body>
+
+<div class="demo-flag" id="demo-flag">Vista previa: la foto, el número de WhatsApp y los usuarios de redes de Isabella todavía son de ejemplo.</div>
+
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="#inicio">Isabella</a>
+    <nav class="links" aria-label="Secciones">
+      <a href="#rutina">Tu rutina</a>
+      <a href="#favoritos">Mis favoritos</a>
+      <a href="#aprende">Aprende conmigo</a>
+      <a href="#escribeme">Escríbeme</a>
+    </nav>
+    <a class="btn primary" href="#escribeme">Escríbeme</a>
+  </div>
+</header>
+
+<main id="inicio">
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-text">
+        <p class="eyebrow">Skincare y maquillaje · Farmasi</p>
+        <h1 class="name">Isabella</h1>
+        <p class="lede">Te cuento lo que <em>de verdad</em> uso en mi piel, te enseño a usarlo fácil y te ayudo a armar tu rutina.</p>
+        <div class="hero-ctas">
+          <a class="btn primary" href="#rutina">Encuentra tu rutina</a>
+          <a class="btn wa-link" data-msg="Hola Isabella, vengo de tu página web 💕 Quiero que me ayudes con mi rutina." href="#escribeme">
+            <svg class="wa-ico" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.8-1.4a.5.5 0 0 0 0-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.3c0-.1-.2-.2-.5-.3Z"/></svg>
+            WhatsApp
+          </a>
+        </div>
+        <p class="trust"><span><b>4.97★</b> sérum Vitamin C · 980 reseñas</span><span><b>4.98★</b> All Night Mask · 508 reseñas</span></p>
+      </div>
+
+      <div class="stage">
+        <div class="phone">
+          <video src="videos/rutina-de-noche.mp4" poster="videos/rutina-de-noche.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Video: tu piel de noche en 4 pasos"></video>
+        </div>
+        <div class="photo-card" aria-hidden="true">
+          <div class="ph">Aquí va la foto de Isabella</div>
+          <span>¡Hola, hola!</span>
+        </div>
+        <div class="chip-float" aria-hidden="true">
+          <span class="stars">★★★★★</span>
+          <b>4.97 · 980 reseñas</b>
+          <span>Vitamin C Glow Serum</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="ribbon" aria-hidden="true">
+    <div class="ribbon-track" id="ribbon"></div>
+  </div>
+
+  <!-- TEST DE RUTINA -->
+  <section class="block" id="rutina">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">Test de 30 segundos</p>
+        <h2>Encuentra <em>tu</em> rutina</h2>
+        <p>Responde tres preguntas y te armo una rutina de mañana y noche con lo que yo uso. Si te gusta, me la pides por WhatsApp y la vemos juntas.</p>
+      </div>
+      <div class="quiz">
+        <form id="quiz" onsubmit="return false">
+          <fieldset class="q">
+            <legend><small>1 de 3</small>¿Cómo es tu piel?</legend>
+            <div class="opts" id="o-piel"></div>
+          </fieldset>
+          <fieldset class="q">
+            <legend><small>2 de 3</small>¿Qué es lo que más quieres?</legend>
+            <div class="opts" id="o-meta"></div>
+          </fieldset>
+          <fieldset class="q">
+            <legend><small>3 de 3</small>¿Cuánto tiempo le dedicas?</legend>
+            <div class="opts" id="o-tiempo"></div>
+          </fieldset>
+        </form>
+        <aside class="result" aria-live="polite">
+          <div>
+            <p class="eyebrow" id="r-tag">Tu rutina</p>
+            <h3 id="r-title">Rutina de piel grasa, sin brillo</h3>
+          </div>
+          <p class="why" id="r-why"></p>
+          <div class="moment"><p class="eyebrow">Mañana</p><div id="r-am"></div></div>
+          <div class="moment"><p class="eyebrow">Noche</p><div id="r-pm"></div></div>
+          <a class="btn primary wa-link" id="r-cta" href="#escribeme">
+            <svg class="wa-ico" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm4.5 12.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.8-1.4a.5.5 0 0 0 0-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.3c0-.1-.2-.2-.5-.3Z"/></svg>
+            Pídeme esta rutina
+          </a>
+          <p class="note">Es una guía de belleza, no un consejo médico. Si tu piel está irritada o tienes un tratamiento, consulta primero con tu dermatóloga.</p>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAVORITOS -->
+  <section class="block" id="favoritos" style="background: var(--surface); border-block: 1px solid var(--line);">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">Lo que hay en mi tocador</p>
+        <h2>Mis <em>favoritos</em></h2>
+        <p>Los productos con las mejores reseñas de la tienda, contados en simple: qué son y para qué te sirven.</p>
+      </div>
+      <div class="favs" id="favs"></div>
+      <p class="price-note">¿Precios y promociones del mes? Cambian seguido, así que escríbeme y te digo cómo están hoy.</p>
+    </div>
+  </section>
+
+  <!-- VIDEOS -->
+  <section class="block" id="aprende">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">Videos cortos</p>
+        <h2>Aprende <em>conmigo</em></h2>
+        <p>Tips que casi nadie cuenta, mitos que te creíste y rutinas paso a paso. Toca un video para verlo.</p>
+      </div>
+      <div class="reels" id="reels"></div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section class="block" id="escribeme" style="background: var(--surface); border-top: 1px solid var(--line);">
+    <div class="wrap contact">
+      <div>
+        <div class="head">
+          <p class="eyebrow">Hablemos</p>
+          <h2>Escríbeme, <em>te respondo yo</em></h2>
+          <p>Pregúntame por un producto, tu rutina o un pedido. Tu mensaje me llega directo a WhatsApp, sin formularios raros ni robots.</p>
+        </div>
+        <div class="ways">
+          <a class="way wa-link" data-msg="Hola Isabella, vengo de tu página web 💕" href="#escribeme">
+            <span class="ic"><svg class="wa-ico" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm4.5 12.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.8-1.4a.5.5 0 0 0 0-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.3c0-.1-.2-.2-.5-.3Z"/></svg></span>
+            <span><b>WhatsApp</b><span id="wa-num">Número de ejemplo</span></span>
+          </a>
+          <a class="way" id="ig-link" href="https://instagram.com/" target="_blank" rel="noopener">
+            <span class="ic"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></span>
+            <span><b>Instagram</b><span id="ig-user">@usuario de ejemplo</span></span>
+          </a>
+          <a class="way" id="tt-link" href="https://tiktok.com/" target="_blank" rel="noopener">
+            <span class="ic"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M16.5 3c.4 2.2 1.9 3.8 4 4v3.1a7.6 7.6 0 0 1-4-1.3v6.4a5.8 5.8 0 1 1-5.8-5.8h.6v3.2a2.6 2.6 0 1 0 2 2.6V3h3.2Z"/></svg></span>
+            <span><b>TikTok</b><span id="tt-user">@usuario de ejemplo</span></span>
+          </a>
+        </div>
+      </div>
+
+      <form class="card" id="contacto" novalidate>
+        <div class="field">
+          <label for="c-nombre">¿Cómo te llamas?</label>
+          <input type="text" id="c-nombre" autocomplete="given-name" placeholder="Tu nombre">
+        </div>
+        <div class="field">
+          <span class="lab" id="c-tema-lab">¿Sobre qué me escribes?</span>
+          <div class="opts" id="c-tema" role="radiogroup" aria-labelledby="c-tema-lab"></div>
+        </div>
+        <div class="field">
+          <label for="c-msg">Cuéntame un poquito</label>
+          <textarea id="c-msg" placeholder="Ej.: tengo la piel mixta y quiero algo para el brillo"></textarea>
+        </div>
+        <div class="field">
+          <span class="lab">Así me va a llegar</span>
+          <div class="preview" id="c-preview"></div>
+        </div>
+        <div class="row">
+          <button type="submit" class="btn primary">
+            <svg class="wa-ico" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm4.5 12.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.8-1.4a.5.5 0 0 0 0-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.3c0-.1-.2-.2-.5-.3Z"/></svg>
+            Enviar por WhatsApp
+          </button>
+          <button type="button" class="btn" id="c-copy">Copiar mensaje</button>
+        </div>
+        <p class="sent" id="c-status" hidden></p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <a class="logo" href="#inicio">Isabella</a>
+    <p>Distribuidora independiente Farmasi. Las fotos y reseñas de productos son de la tienda oficial farmasius.com.</p>
+  </div>
+</footer>
+
+<script>
+/* ====== LO QUE SE CAMBIA (lo llena Isa con los datos de Isabella) ====== */
+const ISABELLA = {
+  whatsapp: '',          // solo números con código de país, ej. '13055551234'
+  instagram: '',         // sin @
+  tiktok: ''             // sin @
+};
+/* ====================================================================== */
+
+const PRODUCTOS = {
+  vitc: { marca: 'Dr. C. Tuna', nombre: 'Vitamin C Glow Serum', img: 'img/vitamin-c-glow-serum.jpg', color: 'var(--vitc)',
+          que: 'Sérum con vitamina C y alga roja. Unas gotas en la mañana para una piel con más luz y aspecto descansado.',
+          corto: 'Unas gotas para darle luz a tu cara.', nota: 4.97, resenas: 980 },
+  tea:  { marca: 'Dr. C. Tuna', nombre: 'Tea Tree Face Cream', img: 'img/tea-tree-face-cream.jpg', color: 'var(--tea)',
+          que: 'Crema ligera con árbol de té y tomillo. Hidrata sin sentirse pesada, ideal para piel mixta o grasa.',
+          corto: 'Hidrata ligerito, sin sentirse pesada.', nota: 4.95, resenas: 496 },
+  mask: { marca: 'Dr. C. Tuna', nombre: 'Age Reversist All Night Beauty Mask', img: 'img/all-night-beauty-mask.jpg', color: 'var(--gold)',
+          que: 'Mascarilla de noche con vitamina C dorada. Te la pones antes de dormir y te enjuagas en la mañana.',
+          corto: 'Te la pones al dormir, te enjuagas al despertar.', nota: 4.98, resenas: 508 },
+  tea2: { marca: 'Nutriplus', nombre: 'Serenity Earl Grey Tea', img: 'img/serenity-earl-grey-tea.jpg', color: 'var(--lila)',
+          que: 'Té Earl Grey sin cafeína ni azúcar, con bergamota. Mi momento de calma antes de dormir.',
+          corto: 'Una taza sin cafeína para bajar el ritmo.', nota: 5, resenas: 51 }
+};
+
+const VIDEOS = [
+  { id: 'labial-que-dure', titulo: 'Haz que tu labial dure más', sub: '4 trucos que casi nadie hace' },
+  { id: 'mitos-piel-grasa', titulo: 'Lo que te dijeron de la piel grasa', sub: '¿Mito o realidad?' },
+  { id: 'rutina-de-noche', titulo: 'Tu piel de noche en 4 pasos', sub: 'Antes de dormir, sin complicarte' },
+  { id: 'sabias-que-sol-y-labios', titulo: '2 datos de tu piel que nadie te cuenta', sub: 'El sol y tus labios' }
+];
+
+const PREGUNTAS = {
+  piel:   [['grasa', 'Grasa o mixta'], ['seca', 'Seca'], ['normal', 'Normal'], ['sensible', 'Sensible'], ['nose', 'No sé']],
+  meta:   [['luz', 'Más luz y glow'], ['brillo', 'Menos brillo'], ['hidratar', 'Hidratación'], ['descanso', 'Verme descansada']],
+  tiempo: [['rapido', '2 minutos'], ['medio', '5 minutos'], ['consentirme', 'Me encanta consentirme']]
+};
+const ETIQ = Object.fromEntries(Object.values(PREGUNTAS).flat());
+const TEMAS = [['producto', 'Un producto'], ['rutina', 'Mi rutina'], ['pedido', 'Hacer un pedido'], ['otro', 'Otra cosa']];
+
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+function enlaceWhatsApp(texto) {
+  return 'https://wa.me/' + (ISABELLA.whatsapp || '') + '?text=' + encodeURIComponent(texto);
+}
+function abrirWhatsApp(texto) {
+  const a = document.createElement('a');
+  a.href = enlaceWhatsApp(texto); a.target = '_blank'; a.rel = 'noopener';
+  document.body.appendChild(a); a.click(); a.remove();
+}
+
+/* redes y aviso de vista previa */
+if (ISABELLA.whatsapp) $('#wa-num').textContent = '+' + ISABELLA.whatsapp;
+if (ISABELLA.instagram) { $('#ig-user').textContent = '@' + ISABELLA.instagram; $('#ig-link').href = 'https://instagram.com/' + ISABELLA.instagram; }
+if (ISABELLA.tiktok) { $('#tt-user').textContent = '@' + ISABELLA.tiktok; $('#tt-link').href = 'https://tiktok.com/@' + ISABELLA.tiktok; }
+if (ISABELLA.whatsapp && ISABELLA.instagram) $('#demo-flag').hidden = true;
+
+document.querySelectorAll('a.wa-link[data-msg]').forEach(a => {
+  a.href = enlaceWhatsApp(a.dataset.msg); a.target = '_blank'; a.rel = 'noopener';
+});
+
+/* cinta de reseñas */
+const cinta = Object.values(PRODUCTOS).map(p =>
+  `<span><i>★</i> <b>${p.nota}</b> · ${p.resenas} reseñas · ${esc(p.nombre)}</span>`).join('') +
+  '<span>Vegano y sin parabenos · Dr. C. Tuna</span><span>Probado dermatológicamente</span>';
+$('#ribbon').innerHTML = cinta + cinta;
+
+/* favoritos */
+$('#favs').innerHTML = Object.entries(PRODUCTOS).map(([k, p]) => `
+  <article class="fav" style="--c:${p.color}">
+    <div class="pic"><img src="${p.img}" alt="${esc(p.nombre)}"></div>
+    <div class="body">
+      <span class="brand">${esc(p.marca)}</span>
+      <h3>${esc(p.nombre)}</h3>
+      <p>${esc(p.que)}</p>
+      <span class="rate"><i>★★★★★</i> ${p.nota} · ${p.resenas} reseñas</span>
+      <a class="btn" target="_blank" rel="noopener" href="${enlaceWhatsApp('Hola Isabella, vengo de tu página web 💕\nMe interesa: ' + p.nombre + '\n¿Me cuentas más?')}">Quiero info</a>
+    </div>
+  </article>`).join('');
+
+/* videos */
+$('#reels').innerHTML = VIDEOS.map(v => `
+  <div class="reel">
+    <button type="button" aria-label="Ver video: ${esc(v.titulo)}">
+      <video src="videos/${v.id}.mp4" poster="videos/${v.id}.jpg" playsinline preload="none" loop></video>
+      <span class="play"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4v16l13-8z"/></svg></span>
+    </button>
+    <b>${esc(v.titulo)}</b><span>${esc(v.sub)}</span>
+  </div>`).join('');
+document.querySelectorAll('.reel button').forEach(b => b.addEventListener('click', () => {
+  const v = b.querySelector('video'), r = b.parentElement;
+  document.querySelectorAll('.reel video').forEach(o => { if (o !== v) { o.pause(); o.parentElement.parentElement.classList.remove('on'); } });
+  if (v.paused) { v.muted = false; v.play().catch(() => { v.muted = true; v.play(); }); r.classList.add('on'); }
+  else { v.pause(); r.classList.remove('on'); }
+}));
+
+/* test de rutina */
+function pintarOpciones(id, nombre, lista, elegido) {
+  $(id).innerHTML = lista.map(([v, t]) =>
+    `<input type="radio" name="${nombre}" id="${nombre}-${v}" value="${v}" ${v === elegido ? 'checked' : ''}><label for="${nombre}-${v}">${t}</label>`).join('');
+}
+pintarOpciones('#o-piel', 'piel', PREGUNTAS.piel, 'grasa');
+pintarOpciones('#o-meta', 'meta', PREGUNTAS.meta, 'brillo');
+pintarOpciones('#o-tiempo', 'tiempo', PREGUNTAS.tiempo, 'medio');
+
+const PASO = {
+  limpia:  { g: 'L', t: 'Limpia tu cara', d: 'Con tu limpiador suave de siempre y agua tibia.' },
+  sol:     { g: 'S', t: 'Protector solar', d: 'Todos los días, aunque esté nublado.' },
+  desmaq:  { g: 'D', t: 'Desmaquilla y limpia', d: 'Que la piel quede limpia antes de dormir.' },
+  prueba:  { g: '!', t: 'Prueba primero en una zona pequeña', d: 'Detrás de la oreja, 24 horas, antes de usarlo en toda la cara.' }
+};
+function rutina(piel, meta, tiempo) {
+  const am = [PASO.limpia], pm = [PASO.desmaq];
+  const usa = new Set();
+  if (meta === 'luz' || tiempo !== 'rapido') { am.push('vitc'); usa.add('vitc'); }
+  if (piel === 'grasa' || meta === 'brillo' || piel === 'nose') { am.push('tea'); pm.push('tea'); usa.add('tea'); }
+  if (piel === 'seca' || meta === 'hidratar' || meta === 'descanso' || tiempo === 'consentirme' || piel === 'normal') { pm.push('mask'); usa.add('mask'); }
+  if (!usa.size) { am.push('tea'); usa.add('tea'); }
+  am.push(PASO.sol);
+  if (meta === 'descanso' || tiempo === 'consentirme') { pm.push('tea2'); usa.add('tea2'); }
+  if (piel === 'sensible') am.unshift(PASO.prueba);
+  if (tiempo === 'rapido') pm.splice(2);
+  return { am, pm, usa: [...usa].filter(k => am.includes(k) || pm.includes(k)) };
+}
+const TITULOS = {
+  luz: 'tu piel con más luz', brillo: 'menos brillo', hidratar: 'una piel hidratada', descanso: 'verte descansada'
+};
+function pasoHTML(x, i) {
+  if (typeof x === 'string') {
+    const p = PRODUCTOS[x];
+    return `<div class="step"><span class="n">${String(i + 1).padStart(2, '0')}</span><img class="thumb" src="${p.img}" alt=""><div><b>${esc(p.nombre)}</b><span>${esc(p.corto)}</span></div></div>`;
+  }
+  return `<div class="step"><span class="n">${String(i + 1).padStart(2, '0')}</span><span class="thumb generic">${x.g}</span><div><b>${esc(x.t)}</b><span>${esc(x.d)}</span></div></div>`;
+}
+let mensajeRutina = '';
+function actualizarRutina() {
+  const f = new FormData($('#quiz'));
+  const piel = f.get('piel'), meta = f.get('meta'), tiempo = f.get('tiempo');
+  const r = rutina(piel, meta, tiempo);
+  $('#r-tag').textContent = `Piel ${ETIQ[piel].toLowerCase()} · ${ETIQ[tiempo].toLowerCase()}`;
+  $('#r-title').textContent = 'Tu rutina para ' + TITULOS[meta];
+  $('#r-why').textContent = piel === 'sensible'
+    ? 'Como tu piel es sensible, vamos despacio: un producto nuevo a la vez y siempre probando antes.'
+    : piel === 'nose'
+      ? 'Si no sabes tu tipo de piel, empezamos con algo ligero y te ayudo a descubrirlo por WhatsApp.'
+      : 'Pocos pasos, en orden, y todos los días. La constancia hace más que cualquier producto.';
+  $('#r-am').innerHTML = r.am.map(pasoHTML).join('');
+  $('#r-pm').innerHTML = r.pm.map(pasoHTML).join('');
+  mensajeRutina = 'Hola Isabella, vengo de tu página web 💕\nHice el test de rutina:\n' +
+    `· Mi piel: ${ETIQ[piel]}\n· Lo que quiero: ${ETIQ[meta]}\n· Tiempo: ${ETIQ[tiempo]}\n` +
+    'Me salió: ' + r.usa.map(k => PRODUCTOS[k].nombre).join(', ') + '\n¿Me ayudas con mi rutina?';
+  $('#r-cta').href = enlaceWhatsApp(mensajeRutina);
+  $('#r-cta').target = '_blank'; $('#r-cta').rel = 'noopener';
+}
+$('#quiz').addEventListener('change', actualizarRutina);
+actualizarRutina();
+
+/* contacto */
+pintarOpciones('#c-tema', 'tema', TEMAS, 'producto');
+function mensajeContacto() {
+  const nombre = $('#c-nombre').value.trim();
+  const tema = (document.querySelector('input[name="tema"]:checked') || {}).value || 'otro';
+  const texto = $('#c-msg').value.trim();
+  return `Hola Isabella, ${nombre ? 'soy ' + nombre + ' y ' : ''}vengo de tu página web 💕\n` +
+    `Te escribo por: ${ETIQ[tema] || TEMAS.find(t => t[0] === tema)[1]}` + (texto ? `\n${texto}` : '');
+}
+Object.assign(ETIQ, Object.fromEntries(TEMAS));
+function verPrevia() { $('#c-preview').textContent = mensajeContacto(); }
+['input', 'change'].forEach(ev => $('#contacto').addEventListener(ev, verPrevia));
+verPrevia();
+$('#contacto').addEventListener('submit', e => {
+  e.preventDefault();
+  abrirWhatsApp(mensajeContacto());
+  const s = $('#c-status'); s.hidden = false;
+  s.textContent = 'Se abre WhatsApp con tu mensaje listo. Solo dale enviar.';
+});
+$('#c-copy').addEventListener('click', () => {
+  const s = $('#c-status'); s.hidden = false;
+  navigator.clipboard.writeText(mensajeContacto())
+    .then(() => { s.textContent = 'Mensaje copiado. Pégalo en WhatsApp o en un mensaje de Instagram.'; })
+    .catch(() => {
+      const r = document.createRange(); r.selectNodeContents($('#c-preview'));
+      const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r);
+      s.textContent = 'Mensaje seleccionado: cópialo y pégalo en WhatsApp o Instagram.';
+    });
+});
+</script>
+</body>
+</html>
