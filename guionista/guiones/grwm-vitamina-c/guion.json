@@ -1,0 +1,82 @@
+{
+  "formato": "grwm",
+  "titulo": "Arréglate conmigo: mi piel *con brillo* en 5 minutos",
+  "red": "Reels / TikTok",
+  "duracion_objetivo": 30,
+  "audio": "voz",
+  "por_que": "Muestra el Vitamin C Glow Serum en tu rutina real de la mañana. La gente confía más cuando te ve usándolo que cuando ve un anuncio.",
+  "producto": {
+    "carpeta": "agente-contenido/productos/vitamin-c-glow-serum"
+  },
+  "preparar": [
+    "Luz de frente: mírate hacia una ventana o pon el aro de luz detrás del celular",
+    "Cara lavada, cabello recogido",
+    "En la mesa: el *Vitamin C Glow Serum*, tu hidratante y tu protector solar",
+    "Celular en vertical, a la altura de tus ojos",
+    "Abre el teleprompter en otro teléfono o tableta (o léelo antes y dilo con tus palabras)"
+  ],
+  "tomas": [
+    {
+      "plano": "cerca",
+      "segundos": 3,
+      "dice": "¿Mi secreto para una piel con brillo?",
+      "texto_pantalla": "Mi piel con *brillo* en 5 min ✨",
+      "consejo": "Empieza ya hablando, sin decir hola. Levanta el frasco al lado de tu cara."
+    },
+    {
+      "plano": "detalle",
+      "segundos": 5,
+      "dice": "Este sérum de vitamina C de Farmasi: casi mil reseñas, casi cinco estrellas.",
+      "muestra": "El frasco girando en tu mano, con la etiqueta a la cámara",
+      "texto_pantalla": "Vitamin C Glow Serum ★ 4.97"
+    },
+    {
+      "plano": "manos",
+      "segundos": 5,
+      "dice": "Con la cara limpia, dos o tres gotitas y lo esparzo con toquecitos.",
+      "muestra": "Las gotas en tus dedos y cómo lo aplicas en mejillas y frente"
+    },
+    {
+      "plano": "cerca",
+      "segundos": 5,
+      "dice": "Lo que más me gusta: [completa: cómo se siente en tu piel, por ejemplo si es ligero o si no se pega].",
+      "consejo": "Dilo mirando a la cámara, como si se lo contaras a una amiga."
+    },
+    {
+      "plano": "manos",
+      "segundos": 5,
+      "dice": "Después, mi hidratante y, siempre, protector solar.",
+      "muestra": "Cremita y protector, rápido"
+    },
+    {
+      "plano": "cerca",
+      "segundos": 4,
+      "dice": "Y lista. Piel *fresca y luminosa* para todo el día.",
+      "muestra": "Gira un poco la cara hacia la luz para que se vea el brillo"
+    },
+    {
+      "plano": "medio",
+      "segundos": 4,
+      "dice": "¿Lo quieres probar? Escríbeme *INFO* y te cuento.",
+      "texto_pantalla": "Escríbeme INFO 💌"
+    }
+  ],
+  "ganchos_alternativos": [
+    "Si tu piel se ve *apagada* en la mañana, mira esto.",
+    "Mi paso favorito de la mañana dura *30 segundos*.",
+    "El sérum que se me acaba *más rápido*."
+  ],
+  "caption": {
+    "texto": "Mi piel con brillo en 5 minutos ✨\n\nMi rutina de la mañana:\n1️⃣ Cara limpia\n2️⃣ 2 o 3 gotas del Vitamin C Glow Serum\n3️⃣ Hidratante\n4️⃣ Protector solar, siempre ☀️\n\n¿Tú usas vitamina C en la mañana o en la noche? Cuéntame 👇\nY si lo quieres probar, escríbeme INFO 💌",
+    "hashtags": [
+      "farmasi",
+      "vitaminac",
+      "rutinademañana",
+      "grwm",
+      "arreglateconmigo",
+      "cuidadodelapiel",
+      "skincare",
+      "pielluminosa"
+    ]
+  }
+}

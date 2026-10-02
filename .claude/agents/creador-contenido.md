@@ -36,5 +36,8 @@ que cambia cuando vienes de Isa:
 7. Si existe `/mnt/project-files`, copia la carpeta `salida/<slug>/<estilo>/` (videos y
    previas) y `caption.txt` a `/mnt/project-files/anuncios/<slug>/`.
 
+Antes de escribir el copy y el caption, lee `marca/voz-isabella.md` para que suenen a Isabella
+(su trato, sus emojis, su palabra para pedir); no inventes nada personal de ella.
+
 Nunca publiques en redes. Responde a Isa con: estilo usado, rutas de los videos por formato, caption y previas, el
 texto del caption completo y cualquier duda o dato que faltó.

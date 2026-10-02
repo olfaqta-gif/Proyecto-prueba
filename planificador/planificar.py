@@ -37,12 +37,13 @@ FORMATOS = ('9x16', '4x5', '1x1', '16x9')
 TIPOS = {
     'anuncio': 'Anuncio en video (lo hace el agente de contenido)',
     'educativo': 'Video educativo con motion graphics (lo hace el agente educativo)',
-    'reel': 'Reel o TikTok que grabas tú',
+    'reel': 'Reel o TikTok que grabas tú (guion del guionista)',
     'historia': 'Historia (Stories)',
     'carrusel': 'Carrusel de fotos',
     'post': 'Post con foto',
     'en-vivo': 'En vivo',
 }
+GRABAR = ('reel', 'historia', 'en-vivo')   # los que graba Isabella con guion del guionista
 ESTADOS = ('pendiente', 'hecho', 'publicado', 'saltado')
 DIAS = ('lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado', 'domingo')
 
@@ -423,12 +424,27 @@ def cmd_revisar(a):
 def cmd_siguiente(a):
     plan = leer_json(a.plan)
     pendientes = sorted((p for p in plan['publicaciones']
-                         if p.get('tipo') == a.tipo and p.get('estado', 'pendiente') == 'pendiente'),
+                         if (p.get('tipo') in GRABAR if a.tipo == 'grabar' else p.get('tipo') == a.tipo)
+                         and p.get('estado', 'pendiente') == 'pendiente'),
                         key=lambda p: p['fecha'])
     if not pendientes:
         print(f'No quedan publicaciones "{a.tipo}" pendientes en este plan.')
         return
     p = pendientes[0]
+    if a.tipo == 'grabar':
+        print(f'Siguiente video para que grabe Isabella, plan "{plan["nombre"]}" (quedan {len(pendientes)}):')
+        print(f'  id: {p["id"]}  ·  fecha: {p["fecha"]}  ·  tipo: {p["tipo"]}  ·  red: {p.get("red", "")}'
+              f'  ·  pilar: {p.get("pilar", "")}')
+        if p.get('producto'):
+            prod = p['producto']
+            carpeta = carpeta_producto(prod)
+            print(f'  producto: {nombre_producto(prod)}  ·  carpeta: '
+                  f'{carpeta.relative_to(RAIZ) if carpeta else "no existe todavía (traerla con el scraper)"}')
+        for k in ('idea', 'gancho', 'guion', 'llamado'):
+            if p.get(k):
+                print(f'  {k}: {p[k]}')
+        print(f'\nAl terminar: python3 planificador/planificar.py marcar {a.plan} {p["id"]} hecho')
+        return
     if a.tipo == 'educativo':
         print(f'Siguiente video educativo del plan "{plan["nombre"]}" (quedan {len(pendientes)}):')
         print(f'  id: {p["id"]}  ·  fecha: {p["fecha"]}  ·  red: {p.get("red", "")}  ·  pilar: {p.get("pilar", "")}')
@@ -501,10 +517,11 @@ def main():
     r = sub.add_parser('revisar', help='revisar un plan.json y crear su calendario plan.html')
     r.add_argument('plan')
     r.set_defaults(f=cmd_revisar)
-    s = sub.add_parser('siguiente', help='la próxima publicación pendiente para un agente (anuncio o educativo)')
+    s = sub.add_parser('siguiente', help='la próxima publicación pendiente para un agente (anuncio, educativo o grabar)')
     s.add_argument('plan')
-    s.add_argument('--tipo', default='anuncio', choices=('anuncio', 'educativo'),
-                   help='anuncio (agente de contenido, por defecto) o educativo (agente educativo)')
+    s.add_argument('--tipo', default='anuncio', choices=('anuncio', 'educativo', 'grabar'),
+                   help='anuncio (agente de contenido, por defecto), educativo (agente educativo) '
+                        'o grabar (reel, historia o en vivo que graba Isabella: guionista)')
     s.set_defaults(f=cmd_siguiente)
     m = sub.add_parser('marcar', help='cambiar el estado de una publicación')
     m.add_argument('plan')

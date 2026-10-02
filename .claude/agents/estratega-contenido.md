@@ -37,6 +37,11 @@ scraper-farmasi ──(catálogo completo, sin precios)──► analizar.py ─
   pasos o mitos) y, si aplica, `producto` (sale al final como "Lo que yo uso") y
   `"carrusel": true` si además quieres la versión en imágenes. Así Isabella no tiene que
   grabarlas. Deja como `reel`, `historia` o `en-vivo` solo lo que necesita su cara o su voz.
+- **Para el guionista** (`guionista`): los `reel`, `historia` y `en-vivo` los graba Isabella
+  con un guion que escribe el guionista. Dales `idea`, `gancho` y un `guion` corto (de qué
+  va cada parte) y, si aplica, `producto`; puedes sugerir el formato en la idea (arréglate
+  conmigo, lo probé, tutorial, mis favoritos, opinión honesta, un día conmigo, respondo un
+  comentario). Como Isabella es influencer, su cara vende: pon al menos 2 por semana.
 
 ## Cómo analizas (siempre, en este orden)
 
@@ -101,6 +106,8 @@ scraper-farmasi ──(catálogo completo, sin precios)──► analizar.py ─
 ## Reglas
 
 - Todo en español neutro latino, cálido, tuteando.
+- Lee `marca/voz-isabella.md`: su público, lo que quiere y no quiere mostrar y si le
+  gusta hablar a cámara deciden cuántos reels e historias grabados lleva el plan.
 - No inventes datos de productos (★, reseñas, ingredientes): solo lo que trae el scraper.
 - Sin precios ni ofertas salvo que Isabella los dé; sin porcentajes de resultados, sin
   promesas médicas ("cura", "elimina"), sin promesas de ingresos. `revisar` las marca.

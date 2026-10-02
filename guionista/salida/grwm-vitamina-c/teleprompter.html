@@ -1,0 +1,47 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<title>Teleprompter</title><style>
+* { box-sizing:border-box; } html,body { margin:0; height:100%; background:#000; color:#fff;
+  font-family:system-ui,-apple-system,sans-serif; overflow:hidden; }
+#rollo { position:absolute; inset:0; overflow-y:scroll; padding:45vh 7vw 80vh; scrollbar-width:none; }
+#rollo::-webkit-scrollbar { display:none; }
+body.espejo #rollo { transform:scaleX(-1); }
+section { margin-bottom:9vh; } p { font-size:var(--tam,44px); line-height:1.35; font-weight:600; margin:.2em 0; }
+.plano { color:#ff8fbd; font-size:16px; letter-spacing:.04em; }
+mark { background:none; color:#ffd54d; } .completa { color:#ffd54d; font-style:italic; }
+#guia { position:fixed; left:0; right:0; top:45vh; height:2px; background:rgba(255,111,168,.6); pointer-events:none; }
+#mandos { position:fixed; left:0; right:0; bottom:0; display:flex; flex-wrap:wrap; gap:8px; justify-content:center;
+  align-items:center; padding:10px 12px 18px; background:linear-gradient(transparent,#000 40%); font-size:14px; }
+button { background:#ff4f93; color:#fff; border:0; border-radius:999px; padding:12px 18px; font-size:16px; font-weight:700; }
+button.sec { background:#333; } label { display:flex; gap:6px; align-items:center; color:#ccc; }
+input[type=range] { width:110px; accent-color:#ff4f93; }
+</style></head><body>
+<div id="rollo"><section><div class="plano">1 · 🙂 Cara de cerca · 3 s</div><p>¿Mi secreto para una piel con brillo?</p></section><section><div class="plano">2 · 🔍 Detalle del producto · 5 s</div><p>Este sérum de vitamina C de Farmasi: casi mil reseñas, casi cinco estrellas.</p></section><section><div class="plano">3 · ✋ Tus manos aplicando · 5 s</div><p>Con la cara limpia, dos o tres gotitas y lo esparzo con toquecitos.</p></section><section><div class="plano">4 · 🙂 Cara de cerca · 5 s</div><p>Lo que más me gusta: <span class="completa">✍️ cómo se siente en tu piel, por ejemplo si es ligero o si no se pega</span>.</p></section><section><div class="plano">5 · ✋ Tus manos aplicando · 5 s</div><p>Después, mi hidratante y, siempre, protector solar.</p></section><section><div class="plano">6 · 🙂 Cara de cerca · 4 s</div><p>Y lista. Piel <mark>fresca y luminosa</mark> para todo el día.</p></section><section><div class="plano">7 · 🧍‍♀️ De la cintura para arriba · 4 s</div><p>¿Lo quieres probar? Escríbeme <mark>INFO</mark> y te cuento.</p></section><p style="color:#888">✨ ¡Listo! ✨</p></div>
+<div id="guia"></div>
+<div id="mandos">
+  <button id="play">▶ Empezar</button>
+  <button class="sec" id="inicio">⟲</button>
+  <label>Velocidad <input id="vel" type="range" min="10" max="140" value="45"></label>
+  <label>Letra <input id="tam" type="range" min="26" max="80" value="44"></label>
+  <button class="sec" id="espejo">Espejo</button>
+</div>
+<script>
+const rollo = document.getElementById('rollo'), play = document.getElementById('play');
+let andando = false, ultimo = 0, resto = 0;
+function paso(t) {
+  if (!andando) return;
+  const dt = ultimo ? (t - ultimo) / 1000 : 0; ultimo = t;
+  resto += dt * Number(document.getElementById('vel').value);
+  const px = Math.floor(resto); resto -= px; rollo.scrollTop += px;
+  if (rollo.scrollTop + rollo.clientHeight >= rollo.scrollHeight - 2) parar();
+  requestAnimationFrame(paso);
+}
+function arrancar() { andando = true; ultimo = 0; play.textContent = '❚❚ Pausa'; requestAnimationFrame(paso); }
+function parar() { andando = false; play.textContent = '▶ Seguir'; }
+play.onclick = () => andando ? parar() : arrancar();
+rollo.onclick = () => andando ? parar() : arrancar();
+document.getElementById('inicio').onclick = () => { parar(); rollo.scrollTop = 0; play.textContent = '▶ Empezar'; };
+document.getElementById('tam').oninput = (ev) => document.body.style.setProperty('--tam', ev.target.value + 'px');
+document.getElementById('espejo').onclick = () => document.body.classList.toggle('espejo');
+document.addEventListener('keydown', (ev) => { if (ev.code === 'Space') { ev.preventDefault(); andando ? parar() : arrancar(); } });
+</script></body></html>
