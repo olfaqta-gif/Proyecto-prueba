@@ -1,0 +1,35 @@
+{
+  "tipo": "mito",
+  "paleta": "verde",
+  "fondo": "oscuro",
+  "gancho": {
+    "kicker": "Piel grasa",
+    "titulo": "Lo que te dijeron de la *piel grasa*",
+    "subtitulo": "¿Mito o realidad?"
+  },
+  "items": [
+    {
+      "mito": "Si tienes piel grasa no necesitas hidratante.",
+      "realidad": "La piel grasa también necesita hidratación. Busca una crema ligera que no deje sensación pesada."
+    },
+    {
+      "mito": "El protector solar es solo para la playa.",
+      "realidad": "El sol te acompaña todos los días, aunque esté nublado. Úsalo a diario en cara y cuello."
+    }
+  ],
+  "cierre": {
+    "frase1": "¿Cuál creías?",
+    "frase2": "Cuéntame abajo",
+    "accion": "escribir",
+    "palabra": "PIEL"
+  },
+  "producto": {
+    "carpeta": "agente-contenido/productos/tea-tree-face-cream",
+    "texto": "Mi hidratante ligera"
+  },
+  "caption": {
+    "texto": "Mito o realidad: piel grasa edition 🌿\n\n❌ \"Si tienes piel grasa no necesitas hidratante\"\n✅ También necesita hidratación: busca una crema ligera.\n\n❌ \"El protector solar es solo para la playa\"\n✅ El sol está todos los días, aunque esté nublado.\n\n¿Cuál creías? 👇 Escríbeme \"PIEL\" y te ayudo con tu rutina.",
+    "hashtags": ["farmasi", "pielgrasa", "skincare", "mitosyrealidades", "cuidadodelapiel", "protectorsolar", "teatree"],
+    "aviso": "Distribuidora independiente Farmasi."
+  }
+}

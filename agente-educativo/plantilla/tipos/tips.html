@@ -1,0 +1,41 @@
+<!-- TIPS: "3 tips para…". Un tip por pantalla: medalla con ícono que se dibuja, número que golpea, texto cinético. -->
+<style>
+  .badge{position:relative;width:330u;height:330u;border-radius:50%;background:var(--acento);color:#fff;display:grid;place-items:center}
+  .badge b{font-size:250u;font-weight:900;letter-spacing:-12u;line-height:1;margin-left:-10u}
+  .badge .aro{position:absolute;inset:-40u;border-color:var(--acento2)}
+  [data-fondo="oscuro"] .badge{background:var(--brillo);color:var(--fondo)}
+  .tip{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;gap:44u;padding:150u 90u 170u}
+  .tip .cabeza{display:flex;align-items:center;gap:44u}
+  .tip .medalla{width:300u;height:300u;background:var(--acento);color:#fff}
+  .escena.color .tip .medalla,.escena.color2 .tip .medalla{background:#fff;color:var(--acento)}
+  .tip .numero{display:flex;flex-direction:column;line-height:.9}
+  .tip .numero small{font-size:46u;font-weight:800;letter-spacing:10u;color:var(--suave)}
+  .tip .numero b{font-size:240u;font-weight:900;letter-spacing:-8u}
+  .tip .titulo{font-size:124u}
+  .tip .detalle{font-size:56u}
+  [data-orient="h"] .tip{display:grid;grid-template-columns:auto 1fr;column-gap:110u;row-gap:34u;align-content:center;padding:120u 170u}
+  [data-orient="h"] .tip .cabeza{grid-row:1 / 3;flex-direction:column;align-items:flex-start}
+  [data-orient="h"] .tip .medalla{width:300u;height:300u}
+  [data-formato="1x1"] .tip .medalla{width:190u;height:190u}
+  [data-formato="1x1"] .tip .numero b{font-size:160u}
+  [data-formato="1x1"] .tip .titulo{font-size:88u}
+</style>
+<!--INSIGNIA-->
+<div class="badge crece" data-d="gancho.insignia"><div class="deco aro punteado gira"></div><b class="stamp" data-d="gancho.insignia+0.25" data-cuenta="items"></b></div>
+<!--ITEM-->
+<div class="camara" data-in="items.{i}.entra">
+  <div class="deco malla" style="inset:0;opacity:.6"></div>
+  <div class="deco" style="right:-150u;top:260u"><div class="crece" data-d="items.{i}.entra+0.2"><div class="aro gira lento" style="width:440u;height:440u"></div></div></div>
+  <div class="deco mas flota" style="left:110u;bottom:250u"></div>
+  <div class="deco bola flota b" style="width:70u;height:70u;right:160u;bottom:430u"></div>
+</div>
+<div class="progreso">{PROGRESO}</div>
+<div class="tip">
+  <div class="cabeza">
+    <div class="medalla crece" data-d="items.{i}.entra+0.15"><div class="deco aro punteado gira"></div><div data-icono="=items.{i}.icono" data-d="items.{i}.entra+0.45"></div></div>
+    <div class="numero"><small class="rise" data-d="items.{i}.entra+0.2" data-txt="etiqueta"></small><b class="stamp" data-d="items.{i}.entra+0.3">{n}</b></div>
+  </div>
+  <div class="titulo fit {kin}" data-lineas="3" data-txt="items.{i}.titulo" data-kin="items.{i}.titulo"></div>
+  <div class="detalle rise fit" data-lineas="3" data-d="items.{i}.detalle" data-txt="items.{i}.detalle" data-si="items.{i}.detalle"></div>
+</div>
+<div class="firma" data-txt="firma"></div>

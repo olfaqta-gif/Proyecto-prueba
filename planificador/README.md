@@ -67,6 +67,7 @@ python3 planificador/planificar.py revisar planificador/planes/2026-10-05-vender
 
 # El próximo anuncio pendiente, con lo que necesita el agente de contenido
 python3 planificador/planificar.py siguiente planificador/planes/2026-10-05-vender-mas.json
+python3 planificador/planificar.py siguiente planificador/planes/2026-10-05-vender-mas.json --tipo educativo   # el próximo video educativo
 
 # Marcar una publicación: pendiente, hecho, publicado o saltado
 python3 planificador/planificar.py marcar planificador/planes/2026-10-05-vender-mas.json 3 hecho
@@ -92,7 +93,7 @@ Cada publicación:
 |---|---|
 | `id`, `fecha`, `hora`, `red` | cuándo y dónde |
 | `pilar` | uno de los `id` de `pilares` |
-| `tipo` | `anuncio` (video que hace el agente de contenido), `reel`, `historia`, `carrusel`, `post` o `en-vivo` (los haces tú) |
+| `tipo` | `anuncio` (video que hace el agente de contenido), `educativo` (video con motion graphics que hace el agente educativo: lleva `forma` = `tips`, `mito`, `pasos` o `dato`, y `"carrusel": true` si también se quiere en imágenes), `reel`, `historia`, `carrusel`, `post` o `en-vivo` (los haces tú) |
 | `idea` | qué se publica, en una frase |
 | `producto` | `codigo`, `slug` y `nombre` (los da el scraper) |
 | `estilo`, `formatos` | solo anuncios: `clasico` / `favorito` / `razones` y `9x16`, `4x5`, `1x1`, `16x9` |

@@ -94,6 +94,7 @@ def _icono_en(t):
     for palabras, icono in [
         (("scraper", "busca", "investig", "lector"), "🔎"),
         (("estrateg", "plan", "calendario"), "🗓️"),
+        (("educa", "profe", "enseñ"), "🎓"),
         (("contenido", "anuncio", "video", "creador"), "🎬"),
         (("cliente", "crm", "pedido", "venta"), "🤝"),
         (("foto", "imagen", "diseño"), "🎨"),

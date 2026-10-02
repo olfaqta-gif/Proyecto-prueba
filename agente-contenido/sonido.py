@@ -4,15 +4,21 @@ Cada estilo tiene su propia receta y lee la misma línea de tiempo que su planti
 (plantilla/estilos/<estilo>/tiempos.json), así que cada whoosh, pop e impacto cae justo
 en su animación aunque se muevan los tiempos.
 
+Para que dos anuncios del mismo estilo no suenen igual, cada producto saca su propia
+variación: otro tono, otra progresión de acordes y (en favorito y razones) otra velocidad.
+La variación sale del nombre del producto; con "musica": {"variacion": N} en la ficha se
+elige otra a mano.
+
     clasico   100 bpm, electrónica con "drop" cuando aparece el producto
     favorito  118 bpm, pop alegre con plucks y chasquidos (tipo TikTok)
     razones   84 bpm, lo-fi relajado con piano eléctrico y vinilo
 
-Uso directo:  python3 sonido.py <estilo> salida.wav
+Uso directo:  python3 sonido.py <estilo> salida.wav [variación]
 Desde generar.py:  sonido.generar(tiempos, 'audio.wav', estilo, ficha)
 """
 import json
 import sys
+import zlib
 from pathlib import Path
 from types import SimpleNamespace
 
@@ -44,12 +50,35 @@ def sweep(x, f0, f1, bw=0.6):
     return out
 
 
+_TRANSPONER = 0   # semitonos de la variación en curso (lo fija generar)
+_VARIACION = 0
+TONOS = [0, 2, -3, 5, -2, 3, -5, 1, 4, -1]
+
+
 def note(n):  # midi -> Hz
-    return 440 * 2 ** ((n - 69) / 12)
+    return 440 * 2 ** ((n + _TRANSPONER - 69) / 12)
+
+
+def variacion_de(F, estilo):
+    """Número de variación musical: el de la ficha, o uno fijo sacado del nombre del producto."""
+    F = F or {}
+    v = (F.get('musica') or {}).get('variacion')
+    if v is None:
+        nombre = str((F.get('producto') or {}).get('nombre') or '')
+        v = zlib.crc32((nombre + estilo).encode()) % 1000 if nombre else 0
+    return int(v)
 
 
 def generar(T, salida, estilo='clasico', F=None):
-    rng = np.random.default_rng(7)
+    global _TRANSPONER, _VARIACION
+    if estilo in VARIABLES:
+        _VARIACION = variacion_de(F, estilo)
+        _TRANSPONER = TONOS[_VARIACION % len(TONOS)]
+        if 'bpm' in T:
+            T = dict(T, bpm=T['bpm'] + [0, -4, 5, -7, 3, 8, -3][_VARIACION % 7])
+    else:
+        _VARIACION = _TRANSPONER = 0
+    rng = np.random.default_rng(7 + _VARIACION)
     D = T['duracion']
     N = int(SR * D)
     music = np.zeros((N, 2))
@@ -202,7 +231,8 @@ def clasico(m, T, F):
     BEAT = 0.6
     DROP = T['flash']
     g, p, b, c = T['gancho'], T['producto'], T['beneficios'], T['cierre']
-    chords = [(0.0, [57, 60, 64]), (DROP, [57, 60, 64]), (b['entra'], [53, 57, 60]),
+    a1, a2 = [([57, 60, 64], [53, 57, 60]), ([53, 57, 60], [57, 60, 64]), ([52, 55, 59], [53, 57, 60])][_VARIACION % 3]
+    chords = [(0.0, a1), (DROP, a1), (b['entra'], a2),
               (c['entra'] - 1.8, [55, 59, 62]), (c['entra'], [60, 64, 67])]
     ends = [x[0] for x in chords[1:]] + [D]
     for (st, notes), en in zip(chords, ends):
@@ -273,7 +303,10 @@ def favorito(m, T, F):
     place, music, sfx, rng, N, D = m.place, m.music, m.sfx, m.rng, m.N, m.D
     BEAT = 60 / T.get('bpm', 118)
     g, p, b, c = T['gancho'], T['producto'], T['beneficios'], T['cierre']
-    chords = [[60, 64, 67], [55, 59, 62], [57, 60, 64], [53, 57, 60]]      # C G Am F
+    chords = [[[60, 64, 67], [55, 59, 62], [57, 60, 64], [53, 57, 60]],     # C G Am F
+              [[57, 60, 64], [53, 57, 60], [60, 64, 67], [55, 59, 62]],     # Am F C G
+              [[53, 57, 60], [60, 64, 67], [55, 59, 62], [57, 60, 64]],     # F C G Am
+              [[60, 64, 67], [57, 60, 64], [53, 57, 60], [55, 59, 62]]][_VARIACION % 4]  # C Am F G
     bar = 4 * BEAT
     fin = D - 1.3
     # arpegio de plucks en semicorcheas
@@ -335,7 +368,9 @@ def razones(m, T, F):
     BEAT = 60 / T.get('bpm', 84)
     SW = 0.58                                      # swing de las corcheas
     g, p, r, c = T['gancho'], T['producto'], T['razon'], T['cierre']
-    chords = [[50, 53, 57, 60, 64], [43, 53, 57, 59, 64], [48, 52, 55, 59, 62], [45, 52, 55, 60, 64]]  # Dm9 G13 Cmaj9 Am7
+    chords = [[[50, 53, 57, 60, 64], [43, 53, 57, 59, 64], [48, 52, 55, 59, 62], [45, 52, 55, 60, 64]],  # Dm9 G13 Cmaj9 Am7
+              [[48, 52, 55, 59, 62], [45, 52, 55, 60, 64], [50, 53, 57, 60, 64], [43, 53, 57, 59, 64]],  # Cmaj9 Am7 Dm9 G13
+              [[53, 57, 60, 64, 67], [52, 55, 59, 62, 67], [50, 53, 57, 60, 64], [48, 52, 55, 59, 62]]][_VARIACION % 3]  # Fmaj9 Em7 Dm9 Cmaj9
     bar = 4 * BEAT
     fin = D - 1.0
     place(music, m.vinilo(D), 0, 0.5)
@@ -387,9 +422,11 @@ def razones(m, T, F):
 
 
 RECETAS = {'clasico': clasico, 'favorito': favorito, 'razones': razones}
+VARIABLES = set(RECETAS)  # los estilos de anuncio, que varían por producto
 
 
 if __name__ == '__main__':
     estilo = sys.argv[1] if len(sys.argv) > 1 else 'clasico'
     tiempos = json.loads((Path(__file__).parent / 'plantilla' / 'estilos' / estilo / 'tiempos.json').read_text())
-    print(generar(tiempos, sys.argv[2] if len(sys.argv) > 2 else 'audio.wav', estilo))
+    ficha = {'musica': {'variacion': int(sys.argv[3])}} if len(sys.argv) > 3 else None
+    print(generar(tiempos, sys.argv[2] if len(sys.argv) > 2 else 'audio.wav', estilo, ficha))

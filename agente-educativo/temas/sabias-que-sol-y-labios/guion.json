@@ -1,0 +1,34 @@
+{
+  "tipo": "dato",
+  "paleta": "dorado",
+  "fondo": "oscuro",
+  "gancho": {
+    "kicker": "¿Sabías que…?",
+    "titulo": "2 datos de tu piel que *nadie te cuenta*",
+    "subtitulo": ""
+  },
+  "items": [
+    {
+      "numero": "80",
+      "unidad": "%",
+      "titulo": "de los rayos UV pueden atravesar las nubes",
+      "detalle": "Día nublado no es día sin protector.",
+      "fuente": "Skin Cancer Foundation"
+    },
+    {
+      "clave": "Sin grasa propia",
+      "titulo": "Tus labios casi no tienen glándulas de grasa",
+      "detalle": "Por eso se resecan antes: dales bálsamo seguido.",
+      "fuente": "Medical News Today"
+    }
+  ],
+  "cierre": {
+    "frase1": "Compártelo",
+    "frase2": "con tu amiga",
+    "accion": "compartir"
+  },
+  "caption": {
+    "texto": "2 datos de tu piel que nadie te cuenta ☀️💋\n\n☁️ Hasta 80% de los rayos UV pueden atravesar las nubes (Skin Cancer Foundation). Día nublado no es día sin protector.\n💋 Tus labios casi no tienen glándulas de grasa, por eso se resecan antes. Bálsamo seguido.\n\nCompártelo con tu amiga que nunca usa protector 👀",
+    "hashtags": ["farmasi", "sabiasque", "skincare", "protectorsolar", "labios", "cuidadodelapiel", "datoscuriosos"]
+  }
+}

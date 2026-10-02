@@ -1,0 +1,66 @@
+<!-- MITO vs REALIDAD: tarjeta con el mito, sello "FALSO", la tarjeta gira y aparece la realidad sobre fondo verde. -->
+<style>
+  .vs{display:flex;flex-direction:column;gap:22u;align-items:flex-start}
+  .vs .etq{font-size:96u;padding:10u 44u;border-radius:30u}
+  .vs i{font-style:normal;font-weight:900;font-size:60u;color:var(--suave);margin-left:30u}
+  .etq{display:inline-block;font-weight:900;letter-spacing:4u;text-transform:uppercase;color:#fff;font-size:40u;padding:12u 32u;border-radius:20u}
+  .etq.rojo{background:var(--rojo)} .etq.verde{background:var(--verde)}
+  .izqE{animation:izqE .55s cubic-bezier(.2,1.3,.4,1) var(--d) both}
+  .derE{animation:derE .55s cubic-bezier(.2,1.3,.4,1) var(--d) both}
+  @keyframes izqE{from{opacity:0;transform:translateX(-140%) rotate(-8deg)}to{opacity:1;transform:rotate(-3deg)}}
+  @keyframes derE{from{opacity:0;transform:translateX(140%) rotate(8deg)}to{opacity:1;transform:rotate(2deg)}}
+  .verdad{position:absolute;inset:0;background:color-mix(in srgb,var(--verde) 22%,var(--bg))}
+  [data-fondo="oscuro"] .verdad{background:color-mix(in srgb,var(--verde) 30%,var(--fondo))}
+  .mesa{position:absolute;inset:0;display:grid;place-items:center;padding:150u 70u 130u}
+  .tarjeta{width:100%;max-width:940u;height:100%;max-height:1180u}
+  .sacude{width:100%;height:100%;perspective:2400u;animation:sacude .45s ease-in-out var(--d) both}
+  @keyframes sacude{0%,100%{transform:none}20%{transform:translateX(-24u) rotate(-1.5deg)}40%{transform:translateX(20u) rotate(1.2deg)}60%{transform:translateX(-12u)}80%{transform:translateX(8u)}}
+  .giro{position:relative;width:100%;height:100%;transform-style:preserve-3d;animation:giro .8s cubic-bezier(.6,0,.3,1) var(--d) both}
+  @keyframes giro{from{transform:none}to{transform:rotateY(180deg)}}
+  .cara{position:absolute;inset:0;backface-visibility:hidden;border-radius:60u;background:var(--card);color:var(--tx);
+    box-shadow:0 40u 90u rgba(0,0,0,.18);display:flex;flex-direction:column;justify-content:center;gap:50u;padding:90u 80u;overflow:hidden}
+  .cara .comilla{position:absolute;right:40u;top:-40u;font-family:"Playfair Display",Georgia,serif;font-size:420u;line-height:1;color:var(--rojo);opacity:.14}
+  .cara .texto{font-weight:900;font-size:84u;line-height:1.08;letter-spacing:-2u;max-width:100%}
+  .reverso{transform:rotateY(180deg);border:10u solid var(--verde)}
+  .reverso .texto{font-size:70u;font-weight:800}
+  .reverso .medalla{width:180u;height:180u;background:var(--verde);color:#fff}
+  .sello-w{position:absolute;left:0;right:0;bottom:120u;display:grid;place-items:center;transform:rotate(-12deg);pointer-events:none}
+  .sello{font-weight:900;font-size:130u;letter-spacing:10u;color:var(--rojo);border:14u solid var(--rojo);border-radius:30u;padding:6u 46u;
+    background:color-mix(in srgb,var(--card) 70%,transparent)}
+  .mesa .etq{align-self:flex-start}
+  [data-orient="h"] .mesa{padding:110u 300u 110u}
+  [data-orient="h"] .tarjeta{max-width:1300u;max-height:800u}
+  [data-orient="h"] .cara{padding:70u 100u}
+  [data-orient="h"] .sello-w{bottom:60u;left:auto;right:80u}
+  [data-formato="1x1"] .cara .texto{font-size:70u}
+  [data-formato="1x1"] .reverso .texto{font-size:58u}
+  [data-formato="1x1"] .sello{font-size:100u}
+</style>
+<!--INSIGNIA-->
+<div class="vs"><span class="etq rojo izqE" data-d="gancho.insignia">Mito</span><i class="rise" data-d="gancho.insignia+0.3">o</i><span class="etq verde derE" data-d="gancho.insignia+0.45">Realidad</span></div>
+<!--ITEM-->
+<div class="camara" data-in="items.{i}.entra">
+  <div class="deco malla" style="inset:0;opacity:.6"></div>
+  <div class="deco" style="left:-200u;top:-160u"><div class="crece" data-d="items.{i}.entra+0.1"><div class="bola late" style="width:460u;height:460u;opacity:.5"></div></div></div>
+  <div class="deco mas flota" style="right:90u;bottom:120u"></div>
+</div>
+<div class="verdad tr-iris" data-in="items.{i}.giro" style="--cy:50%"></div>
+<div class="progreso">{PROGRESO}</div>
+<div class="mesa">
+  <div class="tarjeta pop" data-d="items.{i}.entra+0.1">
+    <div class="sacude" data-d="items.{i}.sello">
+      <div class="giro" data-d="items.{i}.giro">
+        <div class="cara frente">
+          <div class="comilla">“</div>
+          <span class="etq rojo">Mito</span>
+          <div class="texto fit {kin}" data-lineas="6" data-txt="items.{i}.mito" data-kin="items.{i}.mito" data-paso="0.06"></div>
+          <div class="sello-w"><div class="sello stamp" data-d="items.{i}.sello" data-txt="items.{i}.sello"></div></div>
+        </div>
+        <div class="cara reverso">
+          <div style="display:flex;align-items:center;gap:30u"><div class="medalla crece" data-d="items.{i}.giro+0.45"><div data-icono="check" data-d="items.{i}.giro+0.6"></div></div><span class="etq verde">Realidad</span></div>
+          <div class="texto fit {kin}" data-lineas="7" data-txt="items.{i}.realidad" data-kin="items.{i}.realidad_t" data-paso="0.055"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

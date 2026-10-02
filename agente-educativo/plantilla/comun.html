@@ -1,0 +1,48 @@
+<!-- Escenas comunes a todos los tipos: gancho (con la insignia de cada tipo) y cierre.
+     generar.py reemplaza {{INSIGNIA}}, {{ESCENAS}}, {{EXTRA}}, {{TR_CIERRE}} y {kin}. -->
+
+<!-- 1 · gancho -->
+<section class="escena gancho {{CLASE_GANCHO}}" data-out="items.0.entra+0.9">
+  <div class="camara" data-in="0">
+    <div class="deco malla" style="inset:0;opacity:.7"></div>
+    <div class="deco" style="right:-250u;top:-220u"><div class="crece" data-d="0.05"><div class="aro gira lento" style="width:720u;height:720u"></div></div></div>
+    <div class="deco" style="left:-160u;bottom:-140u"><div class="crece" data-d="0.2"><div class="bola late" style="width:420u;height:420u;opacity:.85"></div></div></div>
+    <div class="deco mas flota" style="right:120u;bottom:300u"></div>
+    <div class="deco mas flota b" style="left:120u;top:260u"></div>
+    <svg class="deco garabato" viewBox="0 0 300 80" style="left:90u;bottom:170u;width:380u" data-d="gancho.subtitulo"><path pathLength="1" d="M8 50c30-40 50 30 80 0s50 30 80 0s50 30 80 0s40 20 44 10"/></svg>
+  </div>
+  <div class="contenido">
+    <div class="insignia">{{INSIGNIA}}</div>
+    <div class="kick"><span class="pildora rise" data-d="gancho.kicker" data-txt="gancho.kicker" data-si="gancho.kicker"></span></div>
+    <div class="titulo fit {kin}" data-lineas="4" data-txt="gancho.titulo" data-kin="gancho.titulo" data-paso="0.09"></div>
+    <div class="detalle rise fit" data-lineas="2" data-d="gancho.subtitulo" data-txt="gancho.subtitulo" data-si="gancho.subtitulo"></div>
+  </div>
+  <div class="desliza">Desliza →</div>
+</section>
+
+{{ESCENAS}}
+
+{{EXTRA}}
+
+<!-- cierre -->
+<div class="capa tr-{{TR_CIERRE}}" data-in="cierre.entra-0.12"></div>
+<section class="escena color cierre tr-{{TR_CIERRE}}" data-in="cierre.entra">
+  <div class="camara" data-in="cierre.entra">
+    <div class="deco malla" style="inset:0;opacity:.5"></div>
+    <div class="deco" style="left:-200u;top:-160u"><div class="crece" data-d="cierre.entra+0.1"><div class="bola late" style="width:520u;height:520u;opacity:.35"></div></div></div>
+    <div class="deco" style="right:-220u;bottom:-200u"><div class="crece" data-d="cierre.entra+0.25"><div class="aro gira lento" style="width:640u;height:640u;border-color:#fff;opacity:.35"></div></div></div>
+    <div class="deco mas flota" style="right:130u;top:240u"></div>
+  </div>
+  <div class="contenido">
+    <div class="medalla crece" data-d="cierre.medalla"><div class="deco aro punteado gira" style="border-color:rgba(255,255,255,.6)"></div><div data-icono="=cierre.icono" data-d="cierre.medalla+0.3"></div></div>
+    <div class="marca stamp" data-d="cierre.marca">FARMASi</div>
+    <div class="frase fit" data-lineas="3"><span class="kin-pop" data-txt="cierre.frase1" data-kin="cierre.frase1" data-paso="0.1"></span><span class="serif rise" data-d="cierre.frase2" data-txt="cierre.frase2" data-si="cierre.frase2"></span></div>
+    <div class="rise" data-d="cierre.boton" data-si="cierre.palabra"><div class="btn"><span data-txt="cierre.boton_pre"></span> “<b data-txt="cierre.palabra"></b>” 💬</div></div>
+    <div class="rise" data-d="cierre.boton" data-si="cierre.accion_texto"><div class="accion" data-txt="cierre.accion_texto"></div></div>
+    <div class="prod rise" data-d="cierre.producto" data-si="producto.nombre"><div class="foto"><img data-img alt="" data-si="producto.imagen"></div><div><small data-txt="producto.texto"></small><b data-txt="producto.nombre"></b></div></div>
+    <div class="usuario rise" data-d="cierre.producto" data-txt="cierre.usuario" data-si="cierre.usuario"></div>
+  </div>
+  <div class="aviso rise" data-d="cierre.aviso" data-txt="cierre.aviso" data-si="cierre.aviso"></div>
+</section>
+
+<div class="abs grain"></div>
