@@ -146,6 +146,8 @@
                              transform: translateX(-50%) rotate(45deg); border-radius: 2px; }
   .etq-robot .globo.listo { background: var(--bien); }
   .boton.reunir { border-color: #4cc9ff88; color: var(--hielo); }
+  .boton.clientas { text-decoration: none; border-color: #f59bd088; color: #ffd6ea; display: inline-flex; align-items: center; gap: 6px; }
+  .boton.clientas span { background: #f59bd0; color: #2b0d1e; border-radius: 99px; font-size: 11px; font-weight: 700; padding: 0 7px; }
   .etq-isa { text-align: center; white-space: nowrap; pointer-events: none; }
   .etq-isa b { display: block; font: 700 17px var(--titulo); color: #fff; letter-spacing: .02em; text-shadow: 0 0 14px #4cc9ff, 0 2px 6px #0009; }
   .etq-isa span { display: inline-block; margin-top: 2px; font: 500 11px var(--mono); color: var(--hielo); padding: 2px 9px; border-radius: 99px;
@@ -220,6 +222,7 @@
     <button class="boton" id="voz" type="button" title="Isa lee sus respuestas en voz alta">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14"/></svg>Voz</button>
     <button class="boton peligro" id="parar" type="button" hidden>Detener</button>
+    <a class="boton clientas" id="clientas" href="/clientas" target="_blank" rel="noopener" title="La libreta de clientas de Isabella: pedidos y a quién escribirle hoy">💖 Clientas <span id="clientas-hoy" hidden></span></a>
     <button class="boton reunir" id="reunir" type="button" title="Isa reúne a todo el equipo y revisa su trabajo">Reunir al equipo</button>
     <button class="boton" id="nueva" type="button">Nueva conversación</button>
   </header>
@@ -518,6 +521,15 @@ async function terminarReunion() {
   } catch (e) {}
   setTimeout(() => { mostrandoNotas = false; of("despedirEquipo"); if (!ocupado) $("#mision").hidden = true; }, 9000);   // tiempo para ver la nota de cada uno
 }
+// Cuántas cosas hay hoy en la libreta de clientas (el numerito del botón)
+async function avisoClientas() {
+  try {
+    const v = await (await fetch("/api/clientas", { cache: "no-store" })).json();
+    const n = (v.tareas || []).length, el = $("#clientas-hoy");
+    el.textContent = n; el.hidden = !n;
+  } catch (e) {}
+}
+avisoClientas(); setInterval(avisoClientas, 60000);
 $("#reunir").onclick = () => { if (ocupado) return; texto.value = "Isa, reúne al equipo y revisa cómo va el trabajo de cada uno"; mandar(); };
 
 function ajustar() { texto.style.height = "auto"; texto.style.height = Math.min(texto.scrollHeight, 150) + "px"; }

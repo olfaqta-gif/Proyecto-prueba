@@ -41,6 +41,8 @@ SALIDA_GUION = RAIZ / 'guionista' / 'salida'
 PLANES = RAIZ / 'planificador' / 'planes'
 LECTOR = RAIZ / 'lector-farmasi' / 'salida'
 ANALISTA = RAIZ / 'analista'
+COMUNIDAD = RAIZ / 'comunidad'
+CLIENTAS = RAIZ / 'clientas'
 
 ESTILOS = ('clasico', 'favorito', 'razones')
 FORMAS_EDU = ('tips', 'mito', 'pasos', 'dato')
@@ -433,7 +435,55 @@ def revisar_analista():
             'evidencia': [ruta_rel(f) for f in informes[-3:]]}
 
 
+def revisar_comunidad():
+    historial = leer_json(COMUNIDAD / 'datos' / 'historial.json', []) or []
+    libreta = None
+    if (CLIENTAS / 'libreta.py').exists() and (CLIENTAS / 'datos' / 'libreta.json').exists():
+        spec = importlib.util.spec_from_file_location('libreta', CLIENTAS / 'libreta.py')
+        libreta = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(libreta)
+    if not historial and not libreta:
+        return None
+    sin_leer = [f for f in (COMUNIDAD / 'capturas').glob('*') if f.suffix.lower() in ('.png', '.jpg', '.jpeg', '.heic', '.webp')]
+    recientes = historial[-5:]
+    total = sum(h['total'] for h in recientes)
+    avisos = sum(h.get('avisos', 0) for h in recientes)
+    interesadas = sum(v for h in recientes for k, v in h.get('intenciones', {}).items()
+                      if k in ('comprar', 'precio', 'producto', 'envio', 'negocio', 'queja'))
+    anotadas = sum(h.get('anotadas', 0) for h in recientes)
+    vencidas, tareas = [], []
+    if libreta:
+        tareas = libreta.tareas(libreta.cargar())
+        vencidas = [t for t in tareas if t['urgencia'] >= 3]
+    try:
+        dias = (HOY - datetime.date.fromisoformat(historial[-1]['fecha'])).days if historial else None
+    except (KeyError, ValueError):
+        dias = None
+    criterios = [
+        criterio('Mensajes al día', 10 if not sin_leer else max(0, 10 - 2 * len(sin_leer)),
+                 f'{len(sin_leer)} capturas de mensajes esperando' if sin_leer else
+                 (f'Última hoja de respuestas hace {dias} días' if dias is not None else 'Sin capturas pendientes'),
+                 'Responder las capturas de mensajes que mandó Isabella' if sin_leer else None,
+                 'Ningún mensaje esperando' if not sin_leer and historial else None),
+        criterio('Respuestas en regla', 10 * (1 - avisos / total) if total else None,
+                 f'{total - avisos} de {total} respuestas sin nada que corregir (precios, promesas, huecos)' if total else 'Todavía no hay respuestas',
+                 'Revisar que ninguna respuesta tenga precios inventados ni promesas' if avisos else None,
+                 'Respuestas sin promesas ni precios inventados' if total and not avisos else None),
+        criterio('Interesadas en la libreta', min(10, 10 * anotadas / interesadas) if interesadas else None,
+                 f'{anotadas} de {interesadas} personas interesadas quedaron anotadas' if interesadas else 'Sin personas interesadas todavía',
+                 'Anotar en la libreta a cada persona que pregunta o quiere comprar' if interesadas and anotadas < interesadas else None),
+        criterio('Clientas atendidas a tiempo', max(0, 10 - 1.5 * len(vencidas)) if libreta else None,
+                 f'{len(vencidas)} tareas de la libreta atrasadas o para hoy ({len(tareas)} en total)' if libreta else 'Sin libreta todavía',
+                 'Recordarle a Isabella las clientas a las que se les acabó el producto o cumplen años' if len(vencidas) > 2 else None,
+                 'Ninguna clienta olvidada' if libreta and not vencidas else None),
+    ]
+    muestras = [h['hoja'] for h in historial[-2:] if (RAIZ / h['hoja']).exists()]
+    return {'piezas': sum(h['total'] for h in historial), 'que': 'mensajes respondidos', 'criterios': criterios,
+            'muestras': muestras, 'evidencia': muestras}
+
+
 REVISORES = {
+    'comunidad-ventas': revisar_comunidad,
     'scraper-farmasi': revisar_scraper,
     'estratega-contenido': revisar_estratega,
     'creador-contenido': revisar_creador_contenido,
@@ -594,7 +644,7 @@ def reunir(fecha):
         'nota_equipo': nota_equipo,
         'nota_equipo_anterior': (previa or {}).get('nota_equipo'),
         'historial_equipo': [{'fecha': a['fecha'], 'nota': a.get('nota_equipo')} for a in anteriores] + [{'fecha': fecha, 'nota': nota_equipo}],
-        'piezas': sum(a['piezas'] for a in agentes.values() if a['que'] not in ('publicaciones planeadas', 'productos investigados', 'publicaciones medidas')),
+        'piezas': sum(a['piezas'] for a in agentes.values() if a['que'] not in ('publicaciones planeadas', 'productos investigados', 'publicaciones medidas', 'mensajes respondidos')),
         'resultados': reales,
         'acuerdos': {'activos': sum(1 for a in todos_acuerdos if a['estado'] == 'activo'),
                      'cumplidos': sum(1 for a in todos_acuerdos if a['estado'] == 'cumplido')},

@@ -31,6 +31,7 @@ PANEL = Path(__file__).resolve().parent
 AGENTES = RAIZ / ".claude" / "agents"
 HABILIDADES = RAIZ / ".claude" / "skills"
 JEFE = "isa"
+CLIENTAS = RAIZ / "clientas"
 
 # Herramientas que Isa y sus agentes pueden usar sin pedir permiso en la terminal
 # (en la página no hay terminal donde aprobarlas). Se puede cambiar en panel/config.json.
@@ -50,6 +51,21 @@ CONFIG_BASE = {
 # Color de la luz de cada robot (el panel es azul oscuro).
 COLORES = ["#5be3b0", "#ffc15e", "#ff8a7a", "#7fb2ff", "#a99bff", "#4cc9ff",
            "#f59bd0", "#c6f36b"]
+
+_libreta = {"modulo": None}
+_candado_libreta = threading.Lock()
+
+
+def libreta():
+    """clientas/libreta.py: la libreta de clientas de Isabella (se carga la primera vez)."""
+    if _libreta["modulo"] is None:
+        import importlib.util
+        spec = importlib.util.spec_from_file_location("libreta", CLIENTAS / "libreta.py")
+        modulo = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(modulo)
+        _libreta["modulo"] = modulo
+    return _libreta["modulo"]
+
 
 # Proceso de Claude que está corriendo ahora (solo uno a la vez).
 _actual = {"proceso": None}
@@ -163,6 +179,8 @@ def trabajos_recientes(limite=24):
         ("lector-farmasi/salida", "*/producto.jpg", "Producto"),
         ("agente-contenido/salida", "**/previa*.jpg", "Previa"),
         ("reunion/actas", "*.html", "Reunión"),
+        ("analista/informes", "*.html", "Informe"),
+        ("comunidad/respuestas", "*.html", "Respuestas"),
     ]
     encontrados = []
     for carpeta, patron, tipo in patrones:
@@ -229,6 +247,12 @@ def resumen_de_herramienta(nombre, entrada):
             return "Revisando el trabajo de todo el equipo"
         if "revisar.py" in cmd:
             return "Anotando los acuerdos de la reunión"
+        if "libreta.py" in cmd:
+            return "Anotando en la libreta de clientas"
+        if "responder.py" in cmd:
+            return "Preparando las respuestas para tus clientas"
+        if "redes.py" in cmd:
+            return "Revisando tus números en redes"
         return "Ejecutando una tarea"
     return {
         "Read": "Leyendo un archivo", "Write": "Escribiendo un archivo",
@@ -370,6 +394,13 @@ class Manejador(BaseHTTPRequestHandler):
                 self.responder(200, destino.read_bytes(), "text/javascript; charset=utf-8")
             else:
                 self.responder(404, "{}")
+        elif url.path in ("/clientas", "/clientas/"):
+            self.responder(200, (CLIENTAS / "libreta.html").read_bytes(), "text/html; charset=utf-8")
+        elif url.path == "/api/clientas":
+            with _candado_libreta:
+                l = libreta()
+                vista = l.vista(l.cargar())
+            self.responder(200, json.dumps(vista, ensure_ascii=False))
         elif url.path == "/api/equipo":
             self.responder(200, json.dumps(equipo(), ensure_ascii=False))
         elif url.path == "/api/reunion":
@@ -401,6 +432,21 @@ class Manejador(BaseHTTPRequestHandler):
             if proceso:
                 proceso.terminate()
             self.responder(200, "{}")
+            return
+        if url.path == "/api/clientas":
+            try:
+                with _candado_libreta:
+                    l = libreta()
+                    datos = l.cargar()
+                    resultado = l.aplicar(datos, pedido)
+                    l.guardar(datos)
+                    vista = l.vista(datos)
+                    if pedido.get("accion") == "sincronizar":
+                        vista["sincronizado"] = resultado
+            except (ValueError, KeyError) as e:
+                self.responder(400, json.dumps({"error": str(e)}, ensure_ascii=False))
+                return
+            self.responder(200, json.dumps(vista, ensure_ascii=False))
             return
         if url.path != "/api/conversar":
             self.responder(404, "{}")

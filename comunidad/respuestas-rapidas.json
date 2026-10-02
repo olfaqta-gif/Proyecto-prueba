@@ -1,0 +1,67 @@
+{
+  "intro": "Son los mensajes que más vas a mandar. Guárdalos una vez en tu celular y después solo escribes el atajo (por ejemplo /info) y aparece el mensaje completo. Lo que está en amarillo lo completas tú una sola vez al guardarlo.",
+  "como_guardar": [
+    "Instagram: entra a tu perfil, toca el menú (las tres rayitas), busca «Herramientas para empresas» o «Herramientas para creadores» y entra a «Respuestas guardadas». Toca + y pega el mensaje; en «Atajo» escribe la palabra (por ejemplo info).",
+    "Para usarlas en Instagram: en el chat escribe el atajo y toca la respuesta que aparece arriba del teclado.",
+    "WhatsApp Business: Configuración → Herramientas para la empresa → Respuestas rápidas → +. En el chat escribe / y elige la respuesta. (El WhatsApp normal no tiene esta función.)",
+    "Facebook: en Meta Business Suite, Bandeja de entrada → Respuestas guardadas.",
+    "Si cambias tu saludo o tus precios, pídele a Isa que te las vuelva a preparar."
+  ],
+  "respuestas": [
+    {
+      "atajo": "/info",
+      "cuando": "Alguien escribe INFO o «me interesa»",
+      "texto": "¡Hola, hola! 💕 Gracias por escribirme. Cuéntame, ¿qué producto te gustó o qué estás buscando para tu piel? Así te ayudo a elegir lo que mejor te vaya ✨"
+    },
+    {
+      "atajo": "/precio",
+      "cuando": "Pregunta cuánto cuesta",
+      "texto": "¡Claro que sí! El [producto] está en [precio]. [Si hay promo: Esta semana tiene una promo de …]. ¿Te lo aparto? 😊"
+    },
+    {
+      "atajo": "/pedir",
+      "cuando": "Quiere comprar",
+      "texto": "¡Qué emoción! 🛍️ Para apartártelo solo necesito:\n1. Tu nombre completo\n2. [Tu dirección / dónde te queda bien recibirlo]\n3. Cómo prefieres pagar: [formas de pago]\nEn cuanto me confirmes, te aviso cuándo te llega 💕"
+    },
+    {
+      "atajo": "/envio",
+      "cuando": "Pregunta por el envío o la entrega",
+      "texto": "Hago entregas en [ciudad o zona] y envíos a [dónde envías]. Normalmente llega en [días]. ¿A qué ciudad sería? Así te confirmo 📦"
+    },
+    {
+      "atajo": "/piel",
+      "cuando": "Pregunta si sirve para su piel",
+      "texto": "¡Buena pregunta! Para ayudarte mejor, ¿cómo sientes tu piel durante el día: grasosa, seca, mixta o sensible? Y cuéntame qué te gustaría mejorar. Con eso te digo cuál te recomiendo 🌸"
+    },
+    {
+      "atajo": "/tonos",
+      "cuando": "Pregunta por tonos de maquillaje",
+      "texto": "¡Hay varios tonos! 💄 Mándame una foto tuya con luz natural (sin filtro) y te ayudo a escoger el que mejor te queda."
+    },
+    {
+      "atajo": "/cumple",
+      "cuando": "Para invitar a tu club de cumpleaños (en historias o a quien ya compró)",
+      "texto": "🎂 ¡Tengo un club de cumpleaños! Si quieres, dime tu fecha de cumpleaños y ese mes te llega un detalle especial de mi parte 💕 (si no, no pasa nada)."
+    },
+    {
+      "atajo": "/gracias",
+      "cuando": "Después de una compra",
+      "texto": "¡Gracias por tu compra, de corazón! 💖 Cuando lo pruebes, cuéntame qué te pareció. Y si te animas, mándame una foto, ¡me encanta ver cómo les queda!"
+    },
+    {
+      "atajo": "/sigue",
+      "cuando": "Alguien preguntó y no volvió a escribir",
+      "texto": "¡Hola! Te escribo por si te quedó alguna duda 😊 Aquí estoy para ayudarte cuando quieras, sin compromiso."
+    },
+    {
+      "atajo": "/negocio",
+      "cuando": "Pregunta cómo vender Farmasi o unirse",
+      "texto": "¡Qué lindo que te interese! 🤝 Te cuento cómo funciona y qué incluye empezar, sin compromiso. Te aviso desde ya: lo que se gana depende del trabajo de cada una, así que no te voy a prometer cifras. ¿Te llamo o prefieres que te escriba por aquí?"
+    },
+    {
+      "atajo": "/catalogo",
+      "cuando": "Pide ver todos los productos",
+      "texto": "¡Claro! Aquí puedes ver todo el catálogo: [tu link de Farmasi]. Si algo te llama la atención, escríbeme y te cuento cómo se usa ✨"
+    }
+  ]
+}

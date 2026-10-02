@@ -61,7 +61,8 @@ scraper-farmasi ──(catálogo completo, sin precios)──► analizar.py ─
      temporada (fechas del periodo), novedad, potencial de contenido (tonos,
      ingredientes, modo de uso…), empuje de la tienda (está en promoción: buena semana
      para que Isabella ponga su oferta, pero **tú no escribes precios**), disponibilidad,
-     ventas propias (`planificador/datos/ventas.csv`, si Isabella la llenó) y rendimiento
+     ventas propias (`planificador/datos/ventas.csv`: antes de analizar corre
+     `python3 clientas/libreta.py ventas-csv` para sacarlas de la libreta de clientas) y rendimiento
      por categoría (de los resultados guardados).
 5. **Tendencias (opcional, rápido)**: si el periodo tiene una fecha fuerte o Isabella lo pide,
    busca con WebSearch 1 o 2 cosas concretas (ej. "tendencias maquillaje Halloween 2026",
