@@ -319,3 +319,36 @@ b { font-weight: 800 }
 #out2 .nota { font-size: 24px; font-weight: 600; color: var(--gr); margin-top: 14px }
 #out2 .barra { width: 420px; height: 6px; border-radius: 3px; margin-top: 34px; background: linear-gradient(90deg, var(--am), var(--ve), var(--ci)) }
 #fade { position: absolute; inset: 0; background: #fff; opacity: 0; pointer-events: none }
+
+/* ================= Formato vertical 9:16 (1080×1920) =================
+   Texto arriba, teléfono al centro, tip y progreso debajo; los 300 px de abajo quedan libres
+   para los botones de Reels/TikTok. */
+body.v916 #stage { width: 1080px; height: 1920px }
+.v916 #bgmarca { width: 640px; right: -160px; bottom: -120px }
+.v916 #sw .rb { height: 1650px; top: 1275px }
+.v916 #lg { height: 200px } .v916 #lg .marca, .v916 #lg .texto { height: 200px }
+.v916 #tagline { font-size: 28px; letter-spacing: 7px }
+.v916 #tc h1 { font-size: 112px; max-width: 900px }
+.v916 #tc h1 span { margin: 0 10px }
+.v916 #tc .sub { font-size: 36px; max-width: 860px }
+.v916 #tc .chips { flex-wrap: wrap; justify-content: center; max-width: 900px }
+.v916 #phoneWrap { left: 330px; top: 560px; transform-origin: 50% 0 }
+.v916 #panel { left: 0; top: 0; width: 1080px; height: 1920px }
+.v916 #caps { justify-content: center; top: 150px; gap: 4px }
+.v916 #caps .cp { font-size: 22px; padding: 0 18px }
+.v916 .pn { left: 60px; top: 250px; width: 960px; text-align: center }
+.v916 .pn .kick { font-size: 22px }
+.v916 .pn .fila { justify-content: center; gap: 22px; margin-top: 10px }
+.v916 .pn .num { font-size: 132px }
+.v916 .pn .tt { font-size: 60px; text-align: left; max-width: 700px }
+.v916 .pn .ds { font-size: 30px; margin: 20px auto 0; max-width: 940px }
+.v916 .tip { left: 0; top: 1195px; width: 960px; min-height: 130px; text-align: left; padding: 26px 34px 26px 128px }
+.v916 .tip .tx { font-size: 29px }
+.v916 #prog { left: 140px; top: 1630px; width: 800px; text-align: center }
+.v916 #out1 { left: 0; top: 0; width: 1080px; height: 1920px; text-align: center }
+.v916 #out1 h2 { font-size: 112px; margin-top: 220px }
+.v916 #out1 p { font-size: 34px; margin: 22px auto 0; max-width: 880px }
+.v916 #out1 ul { position: absolute; left: 0; right: 0; top: 1470px; margin: 0; display: flex; flex-direction: column; align-items: center }
+.v916 #out1 li { font-size: 34px; width: 560px }
+.v916 #out2 .lg2 { height: 190px } .v916 #out2 .lg2 img { height: 190px }
+.v916 #out2 h3 { font-size: 50px; text-align: center; max-width: 860px; line-height: 1.2 }

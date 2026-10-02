@@ -67,4 +67,37 @@ window.GUION = {
   cierre: { titulo: '¡Así de fácil!', sub: 'Abre tu cuenta hoy desde la App Banco Ficensa',
     lista: ['Verifica tu identidad', 'Completa tus datos', 'Elige tu agencia'],
     cta: 'Descarga la App y abre tu cuenta hoy', nota: 'Disponible en tu tienda de aplicaciones' },
+  // Versión corta (~36 s): 6 momentos clave, intro y cierre más ágiles. "pantalla" es la pantalla de la app (1 a 12).
+  versiones: {
+    corta: {
+      inicioPasos: 4.4, duracionPaso: 4.3, cierre: .62,
+      capitulos: [
+        { nombre: 'Inicio', pasos: [1] },
+        { nombre: 'Identidad', pasos: [2, 3] },
+        { nombre: 'Tus datos', pasos: [4] },
+        { nombre: 'Agencia', pasos: [5] },
+        { nombre: '¡Listo!', pasos: [6] },
+      ],
+      pasos: [
+        { pantalla: 1, kicker: 'Inicio', titulo: 'Abre la App Ficensa',
+          texto: 'Toca el botón <b>“Abrir cuenta”</b> en la pantalla de inicio.',
+          tip: 'Ten tu DNI a mano antes de empezar.' },
+        { pantalla: 3, kicker: 'Verifica tu identidad', titulo: 'Fotografía tu DNI',
+          texto: 'Captura el <b>frente y el reverso</b> de tu DNI dentro del recuadro.',
+          tip: 'Usa buena luz, un fondo oscuro y evita el flash.' },
+        { pantalla: 6, kicker: 'Verifica tu identidad', titulo: 'Prueba de vida',
+          texto: '<b>Gira tu rostro</b> cuando la app te lo pida para confirmar que eres tú.',
+          tip: 'Retira lentes, gorra o mascarilla.' },
+        { pantalla: 7, kicker: 'Tus datos', titulo: 'Completa tus datos',
+          texto: 'Ingresa tu móvil, tu correo y tu dirección, y confirma con el <b>código OTP</b>.',
+          tip: 'El código dura solo un minuto: tenlo a mano.' },
+        { pantalla: 10, kicker: 'Tu agencia', titulo: 'Elige tu agencia',
+          texto: 'Selecciona la agencia de tu preferencia y presiona <b>“Solicitar”</b>.',
+          tip: 'Elige la más cercana a tu casa o a tu trabajo.' },
+        { pantalla: 12, kicker: '¡Listo!', titulo: 'Cuenta creada',
+          texto: 'Recibirás en tu correo tus <b>credenciales temporales</b> de Banca en Línea.',
+          tip: '¿Tienes dudas? Comunícate con nuestro Call Center.' },
+      ],
+    },
+  },
 };

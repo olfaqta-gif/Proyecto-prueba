@@ -161,7 +161,7 @@ def generar(info, salida):
     sfx = np.zeros(n)
     bar = BEAT * 4
     inicio_ritmo = M['inicioPasos']
-    fin_ritmo = M['fin'] + 4.6
+    fin_ritmo = M.get('barrido2', M['fin'] + 4.6)
     nb = int(dur / bar) + 1
     for b in range(nb):
         t0 = b * bar

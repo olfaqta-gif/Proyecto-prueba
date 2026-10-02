@@ -2,14 +2,18 @@
 //   node render.cjs eventos <salida.json>            línea de tiempo de sonidos + duración
 //   node render.cjs previa <carpeta> 1,7.5,12          cuadros sueltos (segundos)
 //   node render.cjs video <carpeta> [hilos]           todos los cuadros a 30 fps
+// (con FORMATO=9x16 y/o VERSION=corta delante para las otras opciones)
 const { chromium } = require('playwright');
 const { mkdirSync, writeFileSync } = require('fs');
 const path = require('path');
-const HTML = 'file://' + path.resolve(__dirname, 'showcase.html') + '?render';
+// Formato y versión: FORMATO=16x9|9x16  VERSION=completa|corta
+const FORMATO = process.env.FORMATO || '16x9', VERSION = process.env.VERSION || 'completa';
+const [W, H] = FORMATO === '9x16' ? [1080, 1920] : [1920, 1080];
+const HTML = 'file://' + path.resolve(__dirname, 'showcase.html') + `?render&formato=${FORMATO}&version=${VERSION}`;
 const FPS = 30;
 
 async function abrir(browser) {
-  const page = await browser.newPage({ viewport: { width: 1920, height: 1080 } });
+  const page = await browser.newPage({ viewport: { width: W, height: H } });
   await page.goto(HTML);
   await page.evaluate(() => document.fonts.ready);
   await page.waitForTimeout(300);

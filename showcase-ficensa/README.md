@@ -1,8 +1,16 @@
 # Showcase: Apertura de Cuenta (App Banco Ficensa)
 
-Video de 80 s en 16:9 (1920×1080, 30 fps) que muestra cómo se abre una cuenta desde la App, armado a partir del storyboard (`assets/storyboard.jpg`) y del logo.
+Video que muestra cómo se abre una cuenta desde la App, armado a partir del storyboard (`assets/storyboard.jpg`) y del logo. Sale en dos versiones y dos formatos (30 fps):
 
-**Resultado:** `salida/showcase-apertura-cuenta-16x9.mp4`
+| Archivo (`salida/`) | Formato | Duración | Contenido |
+|---|---|---|---|
+| `showcase-apertura-cuenta-completa-16x9.mp4` | 1920×1080 | 80 s | Los 12 pasos |
+| `showcase-apertura-cuenta-corta-16x9.mp4` | 1920×1080 | 36 s | 6 momentos clave |
+| `showcase-apertura-cuenta-completa-9x16.mp4` | 1080×1920 | 80 s | Los 12 pasos, vertical |
+| `showcase-apertura-cuenta-corta-9x16.mp4` | 1080×1920 | 36 s | 6 momentos clave, vertical |
+
+La **corta** muestra: abrir la App → foto del DNI → prueba de vida → datos y OTP → agencia → cuenta creada. Tiene la intro y el cierre más ágiles y sigue teniendo un tip en cada paso.
+En el **9:16**, el texto va arriba, el teléfono al centro y el tip abajo. Los ~280 px de abajo quedan libres para los botones de Reels y TikTok.
 
 ## Qué incluye
 - **Intro:** el logo se arma (primero las cintas, después el texto), luego un barrido con las cintas amarilla, verde y celeste y una portada con el título palabra por palabra.
@@ -12,16 +20,24 @@ Video de 80 s en 16:9 (1920×1080, 30 fps) que muestra cómo se abre una cuenta 
 - **Audio:** música corporativa sintetizada (sin licencias) y efectos sincronizados con cada animación.
 
 ## Cómo editarlo
-Los textos, los tips, los datos de ejemplo y los tiempos están en `guion.js`. Las pantallas de la app están en `pantallas.js`.
+Los textos, los tips, los datos de ejemplo y los tiempos están en `guion.js`. La versión corta está en `versiones.corta`, donde se eligen las pantallas, los textos y los tiempos. Las pantallas de la app están en `pantallas.js`.
+
+```bash
+./generar.sh 16x9 completa      # o: 16x9 corta · 9x16 completa · 9x16 corta
+```
+
+Para la vista en vivo, abre `showcase.html?formato=9x16&version=corta` en el navegador.
+
+Paso a paso (lo mismo que hace `generar.sh`):
 
 ```bash
 # Vista en vivo: abre showcase.html en el navegador (barra espaciadora = pausa; #t=30 empieza en el segundo 30)
-export NODE_PATH=/opt/node22/lib/node_modules
-node render.cjs eventos /tmp/eventos.json                 # línea de tiempo de sonidos
+export FORMATO=16x9 VERSION=completa NODE_PATH=/opt/node22/lib/node_modules
+node render.cjs eventos /tmp/eventos.json   # línea de tiempo de sonidos
 python3 musica.py /tmp/eventos.json /tmp/audio.wav        # música + efectos (necesita numpy y scipy)
 node render.cjs video /tmp/f 6                            # cuadros (6 pestañas en paralelo)
 ffmpeg -framerate 30 -i /tmp/f/f_%05d.jpg -i /tmp/audio.wav -c:v libx264 -pix_fmt yuv420p -crf 19 \
-  -c:a aac -b:a 192k -shortest -movflags +faststart salida/showcase-apertura-cuenta-16x9.mp4
+  -c:a aac -b:a 192k -shortest -movflags +faststart salida/showcase-apertura-cuenta-completa-16x9.mp4
 ```
 
 ## Para revisar antes de publicar
