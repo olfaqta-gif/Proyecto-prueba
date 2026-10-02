@@ -307,8 +307,19 @@ export function crearOficina(contenedor, opciones = {}) {
   const camara = new THREE.PerspectiveCamera(30, 1, 0.1, 200);
   // La cámara se encuadra sola según el tamaño de la ventana: toma de toda la oficina y toma
   // cercana de la mesa de reuniones (cuando Isa convoca al equipo).
-  const DIRECCION = new THREE.Vector3(0.62, 0.66, 0.85).normalize(), DIRECCION_CERCA = new THREE.Vector3(0.5, 0.36, 0.88).normalize();
-  const PUNTOS_LEJOS = [[-8.3, 0, -5.8], [8.3, 0, -5.8], [-8.3, 0, 4.2], [8.3, 0, 4.2], [-8.3, 4.7, -5.8], [8.3, 4.7, -5.8]];
+  const DIRECCION = new THREE.Vector3(0.5, 0.68, 0.9).normalize(), DIRECCION_CERCA = new THREE.Vector3(0.5, 0.36, 0.88).normalize();
+  // Toma general: el fondo de la oficina más cada escritorio ocupado con su robot y su
+  // etiqueta, para que ningún agente quede cortado (se recalcula al cambiar el equipo).
+  const SALA = [[-8.3, 0, -5.8], [8.3, 0, -5.8], [-8.3, 4.7, -5.8], [8.3, 4.7, -5.8], [-3, 0, 3.4], [3, 0, 3.4]];
+  let PUNTOS_LEJOS = SALA;
+  function puntosDelEquipo(n) {
+    const puntos = [...SALA];
+    PUESTOS.slice(0, Math.max(1, Math.min(n, PUESTOS.length))).forEach(({ x, z }) => {
+      for (const [dx, dz] of [[-1.3, -1.3], [1.3, -1.3], [-1.3, 1.3], [1.3, 1.3]]) puntos.push([x + dx, 0, z + dz]);
+      puntos.push([x - 1.1, 3.1, z], [x + 1.1, 3.1, z]);   // cabeza del robot y su etiqueta
+    });
+    return puntos;
+  }
   const PUNTOS_CERCA = [[-3.2, 0, -2.0], [3.2, 0, -2.0], [-3.2, 0, 2.8], [3.2, 0, 2.8], [0, 4.95, 0.6], [-3.2, 3.0, -2.0], [3.2, 3.0, 2.8]];
   const CAM_LEJOS = new THREE.Vector3(), MIRA_LEJOS = new THREE.Vector3(), CAM_CERCA = new THREE.Vector3(), MIRA_CERCA = new THREE.Vector3();
   function encuadrar(puntos, margen, cam, mira, DIRECCION, margenX = margen) {
@@ -478,6 +489,7 @@ export function crearOficina(contenedor, opciones = {}) {
     escena.remove(grupoEquipo);
     grupoEquipo.traverse((o) => { if (o.isCSS2DObject) o.element.remove(); });
     grupoEquipo = new THREE.Group(); escena.add(grupoEquipo); robots.clear(); ocupados.clear();
+    PUNTOS_LEJOS = puntosDelEquipo(agentes.length); ajustar();
     agentes.forEach((a, i) => {
       const puesto = PUESTOS[i % PUESTOS.length];
       const casa = new THREE.Vector3(puesto.x, 0, puesto.z);
@@ -576,8 +588,9 @@ export function crearOficina(contenedor, opciones = {}) {
     const w = contenedor.clientWidth, h = contenedor.clientHeight; if (!w || !h) return;
     render.setSize(w, h); etiquetas.setSize(w, h); camara.aspect = w / h;
     camara.fov = w / h < 1.1 ? 34 : 28; camara.updateProjectionMatrix();
-    // la toma general recorta un poco los lados para que el equipo se vea más grande
-    encuadrar(PUNTOS_LEJOS, 0.97, CAM_LEJOS, MIRA_LEJOS, DIRECCION, w / h < 1 ? 1.22 : 1.08);
+    // Margen en píxeles: las etiquetas con el nombre miden lo mismo en cualquier pantalla
+    // (~90 px a cada lado del robot), más el vaivén suave de la cámara y el mouse.
+    encuadrar(PUNTOS_LEJOS, Math.max(0.65, 0.95 - 70 / h), CAM_LEJOS, MIRA_LEJOS, DIRECCION, Math.max(0.6, 0.96 - 120 / w));
     encuadrar(PUNTOS_CERCA, 0.95, CAM_CERCA, MIRA_CERCA, DIRECCION_CERCA);
   }
   new ResizeObserver(ajustar).observe(contenedor); ajustar();
