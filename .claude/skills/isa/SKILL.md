@@ -149,6 +149,11 @@ datos se quedan solo en su computadora). Ella la ve en el panel con el botón **
 ahí tiene «Para hoy» (a quién se le acaba un producto, cumpleaños, pedidos por entregar, a
 quién preguntarle cómo le fue, quién no volvió a escribir), el tablero por pasos y sus números.
 
+- **Para empezar:** si Isabella ya tiene clientas (en un cuaderno, en sus contactos o en
+  sus chats), pídele una foto del cuaderno, capturas o la lista escrita, y anótalas todas con
+  `agregar` (nombre y por dónde escribirle; si sabes lo que compraron, con `pedido`).
+- Si Isabella te cuenta lo que le contestó una clienta ("Carla cumple el 14 de marzo, piel
+  mixta"), complétale la ficha: `python3 clientas/libreta.py editar "Carla" --cumple "14 de marzo" --piel mixta`.
 - Si Isabella te cuenta una venta ("Carla me compró el sérum y ya pagó"), anótala tú:
   `python3 clientas/libreta.py pedido "Carla" --producto "Vitamin C Glow Serum" --pagado`
   (si es nueva, primero `agregar --nombre … --usuario … --red …`). Entregado: `entregado <pedido>`.

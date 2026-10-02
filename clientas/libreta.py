@@ -76,6 +76,15 @@ DURACION_DEFECTO = 60
 AVISO_ANTES = 7          # días antes de que se acabe para ofrecerle otra vez
 DIAS_SIN_RESPUESTA = 3   # una clienta que preguntó y no volvió a escribir
 DIAS_OPINION = 5         # después de entregar, preguntarle cómo le fue
+MAX_INSISTIR = 2         # mensajes sin respuesta antes de dejarla en pausa
+
+# La ficha de una clienta tiene 3 niveles (ver clientas/README.md):
+#  1. Para anotarla: nombre (o @usuario) y por dónde escribirle (red + usuario, o teléfono).
+#  2. Cuando compra: qué compró, si pagó y cuándo lo recibió (de ahí salen los avisos).
+#  3. Para conocerla (opcional): se le pregunta con un mensaje después de su primera compra.
+PARA_CONOCERLA = [('cumple', 'su cumpleaños', 'cuándo es tu cumpleaños 🎂'),
+                  ('piel', 'su tipo de piel', 'cómo es tu piel: seca, grasa, mixta o sensible'),
+                  ('ciudad', 'su ciudad', 'en qué ciudad vives, para tus entregas')]
 
 
 # ---------- guardar y leer ----------
@@ -403,6 +412,20 @@ def n_dias(n):
     return '1 día' if n == 1 else f'{n} días'
 
 
+def que_falta(c):
+    """Los datos para conocerla que todavía no tiene la ficha."""
+    return [(k, nombre, pregunta) for k, nombre, pregunta in PARA_CONOCERLA if not c.get(k)]
+
+
+def mensaje_datos(c):
+    preguntas = [p for _, _, p in que_falta(c)]
+    if not preguntas:
+        return ''
+    lista = preguntas[0] if len(preguntas) == 1 else ', '.join(preguntas[:-1]) + ' y ' + preguntas[-1]
+    return (f'¡Hola, {primer_nombre(c)}! 💕 Para consentirte mejor y avisarte cuando haya algo para ti, '
+            f'¿me cuentas {lista}?')
+
+
 def tareas(datos, dia=None):
     dia = dia or hoy()
     hechos = datos.get('hechos', {})
@@ -493,10 +516,12 @@ def tareas(datos, dia=None):
                   'Te lo anotaste para hoy.' if f == dia else f'Te lo anotaste para el {f.strftime("%d/%m")}.', f,
                   mensaje('seguimiento', c, ''), 3 if f < dia else 2)
 
-    # 6. Preguntó y no volvió a escribir.
+    # 6. Preguntó y no volvió a escribir (se le insiste 2 veces como máximo).
     for c in datos['clientas']:
         u = fecha(c.get('ultimo_contacto'))
         if c.get('etapa') not in ('pregunto', 'interesada') or not u or (c.get('seguimiento') or {}).get('fecha'):
+            continue
+        if sum(1 for h in hechos if h.startswith(f"frio:{c['id']}:")) >= MAX_INSISTIR:
             continue
         if (dia - u).days >= DIAS_SIN_RESPUESTA:
             interes = ', '.join(c.get('intereses', [])[:2])
@@ -504,6 +529,17 @@ def tareas(datos, dia=None):
                   f"Hace {n_dias((dia - u).days)} que no hablan" + (f' · le interesa {interes}' if interes else '') + '.',
                   u + datetime.timedelta(days=DIAS_SIN_RESPUESTA),
                   mensaje('frio', c, f'sobre {interes}' if interes else ''), 1)
+
+    # 7. Ya compró y a su ficha le faltan datos para conocerla: preguntárselos una vez.
+    for c in datos['clientas']:
+        mios = [p for p in datos['pedidos'] if p['clienta'] == c['id']]
+        if not mios or c.get('etapa') == 'pausa' or not que_falta(c):
+            continue
+        primera = min(fecha(p['fecha']) or dia for p in mios)
+        tarea(f"datos:{c['id']}", 'datos', c, 'Completa su ficha',
+              'Ya te compró. Te falta ' + nombres_productos([{'nombre': n} for _, n, _ in que_falta(c)]) +
+              ': con eso la libreta te avisa de su cumpleaños y le recomiendas mejor.',
+              primera, mensaje_datos(c), 1)
 
     lista.sort(key=lambda t: (-t['urgencia'], t['fecha']))
     return lista
@@ -522,10 +558,13 @@ def marcar_hecho(datos, tid):
     if c:
         que = {'recompra': 'Le ofrecí otra vez su producto', 'cumple': 'Le escribí por su cumpleaños',
                'opinion': 'Le pregunté cómo le fue', 'seguimiento': 'Le escribí como quedamos',
-               'frio': 'Le escribí otra vez'}.get(tipo, 'Le escribí')
+               'frio': 'Le escribí otra vez', 'datos': 'Le pregunté sus datos para la ficha'}.get(tipo, 'Le escribí')
         anotar(c, que)
         if tipo == 'seguimiento':
             c.pop('seguimiento', None)
+        if tipo == 'frio' and sum(1 for h in datos['hechos'] if h.startswith(f"frio:{c['id']}:")) >= MAX_INSISTIR:
+            mover(datos, c, 'pausa')
+            anotar(c, f'No respondió a {MAX_INSISTIR} mensajes: queda en pausa (si vuelve a escribir, muévela)')
 
 
 def deshacer(datos, tid):
@@ -641,6 +680,8 @@ def vista(datos, dia=None):
         c['ultimo_pedido'] = mios[0]['fecha'] if mios else None
         c['productos'] = list(dict.fromkeys(x['nombre'] for p in mios for x in p['productos']))
         c['enlace'] = enlace_chat(c)
+        c['faltan'] = [nombre for _, nombre, _ in que_falta(c)]
+        c['mensaje_datos'] = mensaje_datos(c)
         clientas.append(c)
     return {'hoy': dia.isoformat(), 'etapas': ETAPAS, 'pausa': PAUSA, 'redes': REDES,
             'clientas': clientas, 'pedidos': datos['pedidos'], 'tareas': tareas(datos, dia),
@@ -786,7 +827,7 @@ def imprimir_tareas(lista):
     if not lista:
         print('Nada pendiente para hoy. 🌸')
         return
-    iconos = {'recompra': '🔁', 'cumple': '🎂', 'entrega': '📦', 'opinion': '💬', 'seguimiento': '📌', 'frio': '👋'}
+    iconos = {'recompra': '🔁', 'cumple': '🎂', 'entrega': '📦', 'opinion': '💬', 'seguimiento': '📌', 'frio': '👋', 'datos': '📝'}
     for t in lista:
         print(f"{iconos.get(t['tipo'], '•')} {t['nombre']}: {t['titulo']}. {t['detalle']}")
         print(f"   Mensaje: {t['mensaje']}")

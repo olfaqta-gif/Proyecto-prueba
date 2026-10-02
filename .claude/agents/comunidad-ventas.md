@@ -38,6 +38,9 @@ Abre cada imagen con Read. Una captura puede tener varios comentarios o un chat 
 cada persona es una conversación. Saca:
 - `red` (instagram, tiktok, whatsapp, facebook) y `donde` (comentario, mensaje, historia).
 - `usuario` (sin @) y `nombre` si se ve; en WhatsApp el `telefono` si aparece.
+- Si en el chat la clienta cuenta su cumpleaños, su tipo de piel o su ciudad (por ejemplo
+  contestando el mensaje «Conócela»), guárdalo en su ficha:
+  `python3 clientas/libreta.py editar "<nombre>" --cumple "14 de marzo" --piel mixta --ciudad Miami`.
 - `texto`: lo que escribió, tal cual (lo último que dijo, con lo anterior si hace falta).
 - `publicacion`: en qué video o post comentó, si se ve.
 - `intencion`, la que más pesa:

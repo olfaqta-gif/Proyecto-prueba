@@ -39,6 +39,11 @@
       "texto": "¡Hay varios tonos! 💄 Mándame una foto tuya con luz natural (sin filtro) y te ayudo a escoger el que mejor te queda."
     },
     {
+      "atajo": "/ficha",
+      "cuando": "Después de su primera compra, para conocerla",
+      "texto": "¡Hola! 💕 Para consentirte mejor y avisarte cuando haya algo para ti, ¿me cuentas cuándo es tu cumpleaños 🎂, cómo es tu piel (seca, grasa, mixta o sensible) y en qué ciudad vives?"
+    },
+    {
       "atajo": "/gracias",
       "cuando": "Después de una compra",
       "texto": "¡Gracias por tu compra, de corazón! 💖 Cuando lo pruebes, cuéntame qué te pareció. Y si te animas, mándame una foto, ¡me encanta ver cómo les queda!"

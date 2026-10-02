@@ -69,6 +69,7 @@
   .btn { border: 1px solid var(--linea); background: var(--papel); border-radius: 999px; padding: 9px 16px; font-weight: 600; font-size: 14px;
     display: inline-flex; align-items: center; gap: 7px; transition: transform .15s, box-shadow .15s, background .15s; white-space: nowrap; }
   a.btn { text-decoration: none; }
+  .btn .corto { display: none; }
   .btn:hover { transform: translateY(-1px); box-shadow: var(--sombra); }
   .btn.principal { background: var(--rosa); color: #fff; border-color: transparent; box-shadow: 0 8px 18px -8px var(--rosa); }
   .btn.principal:hover { background: var(--rosa-osc); }
@@ -249,6 +250,19 @@
   .redes-elegir input { display: none; }
   .redes-elegir span { display: inline-block; padding: 7px 12px; border-radius: 999px; border: 1px solid var(--linea); background: var(--papel); font-size: 13px; font-weight: 600; text-transform: capitalize; }
   .redes-elegir input:checked + span { background: var(--tinta); color: var(--fondo); border-color: var(--tinta); }
+  details.mas { margin-top: 14px; }
+  details.mas summary { cursor: pointer; font-weight: 600; font-size: 14px; color: var(--rosa-osc); margin-bottom: 12px; }
+  .falta { background: color-mix(in srgb, var(--oro) 14%, var(--papel)); border: 1px dashed var(--oro); border-radius: 14px; padding: 12px 14px; font-size: 14px; }
+  .falta p { margin: 0 0 8px; }
+  .ayuda-lista { display: grid; gap: 10px; margin: 0 0 16px; }
+  .nivel { display: grid; grid-template-columns: 34px 1fr; gap: 10px; background: var(--papel); border: 1px solid var(--linea); border-radius: 16px; padding: 12px 14px; }
+  .nivel .num { width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; font-weight: 700; color: #fff; background: var(--c); }
+  .nivel b { display: block; }
+  .nivel p { margin: 2px 0 0; font-size: 13.5px; color: var(--tinta-2); }
+  #dlg-ayuda { width: min(640px, calc(100vw - 24px)); }
+  #dlg-ayuda h3 { font: 600 18px var(--titulo); margin: 18px 0 10px; }
+  .pasos-ayuda { font-size: 13.5px; color: var(--tinta-2); margin: 0; padding-left: 18px; }
+  .pasos-ayuda li { margin: 4px 0; }
   .pie { display: flex; gap: 10px; justify-content: flex-end; margin-top: 22px; }
   .lista-prod { display: flex; flex-direction: column; gap: 8px; margin: 6px 0 4px; }
   .prod-elegido { display: grid; grid-template-columns: 40px 1fr 64px 30px; gap: 10px; align-items: center; background: var(--papel); border: 1px solid var(--linea); border-radius: 14px; padding: 6px 8px; }
@@ -286,6 +300,8 @@
     .buscador { order: 3; max-width: none; flex-basis: 100%; }
     .marca { flex-basis: 100%; }
     header.barra .btn { flex: 1; justify-content: center; }
+    header.barra #btn-ayuda { flex: 0 0 auto; }
+    .btn .largo { display: none; } .btn .corto { display: inline; }
     .saludo h1 { font-size: 34px; }
     .tareas { grid-template-columns: 1fr; }
     .campos { grid-template-columns: 1fr; }
@@ -304,6 +320,7 @@
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
       <input id="buscar" type="search" placeholder="Buscar clienta, @usuario o producto" autocomplete="off">
     </label>
+    <button class="btn fantasma" id="btn-ayuda" type="button" title="Cómo se llena la libreta"><span class="largo">¿Cómo funciona?</span><span class="corto">Ayuda</span></button>
     <button class="btn" id="btn-clienta" type="button">＋ Clienta</button>
     <button class="btn principal" id="btn-pedido" type="button">＋ Pedido</button>
   </div>
@@ -347,7 +364,7 @@
 <dialog id="dlg-clienta">
   <form method="dialog" id="form-clienta">
     <h2 id="dlg-clienta-titulo">Nueva clienta</h2>
-    <p class="ayuda">Con el nombre basta. Lo demás lo puedes completar después.</p>
+    <p class="ayuda">Solo necesitas su nombre y por dónde escribirle. Lo demás se lo preguntas cuando te compre (la libreta te recuerda).</p>
     <input type="hidden" name="id">
     <div class="campos">
       <label class="campo ancho">Nombre<input name="nombre" required placeholder="Ej. Carla Méndez"></label>
@@ -355,13 +372,16 @@
         <div class="redes-elegir" id="redes-elegir"></div></div>
       <label class="campo">Usuario<input name="usuario" placeholder="@usuario"></label>
       <label class="campo">WhatsApp / teléfono<input name="telefono" placeholder="+1 305 555 0000" inputmode="tel"></label>
-      <label class="campo">Ciudad<input name="ciudad"></label>
-      <label class="campo">Cumpleaños<input name="cumple" placeholder="14 de marzo"></label>
-      <label class="campo">Tipo de piel<select name="piel"><option value="">—</option><option>normal</option><option>seca</option><option>grasa</option><option>mixta</option><option>sensible</option></select></label>
-      <label class="campo">Tono<input name="tono" placeholder="Ej. medio cálido"></label>
-      <label class="campo ancho">Le interesa<input name="intereses" placeholder="Ej. sérum, labiales, té (separa con comas)"></label>
-      <label class="campo ancho">Nota<textarea name="nota" rows="2" placeholder="Ej. Preguntó si el sérum sirve para piel grasa"></textarea></label>
+      <label class="campo ancho">Qué le interesa o qué preguntó<input name="nota" placeholder="Ej. Preguntó si el sérum sirve para piel grasa"></label>
     </div>
+    <details class="mas" id="mas-datos"><summary>Más datos (opcional)</summary>
+      <div class="campos">
+        <label class="campo">Cumpleaños<input name="cumple" placeholder="14 de marzo"></label>
+        <label class="campo">Tipo de piel<select name="piel"><option value="">—</option><option>normal</option><option>seca</option><option>grasa</option><option>mixta</option><option>sensible</option></select></label>
+        <label class="campo">Ciudad<input name="ciudad"></label>
+        <label class="campo">Productos que le gustan<input name="intereses" placeholder="Ej. sérum, labiales"></label>
+      </div>
+    </details>
     <div class="pie"><button class="btn fantasma" value="cancelar" formnovalidate>Cancelar</button><button class="btn principal" value="ok">Guardar</button></div>
   </form>
 </dialog>
@@ -388,6 +408,38 @@
   </form>
 </dialog>
 
+<dialog id="dlg-ayuda">
+  <form method="dialog">
+    <h2>Cómo se llena la libreta</h2>
+    <p class="ayuda">Casi todo entra solo. Tú solo cuentas las ventas.</p>
+    <div class="ayuda-lista">
+      <div class="nivel" style="--c:#8f7cf6"><span class="num">1</span><div><b>Cuando alguien te escribe</b>
+        <p>Pásale a Isa capturas de tus comentarios y mensajes. El agente de comunidad anota a cada persona que pregunta o quiere comprar, con su nombre, su usuario y lo que preguntó. También puedes anotarla tú con «＋ Clienta». Solo hace falta su nombre y por dónde escribirle.</p></div></div>
+      <div class="nivel" style="--c:#d64f8a"><span class="num">2</span><div><b>Cuando te compra</b>
+        <p>Dile a Isa «Carla me compró el sérum y ya pagó», o toca «＋ Pedido». Cuando se lo entregues, toca «Entregar». Con eso la libreta sabe cuándo se le va a acabar y te avisa una semana antes.</p></div></div>
+      <div class="nivel" style="--c:#c99a5b"><span class="num">3</span><div><b>Para conocerla (opcional)</b>
+        <p>Después de su primera compra, en «Para hoy» aparece «Conócela» con un mensaje para preguntarle su cumpleaños, su tipo de piel y su ciudad. Lo que te conteste lo pones en su ficha con «Editar», o se lo cuentas a Isa.</p></div></div>
+    </div>
+    <h3>Los pasos se mueven solos</h3>
+    <ul class="pasos-ayuda">
+      <li><b>Preguntó:</b> te escribió o comentó con una pregunta.</li>
+      <li><b>Interesada:</b> dijo que lo quiere o preguntó cómo comprarlo, pero todavía no pide.</li>
+      <li><b>Pidió:</b> tiene un pedido sin entregar (pasa sola al anotar el pedido).</li>
+      <li><b>Ya lo tiene:</b> recibió su primer pedido (pasa sola al tocar «Entregar»).</li>
+      <li><b>Clienta fiel:</b> te compró dos veces o más (pasa sola).</li>
+      <li><b>En pausa:</b> no contestó a 2 mensajes seguidos, o tú la pones ahí. Si vuelve a escribir, regresa sola.</li>
+    </ul>
+    <h3>Cuándo te avisa</h3>
+    <ul class="pasos-ayuda">
+      <li>🔁 Una semana antes de que se le acabe lo que compró (té 30 días, sérum 45, crema 60, máscara de pestañas o base 90, labial o perfume 120).</li>
+      <li>🎂 La semana de su cumpleaños · 📦 pedidos sin entregar · 💬 5 días después de entregar, para preguntarle cómo le fue.</li>
+      <li>👋 Si preguntó y no volvió a escribir en 3 días (máximo 2 veces) · 📌 los recordatorios que te anotes.</li>
+    </ul>
+    <p class="ayuda" style="margin-top:14px">Tus clientas se guardan solo en esta computadora, no se suben a internet.</p>
+    <div class="pie"><button class="btn principal" value="ok">Entendido</button></div>
+  </form>
+</dialog>
+
 <div class="aviso" id="aviso"></div>
 
 <script>
@@ -409,6 +461,7 @@ const TIPOS = {
   opinion: { nombre: "¿Cómo le fue?", icono: "💬", c: "#8f7cf6" },
   seguimiento: { nombre: "Recordatorio", icono: "📌", c: "#e07a3f" },
   frio: { nombre: "Sin respuesta", icono: "👋", c: "#5b8def" },
+  datos: { nombre: "Conócela", icono: "📝", c: "#b07a2a" },
 };
 const PARES = [["#f29bb8", "#d64f8a"], ["#f6c59a", "#e2795b"], ["#c7b5ff", "#8f6ae6"], ["#9fe0c8", "#2f9e76"], ["#ffd88a", "#d99a2b"], ["#a8d4ff", "#4f8ee6"], ["#f7b0d9", "#b0408a"]];
 
@@ -508,7 +561,7 @@ function pintarHoy() {
   const lista = V.tareas.filter((t) => coincide(clienta(t.clienta) || {}));
   if (!lista.length) {
     caja.innerHTML = `<div class="vacio" style="grid-column:1/-1"><div class="grande">🌸</div><h3>${V.clientas.length ? "Todo al día" : "Tu libreta está vacía"}</h3>
-      <p>${V.clientas.length ? "Cuando a una clienta se le esté acabando algo, cumpla años o haya un pedido por entregar, aparece aquí." : "Agrega a tus clientas con «＋ Clienta», o pásale a Isa capturas de tus mensajes y el agente de comunidad las anota solo."}</p></div>`;
+      <p>${V.clientas.length ? "Cuando a una clienta se le esté acabando algo, cumpla años o haya un pedido por entregar, aparece aquí." : "Agrega a tus clientas con «＋ Clienta», o pásale a Isa capturas de tus mensajes y el agente de comunidad las anota solo. Toca «¿Cómo funciona?» para ver cómo se llena."}</p></div>`;
     return;
   }
   caja.innerHTML = lista.map((t) => {
@@ -648,6 +701,8 @@ function abrirClienta(id, refrescar) {
         <button class="btn chico" data-a="pedido">＋ Pedido</button><button class="btn chico" data-a="editar">Editar</button>
       </div></div>
     <div class="bloque">
+      ${c.faltan?.length ? `<h4>Le falta en su ficha</h4><div class="falta"><p>${esc(c.faltan.join(", ").replace(/^./, (x) => x.toUpperCase()))}. ${c.n_pedidos ? "Pregúntaselo con este mensaje:" : "Pregúntaselo cuando te compre."}</p>
+        ${c.n_pedidos ? `<button class="btn chico" data-a="copiar-datos">Copiar mensaje para preguntarle</button>` : ""}</div>` : ""}
       <h4>En qué paso va</h4>
       <div class="pasos">${[...V.etapas, V.pausa].map((x) => `<button style="--c:${x.color}" data-e="${x.id}" aria-pressed="${x.id === c.etapa}">${x.icono} ${esc(x.nombre)}</button>`).join("")}</div>
       <h4>Sus datos</h4>
@@ -674,6 +729,7 @@ function abrirClienta(id, refrescar) {
   $("#cajon").onclick = (ev) => {
     const a = ev.target.closest("[data-a]")?.dataset.a; if (!a) return;
     if (a === "pedido") abrirPedido(c.nombre);
+    if (a === "copiar-datos") { navigator.clipboard?.writeText(c.mensaje_datos).catch(() => {}); avisar("Mensaje copiado: pégalo en su chat"); }
     if (a === "editar") abrirFormClienta(c);
     if (a === "nota") { const t = $("#nota-texto").value.trim(); if (t) cambiar({ accion: "nota", id, texto: t }, "Anotado ✍️"); }
     if (a === "seguimiento") cambiar({ accion: "seguimiento", id, fecha: $("#seg-fecha").value, motivo: $("#seg-motivo").value }, $("#seg-fecha").value ? "Te lo recuerdo ese día 📌" : "Recordatorio quitado");
@@ -692,18 +748,20 @@ function abrirFormClienta(c) {
   $("#dlg-clienta-titulo").textContent = c ? `Editar a ${c.nombre.split(" ")[0]}` : "Nueva clienta";
   $("#redes-elegir").innerHTML = V.redes.map((r, i) => `<label><input type="radio" name="red" value="${r}" ${(c ? c.red === r : i === 0) ? "checked" : ""}><span>${r}</span></label>`).join("");
   if (c) {
-    for (const k of ["id", "nombre", "usuario", "telefono", "ciudad", "piel", "tono"]) if (f.elements[k]) f.elements[k].value = c[k] || "";
+    for (const k of ["id", "nombre", "usuario", "telefono", "ciudad", "piel"]) if (f.elements[k]) f.elements[k].value = c[k] || "";
     f.elements.cumple.value = c.cumple ? cumpleLindo(c.cumple) : "";
     f.elements.intereses.value = (c.intereses || []).join(", ");
   } else f.elements.id.value = "";
+  $("#mas-datos").open = !!c;
   $("#dlg-clienta").showModal();
   setTimeout(() => f.elements.nombre.focus(), 50);
 }
 $("#btn-clienta").onclick = () => abrirFormClienta(null);
+$("#btn-ayuda").onclick = () => { $("#dlg-ayuda").showModal(); $("#dlg-ayuda").scrollTop = 0; };
 $("#dlg-clienta").addEventListener("close", async () => {
   if ($("#dlg-clienta").returnValue !== "ok") return;
   const f = $("#form-clienta"), d = Object.fromEntries(new FormData(f));
-  const datos = { nombre: d.nombre, red: d.red, usuario: d.usuario, telefono: d.telefono, ciudad: d.ciudad, cumple: d.cumple, piel: d.piel, tono: d.tono, intereses: d.intereses };
+  const datos = { nombre: d.nombre, red: d.red, usuario: d.usuario, telefono: d.telefono, ciudad: d.ciudad, cumple: d.cumple, piel: d.piel, intereses: d.intereses };
   if (d.id) datos.id = d.id; else datos.origen = d.red;
   const ok = await cambiar({ accion: "clienta", clienta: datos, nota: d.nota }, d.id ? "Datos guardados" : `¡${d.nombre.split(" ")[0]} está en tu libreta! 💕`);
   if (ok && !d.id) { const nueva = V.clientas.find((c) => c.nombre === d.nombre); if (nueva) abrirClienta(nueva.id); }

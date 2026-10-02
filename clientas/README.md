@@ -15,7 +15,8 @@ escribirle hoy**. Se abre en el panel de Isa con el botón **«Clientas»**.
   - 💬 **¿Cómo le fue?** unos días después de recibir su pedido; si le encantó, pídele una foto
     o un audio para tus redes.
   - 📌 **Recordatorios** que te anotaste ("escribirle el viernes").
-  - 👋 **Sin respuesta:** preguntó y no volvió a escribir en 3 días.
+  - 👋 **Sin respuesta:** preguntó y no volvió a escribir en 3 días (2 veces como máximo).
+  - 📝 **Conócela:** ya compró y a su ficha le falta el cumpleaños, la piel o la ciudad.
   
   «WhatsApp» abre el chat con el mensaje listo; en Instagram, TikTok o Facebook copia el
   mensaje y abre su chat para que solo lo pegues. «Hecho ✓» la quita de la lista.
@@ -29,12 +30,22 @@ escribirle hoy**. Se abre en el panel de Isa con el botón **«Clientas»**.
 Los botones **＋ Clienta** y **＋ Pedido** están arriba. Al anotar un pedido, la clienta
 pasa sola a "Pidió" (o a "Clienta fiel" si ya había comprado antes).
 
-## De dónde salen las clientas
+## Cómo se llena la ficha (también en el botón «¿Cómo funciona?»)
 
-- Las anota Isabella en la página.
-- El agente de comunidad anota solo a cada persona que pregunta o quiere comprar cuando
-  le pasas capturas de tus mensajes (`comunidad/`).
-- Isa anota las ventas que le cuentas ("Carla me compró el sérum").
+| Cuándo | Qué datos | Quién los pone |
+|---|---|---|
+| 1. Alguien te escribe | nombre (o @usuario), red, usuario o teléfono, qué preguntó | el agente de comunidad, al leer las capturas de tus mensajes; o Isabella con «＋ Clienta» |
+| 2. Te compra | qué compró, si pagó, cuándo lo recibió | Isabella le cuenta a Isa la venta, o «＋ Pedido» y luego «Entregar» |
+| 3. Para conocerla (opcional) | cumpleaños, tipo de piel, ciudad | después de su primera compra aparece «Conócela» con el mensaje para preguntarle; lo que conteste se pone con «Editar» o se le cuenta a Isa |
+
+Solo el paso 1 es obligatorio (nombre y por dónde escribirle). Sin el paso 2 no hay avisos de
+"se le acaba"; sin el cumpleaños no hay aviso de cumpleaños. Para empezar con las clientas
+que Isabella ya tiene, se le pasa a Isa una foto del cuaderno, capturas o la lista escrita.
+
+**Los pasos se mueven solos:** Preguntó (escribió con una pregunta) → Interesada (dijo que lo
+quiere) → Pidió (al anotar un pedido) → Ya lo tiene (al entregar el primero) → Clienta fiel
+(segunda compra). **En pausa:** no contestó a 2 mensajes seguidos (o Isabella la pone ahí);
+si vuelve a escribir, el agente de comunidad la regresa.
 
 ## Para Isa y los agentes (`libreta.py`, solo Python estándar)
 

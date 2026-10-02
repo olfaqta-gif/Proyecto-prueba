@@ -157,6 +157,8 @@ def cmd_hoja(a):
             c = l.guardar_clienta(datos, campos, nota)
             if ya and etapa == 'interesada' and c.get('etapa') == 'pregunto':
                 l.mover(datos, c, 'interesada')
+            if ya and etapa and c.get('etapa') == 'pausa':   # volvió a escribir
+                l.mover(datos, c, etapa)
             item['clienta'] = c['id']
             anotadas.append(('nueva' if not ya else 'ya estaba', c['nombre']))
         # La captura ya se leyó
