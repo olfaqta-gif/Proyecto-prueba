@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Showcase Apertura de Cuenta</title>
+<link rel="stylesheet" href="../agente-contenido/plantilla/fonts/fonts.css">
+<link rel="stylesheet" href="showcase.css">
+</head>
+<body>
+<div id="stage">
+
+  <!-- Fondo azul de marca -->
+  <div id="bg" class="capa">
+    <div id="bgpoly"></div>
+    <div id="bggrid"></div>
+    <div class="blob" id="b1" style="background:#fdd10b"></div>
+    <div class="blob" id="b2" style="background:#95c94a"></div>
+    <div class="blob" id="b3" style="background:#12c0f0"></div>
+    <img id="bgmarca" src="assets/marca.png" alt="">
+  </div>
+
+  <!-- Portada -->
+  <div id="tc" class="capa">
+    <div class="kick">App Banco Ficensa</div>
+    <h1 id="tcTitulo"></h1>
+    <div class="sub" id="tcSub"></div>
+    <div class="chips" id="tcChips"></div>
+  </div>
+
+  <!-- Teléfono + panel -->
+  <div id="main" class="capa">
+    <div id="phoneWrap">
+      <div id="sombra"></div>
+      <div id="phone">
+        <div id="screen">
+          <div id="island"></div>
+          <div id="statusbar"><span>9:41</span>
+            <svg viewBox="0 0 70 14"><g fill="currentColor"><rect x="0" y="9" width="3" height="5" rx="1"/><rect x="5" y="6" width="3" height="8" rx="1"/><rect x="10" y="3" width="3" height="11" rx="1"/><rect x="15" y="0" width="3" height="14" rx="1"/>
+              <path d="M30 4c4-4 10-4 14 0l-2 2c-3-3-7-3-10 0zM33 8c2-2 6-2 8 0l-4 4z"/>
+              <rect x="50" y="1" width="17" height="12" rx="3" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="52" y="3" width="11" height="8" rx="1.5"/><rect x="68" y="5" width="2" height="4" rx="1"/></g></svg>
+          </div>
+          <div id="homebar"></div>
+          <div id="screens"></div>
+          <div id="flashS"></div>
+          <div id="ovl">
+            <div id="ripple"></div>
+            <div id="hint"></div>
+            <svg id="finger" viewBox="0 0 74 92"><path d="M18 4c-5 0-8 4-8 8v38l-4-5c-3-4-8-3-9 1 0 2 0 3 1 5l16 23c4 6 10 10 18 10h12c11 0 20-9 20-20V46c0-4-3-7-7-7s-6 3-6 6v-4c0-4-3-7-7-7s-7 3-7 7v-3c0-4-3-6-6-6s-6 2-6 6V12c0-4-3-8-7-8z" fill="#fff" stroke="#0b1d48" stroke-width="3.5" stroke-linejoin="round" transform="translate(8 0)"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="panel">
+      <div id="caps"><div id="capsel"></div></div>
+      <div id="pns"></div>
+      <div id="prog"><div class="lb" id="progLb"></div><div class="segs" id="segs"></div></div>
+    </div>
+
+    <div id="out1">
+      <h2 id="o1t"></h2>
+      <p id="o1s"></p>
+      <ul id="o1l"></ul>
+    </div>
+  </div>
+
+  <div id="conf" class="capa"></div>
+
+  <!-- Intro y cierre en blanco con el logo -->
+  <div id="intro" class="capa">
+    <div id="lg"><img class="marca" src="assets/marca.png" alt=""><img class="texto" src="assets/texto.png" alt=""></div>
+    <div id="tagline"></div>
+    <div id="introbar"></div>
+  </div>
+  <div id="out2" class="capa">
+    <div class="lg2"><img class="marca" src="assets/marca.png" alt=""><img class="texto" src="assets/texto.png" alt=""></div>
+    <h3 id="o2t"></h3>
+    <div class="nota" id="o2n"></div>
+    <div class="barra" id="o2b"></div>
+  </div>
+  <div id="sw"><div class="rb r1"></div><div class="rb r2"></div><div class="rb r3"></div></div>
+  <div id="fade"></div>
+</div>
+
+<script src="guion.js"></script>
+<script src="pantallas.js"></script>
+<script src="showcase.js"></script>
+</body>
+</html>

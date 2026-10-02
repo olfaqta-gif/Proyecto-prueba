@@ -1,0 +1,321 @@
+:root {
+  --azul: #2450a2; --azul2: #1b3d85; --osc: #0b1d48; --am: #fdd10b; --ve: #95c94a; --vo: #0a9a48;
+  --ci: #12c0f0; --tx: #1d2740; --gr: #6b7590; --linea: #d5dbe8;
+}
+* { box-sizing: border-box; margin: 0; padding: 0 }
+html, body { width: 100%; height: 100%; background: #000; overflow: hidden }
+body { font-family: Montserrat, sans-serif; -webkit-font-smoothing: antialiased }
+b { font-weight: 800 }
+#stage { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; overflow: hidden; transform-origin: 0 0;
+  background: var(--osc) }
+.capa { position: absolute; inset: 0 }
+
+/* ---------- Fondo ---------- */
+#bg { background: radial-gradient(circle at 72% 28%, #2b5cba 0%, #163a86 42%, #0a1a42 100%) }
+#bgpoly { position: absolute; inset: -80px; opacity: .22 }
+.blob { position: absolute; width: 640px; height: 640px; border-radius: 50%; filter: blur(110px); opacity: .32 }
+#bgmarca { position: absolute; right: -120px; bottom: -160px; width: 760px; opacity: .10; transform: rotate(-6deg) }
+#bggrid { position: absolute; inset: 0; opacity: .07;
+  background-image: radial-gradient(#fff 1.4px, transparent 1.6px); background-size: 36px 36px }
+
+/* ---------- Intro ---------- */
+#intro { background: #fff; display: flex; align-items: center; justify-content: center; flex-direction: column }
+#lg { position: relative; display: flex; align-items: flex-end; height: 260px }
+#lg .marca { height: 260px; transform-origin: 0% 100% }
+#lg .texto { height: 260px; margin-left: 5px }
+#tagline { margin-top: 46px; font-size: 34px; font-weight: 600; color: var(--azul); letter-spacing: 10px; text-transform: uppercase }
+#tagline span { display: inline-block; white-space: pre }
+#introbar { width: 0; height: 6px; border-radius: 3px; margin-top: 26px;
+  background: linear-gradient(90deg, var(--am), var(--ve), var(--ci)) }
+
+/* Barrido de cintas de marca */
+#sw { position: absolute; left: 50%; top: 50%; width: 4200px; height: 4200px; margin: -2100px 0 0 -2100px;
+  transform: rotate(-28deg); pointer-events: none }
+#sw .rb { position: absolute; left: 0; width: 100%; height: 1300px; top: 1450px }
+#sw .r1 { background: var(--am) } #sw .r2 { background: var(--ve) } #sw .r3 { background: var(--ci) }
+
+/* Portada */
+#tc { display: flex; flex-direction: column; align-items: center; justify-content: center; color: #fff; text-align: center }
+#tc .kick { font-size: 24px; font-weight: 700; letter-spacing: 8px; color: var(--am); text-transform: uppercase }
+#tc h1 { font-size: 104px; font-weight: 900; line-height: 1.04; margin-top: 22px; max-width: 1400px }
+#tc h1 span { display: inline-block; margin: 0 14px }
+#tc h1 span.hl { color: var(--am) }
+#tc .sub { font-size: 34px; font-weight: 500; margin-top: 26px; color: rgba(255, 255, 255, .85) }
+#tc .chips { display: flex; gap: 18px; margin-top: 44px }
+#tc .chip { padding: 14px 28px; border-radius: 40px; border: 2px solid rgba(255, 255, 255, .35); font-size: 24px; font-weight: 600;
+  background: rgba(255, 255, 255, .08); display: flex; align-items: center; gap: 12px }
+#tc .chip i { width: 12px; height: 12px; border-radius: 50%; background: var(--ve) }
+
+/* ---------- Teléfono ---------- */
+#main { perspective: 2400px }
+#phoneWrap { position: absolute; left: 350px; top: 104px; width: 420px; height: 872px; transform-style: preserve-3d }
+#sombra { position: absolute; left: 30px; right: 30px; bottom: -46px; height: 60px; border-radius: 50%;
+  background: rgba(0, 0, 0, .55); filter: blur(28px) }
+#phone { position: absolute; inset: 0; border-radius: 66px; padding: 15px; background: linear-gradient(145deg, #2a2f3a, #08090c 40%, #1b1e25);
+  box-shadow: 0 0 0 2px #3b4150 inset, 0 40px 90px rgba(0, 0, 0, .45) }
+#phone::after { content: ''; position: absolute; inset: 0; border-radius: 66px; pointer-events: none;
+  background: linear-gradient(115deg, rgba(255, 255, 255, .16) 0%, rgba(255, 255, 255, 0) 30%) }
+#screen { position: relative; width: 390px; height: 842px; border-radius: 52px; overflow: hidden; background: #fff }
+.scr { position: absolute; inset: 0; background: #fff; overflow: hidden; color: var(--tx); will-change: transform }
+.scr .dim { position: absolute; inset: 0; background: #000; opacity: 0; pointer-events: none; z-index: 40 }
+#island { position: absolute; left: 50%; top: 11px; width: 118px; height: 34px; margin-left: -59px; border-radius: 20px; background: #000; z-index: 90 }
+#statusbar { position: absolute; left: 0; right: 0; top: 0; height: 44px; z-index: 89; display: flex; align-items: center;
+  justify-content: space-between; padding: 6px 34px 0 42px; color: #fff; font-size: 15px; font-weight: 700 }
+#statusbar svg { height: 13px }
+#homebar { position: absolute; left: 50%; bottom: 8px; width: 130px; height: 5px; margin-left: -65px; border-radius: 3px; background: rgba(0, 0, 0, .55); z-index: 89 }
+
+/* Elementos comunes de la app */
+.hdr { position: absolute; left: 0; right: 0; top: 0; height: 102px; padding: 44px 22px 0; display: flex; align-items: center; gap: 14px;
+  background: linear-gradient(180deg, #1b3f8e, #2450a2); color: #fff; font-size: 17px; font-weight: 600 }
+.hdr .mk { width: 30px; height: 32px }
+.hdr .sep { width: 1.5px; height: 26px; background: rgba(255, 255, 255, .45) }
+.hdr::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 4px;
+  background: linear-gradient(90deg, var(--am), var(--ve), var(--ci)) }
+.cuerpo { position: absolute; left: 0; right: 0; top: 102px; bottom: 0; padding: 24px 26px }
+.ttl { color: var(--azul); font-weight: 800; font-size: 25px; text-align: center; line-height: 1.15 }
+.sub { color: var(--tx); font-size: 13.5px; font-weight: 600; text-align: center; line-height: 1.4; margin-top: 8px }
+.btn { display: block; margin: 0 auto; width: 230px; height: 48px; border-radius: 12px; background: linear-gradient(180deg, #2a5ab6, #1d438f);
+  color: #fff; font-weight: 800; font-size: 15px; letter-spacing: 1px; text-align: center; line-height: 48px;
+  box-shadow: 0 6px 14px rgba(36, 80, 162, .35) }
+.btn.verde { background: linear-gradient(180deg, #33b45c, #0a9a48); box-shadow: 0 6px 14px rgba(10, 154, 72, .35) }
+.ftr { position: absolute; left: 0; right: 0; bottom: 0; height: 66px; overflow: hidden; background: #1f4596 }
+.ftr::before { content: ''; position: absolute; left: 0; right: 0; top: 0; height: 4px; background: linear-gradient(90deg, var(--am), var(--ve), var(--ci)); z-index: 2 }
+.poly { position: absolute; inset: 0 }
+.poly svg { width: 100%; height: 100% }
+
+.stp { display: flex; align-items: center; justify-content: center; margin: 16px auto 4px; width: 250px }
+.stp .n { width: 30px; height: 30px; border-radius: 50%; border: 2.5px solid #b9c2d4; background: #fff; color: #fff; font-size: 13px; font-weight: 800;
+  display: flex; align-items: center; justify-content: center; flex: none }
+.stp .n.on { background: var(--vo); border-color: var(--vo); box-shadow: 0 0 0 5px rgba(10, 154, 72, .18) }
+.stp .n.ok { background: var(--ve); border-color: var(--ve) }
+.stp .l { height: 3px; flex: 1; background: #c4ccdb }
+.stp .l.ok { background: var(--ve) }
+
+.campo { margin-top: 12px }
+.campo label { display: block; font-size: 13px; font-weight: 700; color: var(--tx); margin-bottom: 5px }
+.inp { height: 40px; border: 1.5px solid var(--linea); border-radius: 9px; padding: 0 12px; font-size: 14px; font-weight: 500; color: var(--tx);
+  display: flex; align-items: center; background: #fff; position: relative; white-space: nowrap; overflow: hidden }
+.inp.foco { border-color: var(--azul); box-shadow: 0 0 0 3px rgba(36, 80, 162, .15) }
+.inp .ph { color: #a0a8ba }
+.inp .cur { display: inline-block; width: 2px; height: 20px; background: var(--azul); margin-left: 1px }
+.inp .pre { padding-right: 10px; margin-right: 10px; border-right: 1.5px solid var(--linea); font-weight: 700 }
+.inp.sel::after { content: ''; position: absolute; right: 14px; top: 13px; width: 8px; height: 8px; border-right: 2px solid var(--gr);
+  border-bottom: 2px solid var(--gr); transform: rotate(45deg) }
+
+/* Teclado */
+.kb { position: absolute; left: 0; right: 0; bottom: 0; height: 252px; background: #d3d7de; padding: 10px 4px 34px }
+.kb .row { display: flex; justify-content: center; gap: 5px; margin-bottom: 9px }
+.kb .k { width: 33px; height: 42px; border-radius: 6px; background: #fff; box-shadow: 0 1.5px 0 #8c929c; font-size: 18px; font-weight: 500;
+  display: flex; align-items: center; justify-content: center; color: #111 }
+.kb .k.f { background: #adb3bd; font-size: 14px }
+.kb .k.w { width: 186px; font-size: 14px }
+.kb .k.m { width: 46px }
+.kb .k.on { background: #9fb3d9; transform: scale(1.12) translateY(-4px) }
+.kp { position: absolute; left: 0; right: 0; bottom: 0; height: 252px; background: #d3d7de; padding: 10px 8px 34px;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px }
+.kp .k { border-radius: 7px; background: #fff; box-shadow: 0 1.5px 0 #8c929c; font-size: 22px; font-weight: 500; display: flex;
+  align-items: center; justify-content: center; color: #111 }
+.kp .k.v { background: transparent; box-shadow: none }
+.kp .k.on { background: #9fb3d9 }
+
+/* Pantalla 1 */
+#s1 .top { position: absolute; left: 0; right: 0; top: 0; height: 520px }
+#s1 .brand { position: absolute; top: 74px; left: 0; right: 0; display: flex; align-items: center; justify-content: center; gap: 10px; color: #fff }
+#s1 .brand img { height: 52px }
+#s1 .brand div { font-weight: 800; font-size: 19px; line-height: 1; letter-spacing: .5px }
+#s1 .brand div span { display: block; font-size: 27px }
+#s1 .card { position: absolute; left: 24px; right: 24px; top: 170px; padding: 22px; border-radius: 18px; background: #fff;
+  box-shadow: 0 16px 34px rgba(0, 0, 0, .22); text-align: center }
+#s1 .card h4 { color: var(--azul); font-weight: 800; font-size: 19px }
+#s1 .card .inp { margin-top: 16px }
+#s1 .card .o { font-size: 13px; color: var(--gr); margin-top: 14px; font-weight: 600 }
+#s1 .card .fid { width: 60px; height: 60px; margin: 12px auto 0; border-radius: 16px; border: 2px solid var(--azul); padding: 12px }
+#s1 .quick { position: absolute; left: 0; right: 0; top: 560px; display: flex; justify-content: space-around; padding: 0 22px }
+#s1 .q { width: 100px; text-align: center; font-size: 12.5px; font-weight: 700; color: var(--tx) }
+#s1 .q .c { width: 70px; height: 70px; margin: 0 auto 8px; border-radius: 50%; background: #eef2fa; border: 2px solid #c9d4ea;
+  display: flex; align-items: center; justify-content: center; position: relative }
+#s1 .q .c svg { width: 32px; height: 32px }
+#s1 .q.main .c { background: #fff; border-color: var(--azul) }
+#s1 .ring { position: absolute; inset: -9px; border-radius: 50%; border: 3px solid #e2342b; opacity: 0 }
+#s1 .tab { position: absolute; left: 0; right: 0; bottom: 0; height: 86px; background: #1f4596; display: flex; justify-content: space-around;
+  padding: 12px 10px 0; color: #fff; font-size: 10px; font-weight: 600 }
+#s1 .tab div { text-align: center; opacity: .8; width: 64px }
+#s1 .tab div:first-child { opacity: 1 }
+#s1 .tab svg { width: 22px; height: 22px; display: block; margin: 0 auto 4px }
+
+/* Pantalla 2 */
+#s2 ul { list-style: none; margin-top: 22px }
+#s2 li { display: flex; gap: 12px; align-items: flex-start; font-size: 14px; font-weight: 600; line-height: 1.35; margin-bottom: 16px; color: var(--tx) }
+#s2 li i { flex: none; width: 24px; height: 24px; border-radius: 50%; background: var(--ve); display: flex; align-items: center; justify-content: center }
+#s2 li i svg { width: 14px }
+#s2 .btn { position: absolute; left: 50%; margin-left: -115px; bottom: 100px }
+
+/* Cámara del DNI */
+.visor { position: relative; margin: 20px auto 0; width: 336px; height: 228px; border-radius: 14px; overflow: hidden;
+  background: radial-gradient(circle at 50% 40%, #3a3f4a, #15171c) }
+.visor .esq { position: absolute; width: 36px; height: 36px; border: 4px solid #fff; z-index: 3 }
+.visor .e1 { left: 10px; top: 10px; border-right: 0; border-bottom: 0; border-radius: 10px 0 0 0 }
+.visor .e2 { right: 10px; top: 10px; border-left: 0; border-bottom: 0; border-radius: 0 10px 0 0 }
+.visor .e3 { left: 10px; bottom: 10px; border-right: 0; border-top: 0; border-radius: 0 0 0 10px }
+.visor .e4 { right: 10px; bottom: 10px; border-left: 0; border-top: 0; border-radius: 0 0 10px 0 }
+.visor .scan { position: absolute; left: 14px; right: 14px; height: 3px; background: var(--ci); box-shadow: 0 0 16px 4px rgba(18, 192, 240, .7); z-index: 3 }
+.visor .flash { position: absolute; inset: 0; background: #fff; opacity: 0; z-index: 5 }
+.visor .okchip { position: absolute; left: 50%; bottom: 14px; transform: translateX(-50%); z-index: 4; background: var(--vo); color: #fff;
+  font-size: 12px; font-weight: 700; padding: 6px 12px; border-radius: 20px; white-space: nowrap; opacity: 0 }
+.dni { position: absolute; left: 33px; top: 30px; width: 270px; height: 170px; border-radius: 10px; overflow: hidden;
+  background: linear-gradient(135deg, #e9f1f8, #cfdfee 55%, #e6efe2); box-shadow: 0 8px 18px rgba(0, 0, 0, .45); font-size: 7px; color: #223 }
+.dni .bd { height: 26px; display: flex; align-items: center; justify-content: space-between; padding: 0 9px; background: linear-gradient(90deg, #dfe9f3, #c4d7ea) }
+.dni .bd b { font-size: 8px; letter-spacing: .3px; color: #1a3a6c }
+.dni .flag { width: 30px; height: 18px; background: linear-gradient(#18c 33%, #fff 33%, #fff 66%, #18c 66%); border-radius: 2px; position: relative }
+.dni .flag::after { content: '·:·'; position: absolute; inset: 0; color: #18c; font-size: 9px; text-align: center; line-height: 17px; font-weight: 900 }
+.dni .ph { position: absolute; left: 10px; top: 36px; width: 64px; height: 82px; border-radius: 4px; background: #c9d3de; overflow: hidden }
+.dni .ln { position: absolute; left: 86px; right: 12px; top: 38px }
+.dni .ln p { margin-bottom: 5px; line-height: 1.1 }
+.dni .ln p span { display: block; font-size: 6px; color: #5a6a82 }
+.dni .ln p b { font-size: 8.5px }
+.dni .firma { position: absolute; left: 12px; bottom: 10px; width: 70px; height: 26px }
+.dni .holo { position: absolute; right: 12px; bottom: 12px; width: 36px; height: 36px; border-radius: 50%;
+  background: conic-gradient(#f9d, #9df, #dfa, #fd9, #f9d); opacity: .5 }
+.dni.atras .bars { position: absolute; left: 12px; right: 12px; top: 36px; height: 44px; display: flex; gap: 1.5px }
+.dni.atras .bars i { background: #1b1f2a; height: 100% }
+.dni.atras .mrz { position: absolute; left: 12px; right: 12px; bottom: 12px; font-family: 'DejaVu Sans Mono', monospace; font-size: 9.5px;
+  letter-spacing: .5px; line-height: 1.3; color: #1b1f2a }
+.dni.atras .tx { position: absolute; left: 12px; right: 12px; top: 88px; font-size: 7px; line-height: 1.5; color: #344 }
+.s-cam .btn { position: absolute; left: 50%; margin-left: -115px; bottom: 112px }
+.s-cam .ayuda { margin-top: 18px; display: flex; gap: 8px; justify-content: center }
+.s-cam .ayuda span { font-size: 11px; font-weight: 700; color: var(--azul); background: #eaf0fb; padding: 6px 10px; border-radius: 14px }
+
+/* Pantalla 4 */
+#s4 .fondo { position: absolute; inset: 0; filter: blur(7px); opacity: .55 }
+#s4 .velo { position: absolute; inset: 0; background: rgba(255, 255, 255, .55) }
+#s4 .val { position: absolute; left: 0; right: 0; top: 230px; text-align: center }
+#s4 .anillo { position: relative; width: 210px; height: 210px; margin: 0 auto }
+#s4 .anillo svg { position: absolute; inset: 0; width: 100%; height: 100% }
+#s4 .lbl { margin-top: 26px; font-size: 30px; font-weight: 900; letter-spacing: 2px; color: var(--tx) }
+#s4 .lbl2 { font-size: 14px; font-weight: 600; color: var(--gr); margin-top: 6px }
+
+/* Pantalla 6 */
+#s6 .cam { position: absolute; left: 0; right: 0; top: 150px; bottom: 0; background: radial-gradient(circle at 50% 40%, #59606e, #1a1d24) }
+#s6 .q6 { position: absolute; left: 0; right: 0; top: 112px; text-align: center; font-size: 19px; font-weight: 800; color: var(--tx) }
+#s6 .cara { position: absolute; left: 50%; top: 210px; width: 290px; height: 290px; margin-left: -145px }
+#s6 .cara .mask { position: absolute; inset: 14px; border-radius: 50%; overflow: hidden; background: linear-gradient(#9ba3b0, #6e7685) }
+#s6 .cara > svg { position: absolute; inset: 0; width: 100%; height: 100% }
+#s6 .estado { position: absolute; left: 0; right: 0; top: 560px; text-align: center; color: #fff; font-size: 26px; font-weight: 900; letter-spacing: 2px }
+#s6 .flecha { position: absolute; top: 330px; right: 22px; width: 50px; height: 50px; opacity: 0 }
+
+/* Pantalla 8 */
+#s8 .msg { font-size: 15px; font-weight: 600; text-align: center; line-height: 1.45; margin-top: 18px }
+#s8 .otp { display: flex; gap: 8px; justify-content: center; margin-top: 22px }
+#s8 .otp div { width: 44px; height: 54px; border-radius: 10px; border: 2px solid var(--linea); font-size: 24px; font-weight: 800; color: var(--azul);
+  display: flex; align-items: center; justify-content: center }
+#s8 .otp div.on { border-color: var(--azul); box-shadow: 0 0 0 3px rgba(36, 80, 162, .15) }
+#s8 .timer { text-align: center; margin-top: 14px; font-size: 13px; font-weight: 700; color: var(--gr) }
+#s8 .timer b { color: #e2342b }
+#s8 .btn { margin-top: 20px }
+.notif { position: absolute; left: 10px; right: 10px; top: 48px; z-index: 60; border-radius: 20px; padding: 12px 14px; display: flex; gap: 12px;
+  background: rgba(246, 247, 250, .97); box-shadow: 0 12px 30px rgba(0, 0, 0, .3); align-items: center }
+.notif .ic { width: 40px; height: 40px; border-radius: 10px; background: var(--azul); flex: none; display: flex; align-items: center; justify-content: center }
+.notif .ic svg { width: 22px }
+.notif p { font-size: 12px; line-height: 1.35; color: #222 }
+.notif p b { display: block; font-size: 12.5px }
+
+/* Pantalla 9 */
+#s9 .cuerpo { padding-top: 14px }
+#s9 .campo { margin-top: 8px }
+#s9 .inp { height: 36px; font-size: 13px }
+#s9 .btn { position: absolute; left: 50%; margin-left: -115px; top: 418px; height: 42px; line-height: 42px }
+
+/* Pantalla 10 */
+#s10 .drop { position: absolute; left: 0; right: 0; top: 0; background: #fff; border-radius: 10px; z-index: 10;
+  box-shadow: 0 14px 34px rgba(0, 0, 0, .22); border: 1.5px solid var(--linea); overflow: hidden; transform-origin: top }
+#s10 .drop div { padding: 12px 14px; font-size: 13.5px; font-weight: 600; border-bottom: 1px solid #eef1f6 }
+#s10 .drop div.hl { background: #e8effc; color: var(--azul) }
+#s10 .btn { position: absolute; left: 50%; margin-left: -115px; top: 392px; z-index: 5 }
+#s10 .mapa { position: absolute; left: 26px; right: 26px; top: 360px; height: 150px; border-radius: 14px; overflow: hidden;
+  background: #e7edf3 }
+#s10 .mapa svg { width: 100%; height: 100% }
+
+/* Pantalla 11 */
+#s11 .lap { width: 150px; height: 120px; margin: 30px auto 0 }
+#s11 .t1 { font-size: 21px; font-weight: 800; color: var(--azul); text-align: center; margin-top: 26px }
+#s11 .t2 { font-size: 21px; font-weight: 800; color: var(--vo); text-align: center }
+#s11 .msg { font-size: 14px; font-weight: 600; text-align: center; line-height: 1.5; margin-top: 20px; color: var(--tx) }
+#s11 .btn { position: absolute; left: 50%; margin-left: -115px; bottom: 110px }
+
+/* Pantalla 12 */
+#s12 .modal { position: absolute; left: 30px; right: 30px; top: 250px; border-radius: 18px; background: #fff; overflow: hidden; z-index: 50;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, .4) }
+#s12 .modal .mh { background: linear-gradient(180deg, #2a5ab6, #1d438f); color: #fff; font-size: 19px; font-weight: 800; text-align: center; padding: 16px }
+#s12 .modal .ok { width: 70px; height: 70px; margin: 22px auto 0 }
+#s12 .modal p { font-size: 14.5px; font-weight: 600; text-align: center; line-height: 1.5; padding: 14px 24px 0; color: var(--tx) }
+#s12 .modal .btn { width: 140px; margin: 20px auto 24px }
+
+/* Pantalla final (splash) */
+#s13 { background: #1f4596 }
+#s13 .centro { position: absolute; left: 0; right: 0; top: 300px; text-align: center; color: #fff }
+#s13 .centro img { height: 110px }
+#s13 .centro h3 { font-size: 26px; font-weight: 900; margin-top: 18px; line-height: 1.15 }
+#s13 .centro p { font-size: 14px; font-weight: 600; opacity: .85; margin-top: 10px }
+
+/* Dedo y toques */
+#ovl { position: absolute; inset: 0; z-index: 80; pointer-events: none }
+#finger { position: absolute; width: 74px; height: 92px; left: 0; top: 0; opacity: 0; transform-origin: 18px 6px }
+#ripple { position: absolute; width: 90px; height: 90px; margin: -45px 0 0 -45px; border-radius: 50%; border: 3px solid rgba(253, 209, 11, .9);
+  background: rgba(253, 209, 11, .25); opacity: 0 }
+#hint { position: absolute; padding: 8px 14px; border-radius: 12px; background: var(--osc); color: #fff; font-size: 13px; font-weight: 700;
+  white-space: nowrap; opacity: 0; box-shadow: 0 8px 20px rgba(0, 0, 0, .3) }
+#hint::after { content: ''; position: absolute; left: 50%; bottom: -6px; margin-left: -6px; border: 6px solid transparent; border-bottom: 0;
+  border-top-color: var(--osc) }
+#flashS { position: absolute; inset: 0; background: #fff; opacity: 0; z-index: 85 }
+
+/* ---------- Panel derecho ---------- */
+#panel { position: absolute; left: 930px; top: 128px; width: 860px; height: 840px; color: #fff }
+#caps { position: relative; display: flex; gap: 10px; height: 46px }
+#caps .cp { position: relative; z-index: 2; padding: 0 20px; line-height: 46px; font-size: 18px; font-weight: 700; color: rgba(255, 255, 255, .6);
+  border-radius: 23px; white-space: nowrap }
+#caps .cp.on { color: var(--osc) }
+#capsel { position: absolute; top: 0; height: 46px; border-radius: 23px; background: var(--am); z-index: 1 }
+.pn { position: absolute; left: 0; top: 110px; width: 860px }
+.pn .kick { font-size: 20px; font-weight: 700; letter-spacing: 6px; text-transform: uppercase; color: var(--ci) }
+.pn .fila { display: flex; align-items: flex-end; gap: 26px; margin-top: 6px }
+.pn .num { font-size: 168px; font-weight: 900; line-height: .8; letter-spacing: -6px;
+  background: linear-gradient(180deg, #fff2a6, var(--am)); -webkit-background-clip: text; background-clip: text; color: transparent }
+.pn .tt { font-size: 66px; font-weight: 900; line-height: 1.02; padding-bottom: 4px; max-width: 640px }
+.pn .ds { font-size: 30px; font-weight: 500; line-height: 1.42; margin-top: 30px; color: rgba(255, 255, 255, .86); max-width: 800px }
+.pn .ds b { color: #fff }
+.tip { position: absolute; left: 0; top: 440px; width: 800px; min-height: 140px; border-radius: 26px; background: #fff; color: var(--tx);
+  padding: 30px 36px 30px 130px; box-shadow: 0 26px 60px rgba(0, 0, 0, .35); overflow: hidden }
+.tip .ico { position: absolute; left: 30px; top: 50%; width: 76px; height: 76px; margin-top: -38px; border-radius: 50%; background: var(--am);
+  display: flex; align-items: center; justify-content: center }
+.tip .ico svg { width: 42px; height: 42px }
+.tip .tg { font-size: 16px; font-weight: 800; letter-spacing: 4px; color: var(--vo) }
+.tip .tx { font-size: 27px; font-weight: 600; line-height: 1.35; margin-top: 6px }
+.tip .bar { position: absolute; left: 0; bottom: 0; height: 6px; background: linear-gradient(90deg, var(--am), var(--ve), var(--ci)) }
+.tip .brillo { position: absolute; top: 0; bottom: 0; width: 160px; background: linear-gradient(100deg, transparent, rgba(255, 255, 255, .8), transparent) }
+#prog { position: absolute; left: 0; top: 768px; width: 800px }
+#prog .lb { font-size: 18px; font-weight: 700; color: rgba(255, 255, 255, .7); margin-bottom: 12px; letter-spacing: 1px }
+#prog .lb b { color: #fff }
+#prog .segs { display: flex; gap: 8px }
+#prog .sg { flex: 1; height: 8px; border-radius: 4px; background: rgba(255, 255, 255, .18); overflow: hidden }
+#prog .sg i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--ve), var(--am)) }
+
+/* Confeti */
+#conf i { position: absolute; width: 14px; height: 22px; border-radius: 3px; left: 0; top: 0 }
+
+/* ---------- Cierre ---------- */
+#out1 { position: absolute; left: 930px; top: 250px; width: 860px; color: #fff }
+#out1 h2 { font-size: 104px; font-weight: 900; line-height: 1 }
+#out1 h2 span { display: inline-block }
+#out1 p { font-size: 34px; font-weight: 500; margin-top: 26px; color: rgba(255, 255, 255, .85); max-width: 760px; line-height: 1.35 }
+#out1 ul { list-style: none; margin-top: 44px }
+#out1 li { display: flex; align-items: center; gap: 20px; font-size: 32px; font-weight: 700; margin-bottom: 22px }
+#out1 li i { width: 50px; height: 50px; border-radius: 50%; background: var(--ve); display: flex; align-items: center; justify-content: center }
+#out1 li i svg { width: 26px }
+#out2 { background: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center }
+#out2 .lg2 { display: flex; align-items: flex-end; height: 220px }
+#out2 .lg2 img { height: 220px }
+#out2 .lg2 .texto { margin-left: 4px }
+#out2 h3 { font-size: 46px; font-weight: 800; color: var(--azul); margin-top: 56px }
+#out2 .nota { font-size: 24px; font-weight: 600; color: var(--gr); margin-top: 14px }
+#out2 .barra { width: 420px; height: 6px; border-radius: 3px; margin-top: 34px; background: linear-gradient(90deg, var(--am), var(--ve), var(--ci)) }
+#fade { position: absolute; inset: 0; background: #fff; opacity: 0; pointer-events: none }
