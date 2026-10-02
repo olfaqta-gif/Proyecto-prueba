@@ -5,6 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Isabella Belleza</title>
 <meta name="description" content="Skincare y maquillaje Farmasi elegidos por Isabella. Descubre tu ritual, rasca tu regalo de bienvenida y escríbele por WhatsApp.">
+<!-- Lo que se ve al compartir el enlace (WhatsApp, Instagram, Facebook).
+     Cuando la página tenga su dirección, pon la dirección completa de la imagen, ej. https://…/img/compartir.jpg -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Isabella · Belleza que se siente tuya">
+<meta property="og:description" content="Descubre tu ritual de belleza, rasca tu regalo de bienvenida y escríbeme por WhatsApp.">
+<meta property="og:image" content="img/compartir.jpg">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@300;400;500&display=swap">
@@ -550,7 +557,7 @@ footer p { font-size: 13.5px; color: var(--muted); max-width: 70ch; justify-self
 <footer>
   <div class="wrap">
     <a class="wordmark" href="#inicio">Isabella</a>
-    <p>Distribuidora independiente Farmasi. Fotos, reseñas y tonos de la tienda oficial farmasius.com<span id="leido"></span>. Tus datos solo los uso para escribirte; nunca los comparto.</p>
+    <p>Distribuidora independiente Farmasi. Fotos, reseñas y tonos de la tienda oficial farmasius.com<span id="leido"></span>. Tus datos solo los uso para escribirte; nunca los comparto. <button class="link" type="button" id="ver-privacidad" style="padding-bottom:3px">Privacidad</button></p>
   </div>
 </footer>
 
@@ -1029,6 +1036,19 @@ $('#n-copy').addEventListener('click', () => {
   navigator.clipboard.writeText(mensajeNota()).then(() => { s.textContent = 'Mensaje copiado. Pégalo en WhatsApp o en Instagram.'; })
     .catch(() => { const r = document.createRange(); r.selectNodeContents($('#n-preview')); const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r); s.textContent = 'Mensaje seleccionado: cópialo y pégalo en WhatsApp o Instagram.'; });
 });
+
+
+/* ---------- privacidad ---------- */
+$('#ver-privacidad').addEventListener('click', () => abrirPanel(`
+  <div class="drawer-top"><span class="label">Privacidad</span><button class="close" type="button" data-cerrar>Cerrar ✕</button></div>
+  <h2 id="drawer-title">Tus datos, <em>cuidados</em></h2>
+  <dl>
+    <div><dt class="label">Qué te pido</dt><dd>Solo lo que tú escribes: tu nombre, tu WhatsApp y, si quieres, tu cumpleaños y lo que te interesa.</dd></div>
+    <div><dt class="label">Para qué</dt><dd>Para apartar tu regalo, mandarte tu ritual, ayudarte con tus pedidos y saludarte en tu cumpleaños.</dd></div>
+    <div><dt class="label">Quién los ve</dt><dd>Solo yo, Isabella. No los vendo ni los comparto con nadie.</dd></div>
+    <div><dt class="label">Si ya no quieres mensajes</dt><dd>Escríbeme "no más mensajes" por WhatsApp y te borro de mi lista.</dd></div>
+    <div><dt class="label">En tu celular</dt><dd>La página recuerda tu lista, tu test y tu regalo en tu navegador, para que no se pierdan si vuelves.</dd></div>
+  </dl>`));
 
 /* ---------- aparición al hacer scroll ----------
    Todo está visible desde el inicio; lo que todavía no se ve entra suave cuando llega a la pantalla. */
