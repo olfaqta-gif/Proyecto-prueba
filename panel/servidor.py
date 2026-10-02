@@ -162,6 +162,7 @@ def trabajos_recientes(limite=24):
         ("lector-farmasi/salida", "vitrina.html", "Vitrina"),
         ("lector-farmasi/salida", "*/producto.jpg", "Producto"),
         ("agente-contenido/salida", "**/previa*.jpg", "Previa"),
+        ("reunion/actas", "*.html", "Reunión"),
     ]
     encontrados = []
     for carpeta, patron, tipo in patrones:
@@ -172,6 +173,21 @@ def trabajos_recientes(limite=24):
     encontrados.sort(reverse=True)
     return [{"tipo": tipo, "ruta": str(f.relative_to(RAIZ)), "fecha": fecha}
             for fecha, tipo, f in encontrados[:limite]]
+
+
+def ultima_reunion():
+    """Notas de la última reunión de equipo, para que cada robot muestre la suya."""
+    actas = sorted((RAIZ / "reunion" / "actas").glob("*.json"))
+    if not actas:
+        return {}
+    try:
+        acta = json.loads(actas[-1].read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return {}
+    return {"fecha": acta.get("fecha"), "nota_equipo": acta.get("nota_equipo"),
+            "informe": str(actas[-1].with_suffix(".html").relative_to(RAIZ)),
+            "agentes": {k: {"nota": a.get("nota"), "antes": a.get("nota_anterior")}
+                        for k, a in acta.get("agentes", {}).items()}}
 
 
 def instrucciones_isa():
@@ -209,6 +225,10 @@ def resumen_de_herramienta(nombre, entrada):
             return "Analizando el catálogo"
         if "planificar.py" in cmd:
             return "Revisando el plan"
+        if "revisar.py reunir" in cmd:
+            return "Revisando el trabajo de todo el equipo"
+        if "revisar.py" in cmd:
+            return "Anotando los acuerdos de la reunión"
         return "Ejecutando una tarea"
     return {
         "Read": "Leyendo un archivo", "Write": "Escribiendo un archivo",
@@ -290,6 +310,8 @@ def conversar(mensaje, sesion, enviar):
                         enviar({"tipo": "agente_hace", "agente": llamadas[padre],
                                 "texto": resumen_de_herramienta(nombre, entrada)})
                     elif not padre:
+                        if nombre == "Bash" and "reunion/revisar.py reunir" in entrada.get("command", ""):
+                            enviar({"tipo": "reunion_empieza"})
                         enviar({"tipo": "isa_hace",
                                 "texto": resumen_de_herramienta(nombre, entrada)})
             elif tipo == "user" and not padre:
@@ -350,6 +372,8 @@ class Manejador(BaseHTTPRequestHandler):
                 self.responder(404, "{}")
         elif url.path == "/api/equipo":
             self.responder(200, json.dumps(equipo(), ensure_ascii=False))
+        elif url.path == "/api/reunion":
+            self.responder(200, json.dumps(ultima_reunion(), ensure_ascii=False))
         elif url.path == "/api/trabajos":
             self.responder(200, json.dumps(trabajos_recientes(), ensure_ascii=False))
         elif url.path == "/archivo":

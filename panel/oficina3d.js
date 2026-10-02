@@ -5,6 +5,7 @@
 // Uso:  const oficina = crearOficina(contenedor, { alTocarAgente(id) {} });
 //       oficina.setEquipo(agentes) · convocar(id) · actividad(id, texto) · liberar(id)
 //       oficina.isa("reposo" | "pensando" | "hablando") · mostrarResultado(url)
+//       oficina.reunirEquipo() · notasReunion({ id: { nota, antes } }) · despedirEquipo()
 import { THREE, CSS2DRenderer, CSS2DObject } from "./vendor/three-paquete.js";
 
 const MOVIMIENTO = !matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -522,10 +523,10 @@ export function crearOficina(contenedor, opciones = {}) {
   const esperar = (ms) => new Promise((ok) => setTimeout(ok, MOVIMIENTO ? ms : 0));
   const llegar = (r) => new Promise((ok) => { r.alLlegar = ok; if (!r.camino.length) ok(); });
 
-  async function convocar(id) {
+  async function convocar(id, saludo = "¡Voy!") {
     const r = robots.get(id); if (!r) return;
     if (r.estado !== "sentado" && r.estado !== "volviendo") { globo(r, r.actividad || "Trabajando…"); return; }
-    r.estado = "yendo"; globo(r, "¡Voy!"); estadoEtiqueta(r, "En reunión con Isa", "reunion");
+    r.estado = "yendo"; globo(r, saludo); estadoEtiqueta(r, "En reunión con Isa", "reunion");
     let libre = LUGARES.findIndex((_, i) => !ocupados.has(i)); if (libre < 0) libre = 0; ocupados.add(libre); r.lugar = libre;
     r.metaSentado = 0; await esperar(650);
     r.objeto.visible = true;
@@ -547,6 +548,33 @@ export function crearOficina(contenedor, opciones = {}) {
     if (r.estado !== "volviendo") return;
     r.metaGiro = r.giroCasa; r.objeto.visible = false; r.metaSentado = 1; r.estado = "sentado"; r.sonrisa.visible = false;
     setTimeout(() => { if (r.estado === "sentado") estadoEtiqueta(r, "En su escritorio", ""); }, 7000);
+  }
+
+  /* ---------- Reunión de equipo: todos se acercan a Isa ---------- */
+  let enReunionEquipo = false;
+  function reunirEquipo() {
+    if (enReunionEquipo) return;
+    enReunionEquipo = true; isa("pensando", "Reunión de equipo");
+    // Cada robot sale con un poquito de diferencia, como gente levantándose para una reunión
+    [...robots.keys()].forEach((id, i) => setTimeout(() => {
+      if (enReunionEquipo) { convocar(id, "¡Voy a la reunión!"); actividad(id, "Escuchando a Isa"); }
+    }, MOVIMIENTO ? i * 450 : 0));
+    reunion(true);
+  }
+  function notasReunion(notas) {
+    robots.forEach((r, id) => {
+      const n = notas?.[id]; if (!n || n.nota == null) return;
+      const d = n.antes == null ? "" : n.nota > n.antes ? " ▲" : n.nota < n.antes ? " ▼" : " =";
+      r.actividad = `Nota ${Number(n.nota).toFixed(1)}${d}`;
+      if (r.estado === "reunion" || r.estado === "yendo") globo(r, r.actividad, n.nota >= 9);
+      if (n.nota >= 9) r.sonrisa.visible = true;
+    });
+  }
+  async function despedirEquipo() {
+    if (!enReunionEquipo) return;
+    enReunionEquipo = false;
+    await Promise.all([...robots.keys()].map((id, i) => esperar(i * 300).then(() => liberar(id))));
+    reunion(false); isa("reposo");
   }
 
   /* ---------- Isa y resultados ---------- */
@@ -636,7 +664,9 @@ export function crearOficina(contenedor, opciones = {}) {
     });
     // Cabeza: mira alrededor, asiente en reunión y mira a Isa
     r.cabeza.rotation.y = Math.sin(t * 0.5 + r.semilla) * 0.35 * (1 - w) * (1 - ha);
-    r.cabeza.rotation.x = Math.sin(t * 3 + r.semilla) * 0.07 * ha - 0.18 * ha + 0.12 * teclear;
+    // En la reunión de equipo todos levantan la vista hacia el holograma de Isa
+    const miraIsa = enReunionEquipo && r.estado === "reunion" ? 0.22 : 0;
+    r.cabeza.rotation.x = Math.sin(t * 3 + r.semilla) * 0.07 * ha - 0.18 * ha - miraIsa * ha + 0.12 * teclear;
     // Parpadeo y luces
     r.parpadeo -= dt;
     const cerrado = r.parpadeo < 0.12 && r.parpadeo > 0;
@@ -684,7 +714,7 @@ export function crearOficina(contenedor, opciones = {}) {
   }
   requestAnimationFrame(cuadro);
 
-  const api = { setEquipo, convocar, actividad, liberar, isa, reunion, mostrarResultado };
+  const api = { setEquipo, convocar, actividad, liberar, isa, reunion, mostrarResultado, reunirEquipo, notasReunion, despedirEquipo };
   window.oficina3d = api;   // útil para probar desde la consola del navegador
   api.depurar = () => ({ cam: camara.position.toArray(), lejos: CAM_LEJOS.toArray(), cerca: CAM_CERCA.toArray(), mira: MIRA_CERCA.toArray(), enfoque, w: contenedor.clientWidth, h: contenedor.clientHeight });
   return api;

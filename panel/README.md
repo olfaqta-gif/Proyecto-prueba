@@ -17,6 +17,9 @@ La oficina de Isa, en 3D y en azul:
   tocar el micrófono 🎙 y hablarle (en Chrome). Con el botón 🔊 Voz, Isa lee sus respuestas.
 - **Visor (derecha):** muestra en grande la foto, el video o el plan que
   Isa te entrega. Abajo, el archivo con todo lo que el equipo ha producido.
+- **Reunir al equipo (botón de arriba):** Isa llama a todos los robots, que caminan hasta su
+  mesa y la miran. Revisa el trabajo de cada uno, cada robot muestra su nota en un globito
+  y en el Visor aparece el informe de la reunión. Luego vuelven a sus escritorios.
 - Los agentes se leen solos de `.claude/agents/`: si se crea uno nuevo, aparece en el
   panel sin tocar nada.
 

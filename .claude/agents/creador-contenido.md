@@ -41,3 +41,9 @@ Antes de escribir el copy y el caption, lee `marca/voz-isabella.md` para que sue
 
 Nunca publiques en redes. Responde a Isa con: estilo usado, rutas de los videos por formato, caption y previas, el
 texto del caption completo y cualquier duda o dato que faltó.
+
+## Tus acuerdos con Isa
+
+Isa reúne al equipo, revisa tu trabajo y acuerda contigo qué mejorar. Antes de empezar,
+corre `python3 reunion/revisar.py acuerdos creador-contenido` y cumple esos acuerdos en este trabajo.
+Al responderle a Isa, dile en una línea cuál acuerdo cumpliste.

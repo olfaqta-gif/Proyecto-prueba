@@ -145,6 +145,7 @@
   .etq-robot .globo::after { content: ""; position: absolute; left: 50%; bottom: -5px; width: 10px; height: 10px; background: inherit;
                              transform: translateX(-50%) rotate(45deg); border-radius: 2px; }
   .etq-robot .globo.listo { background: var(--bien); }
+  .boton.reunir { border-color: #4cc9ff88; color: var(--hielo); }
   .etq-isa { text-align: center; white-space: nowrap; pointer-events: none; }
   .etq-isa b { display: block; font: 700 17px var(--titulo); color: #fff; letter-spacing: .02em; text-shadow: 0 0 14px #4cc9ff, 0 2px 6px #0009; }
   .etq-isa span { display: inline-block; margin-top: 2px; font: 500 11px var(--mono); color: var(--hielo); padding: 2px 9px; border-radius: 99px;
@@ -219,6 +220,7 @@
     <button class="boton" id="voz" type="button" title="Isa lee sus respuestas en voz alta">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14"/></svg>Voz</button>
     <button class="boton peligro" id="parar" type="button" hidden>Detener</button>
+    <button class="boton reunir" id="reunir" type="button" title="Isa reúne a todo el equipo y revisa su trabajo">Reunir al equipo</button>
     <button class="boton" id="nueva" type="button">Nueva conversación</button>
   </header>
 
@@ -265,7 +267,7 @@ try { sesion = localStorage.getItem("isa-sesion"); historial = JSON.parse(localS
       vozActiva = localStorage.getItem("isa-voz") === "1"; } catch (e) { historial = []; }
 
 const IDEAS = ["Búscame los 3 productos con mejores reseñas", "¿Qué publico las próximas 2 semanas?",
-               "Hazme un anuncio del Vitamin C Glow Serum", "Preséntame a tu equipo"];
+               "Hazme un anuncio del Vitamin C Glow Serum", "Reúne al equipo y revisa cómo va el trabajo"];
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 const urlArchivo = (r) => `/archivo?ruta=${encodeURIComponent(r)}`;
 const PATRON_RUTA = /^[\w.\-\/]+\.(mp4|html|jpg|jpeg|png|json|txt|csv|webp)$/i;
@@ -303,7 +305,7 @@ function bitacora(html) {
   const li = document.createElement("li"); li.innerHTML = html; ul.prepend(li);
   while (ul.children.length > 4) ul.lastChild.remove();
 }
-function cerrarMision() { setTimeout(() => { if (!ocupado) { $("#mision").hidden = true; of("reunion", false); } }, 2500); }
+function cerrarMision() { setTimeout(() => { if (!ocupado && !mostrandoNotas) { $("#mision").hidden = true; of("reunion", false); } }, 2500); }
 setInterval(() => { if (!$("#mision").hidden) { const s = Math.floor((Date.now() - cronoInicio) / 1000);
   $("#crono").textContent = String(Math.floor(s / 60)).padStart(2, "0") + ":" + String(s % 60).padStart(2, "0"); } }, 500);
 function aparicion(r) { of("mostrarResultado", urlArchivo(r), /\.(jpe?g|png|webp)$/i.test(r)); }
@@ -316,7 +318,7 @@ function estadoIsa(modo, frase) {
 /* ---------- Visor ---------- */
 function tipoDe(r) {
   if (/\.mp4$/i.test(r)) return "VIDEO";
-  if (/\.html$/i.test(r)) return /plan/i.test(r) ? "PLAN" : "VITRINA";
+  if (/\.html$/i.test(r)) return /reunion\//i.test(r) ? "REUNIÓN" : /plan/i.test(r) ? "PLAN" : "VITRINA";
   return /previa/i.test(r) ? "PREVIA" : "FOTO";
 }
 function nombreBonito(r) {
@@ -335,7 +337,7 @@ function mostrar(r) {
 function agregarResultado(r, ya) { if (!resultados.includes(r)) resultados.unshift(r); pintarArchivo(); if (ya) mostrar(r); }
 function pintarArchivo() {
   const todas = [...resultados, ...delServidor.filter((r) => !resultados.includes(r))].slice(0, 45);
-  const iconos = { VIDEO: "▶", PLAN: "▦", VITRINA: "◫" };
+  const iconos = { VIDEO: "▶", PLAN: "▦", VITRINA: "◫", "REUNIÓN": "◎" };
   $("#archivo").innerHTML = todas.map((r) => {
     const t = tipoDe(r), img = /\.(jpe?g|png|webp)$/i.test(r);
     return `<button type="button" class="mini" data-ruta="${esc(r)}" title="${esc(r)}">${img ? `<img src="${urlArchivo(r)}" alt="" loading="lazy">` : `<span class="ico">${iconos[t] || "▢"}</span>`}<small>${esc(r.split("/").slice(-2, -1)[0] || t)}</small></button>`;
@@ -481,6 +483,12 @@ async function mandar() {
           of("convocar", ev.agente); of("reunion", true); estadoIsa("pensando", `Coordinando a ${a.nombre}`);
         } else if (ev.tipo === "agente_hace") {
           const a = agenteDe(ev.agente); of("actividad", ev.agente, ev.texto); bitacora(`<b style="color:${a.color}">${esc(a.nombre)}</b> · ${esc(ev.texto)}`);
+        } else if (ev.tipo === "reunion_empieza") {
+          if (!reunionEquipo) {
+            reunionEquipo = true; abrirMision("Reunión de equipo");
+            evento(eventoHtml("#4cc9ff", "◎", `Isa reunió a <b>todo el equipo</b> <span class="h">· revisión del trabajo</span>`));
+            bitacora(`<b style="color:var(--celeste)">Isa</b> reúne a todo el equipo`); of("reunirEquipo");
+          }
         } else if (ev.tipo === "isa_hace") { estadoIsa("pensando", ev.texto); bitacora(`<b style="color:var(--celeste)">Isa</b> · ${esc(ev.texto)}`); }
         else if (ev.tipo === "agente_termina") {
           const a = agenteDe(ev.agente); misionActiva.delete(ev.agente); of("liberar", ev.agente);
@@ -492,8 +500,25 @@ async function mandar() {
     }
   } catch (e) { msgError(e.message || "Se cortó la conexión. Revisa que la ventana del panel siga abierta."); }
   cerrarCaja(); misionActiva.forEach((id) => of("liberar", id)); misionActiva.clear();
+  if (reunionEquipo) terminarReunion();
   bitacora(`<b style="color:var(--bien)">Misión completa</b>`); setOcupado(false); cerrarMision(); cargarTrabajos(); cargarEquipo();
 }
+
+/* ---------- Reunión de equipo ---------- */
+let reunionEquipo = false, mostrandoNotas = false;
+async function terminarReunion() {
+  reunionEquipo = false; mostrandoNotas = true;
+  try {
+    const r = await (await fetch("/api/reunion")).json();
+    if (r.agentes) {
+      of("notasReunion", r.agentes);
+      bitacora(`<b style="color:var(--celeste)">Nota del equipo</b> · ${r.nota_equipo ?? "–"} de 10`);
+      if (r.informe) agregarResultado(r.informe, true);
+    }
+  } catch (e) {}
+  setTimeout(() => { mostrandoNotas = false; of("despedirEquipo"); if (!ocupado) $("#mision").hidden = true; }, 9000);   // tiempo para ver la nota de cada uno
+}
+$("#reunir").onclick = () => { if (ocupado) return; texto.value = "Isa, reúne al equipo y revisa cómo va el trabajo de cada uno"; mandar(); };
 
 function ajustar() { texto.style.height = "auto"; texto.style.height = Math.min(texto.scrollHeight, 150) + "px"; }
 texto.addEventListener("input", ajustar);
