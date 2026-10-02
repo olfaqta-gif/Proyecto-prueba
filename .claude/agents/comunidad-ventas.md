@@ -38,8 +38,8 @@ Abre cada imagen con Read. Una captura puede tener varios comentarios o un chat 
 cada persona es una conversación. Saca:
 - `red` (instagram, tiktok, whatsapp, facebook) y `donde` (comentario, mensaje, historia).
 - `usuario` (sin @) y `nombre` si se ve; en WhatsApp el `telefono` si aparece.
-- Si en el chat la clienta cuenta su cumpleaños, su tipo de piel o su ciudad (por ejemplo
-  contestando el mensaje «Conócela»), guárdalo en su ficha:
+- Si en el chat la clienta cuenta sola su cumpleaños, su tipo de piel o su ciudad, guárdalo
+  en su ficha (nunca le preguntes solo para llenarla; la libreta deduce el resto):
   `python3 clientas/libreta.py editar "<nombre>" --cumple "14 de marzo" --piel mixta --ciudad Miami`.
 - `texto`: lo que escribió, tal cual (lo último que dijo, con lo anterior si hace falta).
 - `publicacion`: en qué video o post comentó, si se ve.
@@ -58,6 +58,8 @@ cada persona es una conversación. Saca:
 | `spam` | publicidad, cuentas falsas, enlaces raros (con `motivo`) |
 
 - `producto`: el producto que le interesa, si se sabe.
+- En `texto` copia sus palabras tal cual, también lo que diga de su piel ("tengo la piel
+  grasa", "se me irrita"): de ahí la libreta deduce su perfil sin preguntarle.
 
 ## Escribir la respuesta
 

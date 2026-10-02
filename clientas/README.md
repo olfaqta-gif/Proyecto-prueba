@@ -16,7 +16,6 @@ escribirle hoy**. Se abre en el panel de Isa con el botón **«Clientas»**.
     o un audio para tus redes.
   - 📌 **Recordatorios** que te anotaste ("escribirle el viernes").
   - 👋 **Sin respuesta:** preguntó y no volvió a escribir en 3 días (2 veces como máximo).
-  - 📝 **Conócela:** ya compró y a su ficha le falta el cumpleaños, la piel o la ciudad.
   
   «WhatsApp» abre el chat con el mensaje listo; en Instagram, TikTok o Facebook copia el
   mensaje y abre su chat para que solo lo pegues. «Hecho ✓» la quita de la lista.
@@ -36,10 +35,10 @@ pasa sola a "Pidió" (o a "Clienta fiel" si ya había comprado antes).
 |---|---|---|
 | 1. Alguien te escribe | nombre (o @usuario), red, usuario o teléfono, qué preguntó | el agente de comunidad, al leer las capturas de tus mensajes; o Isabella con «＋ Clienta» |
 | 2. Te compra | qué compró, si pagó, cuándo lo recibió | Isabella le cuenta a Isa la venta, o «＋ Pedido» y luego «Entregar» |
-| 3. Para conocerla (opcional) | cumpleaños, tipo de piel, ciudad | después de su primera compra aparece «Conócela» con el mensaje para preguntarle; lo que conteste se pone con «Editar» o se le cuenta a Isa |
+| 3. Para conocerla (sin preguntarle) | piel probable, lo que le gusta, por qué video llegó, cada cuánto compra | la libreta lo deduce de sus mensajes y sus compras («Lo que sabemos de ella»); el cumpleaños solo si se une al club de cumpleaños (/cumple) |
 
 Solo el paso 1 es obligatorio (nombre y por dónde escribirle). Sin el paso 2 no hay avisos de
-"se le acaba"; sin el cumpleaños no hay aviso de cumpleaños. Para empezar con las clientas
+"se le acaba". A la clienta nunca se le mandan preguntas para llenar la ficha. Para empezar con las clientas
 que Isabella ya tiene, se le pasa a Isa una foto del cuaderno, capturas o la lista escrita.
 
 **Los pasos se mueven solos:** Preguntó (escribió con una pregunta) → Interesada (dijo que lo
@@ -65,3 +64,10 @@ python3 clientas/libreta.py demo                      # libreta inventada en dat
 Los datos viven en `clientas/datos/libreta.json`, **solo en esta computadora**: no se suben
 al repositorio ni a internet. Para tener una copia de respaldo, copia esa carpeta.
 Los precios los pone Isabella (el total de cada pedido es opcional).
+
+## Más adelante: asistente de mensajes
+
+Si un día Isabella usa un asistente de mensajes (como ManyChat) que guarda a sus contactos en
+una hoja de Google, la libreta los puede traer sola:
+`python3 clientas/libreta.py sincronizar "<enlace de la hoja>"` (o un archivo .csv exportado).
+Desde entonces, cada vez que se abre la libreta revisa la hoja y anota a las nuevas.

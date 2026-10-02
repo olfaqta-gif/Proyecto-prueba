@@ -438,9 +438,11 @@ class Manejador(BaseHTTPRequestHandler):
                 with _candado_libreta:
                     l = libreta()
                     datos = l.cargar()
-                    l.aplicar(datos, pedido)
+                    resultado = l.aplicar(datos, pedido)
                     l.guardar(datos)
                     vista = l.vista(datos)
+                    if pedido.get("accion") == "sincronizar":
+                        vista["sincronizado"] = resultado
             except (ValueError, KeyError) as e:
                 self.responder(400, json.dumps({"error": str(e)}, ensure_ascii=False))
                 return

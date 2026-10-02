@@ -252,7 +252,15 @@
   .redes-elegir input:checked + span { background: var(--tinta); color: var(--fondo); border-color: var(--tinta); }
   details.mas { margin-top: 14px; }
   details.mas summary { cursor: pointer; font-weight: 600; font-size: 14px; color: var(--rosa-osc); margin-bottom: 12px; }
-  .falta { background: color-mix(in srgb, var(--oro) 14%, var(--papel)); border: 1px dashed var(--oro); border-radius: 14px; padding: 12px 14px; font-size: 14px; }
+  .pistas { display: flex; flex-wrap: wrap; gap: 8px; }
+  .pista { background: var(--papel); border: 1px solid var(--linea); border-radius: 14px; padding: 7px 11px; font-size: 13.5px; }
+  .pista b { display: block; font-weight: 600; }
+  .pista small { color: var(--tenue); font-size: 11.5px; }
+  .conexion { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; background: var(--papel); border: 1px solid var(--linea); border-radius: 18px; padding: 12px 16px; margin: -6px 0 18px; box-shadow: var(--sombra); font-size: 14px; }
+  .conexion .robot { width: 36px; height: 36px; border-radius: 12px; display: grid; place-items: center; font-size: 19px; background: linear-gradient(135deg, #c7b5ff, #8f6ae6); flex: none; }
+  .conexion .texto { flex: 1; min-width: 200px; }
+  .conexion small { display: block; color: var(--tenue); }
+    .falta { background: color-mix(in srgb, var(--oro) 14%, var(--papel)); border: 1px dashed var(--oro); border-radius: 14px; padding: 12px 14px; font-size: 14px; }
   .falta p { margin: 0 0 8px; }
   .ayuda-lista { display: grid; gap: 10px; margin: 0 0 16px; }
   .nivel { display: grid; grid-template-columns: 34px 1fr; gap: 10px; background: var(--papel); border: 1px solid var(--linea); border-radius: 16px; padding: 12px 14px; }
@@ -345,7 +353,7 @@
     <button role="tab" data-p="numeros" aria-selected="false">Números</button>
   </nav>
 
-  <section id="p-hoy"><div class="tareas" id="tareas"></div></section>
+  <section id="p-hoy"><div class="conexion" id="conexion"></div><div class="tareas" id="tareas"></div></section>
   <section id="p-tablero" hidden><div class="tablero" id="tablero"></div><div class="pausa-fila" id="pausa"></div></section>
   <section id="p-clientas" hidden><div class="filtros" id="filtros"></div><div class="galeria" id="galeria"></div></section>
   <section id="p-pedidos" hidden><div class="filtros" id="filtros-pedidos"></div><div class="pedidos" id="lista-pedidos"></div></section>
@@ -411,14 +419,14 @@
 <dialog id="dlg-ayuda">
   <form method="dialog">
     <h2>Cómo se llena la libreta</h2>
-    <p class="ayuda">Casi todo entra solo. Tú solo cuentas las ventas.</p>
+    <p class="ayuda">Casi todo entra solo. Tú solo cuentas las ventas y las entregas.</p>
     <div class="ayuda-lista">
       <div class="nivel" style="--c:#8f7cf6"><span class="num">1</span><div><b>Cuando alguien te escribe</b>
-        <p>Pásale a Isa capturas de tus comentarios y mensajes. El agente de comunidad anota a cada persona que pregunta o quiere comprar, con su nombre, su usuario y lo que preguntó. También puedes anotarla tú con «＋ Clienta». Solo hace falta su nombre y por dónde escribirle.</p></div></div>
+        <p>Pásale a Isa capturas de tus comentarios y mensajes. El agente de comunidad anota a cada persona que pregunta o quiere comprar, con lo que preguntó y en qué video comentó. También puedes anotarla tú con «＋ Clienta».</p></div></div>
       <div class="nivel" style="--c:#d64f8a"><span class="num">2</span><div><b>Cuando te compra</b>
         <p>Dile a Isa «Carla me compró el sérum y ya pagó», o toca «＋ Pedido». Cuando se lo entregues, toca «Entregar». Con eso la libreta sabe cuándo se le va a acabar y te avisa una semana antes.</p></div></div>
-      <div class="nivel" style="--c:#c99a5b"><span class="num">3</span><div><b>Para conocerla (opcional)</b>
-        <p>Después de su primera compra, en «Para hoy» aparece «Conócela» con un mensaje para preguntarle su cumpleaños, su tipo de piel y su ciudad. Lo que te conteste lo pones en su ficha con «Editar», o se lo cuentas a Isa.</p></div></div>
+      <div class="nivel" style="--c:#c99a5b"><span class="num">3</span><div><b>La conoces sin preguntarle</b>
+        <p>No le haces preguntas para llenar su ficha. La libreta deduce lo que puede: su piel por lo que preguntó («¿sirve para piel grasa?»), lo que le gusta por lo que compró, por qué video llegó y cada cuánto compra. Lo ves en «Lo que sabemos de ella». El cumpleaños, solo si ella se une a tu club de cumpleaños.</p></div></div>
     </div>
     <h3>Los pasos se mueven solos</h3>
     <ul class="pasos-ayuda">
@@ -461,7 +469,6 @@ const TIPOS = {
   opinion: { nombre: "¿Cómo le fue?", icono: "💬", c: "#8f7cf6" },
   seguimiento: { nombre: "Recordatorio", icono: "📌", c: "#e07a3f" },
   frio: { nombre: "Sin respuesta", icono: "👋", c: "#5b8def" },
-  datos: { nombre: "Conócela", icono: "📝", c: "#b07a2a" },
 };
 const PARES = [["#f29bb8", "#d64f8a"], ["#f6c59a", "#e2795b"], ["#c7b5ff", "#8f6ae6"], ["#9fe0c8", "#2f9e76"], ["#ffd88a", "#d99a2b"], ["#a8d4ff", "#4f8ee6"], ["#f7b0d9", "#b0408a"]];
 
@@ -512,6 +519,8 @@ async function cargar() {
     const r = await fetch("/api/clientas", { cache: "no-store" });
     V = await r.json();
     pintar();
+    const u = V.asistente?.ultima;
+    if (V.asistente?.hoja && (!u || Date.now() - new Date(u).getTime() > 10 * 60 * 1000)) traer(false);
   } catch (e) {
     $("#frase-saludo").textContent = "No pude abrir la libreta. Ábrela desde el panel de Isa.";
   }
@@ -556,7 +565,36 @@ function coincide(c) {
   return JSON.stringify([c.nombre, c.usuario, c.ciudad, c.telefono, c.productos, c.intereses]).toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").includes(q);
 }
 
+function pintarConexion() {
+  const a = V.asistente || {}, caja = $("#conexion");
+  if (a.hoja) {
+    caja.hidden = false;
+    caja.className = "conexion";
+    caja.innerHTML = `<span class="robot">🤖</span><div class="texto"><b>Conectada a tu asistente de mensajes</b>
+      <small>Las personas que le escriben llegan solas a tu libreta${a.ultima ? " · última revisión " + hace(a.ultima) + " a las " + a.ultima.slice(11, 16) : ""}</small></div>
+      <button class="btn chico" data-a="traer" ${FIJA ? "disabled" : ""}>Traer las nuevas</button>`;
+  } else {
+    caja.hidden = true;
+    return;
+  }
+  caja.onclick = async (ev) => {
+    const a = ev.target.closest("[data-a]")?.dataset.a;
+    if (a === "traer") traer(true);
+  };
+}
+async function traer(avisando) {
+  if (FIJA) return;
+  const r = await fetch("/api/clientas", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ accion: "sincronizar" }) });
+  const res = await r.json();
+  if (!r.ok) { if (avisando) avisar(res.error || "No pude traer las clientas"); return false; }
+  V = res; pintar();
+  const n = res.sincronizado;
+  if (avisando || (n && n.nuevas.length)) avisar(n && n.nuevas.length ? `${n.nuevas.length} ${n.nuevas.length === 1 ? "clienta nueva" : "clientas nuevas"} 💕` : "Todo al día ✓");
+  return true;
+}
+
 function pintarHoy() {
+  pintarConexion();
   const caja = $("#tareas");
   const lista = V.tareas.filter((t) => coincide(clienta(t.clienta) || {}));
   if (!lista.length) {
@@ -701,8 +739,7 @@ function abrirClienta(id, refrescar) {
         <button class="btn chico" data-a="pedido">＋ Pedido</button><button class="btn chico" data-a="editar">Editar</button>
       </div></div>
     <div class="bloque">
-      ${c.faltan?.length ? `<h4>Le falta en su ficha</h4><div class="falta"><p>${esc(c.faltan.join(", ").replace(/^./, (x) => x.toUpperCase()))}. ${c.n_pedidos ? "Pregúntaselo con este mensaje:" : "Pregúntaselo cuando te compre."}</p>
-        ${c.n_pedidos ? `<button class="btn chico" data-a="copiar-datos">Copiar mensaje para preguntarle</button>` : ""}</div>` : ""}
+      ${c.pistas?.length ? `<h4>Lo que sabemos de ella</h4><div class="pistas">${c.pistas.map((x) => `<span class="pista"><b>${esc(x.que)}</b><small>${esc(x.de)}</small></span>`).join("")}</div>` : ""}
       <h4>En qué paso va</h4>
       <div class="pasos">${[...V.etapas, V.pausa].map((x) => `<button style="--c:${x.color}" data-e="${x.id}" aria-pressed="${x.id === c.etapa}">${x.icono} ${esc(x.nombre)}</button>`).join("")}</div>
       <h4>Sus datos</h4>
@@ -729,7 +766,6 @@ function abrirClienta(id, refrescar) {
   $("#cajon").onclick = (ev) => {
     const a = ev.target.closest("[data-a]")?.dataset.a; if (!a) return;
     if (a === "pedido") abrirPedido(c.nombre);
-    if (a === "copiar-datos") { navigator.clipboard?.writeText(c.mensaje_datos).catch(() => {}); avisar("Mensaje copiado: pégalo en su chat"); }
     if (a === "editar") abrirFormClienta(c);
     if (a === "nota") { const t = $("#nota-texto").value.trim(); if (t) cambiar({ accion: "nota", id, texto: t }, "Anotado ✍️"); }
     if (a === "seguimiento") cambiar({ accion: "seguimiento", id, fecha: $("#seg-fecha").value, motivo: $("#seg-motivo").value }, $("#seg-fecha").value ? "Te lo recuerdo ese día 📌" : "Recordatorio quitado");

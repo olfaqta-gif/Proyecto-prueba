@@ -39,9 +39,9 @@
       "texto": "¡Hay varios tonos! 💄 Mándame una foto tuya con luz natural (sin filtro) y te ayudo a escoger el que mejor te queda."
     },
     {
-      "atajo": "/ficha",
-      "cuando": "Después de su primera compra, para conocerla",
-      "texto": "¡Hola! 💕 Para consentirte mejor y avisarte cuando haya algo para ti, ¿me cuentas cuándo es tu cumpleaños 🎂, cómo es tu piel (seca, grasa, mixta o sensible) y en qué ciudad vives?"
+      "atajo": "/cumple",
+      "cuando": "Para invitar a tu club de cumpleaños (en historias o a quien ya compró)",
+      "texto": "🎂 ¡Tengo un club de cumpleaños! Si quieres, dime tu fecha de cumpleaños y ese mes te llega un detalle especial de mi parte 💕 (si no, no pasa nada)."
     },
     {
       "atajo": "/gracias",

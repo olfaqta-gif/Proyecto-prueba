@@ -154,6 +154,8 @@ def cmd_hoja(a):
                       'intereses': [item['producto']] if item.get('producto') else []}
             if not ya and etapa:
                 campos['etapa'] = etapa
+            if item.get('publicacion') and not (ya or {}).get('publicacion'):
+                campos['publicacion'] = item['publicacion']   # por qué video llegó
             c = l.guardar_clienta(datos, campos, nota)
             if ya and etapa == 'interesada' and c.get('etapa') == 'pregunto':
                 l.mover(datos, c, 'interesada')

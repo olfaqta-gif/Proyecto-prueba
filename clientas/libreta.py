@@ -78,13 +78,17 @@ DIAS_SIN_RESPUESTA = 3   # una clienta que preguntó y no volvió a escribir
 DIAS_OPINION = 5         # después de entregar, preguntarle cómo le fue
 MAX_INSISTIR = 2         # mensajes sin respuesta antes de dejarla en pausa
 
-# La ficha de una clienta tiene 3 niveles (ver clientas/README.md):
-#  1. Para anotarla: nombre (o @usuario) y por dónde escribirle (red + usuario, o teléfono).
-#  2. Cuando compra: qué compró, si pagó y cuándo lo recibió (de ahí salen los avisos).
-#  3. Para conocerla (opcional): se le pregunta con un mensaje después de su primera compra.
-PARA_CONOCERLA = [('cumple', 'su cumpleaños', 'cuándo es tu cumpleaños 🎂'),
-                  ('piel', 'su tipo de piel', 'cómo es tu piel: seca, grasa, mixta o sensible'),
-                  ('ciudad', 'su ciudad', 'en qué ciudad vives, para tus entregas')]
+# A la clienta no se le hacen preguntas para llenar su ficha: se conoce por lo que ya
+# dijo en sus mensajes, lo que tocó en los botones del asistente y lo que compró.
+PIEL = [('grasa', r'\bgras[ao]s?a?\b|grasosa|oily|brillo|poros abiertos'),
+        ('seca', r'\bsec[ao]\b|reseca|tirante|\bdry\b'),
+        ('mixta', r'\bmixta\b|combinad|combination'),
+        ('sensible', r'sensible|se irrita|irritaci|rojez|sensitive')]
+GUSTOS = [('cuidado de la piel', r'serum|crema|cream|mascarilla|mask|limpiador|cleanser|tonico|spf|protector|piel|acne|manchas|arrugas|tea tree|vitamin c'),
+          ('maquillaje', r'labial|lipstick|lip|base|foundation|mascara|pestan|sombra|rubor|corrector|polvo|maquill|tono'),
+          ('bienestar', r'\bte\b|\btea\b(?!\s*tree)|cafe|coffee|nutriplus|vitaminas?\b(?!\s*c\b)|colageno|collagen|batido'),
+          ('cabello', r'shampoo|champu|acondicionador|cabello|hair|pelo'),
+          ('fragancias', r'perfume|parfum|fragan|colonia')]
 
 
 # ---------- guardar y leer ----------
@@ -172,8 +176,8 @@ def buscar_clienta(datos, quien):
     return parecidas[0] if len(parecidas) == 1 else None
 
 
-CAMPOS_CLIENTA = ('nombre', 'usuario', 'red', 'telefono', 'ciudad', 'cumple', 'piel', 'tono',
-                  'intereses', 'notas', 'etapa', 'origen', 'foto')
+CAMPOS_CLIENTA = ('nombre', 'usuario', 'red', 'telefono', 'ciudad', 'cumple', 'piel', 'piel_fuente', 'tono',
+                  'intereses', 'notas', 'etapa', 'origen', 'foto', 'publicacion', 'email')
 
 
 def guardar_clienta(datos, campos, nota=None):
@@ -412,18 +416,31 @@ def n_dias(n):
     return '1 día' if n == 1 else f'{n} días'
 
 
-def que_falta(c):
-    """Los datos para conocerla que todavía no tiene la ficha."""
-    return [(k, nombre, pregunta) for k, nombre, pregunta in PARA_CONOCERLA if not c.get(k)]
-
-
-def mensaje_datos(c):
-    preguntas = [p for _, _, p in que_falta(c)]
-    if not preguntas:
-        return ''
-    lista = preguntas[0] if len(preguntas) == 1 else ', '.join(preguntas[:-1]) + ' y ' + preguntas[-1]
-    return (f'¡Hola, {primer_nombre(c)}! 💕 Para consentirte mejor y avisarte cuando haya algo para ti, '
-            f'¿me cuentas {lista}?')
+def conocerla(c, pedidos):
+    """Lo que se sabe de ella sin preguntarle: de sus mensajes, sus botones y sus compras."""
+    pistas = []
+    textos = ' '.join(sin_tildes(h.get('texto')) for h in c.get('historial', []))
+    if c.get('piel'):
+        pistas.append({'que': 'Piel ' + c['piel'], 'de': c.get('piel_fuente') or 'anotado'})
+    else:
+        for piel, patron in PIEL:
+            if re.search(patron, textos):
+                pistas.append({'que': f'Piel {piel} (probable)', 'de': 'lo dijo en un mensaje'})
+                break
+    compras = ' '.join(sin_tildes(x['nombre']) for p in pedidos for x in p['productos'])
+    for gusto, patron in GUSTOS:
+        if re.search(patron, compras):
+            pistas.append({'que': f'Le gusta {gusto}', 'de': 'por lo que compró'})
+        elif re.search(patron, textos + ' ' + sin_tildes(' '.join(c.get('intereses', [])))):
+            pistas.append({'que': f'Le interesa {gusto}', 'de': 'por lo que preguntó'})
+    if c.get('publicacion'):
+        pistas.append({'que': f"Llegó por «{c['publicacion']}»", 'de': 'comentó esa publicación'})
+    if len(pedidos) >= 2:
+        dias = sorted(fecha(p['fecha']) for p in pedidos if fecha(p['fecha']))
+        if len(dias) >= 2:
+            cada = round((dias[-1] - dias[0]).days / (len(dias) - 1))
+            pistas.append({'que': f'Compra cada {n_dias(cada)} más o menos', 'de': 'por sus pedidos'})
+    return pistas
 
 
 def tareas(datos, dia=None):
@@ -530,17 +547,6 @@ def tareas(datos, dia=None):
                   u + datetime.timedelta(days=DIAS_SIN_RESPUESTA),
                   mensaje('frio', c, f'sobre {interes}' if interes else ''), 1)
 
-    # 7. Ya compró y a su ficha le faltan datos para conocerla: preguntárselos una vez.
-    for c in datos['clientas']:
-        mios = [p for p in datos['pedidos'] if p['clienta'] == c['id']]
-        if not mios or c.get('etapa') == 'pausa' or not que_falta(c):
-            continue
-        primera = min(fecha(p['fecha']) or dia for p in mios)
-        tarea(f"datos:{c['id']}", 'datos', c, 'Completa su ficha',
-              'Ya te compró. Te falta ' + nombres_productos([{'nombre': n} for _, n, _ in que_falta(c)]) +
-              ': con eso la libreta te avisa de su cumpleaños y le recomiendas mejor.',
-              primera, mensaje_datos(c), 1)
-
     lista.sort(key=lambda t: (-t['urgencia'], t['fecha']))
     return lista
 
@@ -558,7 +564,7 @@ def marcar_hecho(datos, tid):
     if c:
         que = {'recompra': 'Le ofrecí otra vez su producto', 'cumple': 'Le escribí por su cumpleaños',
                'opinion': 'Le pregunté cómo le fue', 'seguimiento': 'Le escribí como quedamos',
-               'frio': 'Le escribí otra vez', 'datos': 'Le pregunté sus datos para la ficha'}.get(tipo, 'Le escribí')
+               'frio': 'Le escribí otra vez'}.get(tipo, 'Le escribí')
         anotar(c, que)
         if tipo == 'seguimiento':
             c.pop('seguimiento', None)
@@ -680,12 +686,125 @@ def vista(datos, dia=None):
         c['ultimo_pedido'] = mios[0]['fecha'] if mios else None
         c['productos'] = list(dict.fromkeys(x['nombre'] for p in mios for x in p['productos']))
         c['enlace'] = enlace_chat(c)
-        c['faltan'] = [nombre for _, nombre, _ in que_falta(c)]
-        c['mensaje_datos'] = mensaje_datos(c)
+        c['pistas'] = conocerla(c, mios)
         clientas.append(c)
     return {'hoy': dia.isoformat(), 'etapas': ETAPAS, 'pausa': PAUSA, 'redes': REDES,
             'clientas': clientas, 'pedidos': datos['pedidos'], 'tareas': tareas(datos, dia),
-            'resumen': resumen(datos, dia), 'catalogo': catalogo(), 'voz': voz()}
+            'resumen': resumen(datos, dia), 'catalogo': catalogo(), 'voz': voz(),
+            'asistente': {k: v for k, v in leer_config().items() if k in ('hoja', 'ultima')}}
+
+
+# ---------- traer clientas del asistente de mensajes (ManyChat u otro) ----------
+
+CONFIG = DATOS / 'config.json'
+# Nombres de columna que puede traer la hoja (en español o inglés, como los exporta el asistente)
+COLUMNAS = {
+    'nombre': ['nombre', 'name', 'full name', 'nombre completo'],
+    'nombre1': ['first name', 'primer nombre'],
+    'apellido': ['last name', 'apellido'],
+    'usuario': ['usuario', 'username', 'instagram username', 'ig username', 'instagram', 'tiktok username', 'tiktok', 'user name'],
+    'telefono': ['telefono', 'phone', 'whatsapp', 'whatsapp phone', 'celular', 'numero'],
+    'email': ['email', 'correo', 'e-mail'],
+    'red': ['red', 'canal', 'channel', 'plataforma', 'platform'],
+    'piel': ['piel', 'tipo de piel', 'skin', 'skin type'],
+    'interes': ['interes', 'producto', 'product', 'interest', 'le interesa'],
+    'mensaje': ['mensaje', 'ultimo mensaje', 'last input', 'last text input', 'pregunta', 'last message'],
+    'publicacion': ['publicacion', 'post', 'reel', 'video', 'comento en'],
+    'etiquetas': ['etiquetas', 'tags', 'tag'],
+    'cumple': ['cumpleanos', 'birthday', 'fecha de cumpleanos', 'cumple'],
+    'ciudad': ['ciudad', 'city'],
+    'fecha': ['fecha', 'last interaction', 'ultima interaccion', 'subscribed', 'date'],
+}
+
+
+def leer_config():
+    try:
+        return json.loads(CONFIG.read_text(encoding='utf-8'))
+    except (OSError, ValueError):
+        return {}
+
+
+def guardar_config(cfg):
+    DATOS.mkdir(parents=True, exist_ok=True)
+    CONFIG.write_text(json.dumps(cfg, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+
+
+def enlace_csv(url):
+    """Un enlace de Google Sheets se convierte en su descarga como tabla."""
+    m = re.search(r'docs\.google\.com/spreadsheets/d/([\w-]+)', url)
+    if m and 'output=csv' not in url and 'format=csv' not in url:
+        gid = re.search(r'[#&?]gid=(\d+)', url)
+        return f'https://docs.google.com/spreadsheets/d/{m.group(1)}/export?format=csv' + (f'&gid={gid.group(1)}' if gid else '')
+    return url
+
+
+def leer_tabla(origen):
+    import io
+    import urllib.request
+    if re.match(r'https?://', origen):
+        try:
+            with urllib.request.urlopen(enlace_csv(origen), timeout=20) as r:
+                texto = r.read().decode('utf-8-sig')
+        except OSError as e:
+            raise ValueError(f'No pude abrir la hoja ({e}). Revisa el enlace y que haya internet.')
+        if texto.lstrip().startswith('<'):
+            raise ValueError('El enlace no deja leer la hoja. En Google Sheets: Compartir → '
+                             '"Cualquier persona con el enlace" puede ver.')
+    else:
+        texto = Path(origen).read_text(encoding='utf-8-sig')
+    return list(csv.DictReader(io.StringIO(texto)))
+
+
+def sincronizar(datos, origen=None):
+    """Trae las personas que escribieron al asistente y las anota o completa en la libreta."""
+    cfg = leer_config()
+    origen = origen or cfg.get('hoja')
+    if not origen:
+        raise ValueError('Todavía no hay una hoja conectada.')
+    filas = leer_tabla(origen)
+    nuevas, actualizadas = [], 0
+    for fila in filas:
+        col = {sin_tildes(k).strip(): (v or '').strip() for k, v in fila.items() if k}
+        dato = lambda campo: next((col[n] for n in COLUMNAS[campo] if col.get(n)), '')
+        nombre = dato('nombre') or ' '.join(x for x in (dato('nombre1'), dato('apellido')) if x)
+        usuario, telefono = usuario_limpio(dato('usuario')), dato('telefono')
+        if not (nombre or usuario or telefono):
+            continue
+        red = sin_tildes(dato('red'))
+        red = next((r for r in REDES if r in red), '') or ('whatsapp' if telefono and not usuario else 'instagram')
+        etiquetas = sin_tildes(dato('etiquetas'))
+        etapa = 'interesada' if re.search(r'comprar|pedido|quiere|interesad|apart', etiquetas) else 'pregunto'
+        ya = next((c for c in (buscar_clienta(datos, q) for q in ('@' + usuario if usuario else None, telefono, nombre) if q) if c), None)
+        campos = {'nombre': nombre or None, 'usuario': usuario, 'telefono': telefono, 'red': red,
+                  'email': dato('email'), 'ciudad': dato('ciudad'), 'publicacion': dato('publicacion'),
+                  'origen': 'asistente de mensajes', 'intereses': [dato('interes')] if dato('interes') else []}
+        if dato('piel') and not (ya or {}).get('piel'):
+            campos['piel'] = sin_tildes(dato('piel')).split()[0]
+            campos['piel_fuente'] = 'lo eligió en el asistente'
+        if dato('cumple') and not (ya or {}).get('cumple'):
+            campos['cumple'] = dato('cumple')
+        if not ya:
+            campos['etapa'] = etapa
+        mensaje_nuevo = dato('mensaje')
+        nota = None
+        if mensaje_nuevo and (not ya or ya.get('ultimo_mensaje') != mensaje_nuevo):
+            nota = f'Escribió al asistente: «{mensaje_nuevo[:160]}»'
+        c = guardar_clienta(datos, campos, nota)
+        if mensaje_nuevo:
+            c['ultimo_mensaje'] = mensaje_nuevo
+        if ya and etapa == 'interesada' and c.get('etapa') in ('pregunto', 'pausa'):
+            mover(datos, c, 'interesada')
+        elif ya and c.get('etapa') == 'pausa' and nota:
+            mover(datos, c, 'pregunto')   # volvió a escribir
+        if ya:
+            actualizadas += 1 if nota or campos.get('piel') else 0
+        else:
+            nuevas.append(c['nombre'])
+    cfg.update({'hoja': origen if re.match(r'https?://', origen) else cfg.get('hoja', ''),
+                'ultima': datetime.datetime.now().isoformat(timespec='minutes')})
+    if re.match(r'https?://', origen) or not cfg.get('hoja'):
+        guardar_config(cfg)
+    return {'filas': len(filas), 'nuevas': nuevas, 'actualizadas': actualizadas}
 
 
 def aplicar(datos, pedido):
@@ -729,6 +848,8 @@ def aplicar(datos, pedido):
         return marcar_hecho(datos, pedido['id'])
     if accion == 'deshacer':
         return deshacer(datos, pedido['id'])
+    if accion == 'sincronizar':
+        return sincronizar(datos)
     raise ValueError(f'No sé hacer «{accion}».')
 
 
@@ -777,7 +898,7 @@ def demo(archivo):
     cumple_en = lambda n: (dia + datetime.timedelta(days=n)).strftime('%m-%d')
     ejemplo = [
         ('Carla Méndez', 'carla.mendez', 'instagram', '+1 305 555 0142', 'Miami', cumple_en(2), 'mixta', ['skincare'], 'fiel', 70),
-        ('Daniela Ortiz', 'dani.ortiz', 'instagram', '', 'Houston', '', 'grasa', ['vitamina C'], 'pregunto', 5),
+        ('Daniela Ortiz', 'dani.ortiz', 'instagram', '', 'Houston', '', '', ['vitamina C'], 'pregunto', 5),
         ('Mariana López', 'marilopez', 'tiktok', '+1 713 555 0199', 'Dallas', cumple_en(25), 'seca', ['maquillaje'], 'entregado', 40),
         ('Sofía Ramírez', 'sofi.ramirez', 'instagram', '+1 407 555 0110', 'Orlando', '', 'sensible', ['té', 'bienestar'], 'pidio', 12),
         ('Valentina Cruz', 'vale.cruz', 'whatsapp', '+1 786 555 0175', 'Miami', cumple_en(0), 'mixta', ['labiales'], 'entregado', 50),
@@ -815,6 +936,7 @@ def demo(archivo):
             entregar(d, p['id'], hace(entregado))
     c = buscar_clienta(d, 'Daniela Ortiz')
     anotar(c, 'Preguntó si el sérum sirve para piel grasa', hace(5))
+    c['publicacion'] = '3 mitos de la piel grasa'
     c = buscar_clienta(d, 'Lucía Herrera')
     c['seguimiento'] = {'fecha': dia.isoformat(), 'motivo': 'Escribirle: cobra el viernes y quiere el sérum'}
     guardar(d, archivo)
@@ -827,7 +949,7 @@ def imprimir_tareas(lista):
     if not lista:
         print('Nada pendiente para hoy. 🌸')
         return
-    iconos = {'recompra': '🔁', 'cumple': '🎂', 'entrega': '📦', 'opinion': '💬', 'seguimiento': '📌', 'frio': '👋', 'datos': '📝'}
+    iconos = {'recompra': '🔁', 'cumple': '🎂', 'entrega': '📦', 'opinion': '💬', 'seguimiento': '📌', 'frio': '👋'}
     for t in lista:
         print(f"{iconos.get(t['tipo'], '•')} {t['nombre']}: {t['titulo']}. {t['detalle']}")
         print(f"   Mensaje: {t['mensaje']}")
@@ -892,6 +1014,8 @@ def main():
     pa = sub.add_parser('pagina', help='copia de la página para ver sin el panel')
     pa.add_argument('--salida', default=str(DATOS / 'libreta-vista.html'))
     sub.add_parser('demo', help='libreta de ejemplo en clientas/datos/demo.json')
+    si = sub.add_parser('sincronizar', help='trae las clientas del asistente de mensajes (hoja de Google o archivo)')
+    si.add_argument('origen', nargs='?', help='enlace de la hoja o archivo .csv (si no, la hoja ya conectada)')
 
     a_ = p.parse_args()
     archivo = Path(a_.archivo)
@@ -1001,6 +1125,11 @@ def main():
                 w.writerows(filas)
             sin = sum(1 for p in datos['pedidos'] for x in p['productos'] if not x.get('codigo'))
             print(f'{len(filas)} ventas en {VENTAS_CSV}' + (f' ({sin} productos sin código de la tienda, no van)' if sin else ''))
+        elif a_.cmd == 'sincronizar':
+            r = sincronizar(datos, a_.origen)
+            guardar(datos, archivo)
+            print(f"{r['filas']} personas en la hoja · {len(r['nuevas'])} nuevas en la libreta"
+                  + (f" ({', '.join(r['nuevas'][:8])})" if r['nuevas'] else '') + f" · {r['actualizadas']} actualizadas")
         elif a_.cmd == 'pagina':
             destino = pagina_estatica(datos, a_.salida)
             print(f'Página en {destino}')
