@@ -1,0 +1,87 @@
+{
+  "_como_se_usa": "Lista de productos de la página. Cada uno lleva su código de farmasius.com y el texto en español que escribe Isabella (o Isa). Las fotos, el nombre oficial, las reseñas y los tonos los trae `python3 sitio/preparar.py` desde la tienda. Sin precios ni promesas médicas. Si una foto de la tienda no sirve (cartel con porcentajes, bolsa…), pon su número en \"quitar_fotos\".",
+  "productos": [
+    {
+      "codigo": "1002167", "id": "vitamina-c", "categoria": "piel", "nombre": "Vitamin C Glow Serum",
+      "frase": "Luz en la cara desde el primer día.",
+      "que": "Sérum con vitamina C estable, alga roja y extracto de frutas. Unas gotas en la piel limpia y tu cara se ve más luminosa y pareja.",
+      "ingredientes": ["Vitamina C (STAY-C® 50): da luz y empareja el tono", "Alga roja y agua mineral: hidratan", "Extracto de frutas: exfolia suave"],
+      "uso": "Mañana y noche, sobre la piel limpia. Después tu crema, y en la mañana protector solar.",
+      "momento": "manana",
+      "quitar_fotos": [2]
+    },
+    {
+      "codigo": "1000269", "id": "mascarilla-noche", "categoria": "piel", "nombre": "All Night Beauty Mask",
+      "frase": "Te la pones al dormir. Despiertas con otra cara.",
+      "que": "Mascarilla de noche con vitamina C dorada, oro coloidal y multivitaminas. Trabaja mientras duermes y en la mañana solo te enjuagas.",
+      "ingredientes": ["Vitamina C con glutatión y oro: luz y protección", "Vitaminas A, C, E y F: nutren", "Alga laminaria: piel más firme"],
+      "uso": "En piel limpia antes de dormir, sin tocar los ojos. Te enjuagas en la mañana. Dos veces por semana.",
+      "momento": "noche",
+      "quitar_fotos": [2, 3]
+    },
+    {
+      "codigo": "1000286", "id": "calendula", "categoria": "piel", "nombre": "Calendula Cream Balsam",
+      "frase": "El rescate de la piel reseca.",
+      "que": "Crema bálsamo rica con caléndula, aguacate y vitamina E. Calma la piel seca o estresada y la deja suave por horas.",
+      "ingredientes": ["Aceite de caléndula: calma", "Aceite de aguacate: nutre", "Vitamina E: protege"],
+      "uso": "Masajea en círculos sobre la piel limpia, donde más la necesites. Todos los días.",
+      "momento": "noche"
+    },
+    {
+      "codigo": "1000290", "id": "crema-tea-tree", "categoria": "piel", "nombre": "Tea Tree Face Cream",
+      "frase": "Hidrata ligerito, sin brillo de más.",
+      "que": "Crema ligera con árbol de té, tomillo y escualano. Para piel mixta o grasa que quiere hidratarse sin sentirse pesada.",
+      "ingredientes": ["Árbol de té: purifica", "Tomillo: equilibra", "Escualano: guarda la hidratación"],
+      "uso": "Mañana y noche, después de limpiar. Del centro de la cara hacia afuera.",
+      "momento": "manana"
+    },
+    {
+      "codigo": "1000292", "id": "serum-tea-tree", "categoria": "piel", "nombre": "Tea Tree Serum",
+      "frase": "Para esos granitos que salen sin avisar.",
+      "que": "Sérum con árbol de té, romero y tomillo. Unas gotas en la zona que lo necesita para una piel que se ve más limpia y pareja.",
+      "ingredientes": ["Árbol de té: purifica", "Romero: protege", "Tomillo: calma"],
+      "uso": "Unas gotas solo donde lo necesites, en la piel limpia. Mañana y noche.",
+      "momento": "noche"
+    },
+    {
+      "codigo": "1000991", "id": "super-elixir", "categoria": "piel", "nombre": "Absolute Super Elixir",
+      "frase": "Un aceite para cara, cuerpo y cabello.",
+      "que": "Aceite seco con extractos naturales que se absorbe rápido y no deja la piel grasosa. Brillo sano en la cara, suavidad en el cuerpo y adiós al frizz.",
+      "ingredientes": ["Aceites 100% naturales: nutren y dan brillo"],
+      "uso": "Frota unas gotas entre las manos. En la cara, solo o mezclado con tu crema. En el cabello, de medios a puntas.",
+      "momento": "noche"
+    },
+    {
+      "codigo": "1001409", "id": "labial-mate", "categoria": "maquillaje", "nombre": "Matte Liquid Lipstick",
+      "frase": "El labial mate más querido de la tienda.",
+      "que": "Labial líquido mate de color intenso que dura todo el día, con un aplicador en forma de almendra muy fácil de usar.",
+      "ingredientes": ["Pigmentos de color intenso, acabado mate", "Vegano y sin parabenos"],
+      "uso": "Del centro del labio hacia las comisuras. Déjalo secar unos segundos. Si quieres más precisión, delinea antes.",
+      "momento": "dia"
+    },
+    {
+      "codigo": "1002031", "id": "base-vfx", "categoria": "maquillaje", "nombre": "VFX PRO Camera Ready Foundation",
+      "frase": "Piel de foto, hasta en video.",
+      "que": "Base líquida de cobertura completa y acabado mate, ligera y sin aceite. Disimula poros y dura todo el día.",
+      "ingredientes": ["Agua marina con minerales: hidrata ligero", "Sin aceite, no tapa poros", "Vegana"],
+      "uso": "Aplícala directo en la piel y difumina con los dedos, una brocha o una esponja.",
+      "momento": "dia"
+    },
+    {
+      "codigo": "1301518", "id": "mascara-double-lash", "categoria": "maquillaje", "nombre": "Double Lash Extend Mascara",
+      "frase": "Pestañas largas, sin pestañas postizas.",
+      "que": "Máscara que alarga y separa cada pestaña para una mirada más abierta.",
+      "ingredientes": ["Fórmula que alarga y define", "Sin parabenos"],
+      "uso": "De la raíz a la punta en zigzag. Repite hasta la intensidad que quieras.",
+      "momento": "dia"
+    },
+    {
+      "codigo": "1002142", "id": "rubor-midnight", "categoria": "maquillaje", "nombre": "Midnight Touch Blush",
+      "frase": "Mejillas con color de buena noche de sueño.",
+      "que": "Rubor de textura aterciopelada con agua de rosas, ácido hialurónico y vitamina C. Da un color fresco y natural a cualquier tono de piel.",
+      "ingredientes": ["Agua de rosa japonesa: refresca", "Ácido hialurónico: hidrata", "Vitamina C y E: luz y protección"],
+      "uso": "Directo en las mejillas y difumina con los dedos o una brocha. Solo o sobre tu base.",
+      "momento": "dia"
+    }
+  ]
+}

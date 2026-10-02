@@ -1,0 +1,1073 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Isabella Belleza</title>
+<meta name="description" content="Skincare y maquillaje Farmasi elegidos por Isabella. Descubre tu ritual, rasca tu regalo de bienvenida y escríbele por WhatsApp.">
+<!-- Lo que se ve al compartir el enlace (WhatsApp, Instagram, Facebook).
+     Cuando la página tenga su dirección, pon la dirección completa de la imagen, ej. https://…/img/compartir.jpg -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Isabella · Belleza que se siente tuya">
+<meta property="og:description" content="Descubre tu ritual de belleza, rasca tu regalo de bienvenida y escríbeme por WhatsApp.">
+<meta property="og:image" content="img/compartir.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@300;400;500&display=swap">
+<style>
+/* Concepto: una boutique de belleza en papel hueso. Fotos de producto sobre pedestales blancos,
+   arcos como vitrinas, mucho aire, una sola nota de color (palo de rosa) y oro champaña
+   solo en el regalo. Las transiciones son lentas y suaves, como pasar páginas de revista. */
+:root {
+  --paper: #f3f2f0;       /* papel hueso, neutro */
+  --surface: #fbfaf9;
+  --stone: #e6e2de;       /* secciones alternas */
+  --ink: #171414;
+  --muted: #6f6763;
+  --line: #d9d3ce;
+  --accent: #8c3b4a;      /* palo de rosa profundo */
+  --accent-ink: #ffffff;
+  --gold: #b39a73;        /* champaña: solo el regalo y detalles finos */
+  --tile: #ffffff;        /* pedestal de producto */
+  --night: #1d1819;       /* sección del regalo */
+  --night-ink: #efe8e2;
+  --ok: #3d6b52;
+  --display: "Cormorant", "Cormorant Garamond", "Didot", Georgia, serif;
+  --body: "Jost", "Futura", "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+  --ease: cubic-bezier(.22, .61, .36, 1);
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #121011; --surface: #1a1617; --stone: #1f1a1b; --ink: #eee8e3; --muted: #a59b96;
+    --line: #342d2e; --accent: #d98c9b; --accent-ink: #1a0f12; --gold: #cdb48c; --tile: #f4f1ee;
+    --night: #0b0909; --night-ink: #efe8e2; --ok: #8cc7a3;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #121011; --surface: #1a1617; --stone: #1f1a1b; --ink: #eee8e3; --muted: #a59b96;
+  --line: #342d2e; --accent: #d98c9b; --accent-ink: #1a0f12; --gold: #cdb48c; --tile: #f4f1ee;
+  --night: #0b0909; --night-ink: #efe8e2; --ok: #8cc7a3;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0; background: var(--paper); color: var(--ink);
+  font: 300 17px/1.65 var(--body); -webkit-font-smoothing: antialiased;
+}
+img, video { max-width: 100%; display: block; }
+a { color: inherit; }
+h1, h2, h3 { margin: 0; font-weight: 400; text-wrap: balance; }
+p { margin: 0; }
+button { font: inherit; color: inherit; }
+.wrap { max-width: 1240px; margin: 0 auto; padding-inline: 24px; }
+@media (max-width: 520px) { .wrap { padding-inline: 18px; } }
+
+.label { font: 500 11.5px/1.3 var(--body); letter-spacing: .26em; text-transform: uppercase; color: var(--muted); }
+.serif { font-family: var(--display); }
+em { font-style: italic; }
+.h2 { font: 300 clamp(40px, 5.6vw, 76px)/1 var(--display); letter-spacing: -.015em; }
+.h2 em { color: var(--accent); }
+.lead { font-size: 18px; color: var(--muted); max-width: 52ch; }
+
+/* botones */
+.btn {
+  position: relative; overflow: hidden; display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  min-height: 52px; padding: 0 28px; border: 1px solid var(--ink); border-radius: 0;
+  font: 500 12.5px/1 var(--body); letter-spacing: .2em; text-transform: uppercase;
+  background: transparent; color: var(--ink); text-decoration: none; cursor: pointer; isolation: isolate;
+  transition: color .45s var(--ease);
+}
+.btn::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; background: var(--ink);
+  transform: scaleY(0); transform-origin: bottom; transition: transform .45s var(--ease);
+}
+.btn:hover { color: var(--paper); }
+.btn:hover::before { transform: scaleY(1); }
+.btn.solid { background: var(--ink); color: var(--paper); }
+.btn.solid::before { background: var(--accent); }
+.btn.solid:hover { color: var(--accent-ink); }
+.btn.light { border-color: var(--night-ink); color: var(--night-ink); }
+.btn.light::before { background: var(--night-ink); }
+.btn.light:hover { color: var(--night); }
+.btn.gold { background: var(--gold); border-color: var(--gold); color: #1d1819; }
+.btn.gold::before { background: var(--night-ink); }
+.btn.gold:hover { color: #1d1819; }
+.link {
+  font: 500 12.5px/1 var(--body); letter-spacing: .2em; text-transform: uppercase; text-decoration: none;
+  background: linear-gradient(currentColor, currentColor) 0 100% / 100% 1px no-repeat; padding-bottom: 6px;
+  transition: background-size .45s var(--ease); cursor: pointer; border: 0; background-color: transparent;
+}
+.link:hover { background-size: 0 1px; background-position: 100% 100%; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+/* aviso de vista previa */
+.preview-note { background: var(--accent); color: var(--accent-ink); text-align: center; font: 400 13px/1.4 var(--body); padding: 8px 16px; }
+
+/* barra superior */
+.announce { background: var(--ink); color: var(--paper); text-align: center; padding: 10px 16px; font: 400 12px/1.4 var(--body); letter-spacing: .18em; text-transform: uppercase; }
+.announce a { color: var(--paper); text-underline-offset: 4px; }
+header.top {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 30;
+  background: color-mix(in srgb, var(--paper) 88%, transparent); backdrop-filter: blur(14px);
+  border-bottom: 1px solid transparent; transition: border-color .4s;
+}
+header.top.scrolled { border-bottom-color: var(--line); }
+header.top .wrap { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 16px; min-height: 72px; }
+.nav { display: flex; gap: 28px; }
+.nav a { font: 400 13px/1 var(--body); letter-spacing: .16em; text-transform: uppercase; text-decoration: none; color: var(--muted); transition: color .3s; }
+.nav a:hover { color: var(--ink); }
+.wordmark { font: 400 30px/1 var(--display); letter-spacing: .32em; text-decoration: none; padding-left: .32em; text-transform: uppercase; }
+.top-right { justify-self: end; display: flex; align-items: center; gap: 18px; }
+.bag-btn { display: inline-flex; align-items: center; gap: 8px; background: none; border: 0; cursor: pointer; font: 400 13px/1 var(--body); letter-spacing: .16em; text-transform: uppercase; }
+.bag-count { display: inline-grid; place-items: center; min-width: 22px; height: 22px; padding: 0 6px; border-radius: 11px; background: var(--ink); color: var(--paper); font-size: 11px; letter-spacing: 0; transition: transform .3s var(--ease); }
+.bag-count.pop { transform: scale(1.35); }
+@media (max-width: 860px) {
+  .nav { display: none; }
+  header.top .wrap { grid-template-columns: auto 1fr; }
+  .wordmark { font-size: 24px; }
+}
+
+/* portada */
+.hero .wrap { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: 56px; align-items: center; padding-block: 56px 88px; }
+.hero-copy { display: grid; gap: 28px; }
+.hero h1 { font: 300 clamp(52px, 7.6vw, 112px)/.95 var(--display); letter-spacing: -.02em; }
+.hero h1 .ln { display: block; overflow: hidden; padding-bottom: .06em; }
+.hero h1 .ln > span { display: inline-block; animation: subir 1.2s var(--ease) both; }
+.hero h1 .ln:nth-child(2) > span { animation-delay: .12s; }
+.hero h1 .ln:nth-child(3) > span { animation-delay: .24s; }
+.hero h1 em { color: var(--accent); }
+@keyframes subir { from { transform: translateY(105%); } to { transform: none; } }
+.hero-copy .lead { animation: aparecer 1s .5s var(--ease) both; }
+.hero-ctas { display: flex; flex-wrap: wrap; align-items: center; gap: 18px 28px; animation: aparecer 1s .65s var(--ease) both; }
+.proof { display: flex; gap: 28px; flex-wrap: wrap; padding-top: 22px; border-top: 1px solid var(--line); animation: aparecer 1s .8s var(--ease) both; }
+.proof div { display: grid; gap: 2px; }
+.proof b { font: 400 30px/1 var(--display); font-variant-numeric: tabular-nums; }
+.proof span { font-size: 13px; color: var(--muted); }
+@keyframes aparecer { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+
+.hero-art { position: relative; justify-self: end; width: min(480px, 100%); }
+.arch {
+  position: relative; aspect-ratio: 4 / 5.2; width: 100%; max-width: 100%;
+  border-radius: 999px 999px 0 0; overflow: hidden; background: var(--stone);
+  animation: velo 1.6s .1s var(--ease) both;
+}
+.arch img { width: 100%; height: 100%; object-fit: cover; animation: acercar 2.4s .1s var(--ease) both; }
+@keyframes velo { from { clip-path: inset(100% 0 0 0); } to { clip-path: inset(0 0 0 0); } }
+@keyframes acercar { from { transform: scale(1.18); } to { transform: scale(1); } }
+.portrait {
+  position: absolute; left: -54px; bottom: 54px; width: 168px; aspect-ratio: 3 / 4;
+  border-radius: 999px; border: 6px solid var(--paper); overflow: hidden;
+  background: linear-gradient(170deg, var(--stone), color-mix(in srgb, var(--accent) 22%, var(--stone)));
+  display: grid; place-items: center; text-align: center; padding: 18px;
+  font: italic 400 17px/1.2 var(--display); color: var(--muted);
+  animation: aparecer 1.2s 1s var(--ease) both;
+}
+.portrait img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.art-caption {
+  position: absolute; right: 0; bottom: -34px; display: flex; gap: 12px; align-items: baseline;
+  font: italic 400 18px/1 var(--display); color: var(--muted); animation: aparecer 1s 1.2s var(--ease) both;
+}
+.art-caption .label { font-style: normal; }
+@media (max-width: 900px) {
+  .hero .wrap { grid-template-columns: 1fr; gap: 40px; padding-block: 36px 80px; }
+  .hero-art { justify-self: center; width: min(400px, 86%); }
+  .portrait { left: -12%; width: 128px; bottom: 34px; }
+}
+
+/* cinta */
+.ribbon { border-block: 1px solid var(--line); overflow: hidden; }
+.ribbon-track { display: flex; width: max-content; animation: correr 60s linear infinite; }
+.ribbon-track span { padding: 18px 32px; font: italic 300 24px/1 var(--display); white-space: nowrap; color: var(--muted); }
+.ribbon-track span::after { content: "·"; margin-left: 64px; color: var(--gold); font-style: normal; }
+@keyframes correr { to { transform: translateX(-50%); } }
+
+
+section.block { padding-block: 120px; }
+@media (max-width: 700px) { section.block { padding-block: 84px; } }
+.sec-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px 56px; align-items: end; margin-bottom: 64px; }
+.sec-head .label { grid-column: 1 / -1; }
+@media (max-width: 800px) { .sec-head { grid-template-columns: 1fr; margin-bottom: 44px; } }
+
+/* cuatro gestos (vitrina con imagen fija) */
+.gestos { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 72px; }
+.gestos-media { position: sticky; top: 110px; align-self: start; aspect-ratio: 4 / 5; max-width: 100%; overflow: hidden; background: var(--stone); }
+.gestos-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transform: scale(1.06); transition: opacity 1s var(--ease), transform 1.6s var(--ease); }
+.gestos-media img.on { opacity: 1; transform: scale(1); }
+.gestos-media .count { position: absolute; left: 22px; bottom: 18px; font: 300 64px/1 var(--display); color: #fff; mix-blend-mode: difference; font-variant-numeric: tabular-nums; }
+.gestos-list { display: grid; }
+.gesto { min-height: 72vh; display: grid; align-content: center; gap: 20px; padding-block: 40px; border-top: 1px solid var(--line); opacity: .32; transition: opacity .8s var(--ease); }
+.gesto:first-child { border-top: 0; }
+.gesto.on { opacity: 1; }
+.gesto h3 { font: 300 clamp(40px, 4.6vw, 64px)/1 var(--display); }
+.gesto h3 em { color: var(--accent); }
+.gesto .meta { display: flex; flex-wrap: wrap; gap: 8px 20px; font-size: 14px; color: var(--muted); }
+.gesto .meta b { font-weight: 500; color: var(--ink); }
+.gesto .mobile-img { display: none; }
+@media (max-width: 860px) {
+  .gestos { grid-template-columns: 1fr; gap: 0; }
+  .gestos-media { display: none; }
+  .gesto { min-height: 0; opacity: 1; padding-block: 36px; }
+  .gesto .mobile-img { display: block; aspect-ratio: 4 / 5; max-width: 100%; object-fit: cover; width: 100%; }
+}
+
+/* selección de productos */
+.filters { display: flex; flex-wrap: wrap; gap: 8px 28px; margin-bottom: 40px; }
+.filters button { background: none; border: 0; padding: 0 0 8px; cursor: pointer; font: 400 13px/1 var(--body); letter-spacing: .18em; text-transform: uppercase; color: var(--muted); border-bottom: 1px solid transparent; transition: color .3s, border-color .3s; }
+.filters button[aria-pressed="true"] { color: var(--ink); border-bottom-color: var(--ink); }
+.grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 48px 24px; }
+@media (max-width: 1080px) { .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 760px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 36px 14px; } }
+.card { display: grid; gap: 14px; align-content: start; min-width: 0; }
+.card .plinth { position: relative; aspect-ratio: 4 / 5; max-width: 100%; background: var(--tile); overflow: hidden; cursor: pointer; border: 0; padding: 0; width: 100%; }
+.card .plinth img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; padding: 12%; transition: opacity .7s var(--ease), transform 1.2s var(--ease); }
+.card .plinth img.alt { opacity: 0; object-fit: cover; padding: 0; transform: scale(1.06); }
+.card .plinth img.main, .rstep img.th, .gallery .big img:not(.cover), .bag-item img { mix-blend-mode: multiply; }
+.card:hover .plinth img.main { transform: scale(1.04); }
+.card:hover .plinth img.alt { opacity: 1; transform: scale(1); }
+.card .quick { position: absolute; left: 12px; right: 12px; bottom: 12px; padding: 12px; background: var(--ink); color: var(--paper); text-align: center; font: 500 11.5px/1 var(--body); letter-spacing: .2em; text-transform: uppercase; transform: translateY(140%); transition: transform .5s var(--ease); }
+.card:hover .quick, .card .plinth:focus-visible .quick { transform: none; }
+.card .cat { font: 500 10.5px/1 var(--body); letter-spacing: .24em; text-transform: uppercase; color: var(--muted); }
+.card h3 { font: 400 25px/1.1 var(--display); }
+.card p { font-size: 15px; color: var(--muted); }
+.card .row { display: flex; justify-content: space-between; align-items: center; gap: 12px; font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.add { background: none; border: 0; padding: 4px 0; cursor: pointer; font: 500 11.5px/1 var(--body); letter-spacing: .18em; text-transform: uppercase; color: var(--ink); border-bottom: 1px solid currentColor; white-space: nowrap; }
+.add.in { color: var(--accent); }
+.star { color: var(--gold); }
+@media (hover: none) { .card .quick { display: none; } }
+
+/* el regalo */
+.gift { background: var(--night); color: var(--night-ink); position: relative; overflow: hidden; }
+.gift::before { content: ""; position: absolute; inset: -30% -10% auto auto; width: 70vw; height: 70vw; max-width: 900px; max-height: 900px; border-radius: 50%; background: radial-gradient(circle, color-mix(in srgb, var(--gold) 22%, transparent), transparent 65%); pointer-events: none; }
+.gift .wrap { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 72px; align-items: center; }
+@media (max-width: 900px) { .gift .wrap { grid-template-columns: 1fr; gap: 48px; } }
+.gift .label { color: var(--gold); }
+.gift .h2 em { color: var(--gold); }
+.gift .lead { color: color-mix(in srgb, var(--night-ink) 70%, transparent); }
+.gift-copy { display: grid; gap: 24px; }
+.terms { font-size: 13px; color: color-mix(in srgb, var(--night-ink) 55%, transparent); }
+.ticket {
+  position: relative; width: min(460px, 100%); justify-self: center; aspect-ratio: 1.55 / 1; max-width: 100%;
+  background: #f7f2ec; color: #1d1819; display: grid; place-items: center; text-align: center;
+  box-shadow: 0 40px 80px -30px rgba(0,0,0,.7);
+  -webkit-mask: radial-gradient(circle at 0 50%, transparent 16px, #000 17px) left / 51% 100% no-repeat, radial-gradient(circle at 100% 50%, transparent 16px, #000 17px) right / 51% 100% no-repeat;
+          mask: radial-gradient(circle at 0 50%, transparent 16px, #000 17px) left / 51% 100% no-repeat, radial-gradient(circle at 100% 50%, transparent 16px, #000 17px) right / 51% 100% no-repeat;
+}
+.ticket .prize { display: grid; gap: 6px; padding: 24px; }
+.ticket .prize .label { color: #8a7f78; }
+.ticket .prize b { font: 400 clamp(38px, 5vw, 52px)/1 var(--display); }
+.ticket .prize span:not(.label) { font: italic 400 20px/1.2 var(--display); color: #6a5f59; }
+.ticket { -webkit-user-select: none; user-select: none; }
+.ticket canvas { position: absolute; inset: 0; width: 100%; height: 100%; cursor: grab; touch-action: none; transition: opacity .9s var(--ease); }
+.ticket canvas.gone { opacity: 0; pointer-events: none; }
+.ticket-wrap { display: grid; gap: 18px; justify-items: center; }
+.ticket-wrap .skip { color: var(--night-ink); }
+.claim { display: grid; gap: 18px; width: min(460px, 100%); justify-self: center; }
+.claim h3 { font: 300 34px/1.1 var(--display); }
+.claim .code { font: 500 14px/1 var(--body); letter-spacing: .24em; color: var(--gold); }
+.field { display: grid; gap: 8px; min-width: 0; }
+.field label, .field .lab { font: 500 11.5px/1.2 var(--body); letter-spacing: .2em; text-transform: uppercase; }
+.field input[type="text"], .field input[type="tel"], .field select, .field textarea {
+  width: 100%; font: 300 17px/1.4 var(--body); color: inherit; background: transparent;
+  border: 0; border-bottom: 1px solid currentColor; border-radius: 0; padding: 10px 0; opacity: .95;
+}
+.field select { appearance: none; }
+.field select option { color: #171414; }
+.field textarea { min-height: 90px; resize: vertical; }
+.two { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; }
+.check { display: grid; grid-template-columns: 20px minmax(0, 1fr); gap: 12px; font-size: 14px; align-items: start; }
+.check input { width: 18px; height: 18px; margin: 3px 0 0; accent-color: var(--gold); }
+.err { color: #e7a3ae; font-size: 14px; }
+.done { display: grid; gap: 16px; }
+.done p { color: color-mix(in srgb, var(--night-ink) 75%, transparent); }
+
+/* ritual (test) */
+.ritual { background: var(--stone); }
+.quiz { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: 72px; align-items: start; }
+@media (max-width: 900px) { .quiz { grid-template-columns: 1fr; gap: 40px; } }
+.quiz-card { background: var(--surface); padding: 44px; min-height: 460px; display: grid; grid-template-rows: auto 1fr auto; gap: 28px; position: relative; overflow: hidden; }
+@media (max-width: 520px) { .quiz-card { padding: 28px 22px; } }
+.progress { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+.progress i { height: 2px; background: var(--line); position: relative; overflow: hidden; }
+.progress i::after { content: ""; position: absolute; inset: 0; background: var(--ink); transform: scaleX(0); transform-origin: left; transition: transform .6s var(--ease); }
+.progress i.on::after { transform: scaleX(1); }
+.step-view { display: grid; gap: 26px; align-content: start; }
+.step-view.in { animation: deslizar .7s var(--ease) both; }
+@keyframes deslizar { from { opacity: 0; transform: translateX(40px); } to { opacity: 1; transform: none; } }
+.step-view h3 { font: 300 clamp(32px, 3.6vw, 44px)/1.05 var(--display); }
+.choices { display: grid; gap: 10px; }
+.choice { display: flex; justify-content: space-between; align-items: center; gap: 16px; width: 100%; text-align: left; padding: 18px 20px; background: transparent; border: 1px solid var(--line); cursor: pointer; font: 400 16px/1.3 var(--body); transition: border-color .3s, background .3s, padding .4s var(--ease); }
+.choice:hover { border-color: var(--ink); padding-left: 26px; }
+.choice small { color: var(--muted); font-size: 13px; }
+.choice[aria-pressed="true"] { border-color: var(--ink); background: var(--paper); }
+.quiz-nav { display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+.quiz-nav .link[disabled] { opacity: .3; pointer-events: none; }
+.result { display: grid; gap: 22px; }
+.result h3 em { color: var(--accent); }
+.moment { display: grid; gap: 4px; }
+.moment > .label { margin-bottom: 6px; }
+.rstep { display: grid; grid-template-columns: 26px 56px minmax(0, 1fr); gap: 14px; align-items: center; padding: 10px 0; border-top: 1px solid var(--line); }
+.rstep .n { font: 400 18px/1 var(--display); color: var(--muted); font-variant-numeric: tabular-nums; }
+.rstep .th { width: 56px; height: 56px; background: var(--tile); object-fit: contain; padding: 5px; }
+.rstep .th.g { display: grid; place-items: center; font: italic 400 22px/1 var(--display); color: var(--accent); background: var(--paper); }
+.rstep b { display: block; font-weight: 400; font-size: 15.5px; line-height: 1.3; }
+.rstep span { display: block; font-size: 13.5px; color: var(--muted); line-height: 1.4; }
+.disclaimer { font-size: 12.5px; color: var(--muted); }
+
+/* videos */
+.reels { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; }
+@media (max-width: 980px) {
+  .reels { grid-auto-flow: column; grid-auto-columns: minmax(210px, 64%); grid-template-columns: none; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 12px; }
+  .reel { scroll-snap-align: start; }
+}
+.reel { display: grid; gap: 12px; min-width: 0; }
+.reel button { position: relative; padding: 0; border: 0; overflow: hidden; cursor: pointer; aspect-ratio: 9 / 16; width: 100%; max-width: 100%; background: var(--stone); border-radius: 999px 999px 0 0; }
+.reel video { width: 100%; height: 100%; object-fit: cover; filter: saturate(.85); transition: filter .6s, transform 1.2s var(--ease); }
+.reel button:hover video { transform: scale(1.03); }
+.reel.on video { filter: none; }
+.reel .play { position: absolute; left: 50%; bottom: 22px; translate: -50% 0; width: 54px; height: 54px; border-radius: 50%; display: grid; place-items: center; background: rgba(251,250,249,.92); color: #171414; transition: opacity .3s, transform .3s; }
+.reel.on .play { opacity: 0; transform: scale(.8); }
+.reel h3 { font: 400 22px/1.15 var(--display); }
+.reel span { font-size: 14px; color: var(--muted); }
+
+/* contacto */
+.contact { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 80px; align-items: start; }
+@media (max-width: 900px) { .contact { grid-template-columns: 1fr; gap: 48px; } }
+.ways { display: grid; margin-top: 36px; border-top: 1px solid var(--line); }
+.way { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 22px 0; border-bottom: 1px solid var(--line); text-decoration: none; transition: padding .4s var(--ease); }
+.way:hover { padding-left: 10px; }
+.way b { font: 400 28px/1 var(--display); }
+.way span { font-size: 14px; color: var(--muted); overflow-wrap: anywhere; text-align: right; }
+form.note { display: grid; gap: 26px; }
+.topics { display: flex; flex-wrap: wrap; gap: 8px; }
+.topics button { padding: 10px 16px; border: 1px solid var(--line); background: transparent; cursor: pointer; font: 400 14px/1 var(--body); transition: border-color .3s, background .3s; }
+.topics button[aria-pressed="true"] { border-color: var(--ink); background: var(--surface); }
+.bubble { background: var(--surface); padding: 16px 18px; font-size: 15px; white-space: pre-wrap; overflow-wrap: anywhere; border-left: 2px solid var(--accent); }
+.actions { display: flex; flex-wrap: wrap; gap: 14px 24px; align-items: center; }
+.status { color: var(--ok); font-size: 14px; }
+
+footer { border-top: 1px solid var(--line); padding-block: 56px 72px; }
+footer .wrap { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 20px 56px; align-items: end; }
+footer p { font-size: 13.5px; color: var(--muted); max-width: 70ch; justify-self: end; text-align: right; }
+@media (max-width: 760px) { footer .wrap { grid-template-columns: 1fr; } footer p { justify-self: start; text-align: left; } }
+
+/* panel lateral (producto y mi lista) */
+.scrim { position: fixed; inset: 0; z-index: 50; background: rgba(15, 11, 12, .45); backdrop-filter: blur(3px); opacity: 0; pointer-events: none; transition: opacity .5s var(--ease); }
+.scrim.open { opacity: 1; pointer-events: auto; }
+.drawer {
+  position: fixed; top: 0; right: 0; bottom: 0; z-index: 60; width: min(560px, 100%);
+  background: var(--paper); overflow-y: auto; transform: translateX(102%); transition: transform .65s var(--ease);
+  padding: calc(env(safe-area-inset-top, 0px) + 24px) 36px calc(env(safe-area-inset-bottom, 0px) + 36px);
+  display: grid; gap: 24px; align-content: start;
+}
+@media (max-width: 520px) { .drawer { padding-inline: 20px; } }
+.drawer.open { transform: none; }
+.drawer-top { display: flex; justify-content: space-between; align-items: center; }
+.close { background: none; border: 0; cursor: pointer; font: 400 13px/1 var(--body); letter-spacing: .18em; text-transform: uppercase; padding: 8px 0; }
+.gallery { display: grid; gap: 10px; }
+.gallery .big { aspect-ratio: 1; max-width: 100%; background: var(--tile); position: relative; overflow: hidden; }
+.gallery .big img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; animation: fundido .6s var(--ease); }
+.gallery .big img.cover { object-fit: cover; }
+@keyframes fundido { from { opacity: 0; } to { opacity: 1; } }
+.thumbs { display: flex; gap: 8px; }
+.thumbs button { width: 64px; height: 64px; padding: 0; border: 1px solid transparent; background: var(--tile); cursor: pointer; }
+.thumbs button[aria-pressed="true"] { border-color: var(--ink); }
+.thumbs img { width: 100%; height: 100%; object-fit: cover; }
+.drawer h2 { font: 300 42px/1 var(--display); }
+.drawer .facts { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 14px; color: var(--muted); }
+.drawer dl { margin: 0; display: grid; gap: 18px; }
+.drawer dt { margin-bottom: 6px; }
+.drawer dd { margin: 0; font-size: 15.5px; }
+.drawer ul { margin: 0; padding-left: 18px; font-size: 15.5px; }
+.shades { display: flex; flex-wrap: wrap; gap: 6px; }
+.shades button { padding: 7px 12px; border: 1px solid var(--line); background: transparent; cursor: pointer; font: 400 13px/1 var(--body); }
+.shades button[aria-pressed="true"] { border-color: var(--ink); background: var(--surface); }
+.drawer .actions .btn { flex: 1 1 200px; }
+.bag-item { display: grid; grid-template-columns: 64px minmax(0, 1fr) auto; gap: 14px; align-items: center; padding: 12px 0; border-top: 1px solid var(--line); }
+.bag-item img { width: 64px; height: 64px; object-fit: contain; background: var(--tile); padding: 4px; }
+.bag-item b { display: block; font-weight: 400; }
+.bag-item span { font-size: 13px; color: var(--muted); }
+.bag-item button { background: none; border: 0; cursor: pointer; color: var(--muted); font-size: 13px; text-decoration: underline; }
+.empty { color: var(--muted); font: italic 400 22px/1.3 var(--display); }
+
+/* botón flotante */
+.float-wa {
+  position: fixed; right: 20px; bottom: calc(env(safe-area-inset-bottom, 0px) + 20px); z-index: 40;
+  width: 58px; height: 58px; border-radius: 50%; display: grid; place-items: center;
+  background: var(--ink); color: var(--paper); box-shadow: 0 16px 34px -14px rgba(0,0,0,.5);
+  transition: transform .4s var(--ease); text-decoration: none;
+}
+.float-wa:hover { transform: translateY(-3px) scale(1.04); }
+.toast { position: fixed; left: 50%; bottom: calc(env(safe-area-inset-bottom, 0px) + 28px); z-index: 70; translate: -50% 0; background: var(--ink); color: var(--paper); padding: 14px 22px; font-size: 14px; opacity: 0; transform: translateY(14px); transition: opacity .4s, transform .4s var(--ease); pointer-events: none; max-width: calc(100% - 32px); text-align: center; }
+.toast.show { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  html { scroll-behavior: auto; }
+}
+</style>
+</head>
+<body>
+
+<div class="preview-note" id="preview-note">Vista previa: la foto de Isabella, su WhatsApp, sus redes y los regalos son de ejemplo.</div>
+<div class="announce">Un regalo de bienvenida te espera · <a href="#regalo">Rasca tu tarjeta</a></div>
+
+<header class="top" id="top">
+  <div class="wrap">
+    <nav class="nav" aria-label="Secciones">
+      <a href="#seleccion">Productos</a>
+      <a href="#ritual">Tu ritual</a>
+      <a href="#aprende">Aprende</a>
+    </nav>
+    <a class="wordmark" href="#inicio" aria-label="Isabella, inicio">Isabella</a>
+    <div class="top-right">
+      <button class="bag-btn" id="bag-open" type="button" aria-label="Abrir mi lista">Mi lista <span class="bag-count" id="bag-count">0</span></button>
+    </div>
+  </div>
+</header>
+
+<main id="inicio">
+  <!-- PORTADA -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-copy">
+        <p class="label">Asesora de belleza · Farmasi</p>
+        <h1><span class="ln"><span>Belleza que</span></span><span class="ln"><span>se siente</span></span><span class="ln"><span><em>tuya.</em></span></span></h1>
+        <p class="lead">Elijo los productos mejor calificados de la tienda, los pruebo y te enseño a usarlos sin complicarte. Tú me cuentas cómo es tu piel y armamos tu ritual juntas.</p>
+        <div class="hero-ctas">
+          <a class="btn solid" href="#ritual">Descubre tu ritual</a>
+          <a class="link" href="#regalo">Rasca tu regalo</a>
+        </div>
+        <div class="proof" id="proof"></div>
+      </div>
+      <div class="hero-art">
+        <div class="arch"><img id="hero-img" alt="Labios con el Matte Liquid Lipstick de Farmasi"></div>
+        <div class="portrait" id="portrait">La foto de Isabella va aquí</div>
+        <p class="art-caption"><span class="label">En mis labios</span> Matte Liquid Lipstick</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="ribbon" aria-hidden="true"><div class="ribbon-track" id="ribbon"></div></div>
+
+  <!-- CUATRO GESTOS -->
+  <section class="block" id="gestos">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <p class="label">Mis cuatro imprescindibles</p>
+        <h2 class="h2">Cuatro gestos, <em>todos los días</em></h2>
+        <p class="lead">Si solo pudiera quedarme con cuatro productos, serían estos. Cada uno con miles de reseñas de cinco estrellas.</p>
+      </div>
+      <div class="gestos">
+        <div class="gestos-media reveal-img" id="gestos-media" aria-hidden="true"><span class="count" id="gestos-count">01</span></div>
+        <div class="gestos-list" id="gestos-list"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SELECCIÓN -->
+  <section class="block" id="seleccion" style="background: var(--surface);">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <p class="label">La selección</p>
+        <h2 class="h2">Lo mejor <em>calificado</em> de la tienda</h2>
+        <p class="lead">Toca cualquier producto para ver qué tiene, cómo se usa y sus tonos. Agrégalo a tu lista y me la mandas cuando quieras.</p>
+      </div>
+      <div class="filters" role="group" aria-label="Filtrar productos">
+        <button type="button" data-f="todo" aria-pressed="true">Todo</button>
+        <button type="button" data-f="piel" aria-pressed="false">Piel</button>
+        <button type="button" data-f="maquillaje" aria-pressed="false">Maquillaje</button>
+      </div>
+      <div class="grid" id="grid"></div>
+    </div>
+  </section>
+
+  <!-- REGALO -->
+  <section class="block gift" id="regalo">
+    <div class="wrap">
+      <div class="gift-copy reveal">
+        <p class="label">Regalo de bienvenida</p>
+        <h2 class="h2">Rasca y descubre <em>tu regalo</em></h2>
+        <p class="lead">Cada clienta nueva tiene un regalo esperándola. Rasca la tarjeta con el dedo o el mouse, déjame tu nombre y tu WhatsApp, y te lo aparto.</p>
+        <p class="terms" id="terms"></p>
+      </div>
+      <div id="gift-stage" class="ticket-wrap"></div>
+    </div>
+  </section>
+
+  <!-- RITUAL -->
+  <section class="block ritual" id="ritual">
+    <div class="wrap quiz">
+      <div class="reveal" style="display:grid; gap:24px;">
+        <p class="label">Test de un minuto</p>
+        <h2 class="h2">Descubre <em>tu ritual</em></h2>
+        <p class="lead">Cuatro preguntas y te armo una rutina de mañana y noche con los productos que mejor van contigo. Te la mando por WhatsApp y la vemos juntas.</p>
+        <p class="disclaimer">Es una guía de belleza, no un consejo médico. Si tu piel está irritada o sigues un tratamiento, consulta primero con tu dermatóloga.</p>
+      </div>
+      <div class="quiz-card" id="quiz" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <!-- VIDEOS -->
+  <section class="block" id="aprende">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <p class="label">Aprende conmigo</p>
+        <h2 class="h2">Trucos que <em>casi nadie</em> cuenta</h2>
+        <p class="lead">Videos cortos para que tu maquillaje dure más y tu rutina sea más fácil. Toca uno para verlo con sonido.</p>
+      </div>
+      <div class="reels" id="reels"></div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section class="block" id="escribeme" style="background: var(--stone);">
+    <div class="wrap contact">
+      <div class="reveal">
+        <p class="label">Escríbeme</p>
+        <h2 class="h2" style="margin-top:20px;">Te respondo <em>yo</em>, no un robot</h2>
+        <div class="ways">
+          <a class="way" id="way-wa" target="_blank" rel="noopener"><b>WhatsApp</b><span id="wa-num">Número de ejemplo</span></a>
+          <a class="way" id="way-ig" target="_blank" rel="noopener"><b>Instagram</b><span id="ig-user">@usuario de ejemplo</span></a>
+          <a class="way" id="way-tt" target="_blank" rel="noopener"><b>TikTok</b><span id="tt-user">@usuario de ejemplo</span></a>
+        </div>
+      </div>
+      <form class="note" id="nota" novalidate>
+        <div class="field"><label for="n-nombre">Tu nombre</label><input type="text" id="n-nombre" autocomplete="given-name"></div>
+        <div class="field">
+          <span class="lab" id="n-tema-lab">Te escribo por</span>
+          <div class="topics" id="n-tema" role="group" aria-labelledby="n-tema-lab"></div>
+        </div>
+        <div class="field"><label for="n-msg">Cuéntame</label><textarea id="n-msg" placeholder="Ej.: tengo la piel mixta y quiero algo para el brillo"></textarea></div>
+        <div class="field"><span class="lab">Así me llega</span><div class="bubble" id="n-preview"></div></div>
+        <div class="actions">
+          <button class="btn solid" type="submit">Enviar por WhatsApp</button>
+          <button class="link" type="button" id="n-copy">Copiar mensaje</button>
+        </div>
+        <p class="status" id="n-status" hidden></p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <a class="wordmark" href="#inicio">Isabella</a>
+    <p>Distribuidora independiente Farmasi. Fotos, reseñas y tonos de la tienda oficial farmasius.com<span id="leido"></span>. Tus datos solo los uso para escribirte; nunca los comparto. <button class="link" type="button" id="ver-privacidad" style="padding-bottom:3px">Privacidad</button></p>
+  </div>
+</footer>
+
+<a class="float-wa" id="float-wa" target="_blank" rel="noopener" aria-label="Escríbeme por WhatsApp">
+  <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.8-1.4a.5.5 0 0 0 0-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.3c0-.1-.2-.2-.5-.3Z"/></svg>
+</a>
+
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="drawer-title" aria-hidden="true"></aside>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+/* ===================== LO QUE SE CAMBIA (Isa lo llena con Isabella) ===================== */
+const ISABELLA = {
+  whatsapp: '',       // solo números con código de país, ej. '13055551234'
+  instagram: '',      // sin @
+  tiktok: '',         // sin @
+  foto: '',           // ej. 'img/isabella.jpg'
+  hojaGoogle: '',     // enlace del Apps Script (ver README): guarda cada clienta en la hoja
+  // Regalos del juego. "peso" = qué tan seguido sale (más alto, más seguido).
+  regalos: [
+    { titulo: '10% de descuento', detalle: 'en tu primer pedido', peso: 5 },
+    { titulo: 'Envío gratis', detalle: 'en tu primer pedido', peso: 3 },
+    { titulo: 'Muestra de regalo', detalle: 'con tu primer pedido', peso: 3 },
+    { titulo: '15% de descuento', detalle: 'en tu primer pedido', peso: 1 }
+  ],
+  condiciones: 'Válido por 7 días desde que lo descubres. Un regalo por persona, no acumulable con otras promociones.'
+};
+/* ========================================================================================= */
+</script>
+<script src="productos.js"></script>
+<script>
+const P = window.PRODUCTOS || [];
+const byId = Object.fromEntries(P.map(p => [p.id, p]));
+const $ = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const guardado = {
+  leer(k, d) { try { const v = localStorage.getItem('isabella:' + k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
+  poner(k, v) { try { localStorage.setItem('isabella:' + k, JSON.stringify(v)); } catch (e) {} }
+};
+const nota = p => `${String(p.nota).replace('.', ',')}`;
+const miles = n => Number(n).toLocaleString('es');
+const INICIO = 'Hola Isabella, vengo de tu página web 💕';
+
+function enlaceWA(texto) { return 'https://wa.me/' + (ISABELLA.whatsapp || '') + '?text=' + encodeURIComponent(texto); }
+function abrirWA(texto) {
+  const a = document.createElement('a');
+  a.href = enlaceWA(texto); a.target = '_blank'; a.rel = 'noopener';
+  document.body.appendChild(a); a.click(); a.remove();
+}
+/* Anota a la clienta en la hoja de Google (si está conectada). La libreta la trae después. */
+function anotar(datos) {
+  if (!ISABELLA.hojaGoogle) return;
+  try {
+    fetch(ISABELLA.hojaGoogle, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({ origen: 'página web', ...datos }) }).catch(() => {});
+  } catch (e) {}
+}
+let toastT;
+function aviso(t) { const el = $('#toast'); el.textContent = t; el.classList.add('show'); clearTimeout(toastT); toastT = setTimeout(() => el.classList.remove('show'), 2600); }
+
+/* ---------- datos de Isabella ---------- */
+const demo = !ISABELLA.whatsapp || !ISABELLA.instagram;
+$('#preview-note').hidden = !demo;
+$('#float-wa').href = enlaceWA(INICIO);
+$('#way-wa').href = enlaceWA(INICIO);
+if (ISABELLA.whatsapp) $('#wa-num').textContent = '+' + ISABELLA.whatsapp;
+$('#way-ig').href = 'https://instagram.com/' + (ISABELLA.instagram || '');
+$('#way-tt').href = 'https://tiktok.com/' + (ISABELLA.tiktok ? '@' + ISABELLA.tiktok : '');
+if (ISABELLA.instagram) $('#ig-user').textContent = '@' + ISABELLA.instagram;
+if (ISABELLA.tiktok) $('#tt-user').textContent = '@' + ISABELLA.tiktok;
+if (ISABELLA.foto) $('#portrait').innerHTML = `<img src="${esc(ISABELLA.foto)}" alt="Isabella">`;
+if (window.PRODUCTOS_LEIDO) $('#leido').textContent = ', leídos el ' + new Date(window.PRODUCTOS_LEIDO + 'T12:00').toLocaleDateString('es', { day: 'numeric', month: 'long', year: 'numeric' });
+window.addEventListener('scroll', () => $('#top').classList.toggle('scrolled', scrollY > 10), { passive: true });
+
+/* ---------- portada ---------- */
+const labial = byId['labial-mate'];
+$('#hero-img').src = labial ? (labial.fotos[1] || labial.fotos[0]) : '';
+const totalResenas = P.reduce((s, p) => s + (p.resenas || 0), 0);
+$('#proof').innerHTML = `
+  <div><b>${labial ? nota(labial) : '4,9'}<span class="star"> ★</span></b><span>el labial mate, ${labial ? miles(labial.resenas) : ''} reseñas</span></div>
+  <div><b>${miles(totalResenas)}</b><span>reseñas de mis favoritos</span></div>
+  <div><b>${P.length}</b><span>productos elegidos</span></div>`;
+const cinta = P.map(p => `<span>${esc(p.nombre)}</span>`).join('');
+$('#ribbon').innerHTML = cinta + cinta;
+
+/* ---------- cuatro gestos ---------- */
+const GESTOS = [
+  { id: 'vitamina-c', foto: 1, titulo: 'Luz, <em>en la mañana</em>', texto: 'Tres gotas de vitamina C antes de tu crema. Es lo primero que le pongo a mi cara y lo que más se nota.' },
+  { id: 'labial-mate', foto: 1, titulo: 'Color que <em>no se mueve</em>', texto: 'Del café al almuerzo y sigue ahí. Diecinueve tonos, de nude a vino.' },
+  { id: 'mascara-double-lash', foto: 2, titulo: 'La mirada, <em>abierta</em>', texto: 'Zigzag de la raíz a la punta. Dos capas y parece que te pusiste pestañas.' },
+  { id: 'mascarilla-noche', foto: 0, titulo: 'Y de noche, <em>a descansar</em>', texto: 'Dos noches por semana me pongo la mascarilla antes de dormir. En la mañana, solo agua.' }
+].filter(g => byId[g.id]);
+const fotoDe = (p, i) => p.fotos[Math.min(i, p.fotos.length - 1)];
+$('#gestos-media').insertAdjacentHTML('afterbegin', GESTOS.map((g, i) =>
+  `<img src="${fotoDe(byId[g.id], g.foto)}" alt="" class="${i ? '' : 'on'}">`).join(''));
+$('#gestos-list').innerHTML = GESTOS.map((g, i) => {
+  const p = byId[g.id];
+  return `<article class="gesto ${i ? '' : 'on'}" data-i="${i}">
+    <img class="mobile-img reveal-img" src="${fotoDe(p, g.foto)}" alt="${esc(p.nombre)}">
+    <p class="label">${String(i + 1).padStart(2, '0')} · ${esc(p.nombre)}</p>
+    <h3>${g.titulo}</h3>
+    <p class="lead">${esc(g.texto)}</p>
+    <p class="meta"><span><b>${nota(p)}</b> <span class="star">★</span> · ${miles(p.resenas)} reseñas</span>${p.tonos.length ? `<span>${p.tonos.length} tonos</span>` : ''}</p>
+    <div><button class="link" type="button" data-ver="${p.id}">Ver el producto</button></div>
+  </article>`;
+}).join('');
+const gestosObs = new IntersectionObserver(entradas => {
+  entradas.forEach(e => {
+    if (!e.isIntersecting) return;
+    const i = +e.target.dataset.i;
+    $$('.gesto').forEach(g => g.classList.toggle('on', g === e.target));
+    $$('#gestos-media img').forEach((im, j) => im.classList.toggle('on', j === i));
+    $('#gestos-count').textContent = String(i + 1).padStart(2, '0');
+  });
+}, { rootMargin: '-45% 0px -45% 0px' });
+$$('.gesto').forEach(g => gestosObs.observe(g));
+
+/* ---------- mi lista ---------- */
+let lista = guardado.leer('lista', []).filter(x => byId[x.id]);
+function enLista(id) { return lista.some(x => x.id === id); }
+function pintarContador(pop) {
+  const c = $('#bag-count'); c.textContent = lista.length;
+  if (pop) { c.classList.remove('pop'); void c.offsetWidth; c.classList.add('pop'); setTimeout(() => c.classList.remove('pop'), 300); }
+}
+function alternar(id, tono) {
+  if (enLista(id)) lista = lista.filter(x => x.id !== id);
+  else { lista.push({ id, tono: tono || '' }); aviso(byId[id].nombre + ' está en tu lista'); }
+  guardado.poner('lista', lista); pintarContador(true);
+  $$(`[data-add="${id}"]`).forEach(b => { b.classList.toggle('in', enLista(id)); b.textContent = enLista(id) ? 'En tu lista' : '+ Mi lista'; });
+}
+pintarContador(false);
+
+/* ---------- selección ---------- */
+const CAT = { piel: 'Cuidado de la piel', maquillaje: 'Maquillaje' };
+$('#grid').innerHTML = P.map(p => `
+  <article class="card reveal" data-cat="${p.categoria}">
+    <button class="plinth" type="button" data-ver="${p.id}" aria-label="Ver ${esc(p.nombre)}">
+      <img class="main" src="${p.fotos[0]}" alt="${esc(p.nombre)}">
+      ${p.fotos[1] ? `<img class="alt" src="${p.fotos[p.fotos.length > 2 ? 2 : 1]}" alt="">` : ''}
+      <span class="quick">Ver detalles</span>
+    </button>
+    <span class="cat">${CAT[p.categoria] || ''}</span>
+    <h3>${esc(p.nombre)}</h3>
+    <p>${esc(p.frase)}</p>
+    <div class="row"><span><span class="star">★</span> ${nota(p)} · ${miles(p.resenas)}</span>
+      <button class="add ${enLista(p.id) ? 'in' : ''}" type="button" data-add="${p.id}">${enLista(p.id) ? 'En tu lista' : '+ Mi lista'}</button></div>
+  </article>`).join('');
+$$('.filters button').forEach(b => b.addEventListener('click', () => {
+  $$('.filters button').forEach(x => x.setAttribute('aria-pressed', x === b));
+  const f = b.dataset.f;
+  $$('#grid .card').forEach((c, i) => {
+    const ver = f === 'todo' || c.dataset.cat === f;
+    if (ver && c.hidden) {
+      c.hidden = false;
+      c.animate?.([{ opacity: 0, transform: 'translateY(24px)' }, { opacity: 1, transform: 'none' }], { duration: 600, delay: i * 40, easing: 'cubic-bezier(.22,.61,.36,1)', fill: 'backwards' });
+    } else if (!ver) c.hidden = true;
+  });
+}));
+
+/* ---------- panel lateral ---------- */
+let ultimoFoco = null;
+function abrirPanel(html) {
+  ultimoFoco = document.activeElement;
+  const d = $('#drawer'); d.innerHTML = html; d.setAttribute('aria-hidden', 'false');
+  d.classList.add('open'); $('#scrim').classList.add('open'); document.body.style.overflow = 'hidden';
+  setTimeout(() => d.querySelector('.close')?.focus(), 50);
+}
+function cerrarPanel() {
+  const d = $('#drawer'); d.classList.remove('open'); d.setAttribute('aria-hidden', 'true');
+  $('#scrim').classList.remove('open'); document.body.style.overflow = '';
+  ultimoFoco?.focus?.();
+}
+$('#scrim').addEventListener('click', cerrarPanel);
+document.addEventListener('keydown', e => { if (e.key === 'Escape') cerrarPanel(); });
+
+function verProducto(id) {
+  const p = byId[id]; if (!p) return;
+  let tono = '';
+  abrirPanel(`
+    <div class="drawer-top"><span class="label">${CAT[p.categoria] || ''} · ${esc(p.marca)}</span><button class="close" type="button" data-cerrar>Cerrar ✕</button></div>
+    <div class="gallery">
+      <div class="big"><img id="d-big" src="${p.fotos[0]}" alt="${esc(p.nombre)}"></div>
+      ${p.fotos.length > 1 ? `<div class="thumbs">${p.fotos.map((f, i) => `<button type="button" data-foto="${i}" aria-pressed="${!i}" aria-label="Foto ${i + 1}"><img src="${f}" alt=""></button>`).join('')}</div>` : ''}
+    </div>
+    <h2 id="drawer-title">${esc(p.nombre)}</h2>
+    <p class="facts"><span><span class="star">★</span> ${nota(p)} · ${miles(p.resenas)} reseñas</span>${p.contenido ? `<span>${esc(p.contenido)}</span>` : ''}${p.vegano ? '<span>Vegano</span>' : ''}</p>
+    <p class="lead" style="color:var(--ink)">${esc(p.que)}</p>
+    <dl>
+      <div><dt class="label">Lo que tiene</dt><dd><ul>${p.ingredientes.map(x => `<li>${esc(x)}</li>`).join('')}</ul></dd></div>
+      <div><dt class="label">Cómo se usa</dt><dd>${esc(p.uso)}</dd></div>
+      ${p.tonos.length ? `<div><dt class="label">Elige tu tono (${p.tonos.length})</dt><dd><div class="shades">${p.tonos.map(t => `<button type="button" data-tono="${esc(t)}" aria-pressed="false">${esc(t)}</button>`).join('')}</div></dd></div>` : ''}
+    </dl>
+    <div class="actions">
+      <a class="btn solid" id="d-quiero" target="_blank" rel="noopener">Lo quiero</a>
+      <button class="btn" type="button" id="d-add">${enLista(id) ? 'Quitar de mi lista' : 'Agregar a mi lista'}</button>
+    </div>
+    <p class="disclaimer">¿Precio y promociones de este mes? Escríbeme y te digo cómo están hoy.</p>`);
+  const msg = () => `${INICIO}\nMe interesa: ${p.nombre}${tono ? ' (tono ' + tono + ')' : ''}\n¿Me cuentas más?`;
+  const q = $('#d-quiero'); q.href = enlaceWA(msg());
+  q.addEventListener('click', () => anotar({ interes: p.nombre + (tono ? ' ' + tono : ''), etiquetas: 'página web, quiere producto' }));
+  $$('#drawer [data-foto]').forEach(b => b.addEventListener('click', () => {
+    $$('#drawer [data-foto]').forEach(x => x.setAttribute('aria-pressed', x === b));
+    const big = $('#d-big'); const i = +b.dataset.foto;
+    big.replaceWith(Object.assign(document.createElement('img'), { id: 'd-big', src: p.fotos[i], alt: p.nombre, className: i ? 'cover' : '' }));
+  }));
+  $$('#drawer [data-tono]').forEach(b => b.addEventListener('click', () => {
+    $$('#drawer [data-tono]').forEach(x => x.setAttribute('aria-pressed', x === b));
+    tono = b.dataset.tono; q.href = enlaceWA(msg());
+  }));
+  $('#d-add').addEventListener('click', e => { alternar(id, tono); e.target.textContent = enLista(id) ? 'Quitar de mi lista' : 'Agregar a mi lista'; });
+}
+
+function verLista() {
+  const items = lista.map(x => {
+    const p = byId[x.id];
+    return `<div class="bag-item"><img src="${p.fotos[0]}" alt=""><div><b>${esc(p.nombre)}</b><span>${x.tono ? 'Tono ' + esc(x.tono) : CAT[p.categoria]}</span></div><button type="button" data-quitar="${p.id}">Quitar</button></div>`;
+  }).join('');
+  abrirPanel(`
+    <div class="drawer-top"><span class="label">Mi lista</span><button class="close" type="button" data-cerrar>Cerrar ✕</button></div>
+    <h2 id="drawer-title">Lo que <em>te gustó</em></h2>
+    ${lista.length ? `<div>${items}</div>
+      <div class="field"><label for="l-nombre">Tu nombre</label><input type="text" id="l-nombre" autocomplete="given-name"></div>
+      <div class="actions"><button class="btn solid" type="button" id="l-enviar">Enviar mi lista a Isabella</button></div>
+      <p class="disclaimer">Te llega a WhatsApp con tu lista escrita. Ahí te digo precios, promociones y cómo hacer tu pedido.</p>`
+      : `<p class="empty">Todavía no agregas nada. Toca "+ Mi lista" en los productos que te gusten.</p>
+         <div><a class="btn" href="#seleccion" data-cerrar>Ver productos</a></div>`}`);
+  $$('#drawer [data-quitar]').forEach(b => b.addEventListener('click', () => { alternar(b.dataset.quitar); verLista(); }));
+  $('#l-enviar')?.addEventListener('click', () => {
+    const nombre = $('#l-nombre').value.trim();
+    const texto = `Hola Isabella, ${nombre ? 'soy ' + nombre + ' y ' : ''}vengo de tu página web 💕\nEsta es mi lista:\n` +
+      lista.map(x => `· ${byId[x.id].nombre}${x.tono ? ' (tono ' + x.tono + ')' : ''}`).join('\n') + '\n¿Me ayudas con mi pedido?';
+    anotar({ nombre, interes: lista.map(x => byId[x.id].nombre).join(', '), etiquetas: 'página web, quiere pedido' });
+    abrirWA(texto);
+  });
+}
+$('#bag-open').addEventListener('click', verLista);
+
+document.addEventListener('click', e => {
+  const ver = e.target.closest('[data-ver]'); if (ver) { verProducto(ver.dataset.ver); return; }
+  const add = e.target.closest('[data-add]'); if (add) { alternar(add.dataset.add); return; }
+  if (e.target.closest('[data-cerrar]')) cerrarPanel();
+});
+
+/* ---------- el regalo: rasca y gana ---------- */
+$('#terms').textContent = ISABELLA.condiciones;
+function sortear() {
+  const total = ISABELLA.regalos.reduce((s, r) => s + r.peso, 0);
+  let x = Math.random() * total;
+  const r = ISABELLA.regalos.find(r => (x -= r.peso) < 0) || ISABELLA.regalos[0];
+  const letras = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  const codigo = 'ISA-' + Array.from({ length: 4 }, () => letras[Math.floor(Math.random() * letras.length)]).join('');
+  return { titulo: r.titulo, detalle: r.detalle, codigo, fecha: new Date().toISOString().slice(0, 10) };
+}
+let regalo = guardado.leer('regalo', null);
+const vence = r => { const d = new Date(r.fecha + 'T12:00'); d.setDate(d.getDate() + 7); return d.toLocaleDateString('es', { day: 'numeric', month: 'long' }); };
+
+function pintarTarjeta() {
+  const ya = regalo && regalo.rascado;
+  if (!regalo) { regalo = sortear(); guardado.poner('regalo', regalo); }
+  $('#gift-stage').innerHTML = `
+    <div class="ticket" id="ticket">
+      <div class="prize"><span class="label">Tu regalo</span><b>${esc(regalo.titulo)}</b><span>${esc(regalo.detalle)}</span></div>
+      ${ya ? '' : '<canvas id="foil" aria-hidden="true"></canvas>'}
+    </div>
+    ${ya ? '' : '<button class="link skip" type="button" id="skip">Descubrir sin rascar</button>'}
+    <div id="claim-slot" class="claim"></div>`;
+  if (ya) pintarReclamo(); else prepararRasca();
+}
+function prepararRasca() {
+  const cv = $('#foil'), t = $('#ticket');
+  const r = t.getBoundingClientRect(), dpr = Math.min(devicePixelRatio || 1, 2);
+  cv.width = r.width * dpr; cv.height = r.height * dpr;
+  const g = cv.getContext('2d'); g.scale(dpr, dpr);
+  const w = r.width, h = r.height;
+  const grad = g.createLinearGradient(0, 0, w, h);
+  grad.addColorStop(0, '#a88f68'); grad.addColorStop(.35, '#e4d3b2'); grad.addColorStop(.6, '#b49a73'); grad.addColorStop(1, '#d9c39c');
+  g.fillStyle = grad; g.fillRect(0, 0, w, h);
+  for (let i = 0; i < 2200; i++) { g.fillStyle = `rgba(255,255,255,${Math.random() * .14})`; g.fillRect(Math.random() * w, Math.random() * h, 1, 1); }
+  g.strokeStyle = 'rgba(29,24,25,.25)'; g.strokeRect(14, 14, w - 28, h - 28);
+  g.fillStyle = '#2b2322'; g.textAlign = 'center';
+  g.font = '300 italic ' + Math.round(w / 11) + 'px Cormorant, Georgia, serif'; g.fillText('Rasca aquí', w / 2, h / 2 + 6);
+  g.font = '500 11px Jost, Arial, sans-serif'; g.fillText('T U   R E G A L O   D E   B I E N V E N I D A', w / 2, h / 2 + 34);
+  g.globalCompositeOperation = 'destination-out';
+  let rascando = false, ultimo = null, revisado = 0;
+  const punto = e => { const b = cv.getBoundingClientRect(); return { x: e.clientX - b.left, y: e.clientY - b.top }; };
+  const rascar = p => {
+    g.strokeStyle = '#000'; g.lineWidth = 46; g.lineCap = 'round';
+    g.beginPath(); g.moveTo((ultimo || p).x, (ultimo || p).y); g.lineTo(p.x, p.y); g.stroke(); ultimo = p;
+    if (++revisado % 12 === 0 && limpio() > .45) revelar();
+  };
+  const limpio = () => {
+    const d = g.getImageData(0, 0, cv.width, cv.height).data; let v = 0, n = 0;
+    for (let i = 3; i < d.length; i += 64) { n++; if (d[i] === 0) v++; }
+    return v / n;
+  };
+  cv.addEventListener('pointerdown', e => { rascando = true; ultimo = null; cv.setPointerCapture(e.pointerId); rascar(punto(e)); });
+  cv.addEventListener('pointermove', e => { if (rascando) rascar(punto(e)); });
+  cv.addEventListener('pointerup', () => { rascando = false; if (limpio() > .45) revelar(); });
+  $('#skip').addEventListener('click', revelar);
+}
+function revelar() {
+  if (regalo.rascado) return;
+  regalo.rascado = true; guardado.poner('regalo', regalo);
+  $('#foil')?.classList.add('gone'); $('#skip')?.remove();
+  pintarReclamo();
+}
+const MESES = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+function pintarReclamo() {
+  const slot = $('#claim-slot');
+  if (regalo.reclamado) {
+    slot.innerHTML = `<div class="done">
+      <p class="code">CÓDIGO ${esc(regalo.codigo)}</p>
+      <h3>¡Listo, ${esc(regalo.nombre || '')}! Tu regalo está apartado.</h3>
+      <p>Mándame el mensaje por WhatsApp para activarlo. Vale hasta el ${vence(regalo)}.</p>
+      <div><a class="btn gold" target="_blank" rel="noopener" href="${enlaceWA(mensajeRegalo())}">Abrir WhatsApp</a></div></div>`;
+    return;
+  }
+  slot.innerHTML = `
+    <p class="code">CÓDIGO ${esc(regalo.codigo)}</p>
+    <h3>Es tuyo. ¿A nombre de quién lo aparto?</h3>
+    <form id="claim" novalidate style="display:grid; gap:18px;">
+      <div class="field"><label for="g-nombre">Tu nombre</label><input type="text" id="g-nombre" autocomplete="given-name" required></div>
+      <div class="field"><label for="g-tel">Tu WhatsApp</label><input type="tel" id="g-tel" autocomplete="tel" inputmode="tel" placeholder="+1 305 555 0123" required></div>
+      <div class="field"><span class="lab">Tu cumpleaños (opcional, te mando un detalle ese mes)</span>
+        <div class="two">
+          <select id="g-dia" aria-label="Día"><option value="">Día</option>${Array.from({ length: 31 }, (_, i) => `<option>${i + 1}</option>`).join('')}</select>
+          <select id="g-mes" aria-label="Mes"><option value="">Mes</option>${MESES.map((m, i) => `<option value="${i + 1}">${m}</option>`).join('')}</select>
+        </div></div>
+      <label class="check"><input type="checkbox" id="g-ok"><span>Acepto que Isabella me escriba por WhatsApp sobre mi regalo y sus novedades. Puedo pedirle que pare cuando quiera.</span></label>
+      <p class="err" id="g-err" hidden></p>
+      <div><button class="btn gold" type="submit">Apartar mi regalo</button></div>
+    </form>`;
+  $('#claim').addEventListener('submit', e => {
+    e.preventDefault();
+    const nombre = $('#g-nombre').value.trim(), tel = $('#g-tel').value.trim();
+    const err = $('#g-err');
+    const digitos = tel.replace(/\D/g, '');
+    if (!nombre) { err.hidden = false; err.textContent = 'Escribe tu nombre para apartar el regalo.'; return; }
+    if (digitos.length < 8) { err.hidden = false; err.textContent = 'Revisa tu WhatsApp: escribe el número completo, con código de país.'; return; }
+    if (!$('#g-ok').checked) { err.hidden = false; err.textContent = 'Marca la casilla para que pueda escribirte y activar tu regalo.'; return; }
+    const dia = $('#g-dia').value, mes = $('#g-mes').value;
+    Object.assign(regalo, { reclamado: true, nombre, tel, cumple: dia && mes ? `${String(mes).padStart(2, '0')}-${String(dia).padStart(2, '0')}` : '' });
+    guardado.poner('regalo', regalo);
+    anotar({ nombre, whatsapp: tel, cumpleanos: regalo.cumple, premio: regalo.titulo + ' ' + regalo.detalle, codigo: regalo.codigo,
+      mensaje: `Ganó en la página: ${regalo.titulo} ${regalo.detalle} (${regalo.codigo})`, etiquetas: 'página web, regalo, interesada' });
+    abrirWA(mensajeRegalo());
+    pintarReclamo();
+  });
+}
+function mensajeRegalo() {
+  return `Hola Isabella, soy ${regalo.nombre || ''} y vengo de tu página web 💕\nGané: ${regalo.titulo} ${regalo.detalle}\nCódigo: ${regalo.codigo}` +
+    (regalo.cumple ? `\nMi cumpleaños: ${+regalo.cumple.slice(3)} de ${MESES[+regalo.cumple.slice(0, 2) - 1]}` : '') + '\nQuiero activarlo.';
+}
+pintarTarjeta();
+addEventListener('resize', () => { if (regalo && !regalo.rascado && $('#foil')) { clearTimeout(window._rz); window._rz = setTimeout(pintarTarjeta, 300); } });
+
+/* ---------- descubre tu ritual ---------- */
+const PREGUNTAS = [
+  { k: 'piel', t: '¿Cómo sientes tu piel a media tarde?', o: [['grasa', 'Con brillo en la frente y la nariz', 'grasa o mixta'], ['seca', 'Tirante o con partes resecas', 'seca'], ['normal', 'Cómoda, casi siempre igual', 'normal'], ['sensible', 'Se enrojece o pica con facilidad', 'sensible']] },
+  { k: 'meta', t: '¿Qué te gustaría ver en el espejo?', o: [['luz', 'Más luz y un tono parejo'], ['granitos', 'Menos granitos y menos brillo'], ['suave', 'Una piel suave y cómoda'], ['descanso', 'Cara de haber dormido bien']] },
+  { k: 'maquillaje', t: '¿Cómo te maquillas un día normal?', o: [['nada', 'Casi nada, piel limpia'], ['natural', 'Natural: rubor y pestañas'], ['completo', 'Completo: base, labios y todo']] },
+  { k: 'tiempo', t: '¿Cuánto tiempo le das a tu rutina?', o: [['rapido', 'Dos minutos y me voy'], ['medio', 'Unos cinco minutos'], ['ritual', 'Me encanta consentirme']] }
+];
+const PASO = {
+  limpia: { g: 'L', t: 'Limpia tu cara', d: 'Tu limpiador suave de siempre, con agua tibia.' },
+  sol: { g: 'S', t: 'Protector solar', d: 'Todos los días, aunque esté nublado.' },
+  desmaquilla: { g: 'D', t: 'Desmaquilla y limpia', d: 'Que la piel quede limpia antes de dormir.' },
+  prueba: { g: '!', t: 'Prueba primero en una zona pequeña', d: 'Detrás de la oreja, 24 horas, antes de usar algo nuevo en toda la cara.' }
+};
+let resp = guardado.leer('ritual', {}), paso = 0;
+function armarRitual(r) {
+  const am = [PASO.limpia], pm = [PASO.desmaquilla], maq = [];
+  if (r.piel === 'sensible') am.unshift(PASO.prueba);
+  if (r.meta === 'luz' || r.meta === 'descanso' || r.tiempo !== 'rapido') am.push('vitamina-c');
+  am.push(r.piel === 'seca' ? 'calendula' : 'crema-tea-tree');
+  am.push(PASO.sol);
+  if (r.meta === 'granitos' || r.piel === 'grasa') pm.push('serum-tea-tree');
+  if (r.meta === 'descanso' || r.meta === 'luz' || r.tiempo === 'ritual') pm.push('mascarilla-noche');
+  pm.push(r.piel === 'seca' || r.meta === 'suave' ? 'calendula' : 'crema-tea-tree');
+  if (r.tiempo === 'ritual' && r.piel !== 'grasa') pm.push('super-elixir');
+  if (r.tiempo === 'rapido') pm.splice(3);
+  if (r.maquillaje === 'natural') maq.push('rubor-midnight', 'mascara-double-lash');
+  if (r.maquillaje === 'completo') maq.push('base-vfx', 'mascara-double-lash', 'labial-mate');
+  if (r.maquillaje === 'nada') maq.push('mascara-double-lash');
+  const filtra = l => l.filter(x => typeof x !== 'string' || byId[x]);
+  return { am: filtra(am), pm: filtra([...new Set(pm)]), maq: filtra(maq) };
+}
+const rpaso = (x, i) => typeof x === 'string'
+  ? `<div class="rstep"><span class="n">${i + 1}</span><img class="th" src="${byId[x].fotos[0]}" alt=""><div><b>${esc(byId[x].nombre)}</b><span>${esc(byId[x].frase)}</span></div></div>`
+  : `<div class="rstep"><span class="n">${i + 1}</span><span class="th g">${x.g}</span><div><b>${esc(x.t)}</b><span>${esc(x.d)}</span></div></div>`;
+function pintarQuiz(animar = true) {
+  const q = $('#quiz');
+  const barras = `<div class="progress" aria-hidden="true">${PREGUNTAS.map((_, i) => `<i class="${i < paso || paso === PREGUNTAS.length ? 'on' : ''}"></i>`).join('')}</div>`;
+  if (paso < PREGUNTAS.length) {
+    const pr = PREGUNTAS[paso];
+    q.innerHTML = barras + `
+      <div class="step-view ${animar ? 'in' : ''}"><p class="label">Pregunta ${paso + 1} de ${PREGUNTAS.length}</p><h3>${pr.t}</h3>
+        <div class="choices">${pr.o.map(([v, t, s]) => `<button class="choice" type="button" data-v="${v}" aria-pressed="${resp[pr.k] === v}"><span>${t}</span>${s ? `<small>${s}</small>` : ''}</button>`).join('')}</div></div>
+      <div class="quiz-nav"><button class="link" type="button" id="q-atras" ${paso ? '' : 'disabled'}>Atrás</button><span class="label">${paso + 1} / ${PREGUNTAS.length}</span></div>`;
+    $$('#quiz .choice').forEach(b => b.addEventListener('click', () => {
+      resp[pr.k] = b.dataset.v; guardado.poner('ritual', resp);
+      $$('#quiz .choice').forEach(x => x.setAttribute('aria-pressed', x === b));
+      setTimeout(() => { paso++; pintarQuiz(); }, 260);
+    }));
+    $('#q-atras').addEventListener('click', () => { paso = Math.max(0, paso - 1); pintarQuiz(); });
+    return;
+  }
+  const r = armarRitual(resp);
+  const pielTxt = PREGUNTAS[0].o.find(o => o[0] === resp.piel)?.[2] || '';
+  const usados = [...r.am, ...r.pm, ...r.maq].filter(x => typeof x === 'string');
+  q.innerHTML = barras + `
+    <div class="step-view result ${animar ? 'in' : ''}">
+      <div><p class="label">Piel ${esc(pielTxt)}</p><h3 style="font:300 40px/1.05 var(--display); margin-top:8px;">Tu ritual, <em>listo</em></h3></div>
+      <div class="moment"><p class="label">Mañana</p>${r.am.map(rpaso).join('')}</div>
+      <div class="moment"><p class="label">Noche</p>${r.pm.map(rpaso).join('')}</div>
+      ${r.maq.length ? `<div class="moment"><p class="label">Tu maquillaje</p>${r.maq.map(rpaso).join('')}</div>` : ''}
+      <div class="field"><label for="q-nombre">Tu nombre, para mandártelo</label><input type="text" id="q-nombre" autocomplete="given-name"></div>
+    </div>
+    <div class="quiz-nav"><button class="link" type="button" id="q-otra">Hacerlo otra vez</button><button class="btn solid" type="button" id="q-enviar">Recibir mi ritual</button></div>`;
+  $('#q-otra').addEventListener('click', () => { paso = 0; resp = {}; guardado.poner('ritual', resp); pintarQuiz(); });
+  $('#q-enviar').addEventListener('click', () => {
+    const nombre = $('#q-nombre').value.trim();
+    const et = k => PREGUNTAS.find(p => p.k === k).o.find(o => o[0] === resp[k])?.[1] || '';
+    const texto = `Hola Isabella, ${nombre ? 'soy ' + nombre + ' y ' : ''}vengo de tu página web 💕\nHice el test de ritual:\n· Mi piel: ${pielTxt}\n· Quiero: ${et('meta')}\n· Maquillaje: ${et('maquillaje')}\n· Tiempo: ${et('tiempo')}\nMe salió: ${usados.map(id => byId[id].nombre).join(', ')}\n¿Me ayudas con mi rutina?`;
+    anotar({ nombre, piel: pielTxt.split(' ')[0], interes: usados.map(id => byId[id].nombre).join(', '), mensaje: 'Hizo el test de ritual', etiquetas: 'página web, test de ritual, interesada' });
+    abrirWA(texto);
+  });
+}
+pintarQuiz(false);
+
+/* ---------- videos ---------- */
+const VIDEOS = [
+  { id: 'labial-que-dure', titulo: 'Haz que tu labial dure más', sub: '4 trucos que casi nadie hace' },
+  { id: 'mitos-piel-grasa', titulo: 'Lo que te dijeron de la piel grasa', sub: '¿Mito o realidad?' },
+  { id: 'rutina-de-noche', titulo: 'Tu piel de noche en 4 pasos', sub: 'Antes de dormir, sin complicarte' },
+  { id: 'sabias-que-sol-y-labios', titulo: 'Dos datos de tu piel', sub: 'El sol y tus labios' }
+];
+$('#reels').innerHTML = VIDEOS.map(v => `
+  <div class="reel reveal">
+    <button type="button" aria-label="Ver video: ${esc(v.titulo)}">
+      <video src="videos/${v.id}.mp4" poster="videos/${v.id}.jpg" playsinline preload="none" loop></video>
+      <span class="play"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4v16l13-8z"/></svg></span>
+    </button>
+    <h3>${esc(v.titulo)}</h3><span>${esc(v.sub)}</span>
+  </div>`).join('');
+$$('.reel button').forEach(b => b.addEventListener('click', () => {
+  const v = b.querySelector('video'), r = b.parentElement;
+  $$('.reel video').forEach(o => { if (o !== v) { o.pause(); o.closest('.reel').classList.remove('on'); } });
+  if (v.paused) { v.muted = false; v.play().catch(() => { v.muted = true; v.play(); }); r.classList.add('on'); }
+  else { v.pause(); r.classList.remove('on'); }
+}));
+
+/* ---------- escríbeme ---------- */
+const TEMAS = ['Un producto', 'Mi rutina', 'Hacer un pedido', 'Otra cosa'];
+let tema = TEMAS[0];
+$('#n-tema').innerHTML = TEMAS.map(t => `<button type="button" aria-pressed="${t === tema}">${t}</button>`).join('');
+const mensajeNota = () => {
+  const n = $('#n-nombre').value.trim(), m = $('#n-msg').value.trim();
+  return `Hola Isabella, ${n ? 'soy ' + n + ' y ' : ''}vengo de tu página web 💕\nTe escribo por: ${tema}` + (m ? '\n' + m : '');
+};
+const previa = () => { $('#n-preview').textContent = mensajeNota(); };
+$$('#n-tema button').forEach(b => b.addEventListener('click', () => {
+  tema = b.textContent; $$('#n-tema button').forEach(x => x.setAttribute('aria-pressed', x === b)); previa();
+}));
+$('#nota').addEventListener('input', previa); previa();
+$('#nota').addEventListener('submit', e => {
+  e.preventDefault();
+  anotar({ nombre: $('#n-nombre').value.trim(), interes: tema, mensaje: $('#n-msg').value.trim(), etiquetas: 'página web' });
+  abrirWA(mensajeNota());
+  const s = $('#n-status'); s.hidden = false; s.textContent = 'Se abre WhatsApp con tu mensaje. Solo dale enviar.';
+});
+$('#n-copy').addEventListener('click', () => {
+  const s = $('#n-status'); s.hidden = false;
+  navigator.clipboard.writeText(mensajeNota()).then(() => { s.textContent = 'Mensaje copiado. Pégalo en WhatsApp o en Instagram.'; })
+    .catch(() => { const r = document.createRange(); r.selectNodeContents($('#n-preview')); const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r); s.textContent = 'Mensaje seleccionado: cópialo y pégalo en WhatsApp o Instagram.'; });
+});
+
+
+/* ---------- privacidad ---------- */
+$('#ver-privacidad').addEventListener('click', () => abrirPanel(`
+  <div class="drawer-top"><span class="label">Privacidad</span><button class="close" type="button" data-cerrar>Cerrar ✕</button></div>
+  <h2 id="drawer-title">Tus datos, <em>cuidados</em></h2>
+  <dl>
+    <div><dt class="label">Qué te pido</dt><dd>Solo lo que tú escribes: tu nombre, tu WhatsApp y, si quieres, tu cumpleaños y lo que te interesa.</dd></div>
+    <div><dt class="label">Para qué</dt><dd>Para apartar tu regalo, mandarte tu ritual, ayudarte con tus pedidos y saludarte en tu cumpleaños.</dd></div>
+    <div><dt class="label">Quién los ve</dt><dd>Solo yo, Isabella. No los vendo ni los comparto con nadie.</dd></div>
+    <div><dt class="label">Si ya no quieres mensajes</dt><dd>Escríbeme "no más mensajes" por WhatsApp y te borro de mi lista.</dd></div>
+    <div><dt class="label">En tu celular</dt><dd>La página recuerda tu lista, tu test y tu regalo en tu navegador, para que no se pierdan si vuelves.</dd></div>
+  </dl>`));
+
+/* ---------- aparición al hacer scroll ----------
+   Todo está visible desde el inicio; lo que todavía no se ve entra suave cuando llega a la pantalla. */
+if (!matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (!e.isIntersecting) return;
+    io.unobserve(e.target);
+    const img = e.target.classList.contains('reveal-img');
+    e.target.animate(img
+      ? [{ clipPath: 'inset(16% 0 0 0)', transform: 'scale(1.08)' }, { clipPath: 'inset(0 0 0 0)', transform: 'none' }]
+      : [{ opacity: 0, transform: 'translateY(36px)' }, { opacity: 1, transform: 'none' }],
+      { duration: img ? 1300 : 900, delay: (+e.target.dataset.d || 0), easing: 'cubic-bezier(.22,.61,.36,1)', fill: 'backwards' });
+  }), { rootMargin: '0px 0px -8% 0px' });
+  requestAnimationFrame(() => $$('.reveal, .reveal-img').forEach(el => {
+    if (el.getBoundingClientRect().top > innerHeight) io.observe(el);
+  }));
+  $$('#grid .card').forEach((c, i) => c.dataset.d = (i % 4) * 90);
+  $$('.reel').forEach((c, i) => c.dataset.d = i * 90);
+}
+</script>
+</body>
+</html>
