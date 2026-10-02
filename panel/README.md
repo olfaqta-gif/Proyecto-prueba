@@ -20,6 +20,8 @@ La oficina de Isa, en 3D y en azul:
 - **Reunir al equipo (botón de arriba):** Isa llama a todos los robots, que caminan hasta su
   mesa y la miran. Revisa el trabajo de cada uno, cada robot muestra su nota en un globito
   y en el Visor aparece el informe de la reunión. Luego vuelven a sus escritorios.
+- **Clientas (botón de arriba):** abre la libreta de clientas de Isabella en otra pestaña. El
+  numerito dice cuántas cosas hay para hacer hoy. Ver `clientas/README.md`.
 - Los agentes se leen solos de `.claude/agents/`: si se crea uno nuevo, aparece en el
   panel sin tocar nada.
 

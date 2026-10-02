@@ -1,0 +1,804 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Libreta de clientas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --fondo: #fbf5f1;
+    --fondo-2: #f5ebe5;
+    --papel: #ffffff;
+    --tinta: #2b1a2c;
+    --tinta-2: #5d4a5c;
+    --tenue: #8f7d8c;
+    --linea: #eadcd6;
+    --rosa: #d64f8a;
+    --rosa-suave: #fbe3ec;
+    --rosa-osc: #a8326a;
+    --durazno: #f6b89a;
+    --lila: #b9a6f2;
+    --menta: #8fd6bb;
+    --oro: #c99a5b;
+    --bien: #2f9e76;
+    --alerta: #d9534f;
+    --sombra: 0 1px 2px rgba(60, 30, 50, .05), 0 8px 24px -12px rgba(80, 30, 60, .18);
+    --sombra-alta: 0 24px 60px -20px rgba(70, 20, 50, .35);
+    --radio: 20px;
+    --titulo: "Fraunces", Georgia, "Times New Roman", serif;
+    --cuerpo: "Plus Jakarta Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-tema="claro"]) {
+      --fondo: #1a1219; --fondo-2: #231822; --papel: #2a1d29; --tinta: #f7ecf1; --tinta-2: #d9c6d2;
+      --tenue: #a8939f; --linea: #3d2c3a; --rosa-suave: #4a2338; --sombra: 0 1px 2px rgba(0,0,0,.3), 0 10px 30px -12px rgba(0,0,0,.6);
+      color-scheme: dark;
+    }
+    :root:not([data-tema="claro"]) .cifra::after { opacity: .14; }
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    background: var(--fondo);
+    background-image: radial-gradient(1200px 500px at 85% -10%, rgba(214, 79, 138, .10), transparent 60%),
+                      radial-gradient(900px 500px at -10% 10%, rgba(246, 184, 154, .16), transparent 60%);
+    background-attachment: fixed;
+    color: var(--tinta); font: 15px/1.5 var(--cuerpo); min-height: 100vh;
+  }
+  button, input, select, textarea { font: inherit; color: inherit; }
+  button { cursor: pointer; }
+  .envoltura { max-width: 1240px; margin: 0 auto; padding: 0 24px 80px; }
+
+  /* ---------- barra de arriba ---------- */
+  header.barra { position: sticky; top: 0; z-index: 20; backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+    background: color-mix(in srgb, var(--fondo) 82%, transparent); border-bottom: 1px solid var(--linea); }
+  header.barra .envoltura { display: flex; align-items: center; gap: 14px; padding-top: 14px; padding-bottom: 14px; }
+  .marca { display: flex; align-items: center; gap: 10px; text-decoration: none; color: inherit; }
+  .sello { width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; color: #fff;
+    font: italic 600 19px var(--titulo); background: linear-gradient(135deg, var(--rosa), var(--durazno)); box-shadow: 0 6px 16px -6px var(--rosa); }
+  .marca b { font: 600 19px var(--titulo); letter-spacing: -.01em; }
+  .marca small { display: block; color: var(--tenue); font-size: 12px; margin-top: -2px; }
+  .buscador { flex: 1; max-width: 360px; margin-left: auto; position: relative; }
+  .buscador input { width: 100%; border: 1px solid var(--linea); background: var(--papel); border-radius: 999px; padding: 10px 16px 10px 38px; outline: none; }
+  .buscador input:focus { border-color: var(--rosa); box-shadow: 0 0 0 4px var(--rosa-suave); }
+  .buscador svg { position: absolute; left: 13px; top: 50%; transform: translateY(-50%); color: var(--tenue); }
+  .btn { border: 1px solid var(--linea); background: var(--papel); border-radius: 999px; padding: 9px 16px; font-weight: 600; font-size: 14px;
+    display: inline-flex; align-items: center; gap: 7px; transition: transform .15s, box-shadow .15s, background .15s; white-space: nowrap; }
+  a.btn { text-decoration: none; }
+  .btn:hover { transform: translateY(-1px); box-shadow: var(--sombra); }
+  .btn.principal { background: var(--rosa); color: #fff; border-color: transparent; box-shadow: 0 8px 18px -8px var(--rosa); }
+  .btn.principal:hover { background: var(--rosa-osc); }
+  .btn.suave { background: var(--rosa-suave); color: var(--rosa-osc); border-color: transparent; }
+  .btn.chico { padding: 6px 12px; font-size: 13px; }
+  .btn.fantasma { background: transparent; }
+  .btn:disabled { opacity: .5; cursor: default; transform: none; box-shadow: none; }
+
+  .aviso-fijo { background: #fff4d6; color: #6b4b00; border: 1px solid #f0d58a; border-radius: 14px; padding: 10px 14px; margin-top: 18px; font-size: 14px; }
+
+  /* ---------- saludo y números ---------- */
+  .saludo { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: 28px; align-items: end; margin: 34px 0 22px; }
+  .saludo h1 { font: 400 44px/1.05 var(--titulo); letter-spacing: -.02em; margin: 0 0 10px; }
+  .saludo h1 em { color: var(--rosa); font-style: italic; }
+  .saludo p { margin: 0; color: var(--tinta-2); font-size: 16px; max-width: 520px; }
+  .cifras { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .cifra { background: var(--papel); border: 1px solid var(--linea); border-radius: 18px; padding: 14px 16px; box-shadow: var(--sombra); position: relative; overflow: hidden; }
+  .cifra::after { content: ""; position: absolute; right: -18px; top: -18px; width: 60px; height: 60px; border-radius: 50%; background: var(--c, var(--rosa-suave)); opacity: .55; }
+  .cifra b { display: block; font: 600 30px/1.1 var(--titulo); letter-spacing: -.02em; position: relative; z-index: 1; }
+  .cifra span { font-size: 12.5px; color: var(--tenue); position: relative; z-index: 1; }
+  .cifra i { display: block; font-style: normal; color: var(--bien); font-weight: 600; font-size: 12px; }
+
+  /* ---------- pestañas ---------- */
+  .pestanas { display: flex; gap: 6px; padding: 5px; background: var(--fondo-2); border-radius: 999px; width: fit-content; margin: 8px 0 22px; flex-wrap: wrap; }
+  .pestanas button { border: 0; background: transparent; padding: 8px 18px; border-radius: 999px; font-weight: 600; color: var(--tinta-2); display: flex; gap: 8px; align-items: center; }
+  .pestanas button[aria-selected="true"] { background: var(--papel); color: var(--tinta); box-shadow: var(--sombra); }
+  .pestanas .cuenta { background: var(--rosa); color: #fff; border-radius: 999px; font-size: 11px; padding: 1px 7px; }
+  section[hidden] { display: none !important; }
+
+  /* ---------- hoy ---------- */
+  .tareas { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 16px; }
+  .tarea { background: var(--papel); border: 1px solid var(--linea); border-radius: var(--radio); padding: 18px; box-shadow: var(--sombra);
+    display: flex; flex-direction: column; gap: 12px; position: relative; transition: transform .2s, opacity .3s; }
+  .tarea:hover { transform: translateY(-2px); }
+  .tarea.saliendo { opacity: 0; transform: scale(.96); }
+  .tarea .tipo { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em;
+    color: var(--c); background: color-mix(in srgb, var(--c) 13%, transparent); padding: 4px 10px; border-radius: 999px; width: fit-content; }
+  .tarea .urgente { position: absolute; top: 18px; right: 18px; font-size: 11.5px; font-weight: 700; color: var(--alerta); }
+  .tarea .quien { display: flex; align-items: center; gap: 12px; }
+  .tarea h3 { margin: 0; font: 600 17px/1.25 var(--titulo); }
+  .tarea .detalle { margin: 0; color: var(--tinta-2); font-size: 14px; }
+  .tarea .producto-foto { width: 54px; height: 54px; border-radius: 14px; object-fit: cover; background: var(--fondo-2); margin-left: auto; flex: none; }
+  .burbuja { background: var(--fondo-2); border-radius: 16px 16px 16px 4px; padding: 10px 13px; font-size: 14px; color: var(--tinta); position: relative; outline: none; }
+  .burbuja:focus { box-shadow: 0 0 0 2px var(--rosa); }
+  .burbuja small { display: block; color: var(--tenue); font-size: 11px; margin-top: 4px; }
+  .tarea .acciones { display: flex; gap: 8px; flex-wrap: wrap; margin-top: auto; }
+  .vacio { text-align: center; padding: 60px 20px; color: var(--tinta-2); background: var(--papel); border: 1px dashed var(--linea); border-radius: var(--radio); }
+  .vacio .grande { font-size: 44px; }
+  .vacio h3 { font: 400 26px var(--titulo); margin: 8px 0 6px; color: var(--tinta); }
+
+  /* ---------- avatar ---------- */
+  .avatar { --t: 42px; width: var(--t); height: var(--t); border-radius: 50%; flex: none; display: grid; place-items: center; color: #fff; font-weight: 700;
+    font-size: calc(var(--t) * .38); background: linear-gradient(135deg, var(--a1), var(--a2)); box-shadow: 0 0 0 3px var(--papel), 0 0 0 5px var(--anillo, transparent); letter-spacing: .02em; }
+  .red { font-size: 10.5px; font-weight: 800; padding: 2px 6px; border-radius: 6px; color: #fff; letter-spacing: .03em; }
+  .red.instagram { background: linear-gradient(45deg, #f09433, #dc2743, #bc1888); }
+  .red.tiktok { background: #111; }
+  .red.whatsapp { background: #25d366; }
+  .red.facebook { background: #1877f2; }
+  .red.en-persona { background: var(--oro); }
+
+  /* ---------- tablero ---------- */
+  .tablero { display: grid; grid-template-columns: repeat(5, minmax(220px, 1fr)); gap: 14px; overflow-x: auto; padding-bottom: 10px; }
+  .columna { background: var(--fondo-2); border-radius: var(--radio); padding: 12px; min-height: 340px; transition: background .2s, box-shadow .2s; }
+  .columna.encima { background: color-mix(in srgb, var(--c) 14%, var(--fondo-2)); box-shadow: inset 0 0 0 2px var(--c); }
+  .columna header { display: flex; align-items: center; gap: 8px; padding: 4px 6px 12px; font-weight: 700; }
+  .columna header .punto { width: 10px; height: 10px; border-radius: 50%; background: var(--c); box-shadow: 0 0 0 4px color-mix(in srgb, var(--c) 22%, transparent); }
+  .columna header small { margin-left: auto; color: var(--tenue); font-weight: 600; background: var(--papel); border-radius: 999px; padding: 1px 9px; }
+  .tarjeta { background: var(--papel); border-radius: 16px; padding: 12px; margin-bottom: 10px; box-shadow: var(--sombra); cursor: grab; border: 1px solid transparent; transition: transform .15s, border-color .15s; }
+  .tarjeta:hover { transform: translateY(-2px); border-color: color-mix(in srgb, var(--c) 45%, transparent); }
+  .tarjeta.arrastrando { opacity: .4; }
+  .tarjeta .fila { display: flex; align-items: center; gap: 10px; }
+  .tarjeta b { display: block; font-size: 14.5px; line-height: 1.2; }
+  .tarjeta small { color: var(--tenue); font-size: 12px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 9px; }
+  .chip { font-size: 11.5px; background: var(--fondo-2); color: var(--tinta-2); padding: 3px 9px; border-radius: 999px; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .chip.rosa { background: var(--rosa-suave); color: var(--rosa-osc); }
+  .pausa-fila { margin-top: 16px; color: var(--tenue); font-size: 14px; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+
+  /* ---------- clientas ---------- */
+  .filtros { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+  .filtro { border: 1px solid var(--linea); background: var(--papel); border-radius: 999px; padding: 6px 13px; font-size: 13px; font-weight: 600; color: var(--tinta-2); }
+  .filtro[aria-pressed="true"] { background: var(--tinta); color: var(--fondo); border-color: var(--tinta); }
+  .galeria { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 16px; }
+  .perfil { background: var(--papel); border: 1px solid var(--linea); border-radius: var(--radio); padding: 20px 18px 16px; text-align: center; box-shadow: var(--sombra); cursor: pointer; transition: transform .2s; position: relative; }
+  .perfil:hover { transform: translateY(-3px); }
+  .perfil .avatar { --t: 72px; margin: 0 auto 10px; }
+  .perfil h3 { margin: 0; font: 600 18px var(--titulo); }
+  .perfil .sub { color: var(--tenue); font-size: 13px; }
+  .perfil .etapa-chip { position: absolute; top: 14px; right: 14px; }
+  .perfil .datos { display: flex; justify-content: center; gap: 18px; margin: 12px 0 10px; font-size: 12px; color: var(--tenue); }
+  .perfil .datos b { display: block; color: var(--tinta); font: 600 18px var(--titulo); }
+  .fotitos { display: flex; justify-content: center; gap: 6px; min-height: 38px; }
+  .fotitos img, .fotitos span { width: 38px; height: 38px; border-radius: 10px; object-fit: cover; background: var(--fondo-2); display: grid; place-items: center; font-size: 16px; }
+  .etapa-chip { font-size: 11.5px; font-weight: 700; padding: 3px 9px; border-radius: 999px; color: var(--c); background: color-mix(in srgb, var(--c) 14%, transparent); }
+
+  /* ---------- pedidos ---------- */
+  .pedidos { display: flex; flex-direction: column; gap: 10px; }
+  .pedido { display: grid; grid-template-columns: 40px 190px minmax(0, 1fr) 80px 240px; gap: 16px; align-items: center; background: var(--papel); border: 1px solid var(--linea); border-radius: 18px; padding: 12px 16px; box-shadow: var(--sombra); }
+  .pedido .prods { display: flex; gap: 8px; align-items: center; min-width: 0; }
+  .pedido .prods img, .pedido .prods .sinfoto { width: 44px; height: 44px; border-radius: 12px; object-fit: cover; background: var(--fondo-2); flex: none; display: grid; place-items: center; }
+  .pedido .prods span { font-size: 13.5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .pedido .monto { font: 600 18px var(--titulo); text-align: right; min-width: 70px; }
+  .estado { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
+  .sello-estado { font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 999px; border: 0; }
+  .sello-estado.ok { background: color-mix(in srgb, var(--bien) 15%, transparent); color: var(--bien); }
+  .sello-estado.falta { background: color-mix(in srgb, var(--oro) 20%, transparent); color: #9a6a26; }
+  button.sello-estado:hover { filter: brightness(.95); }
+
+  /* ---------- números ---------- */
+  .numeros { display: grid; grid-template-columns: 1.1fr 1fr; gap: 16px; }
+  .caja { background: var(--papel); border: 1px solid var(--linea); border-radius: var(--radio); padding: 20px; box-shadow: var(--sombra); }
+  .caja h3 { margin: 0 0 4px; font: 600 20px var(--titulo); }
+  .caja > p { margin: 0 0 16px; color: var(--tenue); font-size: 13.5px; }
+  .embudo .paso { display: grid; grid-template-columns: 150px 1fr 40px; gap: 12px; align-items: center; margin-bottom: 10px; font-size: 14px; }
+  .embudo .barra-fondo { height: 30px; background: var(--fondo-2); border-radius: 10px; overflow: hidden; }
+  .embudo .barra-llena { height: 100%; border-radius: 10px; background: linear-gradient(90deg, var(--c), color-mix(in srgb, var(--c) 60%, #fff)); transition: width .8s cubic-bezier(.2,.8,.2,1); }
+  .embudo b { text-align: right; font: 600 17px var(--titulo); }
+  .top { display: flex; flex-direction: column; gap: 10px; }
+  .top .item { display: grid; grid-template-columns: 46px 1fr auto; gap: 12px; align-items: center; }
+  .top img, .top .sinfoto { width: 46px; height: 46px; border-radius: 12px; object-fit: cover; background: var(--fondo-2); display: grid; place-items: center; }
+  .top .nombre { font-size: 14px; line-height: 1.25; }
+  .top .mini-barra { height: 6px; border-radius: 6px; background: var(--rosa); margin-top: 5px; opacity: .8; }
+  .top b { font: 600 18px var(--titulo); }
+  .barras { display: flex; align-items: flex-end; gap: 14px; height: 200px; padding-top: 10px; }
+  .barras .mes { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%; gap: 6px; }
+  .barras .col { width: min(64px, 70%); border-radius: 12px 12px 6px 6px; background: linear-gradient(180deg, var(--rosa), var(--durazno)); opacity: .5; min-height: 4px; transition: height .8s cubic-bezier(.2,.8,.2,1); }
+  .barras .mes.actual .col { opacity: 1; }
+  .barras b { font: 600 17px var(--titulo); }
+  .barras small { color: var(--tenue); font-size: 13px; }
+
+  /* ---------- cajón de la clienta ---------- */
+  .velo { position: fixed; inset: 0; background: rgba(40, 15, 35, .32); backdrop-filter: blur(3px); z-index: 40; opacity: 0; pointer-events: none; transition: opacity .25s; }
+  .velo.abierto { opacity: 1; pointer-events: auto; }
+  .cajon { position: fixed; top: 0; right: 0; bottom: 0; width: min(480px, 100vw); background: var(--fondo); z-index: 41; box-shadow: var(--sombra-alta);
+    transform: translateX(105%); transition: transform .32s cubic-bezier(.2,.8,.2,1); overflow-y: auto; }
+  .cajon.abierto { transform: none; }
+  .cajon .portada { padding: 26px 24px 20px; background: linear-gradient(160deg, var(--rosa-suave), transparent 90%); position: relative; }
+  .cajon .cerrar { position: absolute; top: 16px; right: 16px; border: 0; background: var(--papel); width: 34px; height: 34px; border-radius: 50%; font-size: 18px; box-shadow: var(--sombra); }
+  .cajon .portada .avatar { --t: 76px; }
+  .cajon h2 { margin: 12px 0 2px; font: 600 28px/1.1 var(--titulo); letter-spacing: -.01em; }
+  .cajon .portada .sub { color: var(--tinta-2); font-size: 14px; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  .cajon .botones { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px; }
+  .cajon .bloque { padding: 4px 24px 18px; }
+  .cajon h4 { margin: 18px 0 10px; font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--tenue); }
+  .pasos { display: flex; gap: 6px; flex-wrap: wrap; }
+  .pasos button { border: 1px solid var(--linea); background: var(--papel); border-radius: 999px; padding: 6px 12px; font-size: 13px; font-weight: 600; color: var(--tinta-2); }
+  .pasos button[aria-pressed="true"] { background: var(--c); color: #fff; border-color: transparent; }
+  .ficha { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .ficha div { background: var(--papel); border: 1px solid var(--linea); border-radius: 14px; padding: 9px 12px; }
+  .ficha small { display: block; color: var(--tenue); font-size: 11.5px; }
+  .ficha span { font-weight: 600; font-size: 14px; }
+  .linea-tiempo { position: relative; padding-left: 20px; }
+  .linea-tiempo::before { content: ""; position: absolute; left: 5px; top: 6px; bottom: 6px; width: 2px; background: var(--linea); border-radius: 2px; }
+  .linea-tiempo .hito { position: relative; margin-bottom: 12px; font-size: 14px; }
+  .linea-tiempo .hito::before { content: ""; position: absolute; left: -19px; top: 6px; width: 10px; height: 10px; border-radius: 50%; background: var(--rosa); box-shadow: 0 0 0 3px var(--fondo); }
+  .linea-tiempo .hito small { color: var(--tenue); display: block; font-size: 12px; }
+  .nota-nueva { display: flex; gap: 8px; margin-top: 6px; }
+  .nota-nueva input, .recordatorio input { flex: 1; border: 1px solid var(--linea); background: var(--papel); border-radius: 12px; padding: 9px 12px; outline: none; min-width: 0; }
+  .recordatorio { display: flex; gap: 8px; flex-wrap: wrap; }
+  .mini-pedido { background: var(--papel); border: 1px solid var(--linea); border-radius: 14px; padding: 10px 12px; margin-bottom: 8px; display: flex; gap: 10px; align-items: center; }
+  .mini-pedido img, .mini-pedido .sinfoto { width: 40px; height: 40px; border-radius: 10px; object-fit: cover; background: var(--fondo-2); display: grid; place-items: center; flex: none; }
+  .mini-pedido div { flex: 1; min-width: 0; font-size: 13.5px; }
+  .mini-pedido small { color: var(--tenue); }
+
+  /* ---------- formularios ---------- */
+  dialog { border: 0; border-radius: 26px; padding: 0; width: min(560px, calc(100vw - 24px)); background: var(--fondo); color: var(--tinta); box-shadow: var(--sombra-alta); }
+  dialog::backdrop { background: rgba(40, 15, 35, .4); backdrop-filter: blur(4px); }
+  dialog form { padding: 26px; }
+  dialog h2 { margin: 0 0 4px; font: 600 26px var(--titulo); }
+  dialog .ayuda { color: var(--tenue); margin: 0 0 18px; font-size: 14px; }
+  .campos { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .campos .ancho { grid-column: 1 / -1; }
+  label.campo { display: flex; flex-direction: column; gap: 5px; font-size: 12.5px; font-weight: 600; color: var(--tinta-2); }
+  label.campo input, label.campo select, label.campo textarea { border: 1px solid var(--linea); background: var(--papel); border-radius: 12px; padding: 10px 12px; font-weight: 500; font-size: 14.5px; outline: none; }
+  label.campo input:focus, label.campo select:focus, label.campo textarea:focus { border-color: var(--rosa); box-shadow: 0 0 0 4px var(--rosa-suave); }
+  .redes-elegir { display: flex; gap: 6px; flex-wrap: wrap; }
+  .redes-elegir label { cursor: pointer; }
+  .redes-elegir input { display: none; }
+  .redes-elegir span { display: inline-block; padding: 7px 12px; border-radius: 999px; border: 1px solid var(--linea); background: var(--papel); font-size: 13px; font-weight: 600; text-transform: capitalize; }
+  .redes-elegir input:checked + span { background: var(--tinta); color: var(--fondo); border-color: var(--tinta); }
+  .pie { display: flex; gap: 10px; justify-content: flex-end; margin-top: 22px; }
+  .lista-prod { display: flex; flex-direction: column; gap: 8px; margin: 6px 0 4px; }
+  .prod-elegido { display: grid; grid-template-columns: 40px 1fr 64px 30px; gap: 10px; align-items: center; background: var(--papel); border: 1px solid var(--linea); border-radius: 14px; padding: 6px 8px; }
+  .prod-elegido img, .prod-elegido .sinfoto { width: 40px; height: 40px; border-radius: 10px; object-fit: cover; background: var(--fondo-2); display: grid; place-items: center; }
+  .prod-elegido input { border: 1px solid var(--linea); border-radius: 10px; padding: 6px; width: 100%; background: var(--fondo); text-align: center; }
+  .prod-elegido button { border: 0; background: transparent; font-size: 18px; color: var(--tenue); }
+  .buscar-prod { position: relative; }
+  .sugerencias { position: absolute; left: 0; right: 0; top: calc(100% + 4px); background: var(--papel); border: 1px solid var(--linea); border-radius: 14px; box-shadow: var(--sombra-alta); max-height: 260px; overflow-y: auto; z-index: 5; }
+  .sugerencias button { display: flex; gap: 10px; align-items: center; width: 100%; border: 0; background: transparent; padding: 8px 10px; text-align: left; font-size: 14px; }
+  .sugerencias button:hover, .sugerencias button.activa { background: var(--rosa-suave); }
+  .sugerencias img, .sugerencias .sinfoto { width: 34px; height: 34px; border-radius: 8px; object-fit: cover; background: var(--fondo-2); flex: none; display: grid; place-items: center; }
+  .interruptores { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 4px; }
+  .interruptor { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; cursor: pointer; }
+  .interruptor input { appearance: none; width: 40px; height: 24px; border-radius: 999px; background: var(--linea); position: relative; cursor: pointer; transition: background .2s; margin: 0; }
+  .interruptor input::after { content: ""; position: absolute; top: 3px; left: 3px; width: 18px; height: 18px; border-radius: 50%; background: #fff; transition: transform .2s; box-shadow: 0 1px 3px rgba(0,0,0,.2); }
+  .interruptor input:checked { background: var(--bien); }
+  .interruptor input:checked::after { transform: translateX(16px); }
+
+  .aviso { position: fixed; left: 50%; bottom: 26px; transform: translate(-50%, 30px); background: var(--tinta); color: var(--fondo); padding: 12px 20px; border-radius: 999px;
+    font-weight: 600; font-size: 14px; opacity: 0; transition: all .3s; z-index: 60; pointer-events: none; box-shadow: var(--sombra-alta); }
+  .aviso.visible { opacity: 1; transform: translate(-50%, 0); }
+
+  @media (max-width: 900px) {
+    .saludo { grid-template-columns: 1fr; }
+    .cifras { grid-template-columns: repeat(2, 1fr); }
+    .numeros { grid-template-columns: 1fr; }
+    .pedido { grid-template-columns: 40px 1fr; }
+    .pedido .prods { grid-column: 1 / -1; }
+    .pedido .monto { text-align: left; }
+    .estado { justify-content: flex-start; }
+  }
+  @media (max-width: 640px) {
+    .envoltura { padding: 0 16px 60px; }
+    header.barra .envoltura { flex-wrap: wrap; }
+    .buscador { order: 3; max-width: none; flex-basis: 100%; }
+    .marca { flex-basis: 100%; }
+    header.barra .btn { flex: 1; justify-content: center; }
+    .saludo h1 { font-size: 34px; }
+    .tareas { grid-template-columns: 1fr; }
+    .campos { grid-template-columns: 1fr; }
+    .embudo .paso { grid-template-columns: 110px 1fr 30px; }
+  }
+</style>
+</head>
+<body>
+<header class="barra">
+  <div class="envoltura">
+    <a class="marca" href="#hoy">
+      <span class="sello">I</span>
+      <span><b>Libreta de clientas</b><small>de Isabella · Farmasi</small></span>
+    </a>
+    <label class="buscador">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="buscar" type="search" placeholder="Buscar clienta, @usuario o producto" autocomplete="off">
+    </label>
+    <button class="btn" id="btn-clienta" type="button">＋ Clienta</button>
+    <button class="btn principal" id="btn-pedido" type="button">＋ Pedido</button>
+  </div>
+</header>
+
+<main class="envoltura">
+  <div id="solo-lectura" class="aviso-fijo" hidden>Esta es una copia para mirar. Para anotar clientas y pedidos, ábrela desde el panel de Isa con el botón «Clientas».</div>
+
+  <div class="saludo">
+    <div>
+      <h1 id="titulo-saludo">Hola, <em>Isabella</em></h1>
+      <p id="frase-saludo">Cargando tu libreta…</p>
+    </div>
+    <div class="cifras" id="cifras"></div>
+  </div>
+
+  <nav class="pestanas" role="tablist">
+    <button role="tab" data-p="hoy" aria-selected="true">Para hoy <span class="cuenta" id="cuenta-hoy">0</span></button>
+    <button role="tab" data-p="tablero" aria-selected="false">Tablero</button>
+    <button role="tab" data-p="clientas" aria-selected="false">Clientas</button>
+    <button role="tab" data-p="pedidos" aria-selected="false">Pedidos</button>
+    <button role="tab" data-p="numeros" aria-selected="false">Números</button>
+  </nav>
+
+  <section id="p-hoy"><div class="tareas" id="tareas"></div></section>
+  <section id="p-tablero" hidden><div class="tablero" id="tablero"></div><div class="pausa-fila" id="pausa"></div></section>
+  <section id="p-clientas" hidden><div class="filtros" id="filtros"></div><div class="galeria" id="galeria"></div></section>
+  <section id="p-pedidos" hidden><div class="filtros" id="filtros-pedidos"></div><div class="pedidos" id="lista-pedidos"></div></section>
+  <section id="p-numeros" hidden>
+    <div class="numeros">
+      <div class="caja"><h3>Del primer mensaje a clienta fiel</h3><p>Cuántas clientas hay en cada paso.</p><div class="embudo" id="embudo"></div></div>
+      <div class="caja"><h3>Lo que más te compran</h3><p>Productos en todos los pedidos.</p><div class="top" id="top"></div></div>
+      <div class="caja meses" style="grid-column: 1 / -1"><h3>Pedidos por mes</h3><p>Los últimos seis meses.</p><div id="meses"></div></div>
+    </div>
+  </section>
+</main>
+
+<div class="velo" id="velo"></div>
+<aside class="cajon" id="cajon" aria-hidden="true"></aside>
+
+<dialog id="dlg-clienta">
+  <form method="dialog" id="form-clienta">
+    <h2 id="dlg-clienta-titulo">Nueva clienta</h2>
+    <p class="ayuda">Con el nombre basta. Lo demás lo puedes completar después.</p>
+    <input type="hidden" name="id">
+    <div class="campos">
+      <label class="campo ancho">Nombre<input name="nombre" required placeholder="Ej. Carla Méndez"></label>
+      <div class="campo ancho"><label class="campo">Dónde la conociste</label>
+        <div class="redes-elegir" id="redes-elegir"></div></div>
+      <label class="campo">Usuario<input name="usuario" placeholder="@usuario"></label>
+      <label class="campo">WhatsApp / teléfono<input name="telefono" placeholder="+1 305 555 0000" inputmode="tel"></label>
+      <label class="campo">Ciudad<input name="ciudad"></label>
+      <label class="campo">Cumpleaños<input name="cumple" placeholder="14 de marzo"></label>
+      <label class="campo">Tipo de piel<select name="piel"><option value="">—</option><option>normal</option><option>seca</option><option>grasa</option><option>mixta</option><option>sensible</option></select></label>
+      <label class="campo">Tono<input name="tono" placeholder="Ej. medio cálido"></label>
+      <label class="campo ancho">Le interesa<input name="intereses" placeholder="Ej. sérum, labiales, té (separa con comas)"></label>
+      <label class="campo ancho">Nota<textarea name="nota" rows="2" placeholder="Ej. Preguntó si el sérum sirve para piel grasa"></textarea></label>
+    </div>
+    <div class="pie"><button class="btn fantasma" value="cancelar" formnovalidate>Cancelar</button><button class="btn principal" value="ok">Guardar</button></div>
+  </form>
+</dialog>
+
+<dialog id="dlg-pedido">
+  <form method="dialog" id="form-pedido">
+    <h2>Nuevo pedido</h2>
+    <p class="ayuda">Elige la clienta y los productos. La libreta calcula sola cuándo se le acaba cada uno.</p>
+    <div class="campos">
+      <label class="campo ancho">Clienta<input name="clienta" list="lista-clientas" required placeholder="Escribe su nombre"></label>
+      <datalist id="lista-clientas"></datalist>
+      <div class="campo ancho"><label class="campo">Productos</label>
+        <div class="lista-prod" id="prod-elegidos"></div>
+        <div class="buscar-prod"><label class="campo"><input id="buscar-prod" placeholder="Busca o escribe un producto y presiona Enter" autocomplete="off"></label><div class="sugerencias" id="sugerencias" hidden></div></div>
+      </div>
+      <label class="campo">Total que cobraste (opcional)<input name="total" inputmode="decimal" placeholder="0.00"></label>
+      <label class="campo">Fecha<input name="fecha" type="date"></label>
+      <div class="campo ancho interruptores">
+        <label class="interruptor"><input type="checkbox" name="pagado"> Ya pagó</label>
+        <label class="interruptor"><input type="checkbox" name="entregado"> Ya se lo entregué</label>
+      </div>
+    </div>
+    <div class="pie"><button class="btn fantasma" value="cancelar" formnovalidate>Cancelar</button><button class="btn principal" value="ok">Guardar pedido</button></div>
+  </form>
+</dialog>
+
+<div class="aviso" id="aviso"></div>
+
+<script>
+window.LIBRETA_FIJA = null;
+</script>
+<script>
+"use strict";
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const esc = (t) => String(t ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const FIJA = window.LIBRETA_FIJA;
+let V = null;                 // todo lo que manda la libreta
+let pestana = "hoy", filtroEtapa = "todas", filtroPedidos = "todos", abierta = null, busqueda = "";
+
+const TIPOS = {
+  recompra: { nombre: "Se le acaba", icono: "🔁", c: "#d64f8a" },
+  cumple: { nombre: "Cumpleaños", icono: "🎂", c: "#c99a5b" },
+  entrega: { nombre: "Por entregar", icono: "📦", c: "#2f9e76" },
+  opinion: { nombre: "¿Cómo le fue?", icono: "💬", c: "#8f7cf6" },
+  seguimiento: { nombre: "Recordatorio", icono: "📌", c: "#e07a3f" },
+  frio: { nombre: "Sin respuesta", icono: "👋", c: "#5b8def" },
+};
+const PARES = [["#f29bb8", "#d64f8a"], ["#f6c59a", "#e2795b"], ["#c7b5ff", "#8f6ae6"], ["#9fe0c8", "#2f9e76"], ["#ffd88a", "#d99a2b"], ["#a8d4ff", "#4f8ee6"], ["#f7b0d9", "#b0408a"]];
+
+function colores(nombre) {
+  let h = 0; for (const ch of String(nombre)) h = (h * 31 + ch.charCodeAt(0)) >>> 0;
+  return PARES[h % PARES.length];
+}
+function iniciales(n) { return String(n || "?").replace("@", "").split(/\s+/).slice(0, 2).map((p) => p[0] || "").join("").toUpperCase(); }
+function etapa(id) { return V.etapas.find((e) => e.id === id) || V.pausa; }
+function avatar(c, t) {
+  const [a1, a2] = colores(c.nombre);
+  return `<span class="avatar" style="--a1:${a1};--a2:${a2};${t ? `--t:${t}px;` : ""}--anillo:${etapa(c.etapa).color}55">${esc(iniciales(c.nombre))}</span>`;
+}
+function red(r) { return r ? `<span class="red ${esc(r.replace(" ", "-"))}">${{ instagram: "IG", tiktok: "TT", whatsapp: "WA", facebook: "FB" }[r] || "👋"}</span>` : ""; }
+function dias(f) { return Math.round((new Date(V.hoy) - new Date(String(f).slice(0, 10))) / 864e5); }
+function hace(f) {
+  if (!f) return "";
+  const d = dias(f);
+  return d <= 0 ? "hoy" : d === 1 ? "ayer" : d < 30 ? `hace ${d} días` : d < 60 ? "hace un mes" : `hace ${Math.round(d / 30)} meses`;
+}
+function fechaLinda(f) {
+  if (!f) return "—";
+  const [a, m, d] = String(f).slice(0, 10).split("-").map(Number);
+  return `${d} ${["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"][m - 1]}`;
+}
+function cumpleLindo(c) {
+  const m = /^(\d{2})-(\d{2})$/.exec(c || ""); if (!m) return c || "—";
+  return `${+m[2]} de ${["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"][+m[1] - 1]}`;
+}
+function foto(p, clase = "") {
+  const f = p?.foto || fotoDe(p?.nombre);
+  return f ? `<img class="${clase}" src="${esc(f)}" alt="" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'sinfoto',textContent:'🧴'}))">` : `<span class="sinfoto ${clase}">🧴</span>`;
+}
+function corto(n) { return String(n || "").replace(/^(dr\.?\s*c\.?\s*tuna|farmasi|nutriplus)\s+/i, ""); }
+function fotoDe(nombre) {
+  const n = corto(nombre).toLowerCase();
+  for (const p of V?.pedidos || []) for (const x of p.productos) if (x.foto && corto(x.nombre).toLowerCase() === n) return x.foto;
+  return (V?.catalogo || []).find((p) => corto(p.nombre).toLowerCase() === n)?.foto || "";
+}
+function moneda(n) { return n == null ? "" : "$" + Number(n).toLocaleString("es", { minimumFractionDigits: n % 1 ? 2 : 0, maximumFractionDigits: 2 }); }
+function clienta(id) { return V.clientas.find((c) => c.id === id); }
+function avisar(t) { const a = $("#aviso"); a.textContent = t; a.classList.add("visible"); clearTimeout(avisar.t); avisar.t = setTimeout(() => a.classList.remove("visible"), 2400); }
+
+/* ---------- hablar con la libreta ---------- */
+async function cargar() {
+  if (FIJA) { V = FIJA; $("#solo-lectura").hidden = false; $$("#btn-clienta, #btn-pedido").forEach((b) => (b.disabled = true)); return pintar(); }
+  try {
+    const r = await fetch("/api/clientas", { cache: "no-store" });
+    V = await r.json();
+    pintar();
+  } catch (e) {
+    $("#frase-saludo").textContent = "No pude abrir la libreta. Ábrela desde el panel de Isa.";
+  }
+}
+async function cambiar(pedido, exito) {
+  if (FIJA) { avisar("Ábrela desde el panel de Isa para guardar cambios"); return false; }
+  const r = await fetch("/api/clientas", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(pedido) });
+  const res = await r.json();
+  if (!r.ok) { avisar(res.error || "No se pudo guardar"); return false; }
+  V = res; pintar(); if (exito) avisar(exito); return true;
+}
+
+/* ---------- pintar todo ---------- */
+function pintar() {
+  const r = V.resumen, t = V.tareas;
+  const hora = new Date().getHours();
+  $("#titulo-saludo").innerHTML = `${hora < 12 ? "Buenos días" : hora < 19 ? "Buenas tardes" : "Buenas noches"}, <em>Isabella</em>`;
+  const cuenta = (tipo) => t.filter((x) => x.tipo === tipo).length;
+  const partes = [];
+  if (cuenta("recompra")) partes.push(`${cuenta("recompra")} ${cuenta("recompra") === 1 ? "clienta a la que se le acaba" : "clientas a las que se les acaba"} algo`);
+  if (cuenta("cumple")) partes.push(`${cuenta("cumple")} ${cuenta("cumple") === 1 ? "cumpleaños" : "cumpleaños"}`);
+  if (cuenta("entrega")) partes.push(`${cuenta("entrega")} ${cuenta("entrega") === 1 ? "pedido" : "pedidos"} por entregar`);
+  const otras = t.length - cuenta("recompra") - cuenta("cumple") - cuenta("entrega");
+  if (otras) partes.push(`${otras} ${otras === 1 ? "mensaje pendiente" : "mensajes pendientes"}`);
+  $("#frase-saludo").innerHTML = !V.clientas.length ? "Tu libreta está lista. Agrega tu primera clienta o pídele a Isa que lea tus mensajes." :
+    t.length ? `Hoy tienes <b>${t.length} ${t.length === 1 ? "cosa" : "cosas"}</b> para hacer: ${partes.join(", ").replace(/, ([^,]*)$/, " y $1")}.` : "Hoy no tienes nada pendiente. ¡Todo al día! 🌸";
+  $("#cifras").innerHTML = [
+    { n: r.clientas, t: "clientas", extra: r.nuevas_mes ? `+${r.nuevas_mes} este mes` : "", c: "#fbe3ec" },
+    { n: r.compradoras, t: `compraron · ${r.conversion}%`, c: "#ffe7d6" },
+    { n: r.fieles, t: "volvieron a comprar", c: "#ece6ff" },
+    { n: r.ventas_mes != null ? moneda(r.ventas_mes) : r.pedidos_mes, t: r.ventas_mes != null ? `vendido este mes · ${r.pedidos_mes} ${r.pedidos_mes === 1 ? "pedido" : "pedidos"}` : "pedidos este mes", c: "#dcf3ea" },
+  ].map((x) => `<div class="cifra" style="--c:${x.c}"><b>${esc(x.n)}</b><span>${esc(x.t)}</span>${x.extra ? ` <i>${esc(x.extra)}</i>` : ""}</div>`).join("");
+  $("#cuenta-hoy").textContent = t.length;
+  $("#cuenta-hoy").hidden = !t.length;
+  pintarHoy(); pintarTablero(); pintarClientas(); pintarPedidos(); pintarNumeros();
+  if (abierta) abrirClienta(abierta, true);
+}
+
+function coincide(c) {
+  if (!busqueda) return true;
+  const q = busqueda.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
+  return JSON.stringify([c.nombre, c.usuario, c.ciudad, c.telefono, c.productos, c.intereses]).toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").includes(q);
+}
+
+function pintarHoy() {
+  const caja = $("#tareas");
+  const lista = V.tareas.filter((t) => coincide(clienta(t.clienta) || {}));
+  if (!lista.length) {
+    caja.innerHTML = `<div class="vacio" style="grid-column:1/-1"><div class="grande">🌸</div><h3>${V.clientas.length ? "Todo al día" : "Tu libreta está vacía"}</h3>
+      <p>${V.clientas.length ? "Cuando a una clienta se le esté acabando algo, cumpla años o haya un pedido por entregar, aparece aquí." : "Agrega a tus clientas con «＋ Clienta», o pásale a Isa capturas de tus mensajes y el agente de comunidad las anota solo."}</p></div>`;
+    return;
+  }
+  caja.innerHTML = lista.map((t) => {
+    const c = clienta(t.clienta) || { nombre: t.nombre }, k = TIPOS[t.tipo] || TIPOS.frio;
+    const esIG = t.enlace && !t.enlace.includes("wa.me");
+    return `<article class="tarea" data-t="${esc(t.id)}">
+      <span class="tipo" style="--c:${k.c}">${k.icono} ${k.nombre}</span>
+      ${t.urgencia >= 3 ? `<span class="urgente">● Hoy</span>` : ""}
+      <div class="quien" data-a="ver" style="cursor:pointer" title="Ver a ${esc(c.nombre)}">${avatar(c)}<div><h3>${esc(t.titulo)}</h3><p class="detalle">${esc(c.nombre)} · ${esc(t.detalle)}</p></div>
+        ${t.tipo === "recompra" ? foto({ nombre: t.producto, foto: t.foto }, "producto-foto") : ""}</div>
+      <div class="burbuja" contenteditable="true" spellcheck="false">${esc(t.mensaje)}</div>
+      <div class="acciones">
+        ${t.enlace ? `<button class="btn principal chico" data-a="escribir" title="${esIG ? "Copia el mensaje y abre su chat" : "Abre WhatsApp con el mensaje listo"}">💬 ${esIG ? "Abrir chat" : "WhatsApp"}</button>` : `<button class="btn principal chico" data-a="copiar">Copiar mensaje</button>`}
+        ${t.enlace ? `<button class="btn chico" data-a="copiar">Copiar</button>` : ""}
+        <button class="btn suave chico" data-a="hecho">${t.tipo === "entrega" ? "Entregado ✓" : "Hecho ✓"}</button>
+      </div></article>`;
+  }).join("");
+  $$(".tarea", caja).forEach((el) => {
+    const t = V.tareas.find((x) => x.id === el.dataset.t);
+    const texto = () => $(".burbuja", el).innerText.trim();
+    el.addEventListener("click", async (ev) => {
+      const a = ev.target.closest("[data-a]")?.dataset.a; if (!a) return;
+      if (a === "copiar" || a === "escribir") {
+        try { await navigator.clipboard.writeText(texto()); } catch (e) {}
+        if (a === "escribir") {
+          const url = t.enlace.includes("wa.me") ? t.enlace.split("?")[0] + "?text=" + encodeURIComponent(texto()) : t.enlace;
+          window.open(url, "_blank", "noopener");
+          avisar(t.enlace.includes("wa.me") ? "Abrí WhatsApp con el mensaje listo" : "Mensaje copiado: pégalo en el chat");
+        } else avisar("Mensaje copiado");
+      }
+      if (a === "ver") abrirClienta(t.clienta);
+      if (a === "hecho") { el.classList.add("saliendo"); setTimeout(() => cambiar({ accion: "hecho", id: t.id }, t.tipo === "entrega" ? "Pedido entregado 📦" : "¡Listo! ✓"), 250); }
+    });
+  });
+}
+
+function pintarTablero() {
+  const tab = $("#tablero");
+  tab.innerHTML = V.etapas.map((e) => {
+    const cs = V.clientas.filter((c) => c.etapa === e.id && coincide(c));
+    return `<div class="columna" data-e="${e.id}" style="--c:${e.color}"><header><span class="punto"></span>${e.icono} ${esc(e.nombre)}<small>${cs.length}</small></header>
+      ${cs.map((c) => `<div class="tarjeta" draggable="${!FIJA}" data-c="${c.id}" style="--c:${e.color}">
+        <div class="fila">${avatar(c, 36)}<div style="min-width:0"><b>${esc(c.nombre)}</b><small>${c.usuario ? "@" + esc(c.usuario) : esc(c.ciudad || "")} ${red(c.red)}</small></div></div>
+        <div class="chips">${(c.productos.length ? c.productos : c.intereses || []).slice(0, 2).map((p) => `<span class="chip ${c.productos.length ? "rosa" : ""}">${esc(corto(p))}</span>`).join("")}
+        <span class="chip">${esc(hace(c.ultimo_contacto))}</span></div></div>`).join("")}</div>`;
+  }).join("");
+  const pausadas = V.clientas.filter((c) => c.etapa === "pausa" && coincide(c));
+  $("#pausa").innerHTML = pausadas.length ? `🌙 En pausa: ${pausadas.map((c) => `<button class="btn chico" data-c="${c.id}">${esc(c.nombre)}</button>`).join("")}` : "";
+  $$("#pausa [data-c]").forEach((b) => (b.onclick = () => abrirClienta(b.dataset.c)));
+  $$(".tarjeta", tab).forEach((t) => {
+    t.onclick = () => abrirClienta(t.dataset.c);
+    t.ondragstart = (ev) => { ev.dataTransfer.setData("text/plain", t.dataset.c); t.classList.add("arrastrando"); };
+    t.ondragend = () => t.classList.remove("arrastrando");
+  });
+  $$(".columna", tab).forEach((col) => {
+    col.ondragover = (ev) => { ev.preventDefault(); col.classList.add("encima"); };
+    col.ondragleave = () => col.classList.remove("encima");
+    col.ondrop = (ev) => {
+      ev.preventDefault(); col.classList.remove("encima");
+      const id = ev.dataTransfer.getData("text/plain"), c = clienta(id);
+      if (c && c.etapa !== col.dataset.e) cambiar({ accion: "mover", id, etapa: col.dataset.e }, `${c.nombre.split(" ")[0]} → ${etapa(col.dataset.e).nombre}`);
+    };
+  });
+}
+
+function pintarClientas() {
+  const todas = [{ id: "todas", nombre: "Todas", icono: "" }, ...V.etapas, V.pausa];
+  $("#filtros").innerHTML = todas.map((e) => {
+    const n = e.id === "todas" ? V.clientas.length : V.clientas.filter((c) => c.etapa === e.id).length;
+    return `<button class="filtro" data-f="${e.id}" aria-pressed="${filtroEtapa === e.id}">${e.icono} ${esc(e.nombre)} · ${n}</button>`;
+  }).join("");
+  $$("#filtros .filtro").forEach((b) => (b.onclick = () => { filtroEtapa = b.dataset.f; pintarClientas(); }));
+  const lista = V.clientas.filter((c) => (filtroEtapa === "todas" || c.etapa === filtroEtapa) && coincide(c))
+    .sort((a, b) => String(b.ultimo_contacto).localeCompare(String(a.ultimo_contacto)));
+  $("#galeria").innerHTML = lista.length ? lista.map((c) => {
+    const e = etapa(c.etapa);
+    const prods = c.productos.slice(0, 4);
+    return `<article class="perfil" data-c="${c.id}"><span class="etapa-chip" style="--c:${e.color}">${e.icono} ${esc(e.nombre)}</span>
+      ${avatar(c)}<h3>${esc(c.nombre)}</h3><div class="sub">${c.usuario ? "@" + esc(c.usuario) + " " : ""}${red(c.red)}${c.ciudad ? " · " + esc(c.ciudad) : ""}</div>
+      <div class="datos"><div><b>${c.n_pedidos}</b>${c.n_pedidos === 1 ? "pedido" : "pedidos"}</div>${c.gastado != null ? `<div><b>${moneda(c.gastado)}</b>compró</div>` : ""}<div><b>${c.piel ? esc(c.piel) : "—"}</b>piel</div></div>
+      <div class="fotitos">${prods.length ? prods.map((p) => foto({ nombre: p })).join("") : `<span title="Aún no compra">✨</span>`}</div></article>`;
+  }).join("") : `<div class="vacio" style="grid-column:1/-1"><div class="grande">🌷</div><h3>No hay clientas aquí</h3><p>Prueba con otro filtro o agrega una nueva.</p></div>`;
+  $$("#galeria .perfil").forEach((p) => (p.onclick = () => abrirClienta(p.dataset.c)));
+}
+
+function pintarPedidos() {
+  const ops = [["todos", "Todos"], ["entregar", "Por entregar"], ["cobrar", "Por cobrar"], ["entregado", "Entregados"]];
+  $("#filtros-pedidos").innerHTML = ops.map(([k, n]) => `<button class="filtro" data-f="${k}" aria-pressed="${filtroPedidos === k}">${n}</button>`).join("");
+  $$("#filtros-pedidos .filtro").forEach((b) => (b.onclick = () => { filtroPedidos = b.dataset.f; pintarPedidos(); }));
+  const lista = [...V.pedidos].sort((a, b) => String(b.fecha).localeCompare(String(a.fecha))).filter((p) => {
+    const c = clienta(p.clienta); if (!c || !coincide(c)) return false;
+    return filtroPedidos === "todos" || (filtroPedidos === "entregar" && p.estado !== "entregado") || (filtroPedidos === "cobrar" && !p.pagado) || (filtroPedidos === "entregado" && p.estado === "entregado");
+  });
+  $("#lista-pedidos").innerHTML = lista.length ? lista.map((p) => {
+    const c = clienta(p.clienta);
+    return `<div class="pedido" data-p="${p.id}">${avatar(c, 40)}<div style="cursor:pointer" data-a="ver"><b>${esc(c.nombre)}</b><br><small style="color:var(--tenue)">${fechaLinda(p.fecha)} · ${hace(p.fecha)}</small></div>
+      <div class="prods">${p.productos.slice(0, 3).map((x) => foto(x)).join("")}<span>${esc(p.productos.map((x) => (x.cantidad > 1 ? x.cantidad + "× " : "") + corto(x.nombre)).join(", "))}</span></div>
+      <div class="monto">${moneda(p.total)}</div>
+      <div class="estado">
+        <button class="sello-estado ${p.pagado ? "ok" : "falta"}" data-a="pagado" title="Tocar para cambiar">${p.pagado ? "Pagado" : "Por cobrar"}</button>
+        ${p.estado === "entregado" ? `<span class="sello-estado ok">Entregado ${fechaLinda(p.entregado)}</span>` : `<button class="sello-estado falta" data-a="entregar">Entregar</button>`}
+      </div></div>`;
+  }).join("") : `<div class="vacio"><div class="grande">🛍️</div><h3>Sin pedidos aquí</h3><p>Anota un pedido con «＋ Pedido».</p></div>`;
+  $$("#lista-pedidos .pedido").forEach((el) => el.addEventListener("click", (ev) => {
+    const a = ev.target.closest("[data-a]")?.dataset.a, p = V.pedidos.find((x) => x.id === el.dataset.p);
+    if (a === "ver") abrirClienta(p.clienta);
+    if (a === "pagado") cambiar({ accion: "pagado", id: p.id, valor: !p.pagado }, p.pagado ? "Marcado por cobrar" : "Pagado 💸");
+    if (a === "entregar") cambiar({ accion: "entregar", id: p.id }, "Pedido entregado 📦");
+  }));
+}
+
+function pintarNumeros() {
+  const r = V.resumen, max = Math.max(1, ...V.etapas.map((e) => r.etapas[e.id] || 0));
+  $("#embudo").innerHTML = V.etapas.map((e) => `<div class="paso" style="--c:${e.color}"><span>${e.icono} ${esc(e.nombre)}</span>
+    <div class="barra-fondo"><div class="barra-llena" style="width:0" data-w="${Math.max(3, 100 * (r.etapas[e.id] || 0) / max)}%"></div></div><b>${r.etapas[e.id] || 0}</b></div>`).join("");
+  requestAnimationFrame(() => $$("#embudo .barra-llena").forEach((b) => (b.style.width = b.dataset.w)));
+  const topMax = Math.max(1, ...r.top_productos.map((x) => x.cantidad));
+  $("#top").innerHTML = r.top_productos.length ? r.top_productos.map((x) => `<div class="item">${foto(x)}<div class="nombre">${esc(corto(x.nombre))}<div class="mini-barra" style="width:${100 * x.cantidad / topMax}%"></div></div><b>${x.cantidad}</b></div>`).join("")
+    : `<p style="color:var(--tenue)">Cuando anotes pedidos, aquí verás lo que más se vende.</p>`;
+  const ms = r.meses, mMax = Math.max(1, ...ms.map((m) => m.pedidos));
+  $("#meses").innerHTML = `<div class="barras" role="img" aria-label="Pedidos por mes">${ms.map((m, i) =>
+    `<div class="mes ${i === ms.length - 1 ? "actual" : ""}"><b>${m.pedidos}</b><div class="col" style="height:0" data-h="${78 * m.pedidos / mMax}%"></div><small>${m.nombre}</small></div>`).join("")}</div>`;
+  requestAnimationFrame(() => $$("#meses .col").forEach((b) => (b.style.height = b.dataset.h)));
+}
+
+/* ---------- cajón de la clienta ---------- */
+function abrirClienta(id, refrescar) {
+  const c = clienta(id); if (!c) return cerrarCajon();
+  abierta = id;
+  const e = etapa(c.etapa), mios = V.pedidos.filter((p) => p.clienta === id).sort((a, b) => String(b.fecha).localeCompare(String(a.fecha)));
+  const tel = (c.telefono || "").replace(/\D/g, "");
+  $("#cajon").innerHTML = `<div class="portada"><button class="cerrar" type="button" aria-label="Cerrar">×</button>
+      ${avatar(c, 76)}<h2>${esc(c.nombre)}</h2>
+      <div class="sub">${c.usuario ? "@" + esc(c.usuario) : ""} ${red(c.red)} <span class="etapa-chip" style="--c:${e.color}">${e.icono} ${esc(e.nombre)}</span></div>
+      <div class="botones">
+        ${c.enlace ? `<a class="btn principal chico" href="${esc(c.enlace)}" target="_blank" rel="noopener">${tel ? "WhatsApp" : "Abrir chat"}</a>` : ""}
+        <button class="btn chico" data-a="pedido">＋ Pedido</button><button class="btn chico" data-a="editar">Editar</button>
+      </div></div>
+    <div class="bloque">
+      <h4>En qué paso va</h4>
+      <div class="pasos">${[...V.etapas, V.pausa].map((x) => `<button style="--c:${x.color}" data-e="${x.id}" aria-pressed="${x.id === c.etapa}">${x.icono} ${esc(x.nombre)}</button>`).join("")}</div>
+      <h4>Sus datos</h4>
+      <div class="ficha">
+        <div><small>Teléfono</small><span>${esc(c.telefono || "—")}</span></div><div><small>Ciudad</small><span>${esc(c.ciudad || "—")}</span></div>
+        <div><small>Cumpleaños</small><span>${esc(cumpleLindo(c.cumple))}</span></div><div><small>Piel</small><span>${esc([c.piel, c.tono].filter(Boolean).join(" · ") || "—")}</span></div>
+        <div><small>Le interesa</small><span>${esc((c.intereses || []).join(", ") || "—")}</span></div><div><small>Clienta desde</small><span>${fechaLinda(c.creada)}</span></div>
+      </div>
+      <h4>Recordarme escribirle</h4>
+      <div class="recordatorio"><input type="date" id="seg-fecha" value="${esc(c.seguimiento?.fecha || "")}"><input id="seg-motivo" placeholder="Para qué" value="${esc(c.seguimiento?.motivo || "")}">
+        <button class="btn chico" data-a="seguimiento">Guardar</button></div>
+      <h4>Pedidos · ${mios.length}${c.gastado != null ? " · " + moneda(c.gastado) : ""}</h4>
+      ${mios.length ? mios.map((p) => `<div class="mini-pedido">${foto(p.productos[0])}<div><b>${esc(p.productos.map((x) => corto(x.nombre)).join(", "))}</b><br>
+        <small>${fechaLinda(p.fecha)} · ${p.estado === "entregado" ? "entregado" : "por entregar"}${p.pagado ? "" : " · por cobrar"}</small></div>${p.total != null ? `<b>${moneda(p.total)}</b>` : ""}</div>`).join("") : `<p style="color:var(--tenue);margin:0">Todavía no compra.</p>`}
+      <h4>Historial</h4>
+      <div class="nota-nueva"><input id="nota-texto" placeholder="Anota algo (ej. le encantó el sérum)"><button class="btn chico" data-a="nota">Anotar</button></div>
+      <div class="linea-tiempo" style="margin-top:14px">${[...(c.historial || [])].reverse().map((h) => `<div class="hito">${esc(h.texto)}<small>${fechaLinda(h.fecha)} · ${hace(h.fecha)}</small></div>`).join("")}</div>
+      <p style="margin-top:20px"><button class="btn fantasma chico" data-a="borrar" style="color:var(--alerta)">Borrar clienta</button></p>
+    </div>`;
+  if (!refrescar) { $("#cajon").scrollTop = 0; }
+  $("#cajon").classList.add("abierto"); $("#velo").classList.add("abierto"); $("#cajon").setAttribute("aria-hidden", "false");
+  $(".cerrar", $("#cajon")).onclick = cerrarCajon;
+  $$(".pasos button", $("#cajon")).forEach((b) => (b.onclick = () => b.dataset.e !== c.etapa && cambiar({ accion: "mover", id, etapa: b.dataset.e }, "Paso actualizado")));
+  $("#cajon").onclick = (ev) => {
+    const a = ev.target.closest("[data-a]")?.dataset.a; if (!a) return;
+    if (a === "pedido") abrirPedido(c.nombre);
+    if (a === "editar") abrirFormClienta(c);
+    if (a === "nota") { const t = $("#nota-texto").value.trim(); if (t) cambiar({ accion: "nota", id, texto: t }, "Anotado ✍️"); }
+    if (a === "seguimiento") cambiar({ accion: "seguimiento", id, fecha: $("#seg-fecha").value, motivo: $("#seg-motivo").value }, $("#seg-fecha").value ? "Te lo recuerdo ese día 📌" : "Recordatorio quitado");
+    if (a === "borrar" && confirm(`¿Borrar a ${c.nombre} y sus pedidos de la libreta?`)) { cerrarCajon(); cambiar({ accion: "borrar_clienta", id }, "Clienta borrada"); }
+  };
+  $("#nota-texto").onkeydown = (ev) => { if (ev.key === "Enter") { ev.preventDefault(); $('[data-a="nota"]', $("#cajon")).click(); } };
+  if (FIJA) $$("#cajon button:not(.cerrar), #cajon input").forEach((b) => (b.disabled = true));
+}
+function cerrarCajon() { abierta = null; $("#cajon").classList.remove("abierto"); $("#velo").classList.remove("abierto"); $("#cajon").setAttribute("aria-hidden", "true"); }
+$("#velo").onclick = cerrarCajon;
+document.addEventListener("keydown", (ev) => { if (ev.key === "Escape" && abierta && !$("dialog[open]")) cerrarCajon(); });
+
+/* ---------- formulario de clienta ---------- */
+function abrirFormClienta(c) {
+  const f = $("#form-clienta"); f.reset();
+  $("#dlg-clienta-titulo").textContent = c ? `Editar a ${c.nombre.split(" ")[0]}` : "Nueva clienta";
+  $("#redes-elegir").innerHTML = V.redes.map((r, i) => `<label><input type="radio" name="red" value="${r}" ${(c ? c.red === r : i === 0) ? "checked" : ""}><span>${r}</span></label>`).join("");
+  if (c) {
+    for (const k of ["id", "nombre", "usuario", "telefono", "ciudad", "piel", "tono"]) if (f.elements[k]) f.elements[k].value = c[k] || "";
+    f.elements.cumple.value = c.cumple ? cumpleLindo(c.cumple) : "";
+    f.elements.intereses.value = (c.intereses || []).join(", ");
+  } else f.elements.id.value = "";
+  $("#dlg-clienta").showModal();
+  setTimeout(() => f.elements.nombre.focus(), 50);
+}
+$("#btn-clienta").onclick = () => abrirFormClienta(null);
+$("#dlg-clienta").addEventListener("close", async () => {
+  if ($("#dlg-clienta").returnValue !== "ok") return;
+  const f = $("#form-clienta"), d = Object.fromEntries(new FormData(f));
+  const datos = { nombre: d.nombre, red: d.red, usuario: d.usuario, telefono: d.telefono, ciudad: d.ciudad, cumple: d.cumple, piel: d.piel, tono: d.tono, intereses: d.intereses };
+  if (d.id) datos.id = d.id; else datos.origen = d.red;
+  const ok = await cambiar({ accion: "clienta", clienta: datos, nota: d.nota }, d.id ? "Datos guardados" : `¡${d.nombre.split(" ")[0]} está en tu libreta! 💕`);
+  if (ok && !d.id) { const nueva = V.clientas.find((c) => c.nombre === d.nombre); if (nueva) abrirClienta(nueva.id); }
+});
+
+/* ---------- formulario de pedido ---------- */
+let elegidos = [], marcada = -1;
+function abrirPedido(nombre) {
+  const f = $("#form-pedido"); f.reset(); elegidos = [];
+  $("#lista-clientas").innerHTML = V.clientas.map((c) => `<option value="${esc(c.nombre)}">${c.usuario ? "@" + esc(c.usuario) : ""}</option>`).join("");
+  f.elements.clienta.value = nombre || "";
+  f.elements.fecha.value = V.hoy;
+  pintarElegidos();
+  $("#dlg-pedido").showModal();
+  setTimeout(() => (nombre ? $("#buscar-prod") : f.elements.clienta).focus(), 50);
+}
+$("#btn-pedido").onclick = () => abrirPedido("");
+function pintarElegidos() {
+  $("#prod-elegidos").innerHTML = elegidos.map((p, i) => `<div class="prod-elegido">${foto(p)}<span>${esc(p.nombre)}<br><small style="color:var(--tenue)">le dura ~${p.dias} días</small></span>
+    <input type="number" min="1" value="${p.cantidad}" data-i="${i}" aria-label="Cantidad"><button type="button" data-q="${i}" aria-label="Quitar">×</button></div>`).join("");
+  $$("#prod-elegidos input").forEach((x) => (x.onchange = () => (elegidos[x.dataset.i].cantidad = Math.max(1, +x.value || 1))));
+  $$("#prod-elegidos [data-q]").forEach((b) => (b.onclick = () => { elegidos.splice(b.dataset.q, 1); pintarElegidos(); }));
+}
+function sugerir() {
+  const q = $("#buscar-prod").value.trim().toLowerCase(), caja = $("#sugerencias");
+  if (!q) { caja.hidden = true; return; }
+  const partes = q.split(/\s+/);
+  const lista = V.catalogo.filter((p) => partes.every((w) => p.nombre.toLowerCase().includes(w))).slice(0, 8);
+  marcada = -1;
+  caja.innerHTML = lista.map((p, i) => `<button type="button" data-i="${i}">${foto(p)}<span>${esc(p.nombre)}</span></button>`).join("") +
+    `<button type="button" data-nuevo="1"><span class="sinfoto">＋</span><span>Agregar «${esc($("#buscar-prod").value.trim())}»</span></button>`;
+  caja.hidden = false;
+  $$("button", caja).forEach((b) => (b.onmousedown = (ev) => { ev.preventDefault(); elegir(b.dataset.nuevo ? null : lista[b.dataset.i]); }));
+}
+function elegir(p) {
+  const nombre = p ? p.nombre : $("#buscar-prod").value.trim(); if (!nombre) return;
+  const ya = elegidos.find((x) => x.nombre === nombre);
+  if (ya) ya.cantidad++; else elegidos.push({ nombre, cantidad: 1, dias: p?.dias || diasAprox(nombre), foto: p?.foto || "", codigo: p?.codigo || "" });
+  $("#buscar-prod").value = ""; $("#sugerencias").hidden = true; pintarElegidos();
+}
+function diasAprox(n) {
+  n = n.toLowerCase();
+  if (/\bt[eé]\b|\btea\b(?!\s*tree)|caf|batido|shake|nutriplus/.test(n)) return 30;
+  if (/s[eé]rum|limpiador|cleanser|gel|t[oó]nico|shampoo|champ|spf|protector/.test(n)) return 45;
+  if (/m[aá]scara de pesta|mascara\b|base|foundation|corrector/.test(n)) return 90;
+  if (/labial|lip|perfume|polvo|rubor|sombra/.test(n)) return 120;
+  return 60;
+}
+$("#buscar-prod").addEventListener("input", sugerir);
+$("#buscar-prod").addEventListener("blur", () => setTimeout(() => ($("#sugerencias").hidden = true), 120));
+$("#buscar-prod").addEventListener("keydown", (ev) => {
+  const bs = $$("#sugerencias button");
+  if (ev.key === "ArrowDown" || ev.key === "ArrowUp") {
+    ev.preventDefault(); if (!bs.length) return;
+    marcada = (marcada + (ev.key === "ArrowDown" ? 1 : -1) + bs.length) % bs.length;
+    bs.forEach((b, i) => b.classList.toggle("activa", i === marcada));
+  } else if (ev.key === "Enter") {
+    ev.preventDefault();
+    if (marcada >= 0 && bs[marcada]) bs[marcada].dispatchEvent(new MouseEvent("mousedown")); else elegir(null);
+  }
+});
+$("#form-pedido").addEventListener("submit", (ev) => {
+  if (ev.submitter?.value !== "ok") return;
+  if (!elegidos.length && $("#buscar-prod").value.trim()) elegir(null);
+  if (!elegidos.length) { ev.preventDefault(); avisar("Agrega al menos un producto"); $("#buscar-prod").focus(); return; }
+  const nombre = ev.target.elements.clienta.value.trim();
+  if (!V.clientas.some((c) => c.nombre.toLowerCase() === nombre.toLowerCase() || ("@" + c.usuario) === nombre)) {
+    if (!confirm(`${nombre} todavía no está en tu libreta. ¿La agrego?`)) { ev.preventDefault(); return; }
+  }
+});
+$("#dlg-pedido").addEventListener("close", async () => {
+  if ($("#dlg-pedido").returnValue !== "ok") return;
+  const f = $("#form-pedido"), d = Object.fromEntries(new FormData(f));
+  const nombre = d.clienta.trim();
+  if (!V.clientas.some((c) => c.nombre.toLowerCase() === nombre.toLowerCase() || ("@" + c.usuario) === nombre)) {
+    if (!(await cambiar({ accion: "clienta", clienta: { nombre, etapa: "pidio" } }))) return;
+  }
+  const ok = await cambiar({ accion: "pedido", pedido: { clienta: nombre, productos: elegidos, total: (d.total || "").replace(",", "."), fecha: d.fecha, pagado: !!d.pagado, entregado: !!d.entregado } }, "Pedido anotado 🛍️");
+  if (ok) { const c = V.clientas.find((x) => x.nombre.toLowerCase() === nombre.toLowerCase()); if (c && abierta) abrirClienta(c.id); }
+});
+
+/* ---------- pestañas y buscador ---------- */
+function irA(p) {
+  pestana = p;
+  $$(".pestanas button").forEach((b) => b.setAttribute("aria-selected", b.dataset.p === p));
+  $$("main > section").forEach((s) => (s.hidden = s.id !== "p-" + p));
+  if (p === "numeros" && V) pintarNumeros();
+  history.replaceState(null, "", "#" + p);
+}
+$$(".pestanas button").forEach((b) => (b.onclick = () => irA(b.dataset.p)));
+$("#buscar").addEventListener("input", (ev) => { busqueda = ev.target.value.trim(); if (V) { pintarHoy(); pintarTablero(); pintarClientas(); pintarPedidos(); } });
+const PESTANAS = ["hoy", "tablero", "clientas", "pedidos", "numeros"];
+if (PESTANAS.includes(location.hash.slice(1))) irA(location.hash.slice(1));
+window.addEventListener("hashchange", () => { const h = location.hash.slice(1); if (PESTANAS.includes(h) && h !== pestana) irA(h); });
+cargar();
+</script>
+</body>
+</html>

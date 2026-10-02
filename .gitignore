@@ -9,3 +9,12 @@ analista/datos/
 analista/informes/
 analista/capturas/*
 !analista/capturas/LEEME.md
+
+# Libreta de clientas: datos personales de las clientas, solo en cada computadora
+clientas/datos/
+
+# Agente de comunidad: capturas de mensajes y respuestas, solo en cada computadora
+comunidad/capturas/*
+!comunidad/capturas/LEEME.md
+comunidad/respuestas/
+comunidad/datos/
