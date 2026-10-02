@@ -7,7 +7,7 @@ Este es para probar hyperframes
 abre `panel/abrir-panel.bat` (Windows) o `panel/abrir-panel.command` (Mac). Ver `panel/README.md`.
 
 Abre este repositorio en Claude Code y escribe `/isa` (o háblale a "Isa").
-Isa conversa contigo y llama a sus cinco agentes:
+Isa conversa contigo y llama a sus seis agentes:
 
 - `scraper-farmasi` (`.claude/agents/`): busca productos en farmasius.com con `lector-farmasi/`.
 - `estratega-contenido` (`.claude/agents/`): arma la estrategia y el calendario de publicaciones con `planificador/`.
@@ -17,12 +17,19 @@ Isa conversa contigo y llama a sus cinco agentes:
 - `guionista` (`.claude/agents/`): escribe los videos que Isabella graba ella misma (arréglate
   conmigo, lo probé, tutorial, historias, en vivo…) y le arma una hoja de grabación toma por
   toma, un teleprompter y el caption, con `guionista/`.
+- `analista-redes`, la Analista (`.claude/agents/`): revisa cómo le va a Isabella en Instagram y
+  TikTok a partir de las capturas de sus estadísticas, y entrega un informe visual con qué
+  funcionó, qué no y consejos para cada agente, con `analista/`.
 
 Todos leen `marca/voz-isabella.md`, la ficha con la personalidad de Isabella, para que el
 contenido suene a ella.
 
 Ejemplo para grabar: *"Isa, quiero grabar un arréglate conmigo con el sérum de vitamina C"* →
 el guionista escribe el guion con su voz y te entrega la hoja y el teleprompter para leer mientras grabas.
+
+Ejemplo de redes: deja las capturas de tus estadísticas en `analista/capturas/` y di
+*"Isa, ¿cómo me va en redes?"* → la Analista las lee y te entrega el informe con lo que más
+funcionó y qué hacer la próxima semana.
 
 Ejemplo educativo: *"Isa, hazme un video de tips para que el labial dure más"* → el Profe
 escribe el guion, genera el video con su propia música y te entrega los formatos y el caption.

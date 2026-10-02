@@ -124,4 +124,6 @@ publicaciones, sus ventas) si todavía no los hay.
 
 Isa reúne al equipo, revisa tu trabajo y acuerda contigo qué mejorar. Antes de empezar,
 corre `python3 reunion/revisar.py acuerdos estratega-contenido` y cumple esos acuerdos en este trabajo.
+También corre `python3 analista/redes.py consejos estratega-contenido`: son los consejos de la Analista
+de redes según cómo le fue a Isabella de verdad; tenlos en cuenta.
 Al responderle a Isa, dile en una línea cuál acuerdo cumpliste.

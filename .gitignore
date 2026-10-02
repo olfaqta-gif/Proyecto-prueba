@@ -3,3 +3,9 @@ __pycache__/
 # Reuniones de equipo: se generan en cada computadora
 reunion/actas/
 reunion/acuerdos.json
+
+# Analista de redes: estadísticas e informes de Isabella, solo en cada computadora
+analista/datos/
+analista/informes/
+analista/capturas/*
+!analista/capturas/LEEME.md

@@ -40,6 +40,7 @@ GUIONES = RAIZ / 'guionista' / 'guiones'
 SALIDA_GUION = RAIZ / 'guionista' / 'salida'
 PLANES = RAIZ / 'planificador' / 'planes'
 LECTOR = RAIZ / 'lector-farmasi' / 'salida'
+ANALISTA = RAIZ / 'analista'
 
 ESTILOS = ('clasico', 'favorito', 'razones')
 FORMAS_EDU = ('tips', 'mito', 'pasos', 'dato')
@@ -392,12 +393,53 @@ def revisar_scraper():
             'evidencia': [ruta_rel(f.parent) for f, _ in fichas.values()]}
 
 
+def revisar_analista():
+    pubs = leer_json(ANALISTA / 'datos' / 'publicaciones.json', []) or []
+    informes = sorted((ANALISTA / 'informes').glob('*.json'))
+    if not pubs and not informes:
+        return None
+    ultimo = leer_json(informes[-1], {}) if informes else {}
+    try:
+        dias = max(0, (HOY - datetime.date.fromisoformat(informes[-1].stem[:10])).days) if informes else None
+    except ValueError:
+        dias = None
+    completas = sum(1 for x in pubs if all(x.get(k) is not None for k in ('vistas', 'me_gusta', 'guardados', 'compartidos')))
+    # Publicaciones del plan ya publicadas: ¿la Analista tiene sus números?
+    publicadas = [(f, x) for f in PLANES.glob('*.json') for x in (leer_json(f, {}) or {}).get('publicaciones', [])
+                  if x.get('estado') == 'publicado']
+    medidas = sum(1 for _, x in publicadas if x.get('resultados'))
+    consejos = (ultimo or {}).get('consejos', [])
+    sin_leer = [f for f in (ANALISTA / 'capturas').glob('*') if f.suffix.lower() in ('.png', '.jpg', '.jpeg', '.heic', '.webp')]
+    criterios = [
+        criterio('Informe al día', None if dias is None else 10 - max(0, dias - 7) * 0.7,
+                 f'Último informe hace {dias} días' if dias is not None else 'Todavía no hizo un informe',
+                 'Hacer el informe de redes cada semana' if dias is None or dias > 7 else None,
+                 'Informe de esta semana listo' if dias is not None and dias <= 7 else None),
+        criterio('Capturas leídas', 10 if not sin_leer else max(0, 10 - 2 * len(sin_leer)),
+                 f'{len(sin_leer)} capturas esperando' if sin_leer else 'Todas las capturas leídas',
+                 'Leer las capturas que mandó Isabella' if sin_leer else None),
+        criterio('Números completos', 10 * completas / len(pubs) if pubs else None,
+                 f'{completas} de {len(pubs)} publicaciones con vistas, me gusta, guardados y compartidos',
+                 'Sacar de las capturas todos los números (también guardados y compartidos)' if pubs and completas < len(pubs) else None),
+        criterio('Plan medido', 10 * medidas / len(publicadas) if publicadas else None,
+                 f'{medidas} de {len(publicadas)} publicaciones del plan con resultados' if publicadas else 'Todavía no hay publicaciones del plan publicadas',
+                 'Pedir las capturas de las publicaciones del plan que faltan' if publicadas and medidas < len(publicadas) else None),
+        criterio('Consejos para el equipo', min(10, 2.5 * len(consejos)) if ultimo else None,
+                 f'{len(consejos)} consejos en el último informe' if ultimo else 'Sin informe',
+                 'Dejar consejos concretos para cada agente' if ultimo and len(consejos) < 3 else None),
+    ]
+    muestras = [ruta_rel(informes[-1].with_suffix('.html'))] if informes and informes[-1].with_suffix('.html').exists() else []
+    return {'piezas': len(pubs), 'que': 'publicaciones medidas', 'criterios': criterios, 'muestras': muestras,
+            'evidencia': [ruta_rel(f) for f in informes[-3:]]}
+
+
 REVISORES = {
     'scraper-farmasi': revisar_scraper,
     'estratega-contenido': revisar_estratega,
     'creador-contenido': revisar_creador_contenido,
     'creador-educativo': revisar_creador_educativo,
     'guionista': revisar_guionista,
+    'analista-redes': revisar_analista,
 }
 
 
@@ -449,6 +491,16 @@ def resultados_reales():
             t['publicaciones'] += 1
             for k in ('vistas', 'mensajes', 'ventas'):
                 t[k] += r.get(k) or 0
+    # Lo que la Analista guardó de publicaciones que no estaban en un plan
+    for p in leer_json(ANALISTA / 'datos' / 'publicaciones.json', []) or []:
+        if p.get('plan') or not any(p.get(k) for k in ('vistas', 'mensajes', 'ventas')):
+            continue
+        tipo = p.get('tipo') or 'otro'
+        t = filas.setdefault(tipo, {'tipo': tipo, 'agente': DUENO_TIPO.get(tipo, ''), 'publicaciones': 0,
+                                    'vistas': 0, 'mensajes': 0, 'ventas': 0})
+        t['publicaciones'] += 1
+        for k in ('vistas', 'mensajes', 'ventas'):
+            t[k] += p.get(k) or 0
     return sorted(filas.values(), key=lambda x: -x['mensajes'] / max(1, x['publicaciones']))
 
 
@@ -542,7 +594,7 @@ def reunir(fecha):
         'nota_equipo': nota_equipo,
         'nota_equipo_anterior': (previa or {}).get('nota_equipo'),
         'historial_equipo': [{'fecha': a['fecha'], 'nota': a.get('nota_equipo')} for a in anteriores] + [{'fecha': fecha, 'nota': nota_equipo}],
-        'piezas': sum(a['piezas'] for a in agentes.values() if a['que'] != 'publicaciones planeadas' and a['que'] != 'productos investigados'),
+        'piezas': sum(a['piezas'] for a in agentes.values() if a['que'] not in ('publicaciones planeadas', 'productos investigados', 'publicaciones medidas')),
         'resultados': reales,
         'acuerdos': {'activos': sum(1 for a in todos_acuerdos if a['estado'] == 'activo'),
                      'cumplidos': sum(1 for a in todos_acuerdos if a['estado'] == 'cumplido')},
