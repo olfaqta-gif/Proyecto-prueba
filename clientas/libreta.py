@@ -713,6 +713,7 @@ COLUMNAS = {
     'etiquetas': ['etiquetas', 'tags', 'tag'],
     'cumple': ['cumpleanos', 'birthday', 'fecha de cumpleanos', 'cumple'],
     'ciudad': ['ciudad', 'city'],
+    'origen': ['origen', 'source', 'vino por'],
     'fecha': ['fecha', 'last interaction', 'ultima interaccion', 'subscribed', 'date'],
 }
 
@@ -777,7 +778,7 @@ def sincronizar(datos, origen=None):
         ya = next((c for c in (buscar_clienta(datos, q) for q in ('@' + usuario if usuario else None, telefono, nombre) if q) if c), None)
         campos = {'nombre': nombre or None, 'usuario': usuario, 'telefono': telefono, 'red': red,
                   'email': dato('email'), 'ciudad': dato('ciudad'), 'publicacion': dato('publicacion'),
-                  'origen': 'asistente de mensajes', 'intereses': [dato('interes')] if dato('interes') else []}
+                  'origen': dato('origen') or 'asistente de mensajes', 'intereses': [dato('interes')] if dato('interes') else []}
         if dato('piel') and not (ya or {}).get('piel'):
             campos['piel'] = sin_tildes(dato('piel')).split()[0]
             campos['piel_fuente'] = 'lo eligió en el asistente'
