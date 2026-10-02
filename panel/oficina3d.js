@@ -73,6 +73,7 @@ function rolDe(agente) {
   const t = (agente.id + " " + (agente.que_hace || "")).toLowerCase();
   if (/scraper|busca|investig|lector/.test(agente.id) || /investigador/.test(t)) return "lupa";
   if (/educa|profe|ensen|enseñ/.test(agente.id)) return "puntero";
+  if (/guion/.test(agente.id)) return "claqueta";
   if (/creador|contenido|video|anuncio/.test(agente.id)) return "camara";
   if (/estrateg|plan|calendario/.test(agente.id)) return "tableta";
   if (/cliente|crm|venta|pedido/.test(t)) return "telefono";
@@ -190,6 +191,13 @@ function crearRobot(agente, variante) {
     const vara = malla(new THREE.CylinderGeometry(0.012, 0.02, 0.42, 10), m.junta, 0, -0.16, 0.02); objeto.add(vara);
     objeto.add(malla(new THREE.SphereGeometry(0.035, 12, 10), m.luz, 0, -0.38, 0.02));
     objeto.rotation.x = -1.0;
+  } else if (rol === "claqueta") {   // el guionista: claqueta de cine con rayas
+    objeto.add(malla(new THREE.BoxGeometry(0.26, 0.18, 0.02), m.junta, 0, -0.12, 0.05));
+    const tapa = new THREE.Group(); tapa.position.set(-0.13, -0.025, 0.05); tapa.rotation.z = 0.35; objeto.add(tapa);
+    for (let i = 0; i < 4; i++) {
+      tapa.add(malla(new THREE.BoxGeometry(0.065, 0.045, 0.022), i % 2 ? m.casco : m.acento, 0.0325 + i * 0.065, 0.0225, 0));
+    }
+    objeto.rotation.x = -0.6;
   } else if (rol === "telefono") {
     objeto.add(malla(new THREE.BoxGeometry(0.09, 0.17, 0.02), m.junta, 0, -0.06, 0.04));
   } else {

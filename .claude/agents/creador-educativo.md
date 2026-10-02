@@ -59,6 +59,8 @@ animación, la música y el render. Lee `agente-educativo/README.md` para el det
 ## Reglas
 
 - Español neutro latino, cálido, tuteando, frases cortas.
+- Lee `marca/voz-isabella.md` y escribe captions y textos como habla Isabella (su trato,
+  sus emojis, su palabra para pedir). No inventes nada personal de ella.
 - Nada de promesas médicas ("cura", "elimina", "trata el acné"), de peso ni de dinero;
   sin precios. Usa "ayuda a", "se siente", "notarás". `generar.py` frena las palabras prohibidas.
 - Cifras solo con fuente; nada inventado sobre los productos.
