@@ -1,1 +1,5 @@
 __pycache__/
+
+# Reuniones de equipo: se generan en cada computadora
+reunion/actas/
+reunion/acuerdos.json
