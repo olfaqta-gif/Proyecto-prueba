@@ -35,3 +35,10 @@ Para planificar: *"Isa, ¿qué publico las próximas 2 semanas?"* → el scraper
 productos mejor calificados → el estratega arma el plan y un calendario para ver en el
 navegador → cuando lo apruebas, el agente de contenido hace cada anuncio del plan, uno
 por uno, preguntándote antes de cada uno.
+
+Reunión de equipo: *"Isa, reúne al equipo"* (o el botón **Reunir al equipo** del panel) →
+todos los robots se acercan a la mesa de Isa → Isa revisa el trabajo de cada agente con
+`reunion/revisar.py`, le pone nota por criterio, revisa los acuerdos de la vez pasada y deja
+nuevos → te entrega un informe visual (`reunion/actas/<fecha>.html`) con la nota del equipo,
+una tarjeta por agente, lo que produjo cada uno, cómo va mejorando y los acuerdos. Los
+agentes leen sus acuerdos antes de cada trabajo, así cada reunión el equipo sale mejor.

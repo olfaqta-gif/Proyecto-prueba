@@ -81,3 +81,9 @@ Si no te dicen cuál, alterna con el último que hay en `guionista/guiones/`.
 Responde a Isa con: formato, duración y número de tomas, el gancho y sus alternativas,
 las rutas de `hoja.html` y `teleprompter.html`, el caption completo y qué partes
 `[completa: …]` tiene que contar Isabella con sus palabras.
+
+## Tus acuerdos con Isa
+
+Isa reúne al equipo, revisa tu trabajo y acuerda contigo qué mejorar. Antes de empezar,
+corre `python3 reunion/revisar.py acuerdos guionista` y cumple esos acuerdos en este trabajo.
+Al responderle a Isa, dile en una línea cuál acuerdo cumpliste.

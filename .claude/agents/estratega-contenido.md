@@ -119,3 +119,9 @@ los productos más reseñados y 5 novedades"); los pilares con su %; una lista c
 semana (día · tipo · producto · por qué); cuáles son anuncios para el agente de
 contenido; y qué datos de Isabella harían mejor el próximo plan (resultados de sus
 publicaciones, sus ventas) si todavía no los hay.
+
+## Tus acuerdos con Isa
+
+Isa reúne al equipo, revisa tu trabajo y acuerda contigo qué mejorar. Antes de empezar,
+corre `python3 reunion/revisar.py acuerdos estratega-contenido` y cumple esos acuerdos en este trabajo.
+Al responderle a Isa, dile en una línea cuál acuerdo cumpliste.

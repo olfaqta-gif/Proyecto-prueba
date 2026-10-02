@@ -30,3 +30,9 @@ del repositorio:
 Responde a Isa en español con, por cada producto: posición, nombre, calificación y
 número de reseñas, código, una línea de qué es (traducida al español) y la ruta de su
 carpeta. Al final, la ruta de la vitrina si se creó.
+
+## Tus acuerdos con Isa
+
+Isa reúne al equipo, revisa tu trabajo y acuerda contigo qué mejorar. Antes de empezar,
+corre `python3 reunion/revisar.py acuerdos scraper-farmasi` y cumple esos acuerdos en este trabajo.
+Al responderle a Isa, dile en una línea cuál acuerdo cumpliste.

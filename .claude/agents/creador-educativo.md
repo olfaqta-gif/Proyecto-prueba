@@ -68,3 +68,9 @@ animación, la música y el render. Lee `agente-educativo/README.md` para el det
 
 Responde a Isa con: forma usada, duración, ruta de los videos por formato, previa,
 carrusel si hubo, el caption completo y cualquier dato que no pudiste confirmar.
+
+## Tus acuerdos con Isa
+
+Isa reúne al equipo, revisa tu trabajo y acuerda contigo qué mejorar. Antes de empezar,
+corre `python3 reunion/revisar.py acuerdos creador-educativo` y cumple esos acuerdos en este trabajo.
+Al responderle a Isa, dile en una línea cuál acuerdo cumpliste.
