@@ -1,0 +1,30 @@
+{
+  "tipo": "pasos",
+  "paleta": "lavanda",
+  "fondo": "claro",
+  "gancho": {
+    "kicker": "Rutina de noche",
+    "titulo": "Tu piel de noche en *4 pasos*",
+    "subtitulo": "Antes de dormir, sin complicarte"
+  },
+  "items": [
+    { "icono": "gota", "titulo": "Desmaquilla", "detalle": "Primero quita todo el maquillaje y el protector." },
+    { "icono": "agua", "titulo": "Limpia", "detalle": "Un limpiador suave para tu tipo de piel." },
+    { "icono": "frasco", "titulo": "Trata", "detalle": "Tu sérum o tratamiento, en piel limpia." },
+    { "icono": "luna", "titulo": "Hidrata y a dormir", "detalle": "Crema o mascarilla de noche, evitando los ojos." }
+  ],
+  "cierre": {
+    "frase1": "Guárdala",
+    "frase2": "y pruébala hoy",
+    "accion": "guardar"
+  },
+  "producto": {
+    "carpeta": "agente-contenido/productos/dr-c-tuna-age-reversist-all-night-beauty-mask",
+    "texto": "Mi paso 4, dos veces por semana"
+  },
+  "caption": {
+    "texto": "Tu rutina de noche en 4 pasos 🌙\n\n1. Desmaquilla\n2. Limpia\n3. Trata (sérum)\n4. Hidrata y a dormir\n\nYo en el paso 4 uso la All Night Beauty Mask de Dr. C. Tuna dos veces por semana: se aplica en piel limpia antes de dormir y se enjuaga en la mañana.\n\nGuárdala y cuéntame cómo te va ✨",
+    "hashtags": ["farmasi", "rutinadenoche", "skincare", "cuidadodelapiel", "drctuna", "nightroutine", "rutinafacial"],
+    "aviso": "Distribuidora independiente Farmasi."
+  }
+}

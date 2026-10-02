@@ -1,0 +1,50 @@
+<!-- PASOS: rutina o "cómo se usa". Barra de pasos fija arriba que se va llenando; cada paso entra empujando desde la derecha. -->
+<style>
+  .fila-pasos{display:flex;gap:22u;align-items:center}
+  .fila-pasos i{width:86u;height:86u;border-radius:50%;border:8u solid var(--acento);display:grid;place-items:center;font-style:normal;font-weight:900;font-size:40u;color:var(--acento)}
+  .fila-pasos i.lleno{animation:llenaPunto .35s ease-out var(--d) both}
+  @keyframes llenaPunto{from{background:transparent;color:var(--acento)}to{background:var(--acento);color:#fff}}
+  .paso{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;gap:40u;padding:260u 90u 170u}
+  .paso .fantasma{position:absolute;right:-40u;bottom:40u;font-size:900u;font-weight:900;line-height:.8;letter-spacing:-50u;color:var(--linea);animation:fantasma 1.2s cubic-bezier(.2,1,.3,1) var(--d) both}
+  @keyframes fantasma{from{opacity:0;transform:translateX(300u)}to{opacity:1;transform:none}}
+  .paso .medalla{width:230u;height:230u;background:var(--acento);color:#fff}
+  .paso .pildora{align-self:flex-start}
+  .paso .titulo{font-size:98u}
+  .barra-pasos{position:absolute;top:90u;left:90u;right:90u;height:80u;z-index:5}
+  .barra-pasos .via{position:absolute;left:40u;right:40u;top:34u;height:12u;border-radius:12u;background:var(--linea)}
+  .barra-pasos .avance{position:absolute;left:40u;top:34u;height:12u;border-radius:12u;background:var(--acento);width:calc(100% - 80u);transform-origin:left;transform:scaleX(0)}
+  .barra-pasos .nodos{position:absolute;inset:0;display:flex;justify-content:space-between}
+  .barra-pasos .nodo{width:80u;height:80u;border-radius:50%;background:var(--bg);border:8u solid var(--linea);display:grid;place-items:center;
+    font-weight:900;font-size:36u;color:var(--suave)}
+  .barra-pasos .nodo{position:relative}
+  .barra-pasos .nodo b{position:absolute;inset:-8u;border-radius:50%;background:var(--acento);color:#fff;display:grid;place-items:center;font-weight:900}
+  [data-orient="h"] .paso{display:grid;grid-template-columns:auto 1fr;column-gap:100u;row-gap:30u;align-content:center;padding:200u 170u 120u}
+  [data-orient="h"] .paso .pildora{justify-self:start}
+  [data-orient="h"] .paso .medalla{grid-row:1 / 4;width:300u;height:300u}
+  [data-orient="h"] .barra-pasos{left:400u;right:400u}
+  [data-formato="1x1"] .paso{padding:200u 90u 130u;gap:28u}
+  [data-formato="1x1"] .paso .medalla{width:170u;height:170u}
+  [data-formato="1x1"] .paso .titulo{font-size:84u}
+</style>
+<!--INSIGNIA-->
+<div class="fila-pasos">{PUNTOS_GANCHO}</div>
+<!--ITEM-->
+<div class="camara" data-in="items.{i}.entra">
+  <div class="deco malla" style="inset:0;opacity:.5"></div>
+  <div class="deco mas flota" style="left:100u;bottom:200u"></div>
+  <div class="deco bola flota b" style="width:60u;height:60u;right:170u;top:380u"></div>
+</div>
+<div class="paso">
+  <div class="fantasma" data-d="items.{i}.entra+0.1">{n1}</div>
+  <div class="medalla crece" data-d="items.{i}.entra+0.25"><div class="deco aro punteado gira"></div><div data-icono="=items.{i}.icono" data-d="items.{i}.entra+0.5"></div></div>
+  <span class="pildora rise" data-d="items.{i}.entra+0.3"><span data-txt="etiqueta"></span> {n1}</span>
+  <div class="titulo fit {kin}" data-lineas="3" data-txt="items.{i}.titulo" data-kin="items.{i}.titulo"></div>
+  <div class="detalle rise fit" data-lineas="3" data-d="items.{i}.detalle" data-txt="items.{i}.detalle" data-si="items.{i}.detalle"></div>
+</div>
+<div class="firma" data-txt="firma"></div>
+<!--EXTRA-->
+<div class="barra-pasos ventana" data-in="items.0.entra+0.3" data-out="cierre.entra+0.4">
+  <div class="via"></div>
+  {AVANCE}
+  <div class="nodos">{NODOS}</div>
+</div>

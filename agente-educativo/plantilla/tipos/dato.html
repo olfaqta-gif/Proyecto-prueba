@@ -1,0 +1,40 @@
+<!-- ¿SABÍAS QUE…?: signo de pregunta gigante que gira; cada dato con una cifra que sube (o una palabra clave) y su explicación. -->
+<style>
+  .pregunta{position:relative;width:340u;height:340u;border-radius:50%;background:var(--acento);color:#fff;display:grid;place-items:center}
+  .pregunta b{font-family:"Playfair Display",Georgia,serif;font-style:italic;font-weight:800;font-size:300u;line-height:1;margin-top:20u}
+  .pregunta .aro{position:absolute;inset:-40u;border-color:var(--acento2)}
+  .dato{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;gap:40u;padding:150u 90u 190u}
+  .dato .cifra{display:flex;align-items:baseline;gap:20u;flex-wrap:wrap;color:var(--acento);line-height:.85}
+  .escena.color .dato .cifra,.escena.color2 .dato .cifra{color:var(--brillo)}
+  .dato .cifra>span{font-size:330u;font-weight:900;letter-spacing:-14u}
+  .dato .cifra small{font-size:84u;font-weight:900;letter-spacing:-2u}
+  .dato .clave{font-family:"Playfair Display",Georgia,serif;font-style:italic;font-weight:800;font-size:170u;line-height:1;color:var(--acento);max-width:100%}
+  .escena.color .dato .clave,.escena.color2 .dato .clave{color:var(--brillo)}
+  .dato .medalla{width:240u;height:240u;background:var(--acento);color:#fff}
+  .escena.color .dato .medalla,.escena.color2 .dato .medalla{background:#fff;color:var(--acento)}
+  .dato .titulo{font-size:90u}
+  .dato .fuente{position:absolute;left:90u;right:90u;bottom:120u;font-size:28u;font-weight:600;color:var(--suave)}
+  [data-orient="h"] .dato{padding:110u 170u 150u}
+  [data-orient="h"] .dato .titulo{max-width:1500u}
+  [data-formato="1x1"] .dato .cifra>span{font-size:230u}
+  [data-formato="1x1"] .dato .titulo{font-size:76u}
+  [data-formato="1x1"] .dato{gap:26u}
+</style>
+<!--INSIGNIA-->
+<div class="pregunta gira-entra" data-d="gancho.insignia"><div class="deco aro punteado gira"></div><b>?</b></div>
+<!--ITEM-->
+<div class="camara" data-in="items.{i}.entra">
+  <div class="deco malla" style="inset:0;opacity:.6"></div>
+  <div class="deco" style="right:-180u;top:-140u"><div class="crece" data-d="items.{i}.entra+0.1"><div class="aro gira" style="width:520u;height:520u"></div></div></div>
+  <div class="deco bola flota" style="width:90u;height:90u;left:120u;bottom:330u"></div>
+  <div class="deco mas flota b" style="right:120u;bottom:520u"></div>
+</div>
+<div class="progreso">{PROGRESO}</div>
+<div class="dato">
+  <div class="cifra" data-si="items.{i}.numero"><span data-numero="items.{i}.numero" data-d="items.{i}.cifra"></span><small class="rise" data-d="items.{i}.cifra+0.5" data-txt="items.{i}.unidad" data-si="items.{i}.unidad"></small></div>
+  <div class="clave stamp fit" data-lineas="2" data-d="items.{i}.cifra" data-txt="items.{i}.clave" data-si="items.{i}.clave"></div>
+  <div class="medalla crece" data-d="items.{i}.cifra" data-si="items.{i}.solo_icono"><div class="deco aro punteado gira"></div><div data-icono="=items.{i}.icono" data-d="items.{i}.cifra+0.3"></div></div>
+  <div class="titulo fit {kin}" data-lineas="4" data-txt="items.{i}.titulo" data-kin="items.{i}.titulo"></div>
+  <div class="detalle rise fit" data-lineas="3" data-d="items.{i}.detalle" data-txt="items.{i}.detalle" data-si="items.{i}.detalle"></div>
+  <div class="fuente rise" data-d="items.{i}.detalle+0.3" data-txt="items.{i}.fuente_txt" data-si="items.{i}.fuente_txt"></div>
+</div>

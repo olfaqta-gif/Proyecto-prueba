@@ -1,0 +1,26 @@
+{
+  "tipo": "tips",
+  "paleta": "rosa",
+  "fondo": "claro",
+  "gancho": {
+    "kicker": "Tips de maquillaje",
+    "titulo": "Haz que tu labial *dure más*",
+    "subtitulo": "4 trucos que casi nadie hace"
+  },
+  "items": [
+    { "icono": "labios", "titulo": "Exfolia tus labios", "detalle": "Suave, una o dos veces por semana. El color se ve parejo." },
+    { "icono": "gota", "titulo": "Hidrata *antes*", "detalle": "Un bálsamo 5 minutos antes y quita el exceso." },
+    { "icono": "pincel", "titulo": "Delinea y rellena", "detalle": "Con delineador en todo el labio, no solo el borde." },
+    { "icono": "chispa", "titulo": "Capa, pañuelo, capa", "detalle": "Presiona un pañuelo entre capa y capa." }
+  ],
+  "cierre": {
+    "frase1": "Guárdalo",
+    "frase2": "para tu próximo look",
+    "accion": "guardar"
+  },
+  "caption": {
+    "texto": "¿Tu labial desaparece después del café? ☕💄\n\n4 trucos para que dure más:\n1️⃣ Exfolia tus labios suave, 1 o 2 veces por semana\n2️⃣ Hidrata con bálsamo 5 minutos antes\n3️⃣ Delinea y rellena todo el labio\n4️⃣ Capa, pañuelo, capa\n\n¿Cuál no hacías? Cuéntame 👇 Y guárdalo para tu próximo look.",
+    "hashtags": ["farmasi", "tipsdemaquillaje", "labial", "maquillaje", "makeuptips", "labiales", "belleza"]
+  },
+  "musica": { "variacion": 0 }
+}

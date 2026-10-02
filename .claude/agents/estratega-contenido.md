@@ -31,6 +31,12 @@ scraper-farmasi ──(catálogo completo, sin precios)──► analizar.py ─
 - **Lo ya hecho**: `analizar.py` ya baja el puntaje de lo que tiene anuncio o está en otro plan.
 - **Para el agente de contenido**: cada publicación `tipo: "anuncio"` lleva `producto`
   (`codigo`, `slug`, `nombre`), `estilo`, `formatos`, `idea`, `gancho` y `porque`.
+- **Para el agente educativo** (`creador-educativo`): las publicaciones de los pilares
+  educar y confianza que puedan ser video animado van con `tipo: "educativo"`, `forma`
+  (`tips`, `mito`, `pasos` o `dato`), `formatos`, `idea`, `gancho`, `guion` (los puntos,
+  pasos o mitos) y, si aplica, `producto` (sale al final como "Lo que yo uso") y
+  `"carrusel": true` si además quieres la versión en imágenes. Así Isabella no tiene que
+  grabarlas. Deja como `reel`, `historia` o `en-vivo` solo lo que necesita su cara o su voz.
 
 ## Cómo analizas (siempre, en este orden)
 
@@ -74,7 +80,7 @@ scraper-farmasi ──(catálogo completo, sin precios)──► analizar.py ─
   educar y confianza usan las "ideas" del análisis (muestra de tonos, tutorial,
   ingrediente, prueba social, reto de 7 días, idea de regalo…) y pueden ser de otras
   oportunidades del top, así un mismo análisis alimenta todo el calendario.
-- **Calendario.** No dos anuncios el mismo día; alterna estilos (`clasico`, `favorito`,
+- **Calendario.** Alterna las formas de los educativos (no dos `tips` seguidos). No dos anuncios el mismo día; alterna estilos (`clasico`, `favorito`,
   `razones`) sin repetir el del anuncio anterior; el mismo producto no dos veces en la
   misma semana; días y horas según `aprendizaje` si hay datos (si no, 19:00 entre semana).
 - **Formatos.** Anuncios: `9x16` (Reels/TikTok) y `4x5` (feed) por defecto. Lo que Isabella

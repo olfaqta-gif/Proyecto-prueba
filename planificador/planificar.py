@@ -31,10 +31,12 @@ CATALOGO = RAIZ / 'lector-farmasi' / 'salida' / 'catalogo.json'
 PLANES = AQUI / 'planes'
 
 ESTILOS = ('clasico', 'favorito', 'razones')
+FORMAS_EDU = ('tips', 'mito', 'pasos', 'dato')   # formas del video educativo
 FORMATOS = ('9x16', '4x5', '1x1', '16x9')
 # anuncio = video que hace el agente creador-contenido; el resto lo graba o publica Isabella
 TIPOS = {
     'anuncio': 'Anuncio en video (lo hace el agente de contenido)',
+    'educativo': 'Video educativo con motion graphics (lo hace el agente educativo)',
     'reel': 'Reel o TikTok que grabas tú',
     'historia': 'Historia (Stories)',
     'carrusel': 'Carrusel de fotos',
@@ -225,6 +227,12 @@ def revisar(plan):
             if not pub.get('porque'):
                 avisos.append(f'{etiqueta}: explica en "porque" por qué este producto (sale de analizar.py)')
             anuncios.append(pub)
+        elif pub.get('tipo') == 'educativo':
+            if pub.get('forma') not in FORMAS_EDU:
+                errores.append(f'{etiqueta}: un educativo necesita "forma": {", ".join(FORMAS_EDU)}')
+            malos = [f for f in pub.get('formatos', []) if f not in FORMATOS]
+            if malos:
+                errores.append(f'{etiqueta}: formatos que no existen: {", ".join(malos)}')
         elif not (pub.get('guion') or pub.get('caption')):
             avisos.append(f'{etiqueta}: como lo haces tú, conviene escribir "guion" o "caption"')
 
@@ -311,6 +319,10 @@ def calendario_html(plan, archivo_plan):
                 if pub.get('tipo') == 'anuncio':
                     detalles.append(f'Estilo {e(pub.get("estilo", ""))} · '
                                     f'{e(", ".join(pub.get("formatos") or ["los 4 formatos"]))}')
+                if pub.get('tipo') == 'educativo':
+                    detalles.append(f'Forma {e(pub.get("forma", ""))} · '
+                                    f'{e(", ".join(pub.get("formatos") or ["los 4 formatos"]))}'
+                                    f'{" · también carrusel" if pub.get("carrusel") else ""}')
                 if pub.get('porque'):
                     detalles.append(f'<b>Por qué:</b> {e(pub["porque"])}')
                 r = pub.get('resultados')
@@ -411,12 +423,27 @@ def cmd_revisar(a):
 def cmd_siguiente(a):
     plan = leer_json(a.plan)
     pendientes = sorted((p for p in plan['publicaciones']
-                         if p.get('tipo') == 'anuncio' and p.get('estado', 'pendiente') == 'pendiente'),
+                         if p.get('tipo') == a.tipo and p.get('estado', 'pendiente') == 'pendiente'),
                         key=lambda p: p['fecha'])
     if not pendientes:
-        print('No quedan anuncios pendientes en este plan.')
+        print(f'No quedan publicaciones "{a.tipo}" pendientes en este plan.')
         return
     p = pendientes[0]
+    if a.tipo == 'educativo':
+        print(f'Siguiente video educativo del plan "{plan["nombre"]}" (quedan {len(pendientes)}):')
+        print(f'  id: {p["id"]}  ·  fecha: {p["fecha"]}  ·  red: {p.get("red", "")}  ·  pilar: {p.get("pilar", "")}')
+        print(f'  forma: {p.get("forma")}  ·  formatos: {", ".join(p.get("formatos") or FORMATOS)}'
+              f'{"  ·  también carrusel" if p.get("carrusel") else ""}')
+        if p.get('producto'):
+            prod = p['producto']
+            carpeta = carpeta_producto(prod)
+            print(f'  producto al final: {nombre_producto(prod)}  ·  carpeta: '
+                  f'{carpeta.relative_to(RAIZ) if carpeta else "no existe todavía (traerla con el scraper)"}')
+        for k in ('idea', 'gancho', 'guion', 'llamado'):
+            if p.get(k):
+                print(f'  {k}: {p[k]}')
+        print(f'\nAl terminar: python3 planificador/planificar.py marcar {a.plan} {p["id"]} hecho')
+        return
     prod = p['producto']
     carpeta = carpeta_producto(prod)
     print(f'Siguiente anuncio del plan "{plan["nombre"]}" (quedan {len(pendientes)}):')
@@ -474,8 +501,10 @@ def main():
     r = sub.add_parser('revisar', help='revisar un plan.json y crear su calendario plan.html')
     r.add_argument('plan')
     r.set_defaults(f=cmd_revisar)
-    s = sub.add_parser('siguiente', help='el próximo anuncio pendiente, listo para el agente de contenido')
+    s = sub.add_parser('siguiente', help='la próxima publicación pendiente para un agente (anuncio o educativo)')
     s.add_argument('plan')
+    s.add_argument('--tipo', default='anuncio', choices=('anuncio', 'educativo'),
+                   help='anuncio (agente de contenido, por defecto) o educativo (agente educativo)')
     s.set_defaults(f=cmd_siguiente)
     m = sub.add_parser('marcar', help='cambiar el estado de una publicación')
     m.add_argument('plan')

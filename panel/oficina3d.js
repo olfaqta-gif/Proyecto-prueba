@@ -72,6 +72,7 @@ const MAT = {
 function rolDe(agente) {
   const t = (agente.id + " " + (agente.que_hace || "")).toLowerCase();
   if (/scraper|busca|investig|lector/.test(agente.id) || /investigador/.test(t)) return "lupa";
+  if (/educa|profe|ensen|enseñ/.test(agente.id)) return "puntero";
   if (/creador|contenido|video|anuncio/.test(agente.id)) return "camara";
   if (/estrateg|plan|calendario/.test(agente.id)) return "tableta";
   if (/cliente|crm|venta|pedido/.test(t)) return "telefono";
@@ -107,21 +108,21 @@ function crearRobot(agente, variante) {
   // Cuello y cabeza
   cuerpo.add(malla(new THREE.CylinderGeometry(0.075, 0.09, 0.14, 14), m.junta, 0, 0.84, 0));
   const cabeza = new THREE.Group(); cabeza.position.y = 1.05; cuerpo.add(cabeza);
-  let frente = 0.27, ojoY = 0;
+  let frente = 0.27, ojoY = 0, tope = 0.28;
   if (variante % 4 === 0) {          // cabeza redonda
     const c = malla(new THREE.SphereGeometry(0.3, 32, 24), m.casco); c.scale.set(1.12, 0.95, 1); cabeza.add(c);
     frente = 0.27;
   } else if (variante % 4 === 1) {   // cabeza de pantalla
     cabeza.add(malla(new THREE.BoxGeometry(0.6, 0.44, 0.44), m.casco));
     [-0.3, 0.3].forEach((x) => cabeza.add(malla(new THREE.CylinderGeometry(0.22, 0.22, 0.04, 24), m.casco, x, 0, 0).rotateZ(Math.PI / 2)));
-    frente = 0.225;
+    frente = 0.225; tope = 0.22;
   } else if (variante % 4 === 2) {   // cápsula horizontal
     const c = malla(new THREE.CapsuleGeometry(0.25, 0.22, 8, 24), m.casco); c.rotation.z = Math.PI / 2; c.scale.set(1, 1, 0.95); cabeza.add(c);
-    frente = 0.24;
+    frente = 0.24; tope = 0.25;
   } else {                           // domo
     cabeza.add(malla(new THREE.CylinderGeometry(0.28, 0.3, 0.3, 28), m.casco, 0, -0.04, 0));
     const domo = malla(new THREE.SphereGeometry(0.28, 28, 14, 0, Math.PI * 2, 0, Math.PI / 2), m.casco, 0, 0.11, 0); cabeza.add(domo);
-    frente = 0.29; ojoY = -0.02;
+    frente = 0.29; ojoY = -0.02; tope = 0.38;
   }
   const visor = malla(new THREE.CapsuleGeometry(0.12, 0.26, 8, 20), m.visor, 0, ojoY, frente - 0.04);
   visor.rotation.z = Math.PI / 2; visor.scale.set(1, 1, 0.45); cabeza.add(visor);
@@ -185,12 +186,26 @@ function crearRobot(agente, variante) {
     objeto.add(malla(new THREE.BoxGeometry(0.26, 0.34, 0.02), m.junta, 0, -0.12, 0.05));
     const pantalla = malla(new THREE.PlaneGeometry(0.22, 0.3), new THREE.MeshBasicMaterial({ map: pantallaTableta(agente.color), toneMapped: false }), 0, -0.12, 0.062);
     objeto.add(pantalla); objeto.rotation.x = -0.9;
+  } else if (rol === "puntero") {   // el profe: puntero con punta que brilla
+    const vara = malla(new THREE.CylinderGeometry(0.012, 0.02, 0.42, 10), m.junta, 0, -0.16, 0.02); objeto.add(vara);
+    objeto.add(malla(new THREE.SphereGeometry(0.035, 12, 10), m.luz, 0, -0.38, 0.02));
+    objeto.rotation.x = -1.0;
   } else if (rol === "telefono") {
     objeto.add(malla(new THREE.BoxGeometry(0.09, 0.17, 0.02), m.junta, 0, -0.06, 0.04));
   } else {
     objeto.add(malla(new THREE.CylinderGeometry(0.05, 0.045, 0.11, 16), m.acento, 0, -0.04, 0.06));
   }
   objeto.visible = false;
+  if (rol === "puntero") {         // y su birrete de graduación, siempre puesto
+    const birrete = new THREE.Group(); birrete.position.y = tope + 0.02; cabeza.add(birrete);
+    birrete.add(malla(new THREE.CylinderGeometry(0.17, 0.19, 0.08, 20), m.junta, 0, 0.02, 0));
+    const tabla = malla(new THREE.BoxGeometry(0.5, 0.03, 0.5), m.junta, 0, 0.075, 0); tabla.rotation.y = Math.PI / 4; birrete.add(tabla);
+    birrete.add(malla(new THREE.SphereGeometry(0.025, 10, 8), m.acento, 0, 0.1, 0));
+    const borla = malla(new THREE.CylinderGeometry(0.008, 0.008, 0.16, 6), m.acento, 0.3, 0.01, 0.06); birrete.add(borla);
+    birrete.add(malla(new THREE.SphereGeometry(0.03, 10, 8), m.acento, 0.3, -0.08, 0.06));
+    birrete.rotation.z = -0.08;
+    antena.visible = false;          // la antena quedaría atravesando el birrete
+  }
 
   raiz.scale.setScalar(0.9);
   raiz.traverse((o) => { if (o.isMesh) o.userData.agente = agente.id; });

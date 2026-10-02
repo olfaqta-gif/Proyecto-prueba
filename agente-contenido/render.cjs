@@ -19,6 +19,8 @@ const path = require('path');
   let i = 0;
   for (const t of times) {
     await page.evaluate((t) => window.__seek(t), t);
+    // Esperar dos cuadros para que Chromium vuelva a pintar todo (si no, a veces queda un texto a medias)
+    await page.evaluate(() => new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r))));
     const name = mode === 'preview' ? `p_${String(i).padStart(2, '0')}_${t.toFixed(1)}.jpg` : `f_${String(i).padStart(4, '0')}.jpg`;
     await page.screenshot({ path: `${out}/${name}`, type: 'jpeg', quality: 92 });
     i++;
