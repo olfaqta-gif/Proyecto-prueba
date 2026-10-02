@@ -75,6 +75,7 @@ function rolDe(agente) {
   if (/scraper|busca|investig|lector/.test(agente.id) || /investigador/.test(t)) return "lupa";
   if (/educa|profe|ensen|enseñ/.test(agente.id)) return "puntero";
   if (/guion/.test(agente.id)) return "claqueta";
+  if (/analista|redes|metrica|estadistica/.test(agente.id)) return "grafico";
   if (/creador|contenido|video|anuncio/.test(agente.id)) return "camara";
   if (/estrateg|plan|calendario/.test(agente.id)) return "tableta";
   if (/cliente|crm|venta|pedido/.test(t)) return "telefono";
@@ -199,6 +200,13 @@ function crearRobot(agente, variante) {
       tapa.add(malla(new THREE.BoxGeometry(0.065, 0.045, 0.022), i % 2 ? m.casco : m.acento, 0.0325 + i * 0.065, 0.0225, 0));
     }
     objeto.rotation.x = -0.6;
+  } else if (rol === "grafico") {   // la analista: tablero con barras que suben y una flecha
+    objeto.add(malla(new THREE.BoxGeometry(0.28, 0.22, 0.02), m.junta, 0, -0.12, 0.05));
+    [0.06, 0.1, 0.08, 0.15].forEach((h, i) => {
+      objeto.add(malla(new THREE.BoxGeometry(0.04, h, 0.012), i === 3 ? m.luz : m.acento, -0.09 + i * 0.06, -0.21 + h / 2, 0.066));
+    });
+    const flecha = malla(new THREE.ConeGeometry(0.025, 0.05, 10), m.luz, 0.1, -0.03, 0.066); flecha.rotation.z = -0.5; objeto.add(flecha);
+    objeto.rotation.x = -0.8;
   } else if (rol === "telefono") {
     objeto.add(malla(new THREE.BoxGeometry(0.09, 0.17, 0.02), m.junta, 0, -0.06, 0.04));
   } else {
