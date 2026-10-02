@@ -1,7 +1,7 @@
 {
   "nombre": "Vender más: 2 semanas de otoño (5 al 18 de octubre)",
   "inicio": "2026-10-05",
-  "basado_en": "Análisis planificador/analisis/2026-10-05-ventas.json (objetivo ventas) con el catálogo leído el 2026-10-01; todavía no hay resultados ni ventas de Julio guardados.",
+  "basado_en": "Análisis planificador/analisis/2026-10-05-ventas.json (objetivo ventas) con el catálogo leído el 2026-10-01; todavía no hay resultados ni ventas de Isabella guardados.",
   "objetivo": "Vender más: que más clientas escriban por mensaje para pedir, con productos de miles de reseñas y una palabra clave en cada publicación.",
   "publico": "Mujeres hispanas en EE. UU. de 25 a 50 años que compran por redes (Instagram, TikTok y Facebook) y cuidan su piel, su maquillaje y su cabello.",
   "frecuencia": "5 publicaciones por semana (2 anuncios en video) + historias 3 o 4 días por semana. Anuncios a las 7 pm.",
@@ -32,12 +32,12 @@
     }
   ],
   "notas": [
-    "Cada publicación termina con una palabra clave (LABIOS, ELIXIR, PESTAÑAS, etc.). Así sabes qué publicación te trajo cada mensaje: anótalo y cuéntaselo a Jarvis.",
+    "Cada publicación termina con una palabra clave (LABIOS, ELIXIR, PESTAÑAS, etc.). Así sabes qué publicación te trajo cada mensaje: anótalo y cuéntaselo a Isa.",
     "Mezclamos categorías: labios, piel, cabello y ojos. Ningún producto se repite como anuncio en la misma semana.",
     "Los precios y promociones los pones tú en el caption si quieres; la tienda tiene en promoción casi todos estos productos.",
     "Ya viene Halloween (31 de octubre): la segunda semana prepara looks de labios oscuros para que te pidan con tiempo.",
     "En los videos de maquillaje hace falta alguien que modele (tú, tu pareja, una amiga o una clienta con su permiso). Si nadie puede, se graba en el dorso de la mano.",
-    "Las fechas son sugeridas; si un día no puedes, muévelo y avísale a Jarvis."
+    "Las fechas son sugeridas; si un día no puedes, muévelo y avísale a Isa."
   ],
   "publicaciones": [
     {
@@ -47,7 +47,7 @@
       "pilar": "cercania",
       "tipo": "historia",
       "idea": "Preséntate y pregunta qué quieren ver estas semanas.",
-      "guion": "Historia 1: tú a cámara con un café: 'Hola, soy Julio y estas dos semanas les voy a mostrar lo que más piden en Farmasi'. Historia 2: encuesta '¿Qué te interesa más?' con opciones Labios, Piel, Cabello, Pestañas. Historia 3: 'Con lo que voten preparo los videos. Si ya quieres algo, escríbeme'.",
+      "guion": "Historia 1: tú a cámara con un café: 'Hola, soy Isabella y estas dos semanas les voy a mostrar lo que más piden en Farmasi'. Historia 2: encuesta '¿Qué te interesa más?' con opciones Labios, Piel, Cabello, Pestañas. Historia 3: 'Con lo que voten preparo los videos. Si ya quieres algo, escríbeme'.",
       "llamado": "Escríbeme por mensaje",
       "estado": "pendiente"
     },
@@ -239,7 +239,7 @@
       "tipo": "post",
       "idea": "Quién soy y por qué vendo Farmasi.",
       "guion": "Una foto tuya natural (con tus productos o preparando un pedido). En el texto cuenta en 3 o 4 líneas quién eres, desde cuándo vendes y qué te gusta de ayudar a escoger productos.",
-      "caption": "Mucha gente nueva por aquí, así que me presento: soy Julio, distribuidor independiente de Farmasi. Me gusta ayudarte a escoger lo que de verdad te va, sin complicarte. Pides por mensaje y yo te acompaño en todo. ¿De dónde me escribes? Te leo en comentarios.",
+      "caption": "Mucha gente nueva por aquí, así que me presento: soy Isabella, distribuidor independiente de Farmasi. Me gusta ayudarte a escoger lo que de verdad te va, sin complicarte. Pides por mensaje y yo te acompaño en todo. ¿De dónde me escribes? Te leo en comentarios.",
       "llamado": "Cuéntame de dónde me escribes",
       "estado": "pendiente"
     },

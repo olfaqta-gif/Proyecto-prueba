@@ -3,7 +3,7 @@
 
 El agente estratega-contenido escribe el plan (un plan.json con la estrategia y el
 calendario). Este script lo revisa, lo muestra como calendario (plan.html) y lleva la
-cuenta de qué ya se hizo, para que Jarvis le pase cada anuncio al agente de contenido.
+cuenta de qué ya se hizo, para que Isa le pase cada anuncio al agente de contenido.
 
 Uso (desde la raíz del repositorio):
   python3 planificador/planificar.py estado                       # qué hay hecho y qué planes existen
@@ -32,7 +32,7 @@ PLANES = AQUI / 'planes'
 
 ESTILOS = ('clasico', 'favorito', 'razones')
 FORMATOS = ('9x16', '4x5', '1x1', '16x9')
-# anuncio = video que hace el agente creador-contenido; el resto lo graba o publica Julio
+# anuncio = video que hace el agente creador-contenido; el resto lo graba o publica Isabella
 TIPOS = {
     'anuncio': 'Anuncio en video (lo hace el agente de contenido)',
     'reel': 'Reel o TikTok que grabas tú',
@@ -47,7 +47,7 @@ DIAS = ('lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado', 'doming
 # Lo que nunca debe salir en un plan (mismas reglas que el agente de contenido)
 PROHIBIDO = [
     (re.compile(r'\$\s?\d|\d\s?(usd|dólares|dolares)\b|\bprecio\b', re.I),
-     'menciona precios (Julio los maneja aparte)'),
+     'menciona precios (Isabella los maneja aparte)'),
     (re.compile(r'\d+\s?%'), 'usa porcentajes de resultados'),
     (re.compile(r'\bcura\b|\bcuran\b|\belimina\w* (el |la |los |las )?(acné|acne|arrugas|manchas)|\bgarantiz', re.I),
      'hace una promesa médica o garantizada'),

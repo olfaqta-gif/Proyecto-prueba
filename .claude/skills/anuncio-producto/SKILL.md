@@ -14,7 +14,7 @@ música y el render. Lee `agente-contenido/README.md` si necesitas el detalle de
 Necesitas: nombre exacto, categoría, para quién es, 2 o 3 beneficios, y una foto del
 producto (ideal: fondo blanco o transparente, el envase completo).
 
-- Toma los datos de la página oficial de Farmasi o de lo que diga Julio. Si consultas la
+- Toma los datos de la página oficial de Farmasi o de lo que diga Isabella. Si consultas la
   web, anota de dónde salió cada dato.
 - La calificación y número de reseñas solo van si los viste publicados. Si no, deja
   `producto.dato` vacío (el bloque desaparece del video).
@@ -38,7 +38,7 @@ reemplaza todo. Reglas de copy:
 - **Estilo** (`estilo`): `clasico` (problema → solución, elegante), `favorito` (tipo TikTok,
   "mi favorito", fondo claro) o `razones` ("3 razones", directo). Para que los anuncios no
   se vean todos iguales, **no repitas el estilo del anuncio anterior**: mira qué estilo
-  tienen las fichas más recientes en `productos/` y elige otro, salvo que Julio pida uno.
+  tienen las fichas más recientes en `productos/` y elige otro, salvo que Isabella pida uno.
   Si te piden comparar, usa `--estilo todos`.
 - **Textos por estilo** (`estilos.<estilo>`): cada estilo pide un gancho distinto. Escribe
   al menos el del estilo elegido; lo que pongas ahí reemplaza a los campos generales:
@@ -47,7 +47,7 @@ reemplaza todo. Reglas de copy:
   - `razones`: `gancho.linea1` = "razones para probar" (el número lo pone el video),
     `linea2` = "este té" / "este sérum"; razones un poco más completas (≤ 34 caracteres).
 - **Formatos**: por defecto salen los 4 (9:16, 4:5, 1:1, 16:9). Usa `formatos` en la ficha
-  solo si Julio pide menos.
+  solo si Isabella pide menos.
 - **Aviso**: siempre aclarar "Distribuidora independiente Farmasi" y que los resultados varían.
 - **Caption**: primera línea = gancho (se ve antes del "ver más"), luego beneficios con
   emojis, prueba social si existe, y el llamado a escribir la palabra clave. 5–12 hashtags
@@ -87,7 +87,7 @@ sirve cada formato) y el texto de `salida/<slug>/caption.txt`. Si el proyecto ti
 carpeta compartida (`/mnt/project-files`), copia la carpeta `<estilo>/` y el caption a
 `/mnt/project-files/anuncios/<slug>/` y adjúntalos.
 
-**Nunca publiques** en TikTok, Instagram ni ningún otro lado sin que Julio lo pida
+**Nunca publiques** en TikTok, Instagram ni ningún otro lado sin que Isabella lo pida
 explícitamente para ese video.
 
 ## Requisitos del entorno
