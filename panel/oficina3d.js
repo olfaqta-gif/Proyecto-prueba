@@ -54,19 +54,23 @@ function semillaAzar(n) { let s = n * 9301 + 49297; return () => ((s = (s * 9301
 /* ---------------- materiales compartidos ---------------- */
 const MAT = {
   piso: null,
-  pared: new THREE.MeshStandardMaterial({ color: 0xe9eff9, roughness: 0.9 }),
-  zocalo: new THREE.MeshStandardMaterial({ color: 0x3d7bff, roughness: 0.5 }),
-  base: new THREE.MeshStandardMaterial({ color: 0x1a3a86, roughness: 0.6 }),
-  blanco: new THREE.MeshPhysicalMaterial({ color: 0xf7f9fd, roughness: 0.35, clearcoat: 0.6, clearcoatRoughness: 0.3 }),
-  gris: new THREE.MeshStandardMaterial({ color: 0xc8d4ea, roughness: 0.5, metalness: 0.2 }),
-  metal: new THREE.MeshStandardMaterial({ color: 0x8b9ab8, roughness: 0.3, metalness: 0.8 }),
+  pared: new THREE.MeshStandardMaterial({ color: 0xfaf1f1, roughness: 0.9 }),
+  zocalo: new THREE.MeshStandardMaterial({ color: 0xe58aa8, roughness: 0.45 }),
+  dorado: new THREE.MeshStandardMaterial({ color: 0xd8b46a, roughness: 0.25, metalness: 0.9 }),
+  base: new THREE.MeshStandardMaterial({ color: 0x2c2350, roughness: 0.6 }),
+  blanco: new THREE.MeshPhysicalMaterial({ color: 0xfffbfa, roughness: 0.35, clearcoat: 0.6, clearcoatRoughness: 0.3 }),
+  gris: new THREE.MeshStandardMaterial({ color: 0xeadde0, roughness: 0.5, metalness: 0.2 }),
+  metal: new THREE.MeshStandardMaterial({ color: 0xe3bfb0, roughness: 0.3, metalness: 0.8 }),   // oro rosa
   oscuro: new THREE.MeshStandardMaterial({ color: 0x1d2740, roughness: 0.5, metalness: 0.3 }),
-  tela: new THREE.MeshStandardMaterial({ color: 0x2b4c9b, roughness: 0.85 }),
+  tela: new THREE.MeshPhysicalMaterial({ color: 0xf4b6c8, roughness: 0.8, sheen: 1, sheenColor: 0xffe1ea }),   // terciopelo rosado
   maceta: new THREE.MeshStandardMaterial({ color: 0xf2f5fb, roughness: 0.6 }),
   hoja: new THREE.MeshStandardMaterial({ color: 0x36b98a, roughness: 0.6, side: THREE.DoubleSide }),
   hoja2: new THREE.MeshStandardMaterial({ color: 0x2a9a73, roughness: 0.6, side: THREE.DoubleSide }),
   madera: new THREE.MeshStandardMaterial({ color: 0xd9b991, roughness: 0.7 }),
-  cian: new THREE.MeshBasicMaterial({ color: 0x6fdcff, toneMapped: false }),
+  cian: new THREE.MeshBasicMaterial({ color: 0xff9cc6, toneMapped: false }),
+  flor: new THREE.MeshStandardMaterial({ color: 0xff8fb5, roughness: 0.5 }),
+  flor2: new THREE.MeshStandardMaterial({ color: 0xffd1e0, roughness: 0.5 }),
+  florero: new THREE.MeshPhysicalMaterial({ color: 0xffffff, roughness: 0.05, transmission: 0.6, transparent: true, opacity: 0.6 }),
 };
 
 /* ---------------- el robot ---------------- */
@@ -83,94 +87,151 @@ function rolDe(agente) {
   return "taza";
 }
 
+// Colores del uniforme Farmasi: vestido rosa con cuello blanco, cinturón negro y detalles dorados.
+const UNIFORME = { rosa: 0xe8457f, negro: 0x1c1a1f, dorado: 0xd8b46a };
+// Tonos de pelo: cada robot tiene el suyo (fijo según su lugar en el equipo).
+const PELOS = [0x4a2f27, 0xe6c07e, 0x231c22, 0xb0603c, 0xc9a2e0, 0x8a5440, 0xf3b4cc, 0xefe0c0];
+function texturaGafete() {
+  return lienzo(256, 96, (x, w, h) => {
+    x.fillStyle = "#ffffff"; x.beginPath(); x.roundRect(0, 0, w, h, 18); x.fill();
+    x.fillStyle = "#1c1a1f"; x.font = "800 58px Sora, 'Segoe UI', sans-serif"; x.textAlign = "center"; x.textBaseline = "middle";
+    x.fillText("FARMASI", w / 2, h / 2 + 3);
+  });
+}
+let GAFETE = null;
+
 function crearRobot(agente, variante) {
   const color = new THREE.Color(agente.color);
+  GAFETE ??= texturaGafete();
   const m = {
-    casco: new THREE.MeshPhysicalMaterial({ color: 0xf5f8fd, roughness: 0.28, clearcoat: 1, clearcoatRoughness: 0.12 }),
-    junta: new THREE.MeshStandardMaterial({ color: 0x27324d, roughness: 0.4, metalness: 0.55 }),
-    acento: new THREE.MeshStandardMaterial({ color, roughness: 0.35, emissive: color, emissiveIntensity: 0.18 }),
-    visor: new THREE.MeshPhysicalMaterial({ color: 0x08101f, roughness: 0.06, clearcoat: 1, metalness: 0.3 }),
-    luz: new THREE.MeshBasicMaterial({ color: color.clone().multiplyScalar(1.4), toneMapped: false }),
+    casco: new THREE.MeshPhysicalMaterial({ color: 0xfdf8f7, roughness: 0.25, clearcoat: 1, clearcoatRoughness: 0.1, sheen: 0.4, sheenColor: 0xffd6e4 }),
+    junta: new THREE.MeshStandardMaterial({ color: 0xe9dfe3, roughness: 0.35, metalness: 0.4 }),
+    uniforme: new THREE.MeshPhysicalMaterial({ color: UNIFORME.rosa, roughness: 0.55, sheen: 1, sheenColor: 0xffc4da, sheenRoughness: 0.5 }),
+    cuello: new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.6, side: THREE.DoubleSide }),
+    negro: new THREE.MeshStandardMaterial({ color: UNIFORME.negro, roughness: 0.4 }),
+    dorado: new THREE.MeshStandardMaterial({ color: UNIFORME.dorado, roughness: 0.25, metalness: 0.9 }),
+    pelo: new THREE.MeshPhysicalMaterial({ color: PELOS[variante % PELOS.length], roughness: 0.45, clearcoat: 0.6, clearcoatRoughness: 0.35, side: THREE.DoubleSide }),
+    acento: new THREE.MeshStandardMaterial({ color, roughness: 0.35, emissive: color, emissiveIntensity: 0.15 }),
+    visor: new THREE.MeshPhysicalMaterial({ color: 0x1a1222, roughness: 0.08, clearcoat: 1, metalness: 0.2 }),
+    luz: new THREE.MeshBasicMaterial({ color: 0x9ff0ff, toneMapped: false }),
+    rubor: new THREE.MeshBasicMaterial({ color: 0xff7aa8, transparent: true, opacity: 0.75, toneMapped: false }),
+    brillo: new THREE.MeshBasicMaterial({ color: 0xffffff, toneMapped: false }),
   };
+  // Cada robot con su color de ojos (el color del agente, aclarado para que brille)
+  m.luz.color.copy(color).lerp(new THREE.Color(0xffffff), 0.35).multiplyScalar(1.3);
   const raiz = new THREE.Group(); raiz.userData.agente = agente.id;
   const cadera = new THREE.Group(); cadera.position.y = 0.8; raiz.add(cadera);
   const cuerpo = new THREE.Group(); cadera.add(cuerpo);
 
-  // Torso
-  cuerpo.add(malla(new THREE.BoxGeometry(0.44, 0.16, 0.3), m.junta, 0, 0.02, 0));
-  const torso = malla(new THREE.CapsuleGeometry(0.3, 0.3, 8, 20), m.casco, 0, 0.44, 0); torso.scale.set(1, 1, 0.78); cuerpo.add(torso);
-  const cinturon = malla(new THREE.CylinderGeometry(0.305, 0.3, 0.07, 24), m.acento, 0, 0.2, 0); cinturon.scale.z = 0.78; cuerpo.add(cinturon);
-  const nucleo = malla(new THREE.CircleGeometry(0.075, 24), m.luz, 0, 0.52, 0.238); cuerpo.add(nucleo);
-  const aro = malla(new THREE.TorusGeometry(0.1, 0.016, 8, 28), m.junta, 0, 0.52, 0.232); cuerpo.add(aro);
-  if (variante % 2 === 0) { // mochila con propulsores
-    const mochila = malla(new THREE.BoxGeometry(0.34, 0.36, 0.16), m.casco, 0, 0.5, -0.27); cuerpo.add(mochila);
-    [-0.09, 0.09].forEach((x) => cuerpo.add(malla(new THREE.CylinderGeometry(0.05, 0.065, 0.12, 14), m.acento, x, 0.28, -0.3)));
-  } else { // placa de hombros
-    const placa = malla(new THREE.BoxGeometry(0.62, 0.06, 0.32), m.acento, 0, 0.7, 0); cuerpo.add(placa);
-  }
-
-  // Cuello y cabeza
-  cuerpo.add(malla(new THREE.CylinderGeometry(0.075, 0.09, 0.14, 14), m.junta, 0, 0.84, 0));
-  const cabeza = new THREE.Group(); cabeza.position.y = 1.05; cuerpo.add(cabeza);
-  let frente = 0.27, ojoY = 0, tope = 0.28;
-  if (variante % 4 === 0) {          // cabeza redonda
-    const c = malla(new THREE.SphereGeometry(0.3, 32, 24), m.casco); c.scale.set(1.12, 0.95, 1); cabeza.add(c);
-    frente = 0.27;
-  } else if (variante % 4 === 1) {   // cabeza de pantalla
-    cabeza.add(malla(new THREE.BoxGeometry(0.6, 0.44, 0.44), m.casco));
-    [-0.3, 0.3].forEach((x) => cabeza.add(malla(new THREE.CylinderGeometry(0.22, 0.22, 0.04, 24), m.casco, x, 0, 0).rotateZ(Math.PI / 2)));
-    frente = 0.225; tope = 0.22;
-  } else if (variante % 4 === 2) {   // cápsula horizontal
-    const c = malla(new THREE.CapsuleGeometry(0.25, 0.22, 8, 24), m.casco); c.rotation.z = Math.PI / 2; c.scale.set(1, 1, 0.95); cabeza.add(c);
-    frente = 0.24; tope = 0.25;
-  } else {                           // domo
-    cabeza.add(malla(new THREE.CylinderGeometry(0.28, 0.3, 0.3, 28), m.casco, 0, -0.04, 0));
-    const domo = malla(new THREE.SphereGeometry(0.28, 28, 14, 0, Math.PI * 2, 0, Math.PI / 2), m.casco, 0, 0.11, 0); cabeza.add(domo);
-    frente = 0.29; ojoY = -0.02; tope = 0.38;
-  }
-  const visor = malla(new THREE.CapsuleGeometry(0.12, 0.26, 8, 20), m.visor, 0, ojoY, frente - 0.04);
-  visor.rotation.z = Math.PI / 2; visor.scale.set(1, 1, 0.45); cabeza.add(visor);
-  const ojos = [-0.085, 0.085].map((x) => {
-    const o = malla(new THREE.CapsuleGeometry(0.03, 0.045, 6, 12), m.luz, x, ojoY + 0.01, frente + 0.02);
-    o.castShadow = false; cabeza.add(o); return o;
+  // Vestido del uniforme: torso entallado con cintura fina
+  const perfil = [[0, 0.06], [0.2, 0.06], [0.215, 0.12], [0.165, 0.26], [0.2, 0.42], [0.235, 0.56], [0.215, 0.68], [0.15, 0.76], [0.07, 0.8], [0, 0.81]]
+    .map(([r, y]) => new THREE.Vector2(r, y));
+  const torso = malla(new THREE.LatheGeometry(perfil, 32), m.uniforme); torso.scale.z = 0.8; cuerpo.add(torso);
+  // Cuello blanco en V (solapas) y gafete FARMASI
+  [-1, 1].forEach((s) => {
+    const solapa = malla(new THREE.BoxGeometry(0.08, 0.2, 0.012), m.cuello, s * 0.06, 0.66, 0.165);
+    solapa.rotation.set(-0.35, 0, s * 0.5); cuerpo.add(solapa);
   });
-  const sonrisa = malla(new THREE.TorusGeometry(0.055, 0.011, 8, 20, Math.PI), m.luz, 0, ojoY - 0.06, frente + 0.02);
-  sonrisa.rotation.z = Math.PI; sonrisa.visible = false; cabeza.add(sonrisa);
-  // Orejas / audífonos y antena
-  if (variante % 3 !== 2) [-1, 1].forEach((s) => {
-    const oreja = malla(new THREE.CylinderGeometry(0.085, 0.085, 0.07, 20), m.acento, s * 0.33, 0, 0); oreja.rotation.z = Math.PI / 2; cabeza.add(oreja);
-  });
-  const antena = new THREE.Group(); antena.position.set(variante % 3 === 1 ? 0.14 : 0, 0.26, 0); cabeza.add(antena);
-  antena.add(malla(new THREE.CylinderGeometry(0.012, 0.012, 0.22, 8), m.junta, 0, 0.1, 0));
-  const foco = malla(new THREE.SphereGeometry(0.045, 16, 12), m.luz, 0, 0.23, 0); antena.add(foco);
-  if (variante % 3 === 2) { // cresta
-    const cresta = malla(new THREE.BoxGeometry(0.06, 0.08, 0.4), m.acento, 0, 0.27, 0); cabeza.add(cresta);
-  }
+  const gafete = new THREE.Mesh(new THREE.PlaneGeometry(0.15, 0.056), new THREE.MeshBasicMaterial({ map: GAFETE, toneMapped: false }));
+  gafete.position.set(0.1, 0.5, 0.188); gafete.rotation.set(-0.12, 0.28, 0); cuerpo.add(gafete);
+  // Cinturón negro con hebilla dorada (el centro brilla con el color del agente)
+  const cinturon = malla(new THREE.CylinderGeometry(0.172, 0.168, 0.05, 28), m.negro, 0, 0.26, 0); cinturon.scale.z = 0.8; cuerpo.add(cinturon);
+  cuerpo.add(malla(new THREE.BoxGeometry(0.075, 0.055, 0.02), m.dorado, 0, 0.26, 0.138));
+  const nucleo = malla(new THREE.CircleGeometry(0.016, 16), m.luz, 0, 0.26, 0.149); cuerpo.add(nucleo);
+  // Botones dorados
+  [0.38, 0.45].forEach((y) => cuerpo.add(malla(new THREE.SphereGeometry(0.014, 10, 8), m.dorado, 0, y, 0.172)));
 
-  // Brazos
+  // Falda acampanada (se aplana al sentarse)
+  const falda = malla(new THREE.LatheGeometry([[0.0, -0.23], [0.315, -0.23], [0.31, -0.2], [0.26, -0.06], [0.2, 0.08]].map(([r, y]) => new THREE.Vector2(r, y)), 32), m.uniforme);
+  falda.scale.z = 0.85; cadera.add(falda);
+  cadera.add(malla(new THREE.TorusGeometry(0.31, 0.012, 6, 40), m.cuello, 0, -0.22, 0).rotateX(Math.PI / 2)).scale.z = 0.85;
+
+  // Cuello y cabeza (grande, estilo muñequita)
+  cuerpo.add(malla(new THREE.CylinderGeometry(0.055, 0.07, 0.14, 14), m.casco, 0, 0.84, 0));
+  cuerpo.add(malla(new THREE.TorusGeometry(0.065, 0.01, 6, 24), m.dorado, 0, 0.8, 0).rotateX(Math.PI / 2)); // collar
+  const cabeza = new THREE.Group(); cabeza.position.y = 1.08; cabeza.scale.setScalar(1.15); cuerpo.add(cabeza);
+  const craneo = malla(new THREE.SphereGeometry(0.29, 36, 28), m.casco); craneo.scale.set(1.04, 0.97, 1); cabeza.add(craneo);
+  // Carita de porcelana: ojos grandes brillantes con pestañas, rubor y boquita
+  const sobreCara = (x, y) => 0.29 * Math.sqrt(Math.max(0, 1 - (x / 0.3016) ** 2 - (y / 0.2813) ** 2)) + 0.003;
+  const ojos = [-1, 1].map((s) => {
+    const x = s * 0.092, y = 0.0;
+    const o = new THREE.Group(); o.position.set(x, y, sobreCara(x, y)); o.rotation.y = s * 0.32; o.rotation.x = -0.02; cabeza.add(o);
+    const blanco = new THREE.Mesh(new THREE.CircleGeometry(0.046, 24), m.visor); blanco.scale.y = 1.22; o.add(blanco);
+    const iris = new THREE.Mesh(new THREE.CircleGeometry(0.03, 24), m.luz); iris.scale.y = 1.2; iris.position.set(0, -0.006, 0.001); o.add(iris);
+    const chispa = new THREE.Mesh(new THREE.CircleGeometry(0.013, 12), m.brillo); chispa.position.set(-0.014, 0.02, 0.002); o.add(chispa);
+    [0, 1, 2].forEach((k) => {            // pestañas
+      const p = new THREE.Mesh(new THREE.BoxGeometry(0.009, 0.034, 0.004), m.visor);
+      const a = 0.35 + k * 0.38; p.position.set(s * Math.cos(a) * 0.05, Math.sin(a) * 0.058 + 0.004, 0.003); p.rotation.z = -s * (Math.PI / 2 - a) * 0.9;
+      o.add(p);
+    });
+    return o;
+  });
+  [-1, 1].forEach((s) => {                  // rubor en las mejillas
+    const x = s * 0.165, y = -0.07;
+    const r = new THREE.Mesh(new THREE.CircleGeometry(0.03, 18), m.rubor); r.scale.y = 0.6;
+    r.position.set(x, y, sobreCara(x, y)); r.rotation.y = s * 0.6; cabeza.add(r);
+  });
+  const boca = new THREE.Mesh(new THREE.TorusGeometry(0.022, 0.006, 6, 16, Math.PI), m.rubor);
+  boca.position.set(0, -0.085, sobreCara(0, -0.085)); boca.rotation.z = Math.PI; cabeza.add(boca);
+  const sonrisa = new THREE.Mesh(new THREE.CircleGeometry(0.04, 20, Math.PI, Math.PI), m.rubor);
+  sonrisa.position.set(0, -0.075, sobreCara(0, -0.075) + 0.001); sonrisa.visible = false; cabeza.add(sonrisa);
+  // Orejitas con aretes dorados
+  [-1, 1].forEach((s) => {
+    const oreja = malla(new THREE.CylinderGeometry(0.06, 0.06, 0.04, 18), m.casco, s * 0.295, -0.02, 0); oreja.rotation.z = Math.PI / 2; cabeza.add(oreja);
+    cabeza.add(malla(new THREE.SphereGeometry(0.022, 10, 8), m.dorado, s * 0.31, -0.1, 0.01));
+  });
+
+  // Peinado (4 estilos): flequillo y casquete siempre; atrás cambia
+  const R = 0.315, estilo = variante % 4;
+  const casquete = malla(new THREE.SphereGeometry(R, 36, 20, 0, Math.PI * 2, 0, 1.1), m.pelo, 0, 0.02, 0); casquete.scale.set(1.05, 1, 1.02); cabeza.add(casquete);
+  const largoAtras = [2.05, 1.7, 1.65, 2.35][estilo];
+  const nuca = malla(new THREE.SphereGeometry(R, 36, 24, Math.PI / 2 + 0.85, Math.PI * 2 - 1.7, 0.4, largoAtras - 0.4), m.pelo, 0, 0.02, 0);
+  nuca.scale.set(1.06, 1, 1.04); cabeza.add(nuca);
+  let tope = 0.33;
+  if (estilo === 1) {                       // cola de caballo
+    const cola = new THREE.Group(); cola.position.set(0, 0.12, -0.3); cabeza.add(cola);
+    const mecha = malla(new THREE.CapsuleGeometry(0.075, 0.28, 8, 16), m.pelo, 0, -0.17, -0.04); mecha.rotation.x = 0.35; cola.add(mecha);
+    cola.add(malla(new THREE.TorusGeometry(0.06, 0.02, 8, 20), m.acento, 0, 0, 0).rotateX(Math.PI / 2 - 0.5));
+  } else if (estilo === 2) {                // moño alto
+    cabeza.add(malla(new THREE.SphereGeometry(0.13, 20, 16), m.pelo, 0, 0.3, -0.12));
+    cabeza.add(malla(new THREE.TorusGeometry(0.1, 0.022, 8, 24), m.acento, 0, 0.25, -0.1).rotateX(Math.PI / 2 - 0.4));
+    tope = 0.42;
+  } else if (estilo === 3) {                // pelo largo
+    const largo = malla(new THREE.CapsuleGeometry(0.2, 0.25, 8, 20), m.pelo, 0, -0.32, -0.16); largo.scale.set(1.35, 1, 0.55); cabeza.add(largo);
+  }
+  // Lazo en la cabeza del color del agente (el centro brilla cuando está en reunión)
+  const lazo = new THREE.Group(); lazo.position.set(0.17, 0.24, 0.1); lazo.rotation.set(0.3, 0.4, -0.5); cabeza.add(lazo);
+  [-1, 1].forEach((s) => {
+    const ala = malla(new THREE.SphereGeometry(0.06, 16, 12), m.acento, s * 0.065, 0, 0); ala.scale.set(1.1, 0.75, 0.45); ala.rotation.z = s * 0.25; lazo.add(ala);
+  });
+  const foco = malla(new THREE.SphereGeometry(0.03, 14, 10), m.luz); lazo.add(foco);
+  const antena = lazo;
+
+  // Brazos finos con manguita abullonada del uniforme
   const hombros = [], codos = [], manos = [];
   [-1, 1].forEach((s) => {
-    const hombro = new THREE.Group(); hombro.position.set(s * 0.42, 0.66, 0); cuerpo.add(hombro);
-    hombro.add(malla(new THREE.SphereGeometry(0.1, 16, 12), m.junta));
-    hombro.add(malla(new THREE.CapsuleGeometry(0.092, 0.18, 6, 14), m.casco, 0, -0.19, 0));
-    const codo = new THREE.Group(); codo.position.y = -0.36; hombro.add(codo);
-    codo.add(malla(new THREE.SphereGeometry(0.07, 14, 10), m.junta));
-    codo.add(malla(new THREE.CapsuleGeometry(0.088, 0.16, 6, 14), m.casco, 0, -0.16, 0));
-    codo.add(malla(new THREE.CylinderGeometry(0.093, 0.093, 0.045, 16), m.acento, 0, -0.1, 0));
-    const mano = new THREE.Group(); mano.position.y = -0.33; codo.add(mano);
-    const palma = malla(new THREE.SphereGeometry(0.1, 16, 12), m.junta); palma.scale.set(1, 1.1, 0.8); mano.add(palma);
+    const hombro = new THREE.Group(); hombro.position.set(s * 0.27, 0.68, 0); cuerpo.add(hombro);
+    const manga = malla(new THREE.SphereGeometry(0.085, 16, 12), m.uniforme, 0, -0.03, 0); manga.scale.set(1, 1.1, 1); hombro.add(manga);
+    hombro.add(malla(new THREE.CapsuleGeometry(0.052, 0.2, 6, 14), m.casco, 0, -0.19, 0));
+    const codo = new THREE.Group(); codo.position.y = -0.34; hombro.add(codo);
+    codo.add(malla(new THREE.SphereGeometry(0.048, 12, 10), m.junta));
+    codo.add(malla(new THREE.CapsuleGeometry(0.048, 0.17, 6, 14), m.casco, 0, -0.15, 0));
+    codo.add(malla(new THREE.TorusGeometry(0.05, 0.01, 6, 20), m.dorado, 0, -0.24, 0).rotateX(Math.PI / 2)); // pulsera
+    const mano = new THREE.Group(); mano.position.y = -0.31; codo.add(mano);
+    const palma = malla(new THREE.SphereGeometry(0.06, 14, 10), m.casco); palma.scale.set(0.9, 1.15, 0.75); mano.add(palma);
     hombros.push(hombro); codos.push(codo); manos.push(mano);
   });
-  // Piernas
+  // Piernas finas con zapatos rosados de tacón bajito
   const muslos = [], rodillas = [];
   [-1, 1].forEach((s) => {
-    const muslo = new THREE.Group(); muslo.position.set(s * 0.15, 0, 0); cadera.add(muslo);
-    muslo.add(malla(new THREE.CapsuleGeometry(0.11, 0.18, 6, 14), m.casco, 0, -0.18, 0));
+    const muslo = new THREE.Group(); muslo.position.set(s * 0.1, 0, 0); cadera.add(muslo);
+    muslo.add(malla(new THREE.CapsuleGeometry(0.07, 0.2, 6, 14), m.casco, 0, -0.18, 0));
     const rodilla = new THREE.Group(); rodilla.position.y = -0.38; muslo.add(rodilla);
-    rodilla.add(malla(new THREE.SphereGeometry(0.085, 14, 10), m.junta));
-    rodilla.add(malla(new THREE.CapsuleGeometry(0.1, 0.16, 6, 14), m.casco, 0, -0.17, 0));
-    const pie = malla(new RoundedBox(0.21, 0.1, 0.33, 0.04), m.junta, 0, -0.36, 0.05); rodilla.add(pie);
-    rodilla.add(malla(new THREE.BoxGeometry(0.2, 0.03, 0.13), m.acento, 0, -0.315, 0.13));
+    rodilla.add(malla(new THREE.SphereGeometry(0.058, 12, 10), m.junta));
+    rodilla.add(malla(new THREE.CapsuleGeometry(0.06, 0.18, 6, 14), m.casco, 0, -0.17, 0));
+    const zapato = malla(new RoundedBox(0.13, 0.08, 0.24, 0.035), m.uniforme, 0, -0.34, 0.04); rodilla.add(zapato);
+    rodilla.add(malla(new THREE.BoxGeometry(0.04, 0.06, 0.04), m.uniforme, 0, -0.39, -0.05)); // tacón
+    rodilla.add(malla(new THREE.SphereGeometry(0.016, 8, 6), m.dorado, 0, -0.31, 0.15));
     muslos.push(muslo); rodillas.push(rodilla);
   });
 
@@ -178,31 +239,31 @@ function crearRobot(agente, variante) {
   const objeto = new THREE.Group(); manos[1].add(objeto); objeto.position.set(0, -0.08, 0.06);
   const rol = rolDe(agente);
   if (rol === "lupa") {
-    objeto.add(malla(new THREE.CylinderGeometry(0.02, 0.025, 0.2, 10), m.junta, 0, -0.08, 0));
+    objeto.add(malla(new THREE.CylinderGeometry(0.02, 0.025, 0.2, 10), m.negro, 0, -0.08, 0));
     const anillo = malla(new THREE.TorusGeometry(0.1, 0.018, 10, 28), m.acento, 0, -0.27, 0); objeto.add(anillo);
     const vidrio = malla(new THREE.CircleGeometry(0.09, 24), new THREE.MeshPhysicalMaterial({ color: 0xbfeaff, transparent: true, opacity: 0.45, roughness: 0, side: THREE.DoubleSide }), 0, -0.27, 0);
     objeto.add(vidrio); objeto.rotation.x = -1.2;
   } else if (rol === "camara") {
-    objeto.add(malla(new THREE.BoxGeometry(0.2, 0.14, 0.12), m.junta, 0, -0.06, 0.06));
+    objeto.add(malla(new THREE.BoxGeometry(0.2, 0.14, 0.12), m.negro, 0, -0.06, 0.06));
     const lente = malla(new THREE.CylinderGeometry(0.05, 0.06, 0.1, 18), m.acento, 0, -0.06, 0.16); lente.rotation.x = Math.PI / 2; objeto.add(lente);
     objeto.add(malla(new THREE.SphereGeometry(0.015, 8, 8), new THREE.MeshBasicMaterial({ color: 0xff4d5e, toneMapped: false }), 0.07, 0.02, 0.06));
   } else if (rol === "tableta") {
-    objeto.add(malla(new THREE.BoxGeometry(0.26, 0.34, 0.02), m.junta, 0, -0.12, 0.05));
+    objeto.add(malla(new THREE.BoxGeometry(0.26, 0.34, 0.02), m.negro, 0, -0.12, 0.05));
     const pantalla = malla(new THREE.PlaneGeometry(0.22, 0.3), new THREE.MeshBasicMaterial({ map: pantallaTableta(agente.color), toneMapped: false }), 0, -0.12, 0.062);
     objeto.add(pantalla); objeto.rotation.x = -0.9;
   } else if (rol === "puntero") {   // el profe: puntero con punta que brilla
-    const vara = malla(new THREE.CylinderGeometry(0.012, 0.02, 0.42, 10), m.junta, 0, -0.16, 0.02); objeto.add(vara);
+    const vara = malla(new THREE.CylinderGeometry(0.012, 0.02, 0.42, 10), m.negro, 0, -0.16, 0.02); objeto.add(vara);
     objeto.add(malla(new THREE.SphereGeometry(0.035, 12, 10), m.luz, 0, -0.38, 0.02));
     objeto.rotation.x = -1.0;
   } else if (rol === "claqueta") {   // el guionista: claqueta de cine con rayas
-    objeto.add(malla(new THREE.BoxGeometry(0.26, 0.18, 0.02), m.junta, 0, -0.12, 0.05));
+    objeto.add(malla(new THREE.BoxGeometry(0.26, 0.18, 0.02), m.negro, 0, -0.12, 0.05));
     const tapa = new THREE.Group(); tapa.position.set(-0.13, -0.025, 0.05); tapa.rotation.z = 0.35; objeto.add(tapa);
     for (let i = 0; i < 4; i++) {
       tapa.add(malla(new THREE.BoxGeometry(0.065, 0.045, 0.022), i % 2 ? m.casco : m.acento, 0.0325 + i * 0.065, 0.0225, 0));
     }
     objeto.rotation.x = -0.6;
   } else if (rol === "grafico") {   // la analista: tablero con barras que suben y una flecha
-    objeto.add(malla(new THREE.BoxGeometry(0.28, 0.22, 0.02), m.junta, 0, -0.12, 0.05));
+    objeto.add(malla(new THREE.BoxGeometry(0.28, 0.22, 0.02), m.negro, 0, -0.12, 0.05));
     [0.06, 0.1, 0.08, 0.15].forEach((h, i) => {
       objeto.add(malla(new THREE.BoxGeometry(0.04, h, 0.012), i === 3 ? m.luz : m.acento, -0.09 + i * 0.06, -0.21 + h / 2, 0.066));
     });
@@ -210,19 +271,19 @@ function crearRobot(agente, variante) {
     objeto.rotation.x = -0.8;
   } else if (rol === "frasco") {   // la asesora: frasco de sérum con gotero
     objeto.add(malla(new THREE.CylinderGeometry(0.055, 0.06, 0.15, 18), m.acento, 0, -0.1, 0.06));
-    objeto.add(malla(new THREE.CylinderGeometry(0.03, 0.03, 0.04, 14), m.junta, 0, -0.005, 0.06));
-    objeto.add(malla(new THREE.SphereGeometry(0.035, 14, 10), m.junta, 0, 0.035, 0.06));
+    objeto.add(malla(new THREE.CylinderGeometry(0.03, 0.03, 0.04, 14), m.negro, 0, -0.005, 0.06));
+    objeto.add(malla(new THREE.SphereGeometry(0.035, 14, 10), m.negro, 0, 0.035, 0.06));
     objeto.add(malla(new THREE.SphereGeometry(0.012, 8, 8), m.luz, 0, -0.06, 0.12));
   } else if (rol === "telefono") {
-    objeto.add(malla(new THREE.BoxGeometry(0.09, 0.17, 0.02), m.junta, 0, -0.06, 0.04));
+    objeto.add(malla(new THREE.BoxGeometry(0.09, 0.17, 0.02), m.negro, 0, -0.06, 0.04));
   } else {
     objeto.add(malla(new THREE.CylinderGeometry(0.05, 0.045, 0.11, 16), m.acento, 0, -0.04, 0.06));
   }
   objeto.visible = false;
   if (rol === "puntero") {         // y su birrete de graduación, siempre puesto
     const birrete = new THREE.Group(); birrete.position.y = tope + 0.02; cabeza.add(birrete);
-    birrete.add(malla(new THREE.CylinderGeometry(0.17, 0.19, 0.08, 20), m.junta, 0, 0.02, 0));
-    const tabla = malla(new THREE.BoxGeometry(0.5, 0.03, 0.5), m.junta, 0, 0.075, 0); tabla.rotation.y = Math.PI / 4; birrete.add(tabla);
+    birrete.add(malla(new THREE.CylinderGeometry(0.17, 0.19, 0.08, 20), m.negro, 0, 0.02, 0));
+    const tabla = malla(new THREE.BoxGeometry(0.5, 0.03, 0.5), m.negro, 0, 0.075, 0); tabla.rotation.y = Math.PI / 4; birrete.add(tabla);
     birrete.add(malla(new THREE.SphereGeometry(0.025, 10, 8), m.acento, 0, 0.1, 0));
     const borla = malla(new THREE.CylinderGeometry(0.008, 0.008, 0.16, 6), m.acento, 0.3, 0.01, 0.06); birrete.add(borla);
     birrete.add(malla(new THREE.SphereGeometry(0.03, 10, 8), m.acento, 0.3, -0.08, 0.06));
@@ -230,9 +291,9 @@ function crearRobot(agente, variante) {
     antena.visible = false;          // la antena quedaría atravesando el birrete
   }
 
-  raiz.scale.setScalar(0.9);
+  raiz.scale.setScalar(0.95);
   raiz.traverse((o) => { if (o.isMesh) o.userData.agente = agente.id; });
-  return { raiz, cadera, cuerpo, cabeza, hombros, codos, muslos, rodillas, ojos, foco, sonrisa, nucleo, objeto, rol };
+  return { raiz, cadera, cuerpo, cabeza, hombros, codos, muslos, rodillas, ojos, foco, sonrisa, boca, falda, nucleo, objeto, rol };
 }
 function pantallaTableta(color) {
   return lienzo(128, 176, (x, w, h) => {
@@ -277,6 +338,7 @@ function crearEscritorio(agente, n) {
   g.add(malla(new THREE.CylinderGeometry(0.05, 0.045, 0.11, 16), new THREE.MeshStandardMaterial({ color, roughness: .4 }), 0.62, 0.825, 0.65));
   g.add(malla(new THREE.BoxGeometry(0.24, 0.015, 0.32), MAT.oscuro, -0.55, 0.78, 0.8).rotateY(0.2));
   if (n % 2 === 0) { const p = crearPlanta(0.35); p.position.set(-0.75, 0.77, 1.05); g.add(p); }
+  else { const f = crearFlores(0.8); f.position.set(-0.72, 0.77, 1.05); g.add(f); }
   // Silla
   const silla = new THREE.Group(); g.add(silla);
   silla.add(malla(new THREE.BoxGeometry(0.54, 0.08, 0.5), MAT.tela, 0, 0.47, 0));
@@ -300,6 +362,21 @@ function crearPlanta(escala = 1) {
     hoja.position.set(Math.sin(a) * 0.12, 0.85 + azar() * 0.2, Math.cos(a) * 0.12);
     hoja.rotation.set(Math.cos(a) * 0.55, 0, -Math.sin(a) * 0.55); hoja.rotation.y = a;
     g.add(hoja);
+  }
+  g.scale.setScalar(escala); return g;
+}
+
+// Florero de vidrio con flores rosadas
+function crearFlores(escala = 1) {
+  const g = new THREE.Group();
+  g.add(malla(new THREE.CylinderGeometry(0.09, 0.07, 0.26, 18), MAT.florero, 0, 0.13, 0));
+  const azar = semillaAzar(Math.round(escala * 37));
+  for (let i = 0; i < 7; i++) {
+    const a = (i / 7) * Math.PI * 2 + azar(), r = i ? 0.08 + azar() * 0.05 : 0, y = 0.4 + azar() * 0.14;
+    const tallo = malla(new THREE.CylinderGeometry(0.008, 0.008, y, 5), MAT.hoja2, Math.sin(a) * r / 2, y / 2 + 0.05, Math.cos(a) * r / 2);
+    tallo.rotation.set(Math.cos(a) * r * 1.5, 0, -Math.sin(a) * r * 1.5); g.add(tallo);
+    const flor = malla(new THREE.SphereGeometry(0.055, 12, 10), i % 3 ? MAT.flor : MAT.flor2, Math.sin(a) * r, y + 0.05, Math.cos(a) * r);
+    flor.scale.y = 0.8; g.add(flor);
   }
   g.scale.setScalar(escala); return g;
 }
@@ -356,43 +433,52 @@ export function crearOficina(contenedor, opciones = {}) {
   }
 
   // Luces
-  escena.add(new THREE.HemisphereLight(0xe4efff, 0x2b3d6b, 1.1));
-  const sol = new THREE.DirectionalLight(0xffffff, 2.0); sol.position.set(9, 16, 10); sol.castShadow = true;
+  escena.add(new THREE.HemisphereLight(0xfff4f6, 0x6b4a6b, 1.15));
+  const sol = new THREE.DirectionalLight(0xfff3e8, 2.0); sol.position.set(9, 16, 10); sol.castShadow = true;
   sol.shadow.mapSize.set(2048, 2048); Object.assign(sol.shadow.camera, { left: -12, right: 12, top: 10, bottom: -10, near: 1, far: 50 });
   sol.shadow.bias = -0.0004; sol.shadow.normalBias = 0.02; escena.add(sol);
-  const relleno = new THREE.DirectionalLight(0x9cc3ff, 0.6); relleno.position.set(-10, 8, -4); escena.add(relleno);
+  const relleno = new THREE.DirectionalLight(0xffc6dc, 0.55); relleno.position.set(-10, 8, -4); escena.add(relleno);
 
   // Base, piso y paredes (maqueta)
-  const texPiso = lienzo(512, 512, (x, w, h) => {
-    x.fillStyle = "#eef3fb"; x.fillRect(0, 0, w, h);
-    x.strokeStyle = "#d9e3f3"; x.lineWidth = 3;
-    for (let i = 0; i <= 4; i++) { x.beginPath(); x.moveTo(i * 128, 0); x.lineTo(i * 128, h); x.stroke(); x.beginPath(); x.moveTo(0, i * 128); x.lineTo(w, i * 128); x.stroke(); }
+  const texPiso = lienzo(512, 512, (x, w, h) => {   // piso de madera clara
+    const azar = semillaAzar(7);
+    for (let i = 0; i < 8; i++) {
+      const y = i * 64;
+      for (let px = -((i * 97) % 256); px < w; px += 256) {
+        const tono = 222 + Math.floor(azar() * 14);
+        x.fillStyle = `rgb(${tono + 14},${tono - 6},${tono - 28})`; x.fillRect(px, y, 256, 64);
+        x.strokeStyle = "rgba(150,110,80,.10)"; x.lineWidth = 1;
+        for (let k = 0; k < 5; k++) { x.beginPath(); x.moveTo(px, y + 8 + k * 11 + azar() * 4); x.bezierCurveTo(px + 80, y + 4 + k * 11, px + 170, y + 14 + k * 11, px + 256, y + 8 + k * 11); x.stroke(); }
+        x.fillStyle = "rgba(140,100,70,.28)"; x.fillRect(px, y, 2, 64);
+      }
+      x.fillStyle = "rgba(140,100,70,.25)"; x.fillRect(0, y, w, 2);
+    }
   });
-  texPiso.wrapS = texPiso.wrapT = THREE.RepeatWrapping; texPiso.repeat.set(4, 2.75);
-  MAT.piso = new THREE.MeshStandardMaterial({ map: texPiso, roughness: 0.35, metalness: 0.05 });
+  texPiso.wrapS = texPiso.wrapT = THREE.RepeatWrapping; texPiso.repeat.set(3, 2.1);
+  MAT.piso = new THREE.MeshStandardMaterial({ map: texPiso, roughness: 0.45, metalness: 0.02 });
   escena.add(malla(new THREE.BoxGeometry(16.6, 0.6, 11.6), MAT.base, 0, -0.5, 0));
   escena.add(malla(new THREE.BoxGeometry(16, 0.4, 11), MAT.piso, 0, -0.2, 0));
   escena.add(malla(new THREE.BoxGeometry(16, 4.6, 0.3), MAT.pared, 0, 2.3, -5.65));
   escena.add(malla(new THREE.BoxGeometry(0.3, 4.6, 11.3), MAT.pared, -8.15, 2.3, 0));
   escena.add(malla(new THREE.BoxGeometry(16, 0.16, 0.06), MAT.zocalo, 0, 0.08, -5.48));
   escena.add(malla(new THREE.BoxGeometry(0.06, 0.16, 11), MAT.zocalo, -7.98, 0.08, 0));
-  // franja azul en lo alto de las paredes
+  // franja rosada en lo alto de las paredes
   escena.add(malla(new THREE.BoxGeometry(16, 0.1, 0.32), MAT.zocalo, 0, 4.6, -5.65));
   escena.add(malla(new THREE.BoxGeometry(0.32, 0.1, 11.3), MAT.zocalo, -8.15, 4.6, 0));
   // Alfombra de la sala de reuniones
-  const alfombra = new THREE.Mesh(new THREE.CircleGeometry(3.15, 64), new THREE.MeshStandardMaterial({ color: 0xc7d9f8, roughness: 0.95 }));
+  const alfombra = new THREE.Mesh(new THREE.CircleGeometry(3.15, 64), new THREE.MeshStandardMaterial({ color: 0xf8dde6, roughness: 0.95 }));
   alfombra.rotation.x = -Math.PI / 2; alfombra.position.set(MESA.x, 0.005, MESA.z); alfombra.receiveShadow = true; escena.add(alfombra);
-  const borde = new THREE.Mesh(new THREE.RingGeometry(3.02, 3.15, 64), new THREE.MeshStandardMaterial({ color: 0x3d7bff }));
+  const borde = new THREE.Mesh(new THREE.RingGeometry(3.02, 3.15, 64), new THREE.MeshStandardMaterial({ color: 0xe9b7c6, roughness: 0.6 }));
   borde.rotation.x = -Math.PI / 2; borde.position.set(MESA.x, 0.008, MESA.z); escena.add(borde);
 
   // Ventanal con la ciudad al atardecer
   const ciudad = lienzo(1024, 400, (x, w, h) => {
     const cielo = x.createLinearGradient(0, 0, 0, h);
-    cielo.addColorStop(0, "#0e2a6b"); cielo.addColorStop(0.55, "#3f7fe0"); cielo.addColorStop(0.85, "#9cc6ff"); cielo.addColorStop(1, "#ffd6b0");
+    cielo.addColorStop(0, "#2b2a6e"); cielo.addColorStop(0.45, "#8b5fbf"); cielo.addColorStop(0.75, "#f59ab8"); cielo.addColorStop(1, "#ffd3a8");
     x.fillStyle = cielo; x.fillRect(0, 0, w, h);
     const azar = semillaAzar(11);
     for (let i = 0; i < 60; i++) { x.fillStyle = `rgba(255,255,255,${.3 + azar() * .5})`; x.fillRect(azar() * w, azar() * 120, 2, 2); }
-    for (const [tono, alto, prob] of [["#2a4f9e", 170, .15], ["#173777", 250, .3]]) {
+    for (const [tono, alto, prob] of [["#6a4c93", 170, .15], ["#3b2d63", 250, .3]]) {
       let px = -20;
       while (px < w + 20) {
         const bw = 40 + azar() * 70, bh = alto * (0.5 + azar() * 0.7);
@@ -412,20 +498,20 @@ export function crearOficina(contenedor, opciones = {}) {
 
   // Letrero FARMASI y pantalla en la pared izquierda
   const letrero = lienzo(1024, 300, (x, w, h) => {
-    x.clearRect(0, 0, w, h); x.fillStyle = "#1f4fd1"; x.font = "800 150px Sora, 'Segoe UI', sans-serif"; x.textAlign = "center";
-    x.fillText("FARMASI", w / 2, 170); x.fillStyle = "#4f6fa8"; x.font = "500 50px 'Segoe UI', sans-serif"; x.fillText("EQUIPO DE ISA", w / 2, 250);
+    x.clearRect(0, 0, w, h); x.fillStyle = "#1c1a1f"; x.font = "800 150px Sora, 'Segoe UI', sans-serif"; x.textAlign = "center";
+    x.fillText("FARMASI", w / 2, 170); x.fillStyle = "#d4517f"; x.font = "500 50px 'Segoe UI', sans-serif"; x.fillText("EQUIPO DE ISA", w / 2, 250);
   });
   const placaLetrero = new THREE.Mesh(new THREE.PlaneGeometry(4.2, 1.23), new THREE.MeshBasicMaterial({ map: letrero, transparent: true }));
   placaLetrero.position.set(-4.4, 3.35, -5.48); placaLetrero.scale.setScalar(0.85); escena.add(placaLetrero);
   const tablero = lienzo(640, 360, (x, w, h) => {
-    x.fillStyle = "#0b1a38"; x.fillRect(0, 0, w, h);
-    x.fillStyle = "#cfe6ff"; x.font = "600 26px 'Segoe UI', sans-serif"; x.fillText("Resultados de la semana", 28, 46);
+    x.fillStyle = "#fff4f8"; x.fillRect(0, 0, w, h);
+    x.fillStyle = "#3a2440"; x.font = "600 26px 'Segoe UI', sans-serif"; x.fillText("Resultados de la semana", 28, 46);
     const barras = [60, 90, 75, 120, 105, 150, 170];
-    barras.forEach((b, i) => { const g = x.createLinearGradient(0, 300 - b, 0, 300); g.addColorStop(0, "#4cc9ff"); g.addColorStop(1, "#3d7bff");
+    barras.forEach((b, i) => { const g = x.createLinearGradient(0, 300 - b, 0, 300); g.addColorStop(0, "#ffb3cf"); g.addColorStop(1, "#e8457f");
       x.fillStyle = g; x.fillRect(40 + i * 62, 300 - b, 38, b); });
-    x.strokeStyle = "#5be3b0"; x.lineWidth = 4; x.beginPath();
+    x.strokeStyle = "#c99a4a"; x.lineWidth = 4; x.beginPath();
     barras.forEach((b, i) => { const px = 59 + i * 62, py = 280 - b * 0.9; i ? x.lineTo(px, py) : x.moveTo(px, py); }); x.stroke();
-    x.fillStyle = "#6a82ab"; x.font = "500 18px 'Segoe UI'"; ["L", "M", "M", "J", "V", "S", "D"].forEach((d, i) => x.fillText(d, 52 + i * 62, 330));
+    x.fillStyle = "#a7889a"; x.font = "500 18px 'Segoe UI'"; ["L", "M", "M", "J", "V", "S", "D"].forEach((d, i) => x.fillText(d, 52 + i * 62, 330));
   });
   const tv = new THREE.Mesh(new THREE.PlaneGeometry(2.8, 1.58), new THREE.MeshBasicMaterial({ map: tablero, toneMapped: false }));
   tv.position.set(-7.94, 2.6, -1.9); tv.rotation.y = Math.PI / 2; escena.add(tv);
@@ -434,7 +520,7 @@ export function crearOficina(contenedor, opciones = {}) {
   // Repisa con libros (pared izquierda) y cafetería (derecha)
   const repisa = new THREE.Group(); repisa.position.set(-7.8, 0.4, 2.5); escena.add(repisa);
   [1.6, 2.5].forEach((y) => repisa.add(malla(new THREE.BoxGeometry(0.4, 0.05, 2.4), MAT.blanco, 0.1, y, 0)));
-  const colores = [0x3d7bff, 0x4cc9ff, 0xffc15e, 0x5be3b0, 0xa99bff, 0xff8a7a, 0xdfeaff];
+  const colores = [0xf4a6c0, 0xe8457f, 0xffd8a8, 0xc9b6ec, 0xffffff, 0xd8b46a, 0xf7d6df];
   for (let i = 0; i < 14; i++) {
     const alto = 0.32 + ((i * 37) % 13) / 60;
     repisa.add(malla(new THREE.BoxGeometry(0.28, alto, 0.09), new THREE.MeshStandardMaterial({ color: colores[i % colores.length], roughness: .6 }),
@@ -444,7 +530,8 @@ export function crearOficina(contenedor, opciones = {}) {
   cafe.add(malla(new THREE.BoxGeometry(1.0, 0.95, 2.6), MAT.blanco, 0, 0.475, 0));
   cafe.add(malla(new THREE.BoxGeometry(1.06, 0.05, 2.66), MAT.madera, 0, 0.97, 0));
   cafe.add(malla(new THREE.BoxGeometry(0.45, 0.55, 0.4), MAT.oscuro, 0, 1.27, -0.6));
-  cafe.add(malla(new THREE.BoxGeometry(0.3, 0.06, 0.06), new THREE.MeshBasicMaterial({ color: 0x4cc9ff, toneMapped: false }), -0.23, 1.38, -0.6));
+  cafe.add(malla(new THREE.BoxGeometry(0.3, 0.06, 0.06), new THREE.MeshBasicMaterial({ color: 0xff9cc6, toneMapped: false }), -0.23, 1.38, -0.6));
+  const floresCafe = crearFlores(1.3); floresCafe.position.set(0, 0.995, 0.95); cafe.add(floresCafe);
   [0.2, 0.45, 0.7].forEach((z, i) => cafe.add(malla(new THREE.CylinderGeometry(0.06, 0.05, 0.12, 14), new THREE.MeshStandardMaterial({ color: colores[i] }), -0.15, 1.05, z)));
 
   // Plantas grandes
@@ -453,28 +540,28 @@ export function crearOficina(contenedor, opciones = {}) {
   // Mesa de reuniones y el holograma de Isa
   const mesa = new THREE.Group(); mesa.position.copy(MESA); escena.add(mesa);
   mesa.add(malla(new THREE.CylinderGeometry(1.65, 1.6, 0.08, 64), MAT.blanco, 0, 0.78, 0));
-  mesa.add(malla(new THREE.TorusGeometry(1.64, 0.025, 8, 80), new THREE.MeshBasicMaterial({ color: 0x4cc9ff, toneMapped: false }), 0, 0.78, 0).rotateX(Math.PI / 2));
+  mesa.add(malla(new THREE.TorusGeometry(1.64, 0.03, 8, 80), new THREE.MeshStandardMaterial({ color: 0xe8c48a, roughness: 0.35, metalness: 0.3 }), 0, 0.78, 0).rotateX(Math.PI / 2));
   mesa.add(malla(new THREE.CylinderGeometry(0.22, 0.32, 0.74, 24), MAT.gris, 0, 0.37, 0));
   mesa.add(malla(new THREE.CylinderGeometry(0.75, 0.8, 0.04, 40), MAT.gris, 0, 0.02, 0));
   const proyector = malla(new THREE.CylinderGeometry(0.34, 0.38, 0.06, 40), MAT.cian, 0, 0.84, 0); mesa.add(proyector);
 
   const holograma = new THREE.Group(); holograma.position.set(MESA.x, 2.75, MESA.z); escena.add(holograma);
-  const texCono = lienzo(4, 128, (x, w, h) => { const g = x.createLinearGradient(0, 0, 0, h); g.addColorStop(0, "rgba(76,201,255,0)"); g.addColorStop(1, "rgba(76,201,255,.55)"); x.fillStyle = g; x.fillRect(0, 0, w, h); });
+  const texCono = lienzo(4, 128, (x, w, h) => { const g = x.createLinearGradient(0, 0, 0, h); g.addColorStop(0, "rgba(255,140,190,0)"); g.addColorStop(1, "rgba(255,140,190,.5)"); x.fillStyle = g; x.fillRect(0, 0, w, h); });
   const cono = new THREE.Mesh(new THREE.CylinderGeometry(1.0, 0.32, 1.85, 40, 1, true),
     new THREE.MeshBasicMaterial({ map: texCono, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, side: THREE.DoubleSide, toneMapped: false }));
   cono.position.set(MESA.x, 0.84 + 0.925, MESA.z); escena.add(cono);
   const resplandor = new THREE.Sprite(new THREE.SpriteMaterial({ map: lienzo(128, 128, (x) => {
-    const g = x.createRadialGradient(64, 64, 0, 64, 64, 64); g.addColorStop(0, "rgba(160,230,255,1)"); g.addColorStop(.3, "rgba(76,201,255,.45)"); g.addColorStop(1, "rgba(76,201,255,0)");
+    const g = x.createRadialGradient(64, 64, 0, 64, 64, 64); g.addColorStop(0, "rgba(255,225,238,1)"); g.addColorStop(.3, "rgba(255,130,185,.45)"); g.addColorStop(1, "rgba(255,130,185,0)");
     x.fillStyle = g; x.fillRect(0, 0, 128, 128); }), transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, toneMapped: false }));
   resplandor.scale.setScalar(2.3); holograma.add(resplandor);
   const nucleo = new THREE.Mesh(new THREE.SphereGeometry(0.36, 40, 30), new THREE.MeshPhysicalMaterial({
-    color: 0x9fe6ff, emissive: 0x2a9dff, emissiveIntensity: 1.6, roughness: 0.15, clearcoat: 1, transparent: true, opacity: 0.92 }));
+    color: 0xffd0e2, emissive: 0xff4f9a, emissiveIntensity: 1.6, roughness: 0.15, clearcoat: 1, transparent: true, opacity: 0.92 }));
   holograma.add(nucleo);
   const malla20 = new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.IcosahedronGeometry(0.55, 1)),
-    new THREE.LineBasicMaterial({ color: 0x9fe6ff, transparent: true, opacity: 0.55, toneMapped: false }));
+    new THREE.LineBasicMaterial({ color: 0xffd0e2, transparent: true, opacity: 0.55, toneMapped: false }));
   holograma.add(malla20);
   const anillos = [0.7, 0.86, 1.02].map((r, i) => {
-    const a = new THREE.Mesh(new THREE.TorusGeometry(r, 0.012, 8, 120), new THREE.MeshBasicMaterial({ color: i === 1 ? 0x7fb2ff : 0x6fdcff, toneMapped: false, transparent: true, opacity: 0.8 }));
+    const a = new THREE.Mesh(new THREE.TorusGeometry(r, 0.012, 8, 120), new THREE.MeshBasicMaterial({ color: i === 1 ? 0xffd27f : 0xffa6c9, toneMapped: false, transparent: true, opacity: 0.8 }));
     a.rotation.set(Math.PI / 2 + (i - 1) * 0.5, i * 0.7, 0); holograma.add(a); return a;
   });
   const nPart = 260, posPart = new Float32Array(nPart * 3), azarP = semillaAzar(5);
@@ -483,9 +570,9 @@ export function crearOficina(contenedor, opciones = {}) {
     posPart.set([r * Math.sin(f) * Math.cos(t), r * Math.cos(f) * 0.6, r * Math.sin(f) * Math.sin(t)], i * 3);
   }
   const geoPart = new THREE.BufferGeometry(); geoPart.setAttribute("position", new THREE.BufferAttribute(posPart, 3));
-  const particulas = new THREE.Points(geoPart, new THREE.PointsMaterial({ color: 0xbff0ff, size: 0.05, transparent: true, opacity: 0.85, depthWrite: false, blending: THREE.AdditiveBlending, toneMapped: false }));
+  const particulas = new THREE.Points(geoPart, new THREE.PointsMaterial({ color: 0xffe0ec, size: 0.05, transparent: true, opacity: 0.85, depthWrite: false, blending: THREE.AdditiveBlending, toneMapped: false }));
   holograma.add(particulas);
-  const luzIsa = new THREE.PointLight(0x4cc9ff, 6, 9, 1.6); luzIsa.position.set(0, 0, 0); holograma.add(luzIsa);
+  const luzIsa = new THREE.PointLight(0xff8fc0, 6, 9, 1.6); luzIsa.position.set(0, 0, 0); holograma.add(luzIsa);
   const etiquetaIsa = document.createElement("div"); etiquetaIsa.className = "etq-isa";
   etiquetaIsa.innerHTML = "<b>Isa</b><span>Lista para ayudarte</span>";
   const objIsa = new CSS2DObject(etiquetaIsa); objIsa.position.set(0, -1.35, 0); holograma.add(objIsa);
@@ -495,9 +582,10 @@ export function crearOficina(contenedor, opciones = {}) {
   const robots = new Map(); let grupoEquipo = new THREE.Group(); escena.add(grupoEquipo);
   const ocupados = new Set();
 
+  // Solo el nombre: limpio. Lo que está haciendo cada una se ve en el panel "Misión en curso".
   function etiqueta(agente) {
     const d = document.createElement("div"); d.className = "etq-robot"; d.style.setProperty("--c", agente.color);
-    d.innerHTML = `<div class="globo" hidden></div><b>${agente.nombre.replace(/[<>&]/g, "")}</b><span><i></i><em>En su escritorio</em></span>`;
+    d.innerHTML = `<b>${agente.nombre.replace(/[<>&]/g, "")}</b>`;
     return d;
   }
   function setEquipo(agentes) {
@@ -520,12 +608,8 @@ export function crearOficina(contenedor, opciones = {}) {
         parpadeo: 2 + Math.random() * 3, lugar: -1, semilla: i * 1.7 });
     });
   }
-  function estadoEtiqueta(r, texto, clase) {
-    r.el.querySelector("em").textContent = texto; r.el.dataset.estado = clase || "";
-  }
-  function globo(r, texto, listo) {
-    const g = r.el.querySelector(".globo"); g.hidden = !texto; g.textContent = texto || ""; g.classList.toggle("listo", !!listo);
-  }
+  // El nombre se ilumina mientras trabaja y se pone verde un momento al terminar.
+  function estadoEtiqueta(r, clase) { r.el.dataset.estado = clase || ""; }
   // Camino alrededor de la mesa (para no atravesarla): puntos sobre un círculo entre dos lugares.
   function rodear(desde, hasta) {
     const R = 2.75, a0 = Math.atan2(desde.x - MESA.x, desde.z - MESA.z), a1 = Math.atan2(hasta.x - MESA.x, hasta.z - MESA.z);
@@ -537,31 +621,30 @@ export function crearOficina(contenedor, opciones = {}) {
   const esperar = (ms) => new Promise((ok) => setTimeout(ok, MOVIMIENTO ? ms : 0));
   const llegar = (r) => new Promise((ok) => { r.alLlegar = ok; if (!r.camino.length) ok(); });
 
-  async function convocar(id, saludo = "¡Voy!") {
+  async function convocar(id) {
     const r = robots.get(id); if (!r) return;
-    if (r.estado !== "sentado" && r.estado !== "volviendo") { globo(r, r.actividad || "Trabajando…"); return; }
-    r.estado = "yendo"; globo(r, saludo); estadoEtiqueta(r, "En reunión con Isa", "reunion");
+    if (r.estado !== "sentado" && r.estado !== "volviendo") return;
+    r.estado = "yendo"; estadoEtiqueta(r, "reunion");
     let libre = LUGARES.findIndex((_, i) => !ocupados.has(i)); if (libre < 0) libre = 0; ocupados.add(libre); r.lugar = libre;
     r.metaSentado = 0; await esperar(650);
     r.objeto.visible = true;
     r.camino = [r.salida.clone(), ...rodear(r.salida, LUGARES[libre]), LUGARES[libre].clone()]; await llegar(r);
     if (r.estado !== "yendo") return;
-    r.estado = "reunion"; r.metaGiro = anguloHacia(LUGARES[libre], MESA); globo(r, r.actividad || "¡Manos a la obra!");
+    r.estado = "reunion"; r.metaGiro = anguloHacia(LUGARES[libre], MESA);
   }
   function actividad(id, texto) {
     const r = robots.get(id); if (!r) return; r.actividad = texto;
-    if (r.estado === "reunion" || r.estado === "yendo") globo(r, texto);
   }
   async function liberar(id) {
     const r = robots.get(id); if (!r || r.estado === "sentado" || r.estado === "volviendo" || r.estado === "festejo") return;
     while (r.estado === "yendo") await esperar(200);
-    r.estado = "festejo"; globo(r, "¡Listo! ✓", true); r.sonrisa.visible = true; estadoEtiqueta(r, "Tarea completada ✓", "listo");
+    r.estado = "festejo"; r.sonrisa.visible = true; estadoEtiqueta(r, "listo");
     await esperar(1900);
-    globo(r, ""); r.estado = "volviendo"; ocupados.delete(r.lugar); r.lugar = -1; r.actividad = "";
+    r.estado = "volviendo"; ocupados.delete(r.lugar); r.lugar = -1; r.actividad = "";
     r.camino = [...rodear(r.raiz.position, r.salida).slice(1), r.salida.clone(), r.casa.clone()]; await llegar(r);
     if (r.estado !== "volviendo") return;
     r.metaGiro = r.giroCasa; r.objeto.visible = false; r.metaSentado = 1; r.estado = "sentado"; r.sonrisa.visible = false;
-    setTimeout(() => { if (r.estado === "sentado") estadoEtiqueta(r, "En su escritorio", ""); }, 7000);
+    setTimeout(() => { if (r.estado === "sentado") estadoEtiqueta(r, ""); }, 4000);
   }
 
   /* ---------- Reunión de equipo: todos se acercan a Isa ---------- */
@@ -571,7 +654,7 @@ export function crearOficina(contenedor, opciones = {}) {
     enReunionEquipo = true; isa("pensando", "Reunión de equipo");
     // Cada robot sale con un poquito de diferencia, como gente levantándose para una reunión
     [...robots.keys()].forEach((id, i) => setTimeout(() => {
-      if (enReunionEquipo) { convocar(id, "¡Voy a la reunión!"); actividad(id, "Escuchando a Isa"); }
+      if (enReunionEquipo) { convocar(id); actividad(id, "Escuchando a Isa"); }
     }, MOVIMIENTO ? i * 450 : 0));
     reunion(true);
   }
@@ -580,7 +663,6 @@ export function crearOficina(contenedor, opciones = {}) {
       const n = notas?.[id]; if (!n || n.nota == null) return;
       const d = n.antes == null ? "" : n.nota > n.antes ? " ▲" : n.nota < n.antes ? " ▼" : " =";
       r.actividad = `Nota ${Number(n.nota).toFixed(1)}${d}`;
-      if (r.estado === "reunion" || r.estado === "yendo") globo(r, r.actividad, n.nota >= 9);
       if (n.nota >= 9) r.sonrisa.visible = true;
     });
   }
@@ -603,10 +685,10 @@ export function crearOficina(contenedor, opciones = {}) {
     const g = new THREE.Group(); g.position.set(MESA.x, 4.2, MESA.z); escena.add(g);
     const mat = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0, toneMapped: false, side: THREE.DoubleSide });
     const plano = new THREE.Mesh(new THREE.PlaneGeometry(1.5, 1.5), mat); g.add(plano);
-    const marcoR = new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.PlaneGeometry(1.57, 1.57)), new THREE.LineBasicMaterial({ color: 0x6fdcff, transparent: true, toneMapped: false }));
+    const marcoR = new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.PlaneGeometry(1.57, 1.57)), new THREE.LineBasicMaterial({ color: 0xff9cc6, transparent: true, toneMapped: false }));
     g.add(marcoR);
     if (esImagen) cargador.load(url, (t) => { t.colorSpace = THREE.SRGBColorSpace; mat.map = t; mat.needsUpdate = true; });
-    else { mat.map = lienzo(256, 256, (x) => { x.fillStyle = "#0b1a38"; x.fillRect(0, 0, 256, 256); x.fillStyle = "#4cc9ff"; x.font = "120px sans-serif"; x.textAlign = "center"; x.fillText(/\.mp4/i.test(url) ? "▶" : "▦", 128, 170); }); }
+    else { mat.map = lienzo(256, 256, (x) => { x.fillStyle = "#2a1f3d"; x.fillRect(0, 0, 256, 256); x.fillStyle = "#ff9cc6"; x.font = "120px sans-serif"; x.textAlign = "center"; x.fillText(/\.mp4/i.test(url) ? "▶" : "▦", 128, 170); }); }
     const inicio = performance.now();
     resultados.push({ g, mat, marcoR, inicio });
   }
@@ -661,6 +743,8 @@ export function crearOficina(contenedor, opciones = {}) {
       + Math.sin(t * 1.6 + r.semilla) * 0.008 * (1 - w);
     r.cadera.position.z = -0.12 * s;
     r.cuerpo.rotation.x = 0.06 * w + 0.05 * s;
+    r.falda.scale.y = 1 - 0.55 * s; r.falda.position.z = 0.05 * s;   // al sentarse la falda se acomoda
+    r.boca.visible = !r.sonrisa.visible;
     r.muslos.forEach((m, i) => {
       const ph = f + (i ? Math.PI : 0);
       m.rotation.x = -1.5 * s + Math.sin(ph) * 0.6 * w;
