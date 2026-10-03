@@ -79,3 +79,9 @@ todos los robots se acercan a la mesa de Isa → Isa revisa el trabajo de cada a
 nuevos → te entrega un informe visual (`reunion/actas/<fecha>.html`) con la nota del equipo,
 una tarjeta por agente, lo que produjo cada uno, cómo va mejorando y los acuerdos. Los
 agentes leen sus acuerdos antes de cada trabajo, así cada reunión el equipo sale mejor.
+
+## Para hacer videos (una sola vez)
+
+Doble clic en `instalar-videos.command` (Mac) o `instalar-videos.bat` (Windows), o pídele a Isa
+"instala lo que falta para hacer videos". Instala gratis lo que hace falta (la música, ffmpeg,
+node y el navegador que toma los cuadros); node y ffmpeg quedan dentro de `herramientas/`.

@@ -7,7 +7,7 @@ const path = require('path');
   const base = html.replace(/\.html$/, '');
   const browser = await chromium.launch();
   const page = await browser.newPage({ viewport: { width: 794, height: 1123 }, deviceScaleFactor: 2 });
-  await page.goto('file://' + html + '?foto', { waitUntil: 'load', timeout: 20000 }).catch(() => {});
+  await page.goto(require('url').pathToFileURL(path.resolve(html)).href + '?foto', { waitUntil: 'load', timeout: 20000 }).catch(() => {});
   await page.evaluate(() => document.fonts.ready);
   await page.waitForTimeout(200);
   const hojas = page.locator('.hoja');

@@ -1,0 +1,8 @@
+{
+  "name": "proyecto-prueba",
+  "private": true,
+  "description": "Lo que usa el equipo para tomar los cuadros de los videos y las imágenes. Lo instala herramientas/instalar_videos.py.",
+  "dependencies": {
+    "playwright": "1.63.0"
+  }
+}

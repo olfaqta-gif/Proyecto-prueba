@@ -9,7 +9,7 @@ const path = require('path');
   mkdirSync(out, { recursive: true });
   const browser = await chromium.launch();
   const page = await browser.newPage({ viewport: { width: +w, height: +h } });
-  await page.goto('file://' + path.resolve(html) + '?render');
+  await page.goto(require('url').pathToFileURL(path.resolve(html)).href + '?render');
   await page.evaluate(() => document.fonts.ready);
   await page.evaluate(() => window.__ajustar());
   await page.waitForTimeout(300);
@@ -21,7 +21,7 @@ const path = require('path');
     await page.evaluate((t) => window.__seek(t), t);
     // Esperar dos cuadros para que Chromium vuelva a pintar todo (si no, a veces queda un texto a medias)
     await page.evaluate(() => new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r))));
-    const name = mode === 'preview' ? `p_${String(i).padStart(2, '0')}_${t.toFixed(1)}.jpg` : `f_${String(i).padStart(4, '0')}.jpg`;
+    const name = mode === 'preview' ? `p_${String(i).padStart(2, '0')}.jpg` : `f_${String(i).padStart(4, '0')}.jpg`;
     await page.screenshot({ path: `${out}/${name}`, type: 'jpeg', quality: 92 });
     i++;
   }

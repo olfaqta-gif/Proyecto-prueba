@@ -46,7 +46,7 @@ animación, la música y el render. Lee `agente-educativo/README.md` para el det
    `cd agente-educativo && python3 generar.py temas/<slug>`. Corrige el guion si algún
    texto se ve apretado, y repite.
 5. **Video final**: `python3 generar.py temas/<slug> --video` (y `--carrusel` si el plan
-   o Isa piden carrusel). Si falta numpy/scipy: `python3 -m pip install numpy scipy`.
+   o Isa piden carrusel). Si falta algo para el video: `python3 herramientas/instalar_videos.py`.
    Cada video sale con su propia música y transiciones; si Isa dice que se parece a otro,
    usa `--variacion 1` (o 2, 3…) para otra canción y otros movimientos.
 6. **Si viene de un plan** (Isa te pasa la ruta y el id; o

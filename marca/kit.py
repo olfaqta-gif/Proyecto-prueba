@@ -37,6 +37,9 @@ from pathlib import Path
 
 AQUI = Path(__file__).resolve().parent
 RAIZ = AQUI.parent
+sys.path.insert(0, str(RAIZ / 'herramientas'))
+import rutas  # noqa: E402  (node y ffmpeg que deja herramientas/instalar_videos.py)
+rutas.preparar()
 KIT = AQUI / 'kit.json'
 VOZ = AQUI / 'voz-isabella.md'
 SALIDA = AQUI / 'salida'
@@ -123,7 +126,7 @@ def fotos(html_archivo, selector='.lienzo'):
         r = subprocess.run(['node', str(AQUI / 'fotos.cjs'), str(html_archivo), selector], capture_output=True, text=True, timeout=180)
     except (OSError, subprocess.TimeoutExpired):
         return []
-    return [Path(x) for x in r.stdout.split()] if r.returncode == 0 else []
+    return [Path(x) for x in r.stdout.splitlines() if x.strip()] if r.returncode == 0 else []
 
 
 def compartir(archivos, sub):
