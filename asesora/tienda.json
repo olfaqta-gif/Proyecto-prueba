@@ -1,0 +1,311 @@
+{
+ "leido": "2026-10-03",
+ "productos": {
+  "agua-micelar": {
+   "codigo": "1002189",
+   "oficial": "Dr. C. Tuna Micellar Cleansing Water",
+   "fuente": "https://www.farmasius.com/farmasi/product-detail/dr-c-tuna-micellar-cleansing-water?pid=1002189",
+   "nota": 4.96,
+   "resenas": 502,
+   "contenido": "",
+   "foto": "img/agua-micelar.jpg"
+  },
+  "balsamo-limpiador": {
+   "codigo": "1000649",
+   "oficial": "Dr. C. Tuna Cleansing Balm",
+   "fuente": "https://www.farmasius.com/farmasi/product-detail/dr-c-tuna-cleansing-balm?pid=1000649",
+   "nota": 4.95,
+   "resenas": 273,
+   "contenido": "",
+   "foto": "img/balsamo-limpiador.jpg"
+  },
+  "limpiador-tea-tree": {
+   "codigo": "1000288",
+   "oficial": "Dr. C. Tuna Tea Tree Face Wash",
+   "fuente": "https://www.farmasius.com/farmasi/product-detail/dr-c-tuna-tea-tree-face-wash?pid=1000288",
+   "nota": 4.96,
+   "resenas": 513,
+   "contenido": "",
+   "foto": "img/limpiador-tea-tree.jpg"
+  },
+  "limpiador-calendula": {
+   "codigo": "1000283",
+   "oficial": "Dr. C. Tuna Calendula Face Wash",
+   "fuente": "https://www.farmasius.com/farmasi/product-detail/dr-c-tuna-calendula-face-wash?pid=1000283",
+   "nota": 4.95,
+   "resenas": 506,
+   "contenido": "",
+   "foto": "img/limpiador-calendula.jpg"
+  },
+  "limpiador-aqua": {
+   "codigo": "1000265",
+   "oficial": "Dr. C. Tuna Aqua Restoring Gel Cleanser",
+   "fuente": "https://www.farmasius.com/farmasi/product-detail/dr-c-tuna-aqua-restoring-gel-cleanser?pid=1000265",
+   "nota": 4.93,
+   "resenas": 252,
+   "contenido": "",
+   "foto": "img/limpiador-aqua.jpg"
+  },
+  "limpiador-lumi": {
+   "codigo": "1000300",
+   "oficial": "Dr. C. Tuna Lumi Radiance Brightening Gel Cleanser",
+   "fuente": "https://www.farmasius.com/farmasi/product-detail/dr-c-tuna-lumi-radiance-brightening-gel-cleanser?pid=1000300",
+   "nota": 4.96,
+   "resenas": 292,
+   "contenido": "",
+   "foto": "img/limpiador-lumi.jpg"
+  },
+  "limpiador-rosa": {
+   "codigo": "1002359",
+   "oficial": "Dr. C. Tuna Pure Rose Face Gel Cleanser",
+   "fuente": "https://www.farmasius.com/farmasi/product-detail/dr-c-tuna-pure-rose-face-gel-cleanser?pid=1002359",
+   "nota": 4.95,
+   "resenas": 97,
+   "contenido": "",
+   "foto": "img/limpiador-rosa.jpg"
+  },
+  "limpiador-resurface": {
+   "codigo": "1000277",
+   "oficial": "Dr. C. Tuna Resurface Refining Cleanser",
+   "fuente": "https://www.farmasius.com/marcelasarahilopez1/product-detail/dr-c-tuna-resurface-refining-cleanser?pid=1000277",
+   "nota": 4.98,
+   "resenas": 211,
+   "contenido": "",
+   "foto": "img/limpiador-resurface.jpg"
+  },
+  "tonico-tea-tree": {
+   "codigo": "1000289",
+   "oficial": "Dr. C. Tuna Tea Tree Face Toner",
+   "fuente": "https://www.farmasius.com/farmasi/product-detail/dr-c-tuna-tea-tree-face-toner?pid=1000289",
+   "nota": 4.95,
+   "resenas": 330,
+   "contenido": "",
+   "foto": "img/tonico-tea-tree.jpg"
+  },
+  "tonico-calendula": {
+   "codigo": "1000284",
+   "oficial": "Dr. C. Tuna Calendula Face Toner",
+   "fuente": "https://www.farmasius.com/farmasi/product-detail/dr-c-tuna-calendula-face-toner?pid=1000284",
+   "nota": 4.97,
+   "resenas": 284,
+   "contenido": "",
+   "foto": "img/tonico-calendula.jpg"
+  },
+  "tonico-lumi": {
+   "codigo": "1000295",
+   "oficial": "Dr. C. Tuna Lumi Radiance Brightening Toner",
+   "fuente": "https://www.farmasius.com/farmasi/product-detail/dr-c-tuna-lumi-radiance-brightening-toner?pid=1000295",
+   "nota": 4.98,
+   "resenas": 211,
+   "contenido": "",
+   "foto": "img/tonico-lumi.jpg"
+  },
+  "tonico-age-reversist": {
+   "codigo": "1000270",
+   "oficial": "Dr. C. Tuna Age Reversist Beauty Essence Tonic",
+   "fuente": "https://www.farmasius.com/farmasi/product-detail/dr-c-tuna-age-reversist-beauty-essence-tonic?pid=1000270",
+   "nota": 4.96,
+   "resenas": 241,
+   "contenido": "",
+   "foto": "img/tonico-age-reversist.jpg"
+  },
+  "esencia-resurface": {
+   "codigo": "1000278",
+   "oficial": "Dr. C. Tuna Resurface Hydrasooth Essence",
+   "fuente": "https://www.farmasius.com/farmasi/product-detail/dr-c-tuna-resurface-hydrasooth-essence?pid=1000278",
+   "nota": 4.96,
+   "resenas": 210,
+   "contenido": "",
+   "foto": "img/esencia-resurface.jpg"
+  },
+  "serum-vitamina-c": {
+   "codigo": "1002167",
+   "oficial": "Dr. C. Tuna Vitamin C Glow Serum",
+   "fuente": "https://www.farmasius.com/farmasi/product-detail/dr-c-tuna-vitamin-c-glow-serum?pid=1002167",
+   "nota": 4.97,
+   "resenas": 981,
+   "contenido": "30 ml / 1 fl. oz",
+   "foto": "img/serum-vitamina-c.jpg"
+  },
+  "serum-lumi": {
+   "codigo": "1000298",
+   "oficial": "Dr. C. Tuna Lumi Radiance Brightening Serum",
+   "fuente": "https://www.farmasius.com/farmasi/product-detail/dr-c-tuna-lumi-radiance-brightening-serum?pid=1000298",
+   "nota": 4.96,
+   "resenas": 296,
+   "contenido": "",
+   "foto": "img/serum-lumi.jpg"
+  },
+  "serum-tea-tree": {
+   "codigo": "1000292",
+   "oficial": "Dr. C. Tuna Tea Tree Serum",
+   "fuente": "https://www.farmasius.com/farmasi/product-detail/dr-c-tuna-tea-tree-serum?pid=1000292",
+   "nota": 4.97,
+   "resenas": 766,
+   "contenido": "",
+   "foto": "img/serum-tea-tree.jpg"
+  },
+  "serum-age-reversist": {
+   "codigo": "1000272",
+   "oficial": "Dr. C. Tuna Age Reversist Serum",
+   "fuente": "https://www.farmasius.com/farmasi/product-detail/dr-c-tuna-age-reversist-serum?pid=1000272",
+   "nota": 4.96,
+   "resenas": 263,
+   "contenido": "",
+   "foto": "img/serum-age-reversist.jpg"
+  },
+  "serum-retinol": {
+   "codigo": "1000279",
+   "oficial": "Dr. C. Tuna Resurface Retinol Reviving Serum",
+   "fuente": "https://www.farmasius.com/farmasi/product-detail/dr-c-tuna-resurface-retinol-reviving-serum?pid=1000279",
+   "nota": 4.96,
+   "resenas": 245,
+   "contenido": "",
+   "foto": "img/serum-retinol.jpg"
+  },
+  "gotas-aqua": {
+   "codigo": "1000266",
+   "oficial": "Dr. C. Tuna Aqua Boosting Hydra Drops",
+   "fuente": "https://www.farmasius.com/farmasi/product-detail/dr-c-tuna-aqua-boosting-hydra-drops?pid=1000266",
+   "nota": 4.98,
+   "resenas": 195,
+   "contenido": "",
+   "foto": "img/gotas-aqua.jpg"
+  },
+  "contorno-lumi": {
+   "codigo": "1000299",
+   "oficial": "Dr. C. Tuna Lumi Radiance Brightening Eye Balm",
+   "fuente": "https://www.farmasius.com/farmasi/product-detail/dr-c-tuna-lumi-radiance-brightening-eye-balm?pid=1000299",
+   "nota": 4.95,
+   "resenas": 400,
+   "contenido": "",
+   "foto": "img/contorno-lumi.jpg"
+  },
+  "contorno-age-reversist": {
+   "codigo": "1000273",
+   "oficial": "Dr. C. Tuna Age Reversist Eye Cream",
+   "fuente": "https://www.farmasius.com/farmasi/product-detail/dr-c-tuna-age-reversist-eye-cream?pid=1000273",
+   "nota": 4.97,
+   "resenas": 387,
+   "contenido": "",
+   "foto": "img/contorno-age-reversist.jpg"
+  },
+  "contorno-aqua": {
+   "codigo": "1000268",
+   "oficial": "Dr. C. Tuna Aqua Revitalizing Eye Cream",
+   "fuente": "https://www.farmasius.com/farmasi/product-detail/dr-c-tuna-aqua-revitalizing-eye-cream?pid=1000268",
+   "nota": 4.94,
+   "resenas": 261,
+   "contenido": "",
+   "foto": "img/contorno-aqua.jpg"
+  },
+  "contorno-resurface": {
+   "codigo": "1000282",
+   "oficial": "Dr. C. Tuna Resurface Advanced Eye Cream",
+   "fuente": "https://www.farmasius.com/farmasi/product-detail/dr-c-tuna-resurface-advanced-eye-cream?pid=1000282",
+   "nota": 4.97,
+   "resenas": 354,
+   "contenido": "",
+   "foto": "img/contorno-resurface.jpg"
+  },
+  "crema-tea-tree": {
+   "codigo": "1000290",
+   "oficial": "Dr. C. Tuna Tea Tree Face Cream",
+   "fuente": "https://www.farmasius.com/farmasi/product-detail/dr-c-tuna-tea-tree-face-cream?pid=1000290",
+   "nota": 4.95,
+   "resenas": 496,
+   "contenido": "",
+   "foto": "img/crema-tea-tree.jpg"
+  },
+  "crema-calendula": {
+   "codigo": "1000285",
+   "oficial": "Dr. C. Tuna Calendula Face Cream",
+   "fuente": "https://www.farmasius.com/farmasi/product-detail/dr-c-tuna-calendula-face-cream?pid=1000285",
+   "nota": 4.96,
+   "resenas": 1034,
+   "contenido": "",
+   "foto": "img/crema-calendula.jpg"
+  },
+  "crema-aqua": {
+   "codigo": "1000267",
+   "oficial": "Dr. C. Tuna Aqua Hydrating Cream",
+   "fuente": "https://www.farmasius.com/farmasi/product-detail/dr-c-tuna-aqua-hydrating-cream?pid=1000267",
+   "nota": 4.97,
+   "resenas": 328,
+   "contenido": "",
+   "foto": "img/crema-aqua.jpg"
+  },
+  "balsamo-calendula": {
+   "codigo": "1000286",
+   "oficial": "Dr. C. Tuna Calendula Cream Balsam",
+   "fuente": "https://www.farmasius.com/farmasi/product-detail/dr-c-tuna-calendula-cream-balsam?pid=1000286",
+   "nota": 4.97,
+   "resenas": 1177,
+   "contenido": "",
+   "foto": "img/balsamo-calendula.jpg"
+  },
+  "crema-age-reversist": {
+   "codigo": "1000271",
+   "oficial": "Dr. C. Tuna Age Reversist Rich Moisturizer",
+   "fuente": "https://www.farmasius.com/farmasi/product-detail/dr-c-tuna-age-reversist-rich-moisturizer?pid=1000271",
+   "nota": 4.95,
+   "resenas": 474,
+   "contenido": "",
+   "foto": "img/crema-age-reversist.jpg"
+  },
+  "crema-dia-resurface": {
+   "codigo": "1002085",
+   "oficial": "Dr. C. Tuna Resurface Essential Day Cream",
+   "fuente": "https://www.farmasius.com/farmasi/product-detail/dr-c-tuna-resurface-essential-day-cream?pid=1002085",
+   "nota": 4.98,
+   "resenas": 63,
+   "contenido": "",
+   "foto": "img/crema-dia-resurface.jpg"
+  },
+  "crema-noche-resurface": {
+   "codigo": "1000551",
+   "oficial": "Dr. C. Tuna Resurface Night Cream",
+   "fuente": "https://www.farmasius.com/farmasi/product-detail/dr-c-tuna-resurface-night-cream?pid=1000551",
+   "nota": 4.95,
+   "resenas": 322,
+   "contenido": "",
+   "foto": "img/crema-noche-resurface.jpg"
+  },
+  "exfoliante-age-reversist": {
+   "codigo": "1000276",
+   "oficial": "Dr. C. Tuna Age Reversist Exfoliating Cleanser",
+   "fuente": "https://www.farmasius.com/farmasi/product-detail/dr-c-tuna-age-reversist-exfoliating-cleanser?pid=1000276",
+   "nota": 4.98,
+   "resenas": 399,
+   "contenido": "",
+   "foto": "img/exfoliante-age-reversist.jpg"
+  },
+  "mascarilla-noche": {
+   "codigo": "1000269",
+   "oficial": "Dr. C. Tuna Age Reversist All Night Beauty Mask",
+   "fuente": "https://www.farmasius.com/farmasi/product-detail/dr-c-tuna-age-reversist-all-night-beauty-mask?pid=1000269",
+   "nota": 4.98,
+   "resenas": 508,
+   "contenido": "",
+   "foto": "img/mascarilla-noche.jpg"
+  },
+  "mascarillas-aqua": {
+   "codigo": "1002252",
+   "oficial": "Dr. C. Tuna Aqua Sheet Mask Set of 10",
+   "fuente": "https://www.farmasius.com/farmasi/product-detail/dr-c-tuna-aqua-sheet-mask-set-of-10?pid=1002252",
+   "nota": 4.93,
+   "resenas": 42,
+   "contenido": "",
+   "foto": "img/mascarillas-aqua.jpg"
+  },
+  "mascarillas-lumi": {
+   "codigo": "1002253",
+   "oficial": "Dr. C. Tuna Lumi Radiance Sheet Mask Set of 10",
+   "fuente": "https://www.farmasius.com/farmasi/product-detail/dr-c-tuna-lumi-radiance-sheet-mask-set-of-10?pid=1002253",
+   "nota": 4.95,
+   "resenas": 56,
+   "contenido": "",
+   "foto": "img/mascarillas-lumi.jpg"
+  }
+ }
+}

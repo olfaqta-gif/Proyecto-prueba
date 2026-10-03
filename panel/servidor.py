@@ -181,6 +181,7 @@ def trabajos_recientes(limite=24):
         ("reunion/actas", "*.html", "Reunión"),
         ("analista/informes", "*.html", "Informe"),
         ("comunidad/respuestas", "*.html", "Respuestas"),
+        ("asesora/rutinas", "*.html", "Rutina"),
     ]
     encontrados = []
     for carpeta, patron, tipo in patrones:

@@ -7,7 +7,7 @@ Este es para probar hyperframes
 abre `panel/abrir-panel.bat` (Windows) o `panel/abrir-panel.command` (Mac). Ver `panel/README.md`.
 
 Abre este repositorio en Claude Code y escribe `/isa` (o háblale a "Isa").
-Isa conversa contigo y llama a sus siete agentes:
+Isa conversa contigo y llama a sus ocho agentes:
 
 - `scraper-farmasi` (`.claude/agents/`): busca productos en farmasius.com con `lector-farmasi/`.
 - `estratega-contenido` (`.claude/agents/`): arma la estrategia y el calendario de publicaciones con `planificador/`.
@@ -23,6 +23,9 @@ Isa conversa contigo y llama a sus siete agentes:
 - `comunidad-ventas`, Comunidad (`.claude/agents/`): lee las capturas de tus comentarios y
   mensajes, te deja una respuesta lista para cada uno (copiar y abrir el chat con un toque),
   anota a las interesadas en tu libreta de clientas y te arma tus respuestas rápidas, con `comunidad/`.
+- `asesora-rutinas`, la Asesora (`.claude/agents/`): cuando una clienta pregunta qué usar para su
+  piel, le arma su rutina de mañana y noche con productos Farmasi en una tarjeta para mandarle por
+  WhatsApp, con el mensaje escrito, y la anota en tu libreta, con `asesora/`.
 
 **Libreta de clientas:** en el panel toca **«Clientas»**. Ves a quién escribirle hoy (a quién
 se le acaba un producto, cumpleaños, pedidos por entregar), el tablero de cada clienta de
@@ -41,6 +44,10 @@ funcionó y qué hacer la próxima semana.
 Ejemplo de mensajes: deja las capturas de tus comentarios y chats en `comunidad/capturas/` y di
 *"Isa, ayúdame a responder"* → te entrega una hoja con cada respuesta lista para copiar y anota
 a las interesadas en tu libreta.
+
+Ejemplo de rutina: pégale a Isa el mensaje de una clienta (*"tengo la piel mixta y me salen
+granitos, ¿qué me recomiendas?"*) y di *"Isa, ármale una rutina"* → la Asesora te entrega su
+tarjeta con cada paso y foto, lo esencial para empezar y el mensaje listo para mandarle.
 
 Ejemplo educativo: *"Isa, hazme un video de tips para que el labial dure más"* → el Profe
 escribe el guion, genera el video con su propia música y te entrega los formatos y el caption.

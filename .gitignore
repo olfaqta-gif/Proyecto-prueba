@@ -18,3 +18,7 @@ comunidad/capturas/*
 !comunidad/capturas/LEEME.md
 comunidad/respuestas/
 comunidad/datos/
+
+# Asesora de rutinas: consultas y rutinas de las clientas, solo en cada computadora
+asesora/datos/
+asesora/rutinas/
