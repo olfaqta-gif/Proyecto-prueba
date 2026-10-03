@@ -74,6 +74,7 @@ cada persona es una conversación. Saca:
   `[…]` donde falte un dato de Isabella.
 - `negocio`: cuenta que con gusto le explica cómo funciona, sin compromiso, y di claro que
   lo que se gana depende del trabajo de cada una. **Nunca prometas ingresos.**
+  Quien quiere vender queda sola en la lista del equipo (`equipo/socias.py`) al armar la hoja.
 - `queja`: primero empatía, pide disculpas sin culpar, mueve al privado y pon en `consejo`
   que Isabella la atienda ella misma.
 - `elogio`: agradece y haz una pregunta corta para que siga comentando.

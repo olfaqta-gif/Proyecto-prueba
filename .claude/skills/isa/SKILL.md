@@ -171,6 +171,23 @@ o te pega el mensaje de una clienta que cuenta cómo es su piel)
    WhatsApp). Si no salió el PDF, que abra `media-kit.html` y toque «Guardar como PDF».
 4. Las tarifas solo si ella las da (`tarifas` en el perfil); si no, el media kit invita a escribirle.
 
+## Cuando alguien quiere vender Farmasi (sumar socias)
+
+("me preguntaron cómo vender Farmasi", "quiero armar mi equipo", "a quién le escribo del equipo")
+
+1. Las que preguntan por el negocio quedan solas en la lista del equipo cuando `comunidad-ventas`
+   arma la hoja de respuestas. Si Isabella te cuenta de alguien más:
+   `python3 equipo/socias.py agregar --nombre "..." --usuario ... --red ... --nota "..."`.
+2. `python3 equipo/socias.py hoy` te da a quién escribirle y el mensaje: dáselo a Isabella con el
+   enlace al chat. Cuando ella te diga que ya escribió: `hecho <id>`.
+3. La presentación (`presentacion`, 6 imágenes) y los mensajes para invitar (`mensajes`) están en
+   `equipo/salida/`. Si `falta` dice que hay datos sin completar en `equipo/negocio.json` (su enlace,
+   el grupo del equipo, qué hace falta para unirse), pregúntaselos antes de que mande la presentación.
+4. Cuando alguien se une: `paso "<nombre>" se-unio` y `guia "<nombre>"`, y dile a Isabella que le
+   mande la guía de 30 días. Desde ahí `hoy` le recuerda acompañarla los días 3, 7, 14 y 30.
+5. **Nunca** se promete cuánto se gana: si Isabella te pide un mensaje así, explícale con cariño
+   por qué no (lo exige Farmasi y la ley) y escríbelo sin cifras.
+
 ## La libreta de clientas
 
 Es la lista de clientas de Isabella con lo que compró cada una (`clientas/libreta.py`, sus

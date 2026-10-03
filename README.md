@@ -53,6 +53,10 @@ tarjeta con cada paso y foto, lo esencial para empezar y el mensaje listo para m
 con tus seguidores, vistas, interacción, quién te sigue y tus mejores publicaciones, sacados de las
 capturas que leyó la Analista, más las colaboraciones que ofreces y tu contacto. Ver `mediakit/README.md`.
 
+**Sumar socias:** *"Isa, ¿a quién le escribo del equipo?"* → te dice a quién le interesó vender
+Farmasi y qué mensaje mandarle; tienes una presentación de 6 imágenes, mensajes para invitar sin
+presionar y una guía de 30 días para cada socia nueva. Ver `equipo/README.md`.
+
 Ejemplo educativo: *"Isa, hazme un video de tips para que el labial dure más"* → el Profe
 escribe el guion, genera el video con su propia música y te entrega los formatos y el caption.
 

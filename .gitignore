@@ -27,3 +27,7 @@ asesora/rutinas/
 mediakit/perfil.json
 mediakit/datos/
 mediakit/salida/
+
+# Kit para sumar socias: personas interesadas en el negocio y lo que se genera
+equipo/datos/
+equipo/salida/
