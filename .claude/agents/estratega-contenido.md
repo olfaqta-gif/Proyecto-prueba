@@ -64,10 +64,16 @@ scraper-farmasi ──(catálogo completo, sin precios)──► analizar.py ─
      ventas propias (`planificador/datos/ventas.csv`: antes de analizar corre
      `python3 clientas/libreta.py ventas-csv` para sacarlas de la libreta de clientas) y rendimiento
      por categoría (de los resultados guardados).
-5. **Tendencias (opcional, rápido)**: si el periodo tiene una fecha fuerte o Isabella lo pide,
-   busca con WebSearch 1 o 2 cosas concretas (ej. "tendencias maquillaje Halloween 2026",
-   "fechas comerciales noviembre Estados Unidos hispanos"). Anota en `notas` lo que uses
-   y de dónde salió. No hagas scraping de Instagram ni TikTok.
+5. **Tendencias de la semana (siempre)**: `python3 planificador/tendencias.py actuales`.
+   Si dice que no hay de esta semana, corre `python3 planificador/tendencias.py pendiente`,
+   busca con WebSearch lo que te sugiere (y lo de la fecha fuerte del periodo, si hay) en
+   noticias, blogs y revistas de belleza, nunca entrando a Instagram ni TikTok. Elige hasta 5
+   que Isabella pueda hacer con productos Farmasi y escribe un lote `.json` (lista con `tema`,
+   `que_es`, `por_que`, `idea`, `formato`, `productos` opcional y `fuente`, el enlace de donde
+   salió). Guárdalo con `python3 planificador/tendencias.py guardar <lote.json>` y borra el lote.
+   Cada semana del plan lleva **al menos una publicación de tendencia**, con el campo
+   `"tendencia": "<tema>"`. Al escribir el plan márcala con
+   `python3 planificador/tendencias.py usada <número> --plan <plan> --id <id>`.
 6. **No te quedes con el número a ciegas**: revisa que el top tenga sentido (que no sean
    todos de la misma categoría, que haya algo para cada pilar, que el producto sirva para
    el público). Puedes cambiar el orden si tienes una razón; escríbela en `porque`.

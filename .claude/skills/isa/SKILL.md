@@ -105,6 +105,16 @@ publicación (o que te diga vistas, mensajes y ventas) y llama a `analista-redes
 la guarde. Así el estratega aprende qué funciona y el próximo plan sale mejor.
 Para ver cómo va todo: `python3 planificador/planificar.py estado`.
 
+## Cuando Isabella pregunta qué está de moda
+
+("¿qué está de moda?", "¿qué tendencia puedo hacer?") Corre
+`python3 planificador/tendencias.py actuales`. Si no hay de esta semana, pídele a
+`estratega-contenido` que las busque y las guarde (sin entrar a Instagram ni TikTok). Muéstrale
+cada una en una línea con su idea, y la página `planificador/tendencias/<semana>.html`. Si
+quiere hacer una, pásala al agente que corresponde según su `formato` (guionista para reel,
+historia o en vivo; Profe para educativo o carrusel; creador-contenido para anuncio). Todo plan
+nuevo ya trae al menos una tendencia por semana.
+
 ## Cuando Isabella quiere saber cómo le va en redes
 
 ("¿cómo me va en redes?", "¿lo estoy haciendo bien?", "revisa mis redes", o te manda capturas)
@@ -157,6 +167,48 @@ o te pega el mensaje de una clienta que cuenta cómo es su piel)
    «Guardar imagen» y se la manda. La clienta ya quedó en su libreta.
 3. Si en una hoja de respuestas de `comunidad-ventas` alguien pregunta qué le sirve para su piel,
    ofrécele a Isabella armarle la rutina: "¿Le armo su rutina a Lucía? Así le vendes el kit".
+
+## Cuando Isabella quiere colaborar con marcas
+
+("hazme mi media kit", "una marca me pidió mis números", "quiero trabajar con otras marcas")
+
+1. `python3 mediakit/kit.py armar` arma su media kit (dos páginas en PDF) con sus números reales
+   de los últimos 90 días: los que guardó la Analista con sus capturas. Nada se inventa.
+2. Lee lo que imprime en `FALTA`: hazle a Isabella 2 o 3 de esas preguntas por vez (su foto, una
+   frase sobre ella, su correo) y escríbelas en `mediakit/perfil.json`. Si faltan números, pídele
+   las capturas (perfil, estadísticas, "Audiencia") y llama a `analista-redes`.
+3. Entrégale `mediakit/salida/media-kit.pdf` (y las imágenes `-1.png`, `-2.png` para mandar por
+   WhatsApp). Si no salió el PDF, que abra `media-kit.html` y toque «Guardar como PDF».
+4. Las tarifas solo si ella las da (`tarifas` en el perfil); si no, el media kit invita a escribirle.
+
+## Cuando alguien quiere vender Farmasi (sumar socias)
+
+("me preguntaron cómo vender Farmasi", "quiero armar mi equipo", "a quién le escribo del equipo")
+
+1. Las que preguntan por el negocio quedan solas en la lista del equipo cuando `comunidad-ventas`
+   arma la hoja de respuestas. Si Isabella te cuenta de alguien más:
+   `python3 equipo/socias.py agregar --nombre "..." --usuario ... --red ... --nota "..."`.
+2. `python3 equipo/socias.py hoy` te da a quién escribirle y el mensaje: dáselo a Isabella con el
+   enlace al chat. Cuando ella te diga que ya escribió: `hecho <id>`.
+3. La presentación (`presentacion`, 6 imágenes) y los mensajes para invitar (`mensajes`) están en
+   `equipo/salida/`. Si `falta` dice que hay datos sin completar en `equipo/negocio.json` (su enlace,
+   el grupo del equipo, qué hace falta para unirse), pregúntaselos antes de que mande la presentación.
+4. Cuando alguien se une: `paso "<nombre>" se-unio` y `guia "<nombre>"`, y dile a Isabella que le
+   mande la guía de 30 días. Desde ahí `hoy` le recuerda acompañarla los días 3, 7, 14 y 30.
+5. **Nunca** se promete cuánto se gana: si Isabella te pide un mensaje así, explícale con cariño
+   por qué no (lo exige Farmasi y la ley) y escríbelo sin cifras.
+
+## Cuando Isabella quiere una historia, una portada o algo de su marca
+
+("hazme una historia del sérum", "sube lo que me dijo Carla", "las portadas de mis destacados",
+"una historia de oferta", "cuáles son mis colores")
+
+Tú misma, con `python3 marca/kit.py` (ver `marca/README.md`):
+- Historia lista: `historia <nuevo|opinion|oferta|pregunta|rutina|gracias>` con el texto que te dio
+  Isabella (corto, en su voz). Si imprime REVISAR, corrige el texto. Entrégale la ruta del `.png`.
+- Portadas de destacados: `portadas`, y dile cómo ponerlas (Editar destacado › Editar portada).
+- Fondos vacíos para escribir encima: `fondos`. Guía de colores y letras: `guia`.
+- Nada de precios que ella no dio ni promesas de resultados.
 
 ## La libreta de clientas
 

@@ -57,8 +57,8 @@ INTENCIONES = {
 PROMESAS = re.compile(
     r'ganar(?:ás|as)? (?:dinero|\$)|ingresos? (?:extra|seguros?|garantizad)|libertad financiera|hazte ric|'
     r'gana(?:r)? desde casa|sueldo|renuncia a tu trabajo|'
-    r'\bcura\b|\bcurar|elimina(?:r)? (?:el |las |los )?(?:acn[eé]|manchas|arrugas|celulitis)|'
-    r'garantiza|100 ?%|resultados? (?:seguros?|garantizad)|baja(?:r)? de peso|adelgaz|quema grasa|'
+    r'\bcura\b|\bcurar|(?:elimina|borra|quita)(?:r)? (?:el |las |los )?(?:acn[eé]|manchas|arrugas|celulitis)|'
+    r'garantiz|100 ?%|resultados? (?:seguros?|garantizad)|baja(?:r)? de peso|adelgaz|quema grasa|'
     r'sin efectos secundarios|m[eé]dicamente probado|aprobado por (?:la )?fda', re.I)
 PRECIO = re.compile(r'\$\s?\d|\d+(?:[.,]\d+)?\s?(?:d[oó]lares|usd|pesos|soles|euros)\b', re.I)
 
@@ -129,6 +129,13 @@ def cmd_hoja(a):
     ahora = datetime.datetime.now()
     hoy = ahora.date().isoformat()
     anotadas, problemas, movidas = [], [], []
+    try:
+        spec = importlib.util.spec_from_file_location('socias', RAIZ / 'equipo' / 'socias.py')
+        socias = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(socias)
+        equipo = socias.cargar()
+    except (OSError, ImportError):
+        socias = equipo = None
     for i, item in enumerate(lote, 1):
         item.setdefault('red', 'instagram')
         item.setdefault('donde', 'mensaje')
@@ -163,6 +170,12 @@ def cmd_hoja(a):
                 l.mover(datos, c, etapa)
             item['clienta'] = c['id']
             anotadas.append(('nueva' if not ya else 'ya estaba', c['nombre']))
+        # Quien quiere vender Farmasi va también a la lista del equipo (kit para sumar socias)
+        if item['intencion'] == 'negocio' and (item.get('usuario') or item.get('nombre')) and socias is not None:
+            texto = (item.get('texto') or '').strip().replace('\n', ' ')
+            socias.agregar(equipo, {'nombre': item.get('nombre'), 'usuario': item.get('usuario'), 'red': item['red'],
+                                    'telefono': item.get('telefono'), 'origen': f"{item['donde']} de {item['red']}"},
+                           f'Escribió: «{texto[:140]}»')
         # La captura ya se leyó
         cap = item.get('captura')
         if cap and not a.sin_mover:
@@ -174,6 +187,8 @@ def cmd_hoja(a):
                 item['captura'] = str(destino.relative_to(RAIZ))
                 movidas.append(origen.name)
     l.guardar(datos)
+    if socias is not None and equipo['personas']:
+        socias.guardar(equipo)
 
     orden = list(INTENCIONES)
     lote.sort(key=lambda x: orden.index(x['intencion']))

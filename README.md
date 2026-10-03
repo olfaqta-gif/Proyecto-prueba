@@ -10,7 +10,8 @@ Abre este repositorio en Claude Code y escribe `/isa` (o háblale a "Isa").
 Isa conversa contigo y llama a sus ocho agentes:
 
 - `scraper-farmasi` (`.claude/agents/`): busca productos en farmasius.com con `lector-farmasi/`.
-- `estratega-contenido` (`.claude/agents/`): arma la estrategia y el calendario de publicaciones con `planificador/`.
+- `estratega-contenido` (`.claude/agents/`): arma la estrategia y el calendario de publicaciones con `planificador/`, y cada semana busca
+  las tendencias de belleza del momento para sumar al menos una al plan (`planificador/tendencias.py`).
 - `creador-contenido` (`.claude/agents/`): hace el anuncio en video y el caption con `agente-contenido/`.
 - `creador-educativo`, el Profe (`.claude/agents/`): hace videos que enseñan, con motion graphics
   (tips, mito vs realidad, rutina paso a paso, "¿sabías que?") y carruseles, con `agente-educativo/`.
@@ -48,6 +49,17 @@ a las interesadas en tu libreta.
 Ejemplo de rutina: pégale a Isa el mensaje de una clienta (*"tengo la piel mixta y me salen
 granitos, ¿qué me recomiendas?"*) y di *"Isa, ármale una rutina"* → la Asesora te entrega su
 tarjeta con cada paso y foto, lo esencial para empezar y el mensaje listo para mandarle.
+
+**Media kit:** *"Isa, hazme mi media kit"* → arma tu presentación para marcas (PDF de dos páginas)
+con tus seguidores, vistas, interacción, quién te sigue y tus mejores publicaciones, sacados de las
+capturas que leyó la Analista, más las colaboraciones que ofreces y tu contacto. Ver `mediakit/README.md`.
+
+**Sumar socias:** *"Isa, ¿a quién le escribo del equipo?"* → te dice a quién le interesó vender
+Farmasi y qué mensaje mandarle; tienes una presentación de 6 imágenes, mensajes para invitar sin
+presionar y una guía de 30 días para cada socia nueva. Ver `equipo/README.md`.
+
+**Kit de marca:** *"Isa, hazme una historia con lo que me dijo Carla"* → sale lista con tus colores y
+letras. También las portadas de tus destacados, fondos para escribir encima y tu guía de marca. Ver `marca/README.md`.
 
 Ejemplo educativo: *"Isa, hazme un video de tips para que el labial dure más"* → el Profe
 escribe el guion, genera el video con su propia música y te entrega los formatos y el caption.

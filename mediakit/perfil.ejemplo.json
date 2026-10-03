@@ -1,0 +1,29 @@
+{
+  "_como_se_usa": "El perfil del media kit de Isabella. Lo que está entre [corchetes] lo completa ella (o se lo dice a Isa). La foto es la ruta de una imagen suya en la computadora (por ejemplo mediakit/foto.jpg). Las colaboraciones, los temas y el 'por qué conmigo' se pueden cambiar. Las tarifas son opcionales: si no las pone, el media kit invita a escribirle. Este archivo (perfil.json) queda solo en esta computadora.",
+  "nombre": "[tu nombre en redes]",
+  "usuario": "[tu usuario sin @]",
+  "instagram": "",
+  "tiktok": "",
+  "foto": "[ruta de tu foto, por ejemplo mediakit/foto.jpg]",
+  "bio": "[una frase sobre ti, por ejemplo: Te enseño a cuidar tu piel con productos que de verdad uso]",
+  "ciudad": "[tu ciudad]",
+  "email": "[tu correo para marcas]",
+  "whatsapp": "[tu WhatsApp con código de país]",
+  "temas": ["Cuidado de la piel", "Maquillaje fácil", "Rutinas reales", "Reseñas honestas"],
+  "colaboraciones": [
+    {"icono": "🎬", "nombre": "Reel o TikTok", "que": "Un video de 15 a 60 segundos con tu producto: lo pruebo, lo explico y cuento lo que de verdad pienso."},
+    {"icono": "📲", "nombre": "Historias", "que": "Tres historias en un día mostrando el producto en mi rutina, con enlace o código de descuento."},
+    {"icono": "🖼️", "nombre": "Carrusel", "que": "Una publicación de varias fotos que enseña algo (pasos, tips, antes de comprar) y se guarda."},
+    {"icono": "🎙️", "nombre": "En vivo", "que": "Un en vivo con preguntas de mi comunidad sobre tu producto o tu marca."},
+    {"icono": "🎁", "nombre": "Sorteo", "que": "Un sorteo juntas para que mi comunidad conozca tu marca y la siga."},
+    {"icono": "📸", "nombre": "Contenido para tu marca", "que": "Fotos y videos hechos por mí para que los uses en tus propias redes y anuncios."}
+  ],
+  "por_que": [
+    "Hablo de belleza como una amiga: explico fácil, sin palabras técnicas, y solo recomiendo lo que uso.",
+    "Mi comunidad me escribe para pedir consejo y comprar: no solo mira, pregunta.",
+    "Hago contenido que enseña (rutinas, mitos, tips), por eso se guarda y se comparte."
+  ],
+  "favoritos": ["serum-vitamina-c", "mascarilla-noche", "crema-calendula", "serum-tea-tree"],
+  "marcas": ["Farmasi"],
+  "tarifas": ""
+}

@@ -76,6 +76,22 @@ python3 planificador/planificar.py marcar planificador/planes/2026-10-05-vender-
 python3 planificador/planificar.py resultado planificador/planes/2026-10-05-vender-mas.json 1 --vistas 1500 --mensajes 9 --ventas 3
 ```
 
+## Tendencias de la semana
+
+El estratega busca cada semana de qué se está hablando en belleza (en noticias, blogs y revistas;
+nunca entra a Instagram ni TikTok) y elige hasta 5 que Isabella pueda hacer con sus productos.
+Cada plan lleva al menos una por semana.
+
+```bash
+python3 planificador/tendencias.py pendiente     # ¿ya están las de esta semana? y qué buscar
+python3 planificador/tendencias.py guardar lote.json
+python3 planificador/tendencias.py actuales      # las de esta semana
+python3 planificador/tendencias.py usada 2 --plan planificador/planes/x.json --id p3
+python3 planificador/tendencias.py historial
+```
+
+Quedan en `planificador/tendencias/<año>-S<semana>.json` con una página `.html` para Isabella.
+
 ## El plan (`planes/<fecha>-<nombre>.json`)
 
 | Campo | Qué es |
