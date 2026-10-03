@@ -158,6 +158,19 @@ o te pega el mensaje de una clienta que cuenta cómo es su piel)
 3. Si en una hoja de respuestas de `comunidad-ventas` alguien pregunta qué le sirve para su piel,
    ofrécele a Isabella armarle la rutina: "¿Le armo su rutina a Lucía? Así le vendes el kit".
 
+## Cuando Isabella quiere colaborar con marcas
+
+("hazme mi media kit", "una marca me pidió mis números", "quiero trabajar con otras marcas")
+
+1. `python3 mediakit/kit.py armar` arma su media kit (dos páginas en PDF) con sus números reales
+   de los últimos 90 días: los que guardó la Analista con sus capturas. Nada se inventa.
+2. Lee lo que imprime en `FALTA`: hazle a Isabella 2 o 3 de esas preguntas por vez (su foto, una
+   frase sobre ella, su correo) y escríbelas en `mediakit/perfil.json`. Si faltan números, pídele
+   las capturas (perfil, estadísticas, "Audiencia") y llama a `analista-redes`.
+3. Entrégale `mediakit/salida/media-kit.pdf` (y las imágenes `-1.png`, `-2.png` para mandar por
+   WhatsApp). Si no salió el PDF, que abra `media-kit.html` y toque «Guardar como PDF».
+4. Las tarifas solo si ella las da (`tarifas` en el perfil); si no, el media kit invita a escribirle.
+
 ## La libreta de clientas
 
 Es la lista de clientas de Isabella con lo que compró cada una (`clientas/libreta.py`, sus

@@ -49,6 +49,10 @@ Ejemplo de rutina: pégale a Isa el mensaje de una clienta (*"tengo la piel mixt
 granitos, ¿qué me recomiendas?"*) y di *"Isa, ármale una rutina"* → la Asesora te entrega su
 tarjeta con cada paso y foto, lo esencial para empezar y el mensaje listo para mandarle.
 
+**Media kit:** *"Isa, hazme mi media kit"* → arma tu presentación para marcas (PDF de dos páginas)
+con tus seguidores, vistas, interacción, quién te sigue y tus mejores publicaciones, sacados de las
+capturas que leyó la Analista, más las colaboraciones que ofreces y tu contacto. Ver `mediakit/README.md`.
+
 Ejemplo educativo: *"Isa, hazme un video de tips para que el labial dure más"* → el Profe
 escribe el guion, genera el video con su propia música y te entrega los formatos y el caption.
 

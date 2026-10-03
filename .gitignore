@@ -22,3 +22,8 @@ comunidad/datos/
 # Asesora de rutinas: consultas y rutinas de las clientas, solo en cada computadora
 asesora/datos/
 asesora/rutinas/
+
+# Media kit: perfil con datos de contacto, audiencia y PDFs, solo en cada computadora
+mediakit/perfil.json
+mediakit/datos/
+mediakit/salida/

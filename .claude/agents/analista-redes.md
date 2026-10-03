@@ -49,6 +49,10 @@ varias capturas (Instagram parte las estadísticas en dos o tres pantallas): jú
   (los del Profe), `carrusel`, `post`, `historia`, `en-vivo`. Si no sabes, `reel`.
 - Mensajes y ventas no salen en las capturas: agrégalos solo si Isa te dice cuántos hubo.
 - Si es la captura del **perfil** (seguidores totales), guárdala con `cuenta`.
+- Si es la captura de **Audiencia** (Instagram: Panel › Audiencia; TikTok: Estadísticas ›
+  Seguidores), guarda quién la sigue para su media kit:
+  `python3 mediakit/kit.py audiencia --red instagram --mujeres 86 --edades "18-24:14,25-34:41,35-44:29,45-54:12" --lugares "Miami:31,Houston:9"`
+  y después `python3 mediakit/kit.py armar` para que el media kit quede al día.
 
 Guarda cada una:
 ```
