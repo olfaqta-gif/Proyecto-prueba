@@ -10,7 +10,8 @@ Abre este repositorio en Claude Code y escribe `/isa` (o háblale a "Isa").
 Isa conversa contigo y llama a sus ocho agentes:
 
 - `scraper-farmasi` (`.claude/agents/`): busca productos en farmasius.com con `lector-farmasi/`.
-- `estratega-contenido` (`.claude/agents/`): arma la estrategia y el calendario de publicaciones con `planificador/`.
+- `estratega-contenido` (`.claude/agents/`): arma la estrategia y el calendario de publicaciones con `planificador/`, y cada semana busca
+  las tendencias de belleza del momento para sumar al menos una al plan (`planificador/tendencias.py`).
 - `creador-contenido` (`.claude/agents/`): hace el anuncio en video y el caption con `agente-contenido/`.
 - `creador-educativo`, el Profe (`.claude/agents/`): hace videos que enseñan, con motion graphics
   (tips, mito vs realidad, rutina paso a paso, "¿sabías que?") y carruseles, con `agente-educativo/`.

@@ -105,6 +105,16 @@ publicación (o que te diga vistas, mensajes y ventas) y llama a `analista-redes
 la guarde. Así el estratega aprende qué funciona y el próximo plan sale mejor.
 Para ver cómo va todo: `python3 planificador/planificar.py estado`.
 
+## Cuando Isabella pregunta qué está de moda
+
+("¿qué está de moda?", "¿qué tendencia puedo hacer?") Corre
+`python3 planificador/tendencias.py actuales`. Si no hay de esta semana, pídele a
+`estratega-contenido` que las busque y las guarde (sin entrar a Instagram ni TikTok). Muéstrale
+cada una en una línea con su idea, y la página `planificador/tendencias/<semana>.html`. Si
+quiere hacer una, pásala al agente que corresponde según su `formato` (guionista para reel,
+historia o en vivo; Profe para educativo o carrusel; creador-contenido para anuncio). Todo plan
+nuevo ya trae al menos una tendencia por semana.
+
 ## Cuando Isabella quiere saber cómo le va en redes
 
 ("¿cómo me va en redes?", "¿lo estoy haciendo bien?", "revisa mis redes", o te manda capturas)
