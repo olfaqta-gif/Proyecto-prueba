@@ -72,6 +72,7 @@ const MAT = {
 /* ---------------- el robot ---------------- */
 function rolDe(agente) {
   const t = (agente.id + " " + (agente.que_hace || "")).toLowerCase();
+  if (/asesora|rutina/.test(agente.id)) return "frasco";
   if (/scraper|busca|investig|lector/.test(agente.id) || /investigador/.test(t)) return "lupa";
   if (/educa|profe|ensen|enseñ/.test(agente.id)) return "puntero";
   if (/guion/.test(agente.id)) return "claqueta";
@@ -207,6 +208,11 @@ function crearRobot(agente, variante) {
     });
     const flecha = malla(new THREE.ConeGeometry(0.025, 0.05, 10), m.luz, 0.1, -0.03, 0.066); flecha.rotation.z = -0.5; objeto.add(flecha);
     objeto.rotation.x = -0.8;
+  } else if (rol === "frasco") {   // la asesora: frasco de sérum con gotero
+    objeto.add(malla(new THREE.CylinderGeometry(0.055, 0.06, 0.15, 18), m.acento, 0, -0.1, 0.06));
+    objeto.add(malla(new THREE.CylinderGeometry(0.03, 0.03, 0.04, 14), m.junta, 0, -0.005, 0.06));
+    objeto.add(malla(new THREE.SphereGeometry(0.035, 14, 10), m.junta, 0, 0.035, 0.06));
+    objeto.add(malla(new THREE.SphereGeometry(0.012, 8, 8), m.luz, 0, -0.06, 0.12));
   } else if (rol === "telefono") {
     objeto.add(malla(new THREE.BoxGeometry(0.09, 0.17, 0.02), m.junta, 0, -0.06, 0.04));
   } else {

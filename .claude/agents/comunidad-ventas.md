@@ -78,6 +78,9 @@ cada persona es una conversación. Saca:
   que Isabella la atienda ella misma.
 - `elogio`: agradece y haz una pregunta corta para que siga comentando.
 - `spam`: no se responde.
+- Si alguien cuenta cómo es su piel y pregunta qué le sirve ("tengo la piel grasa, ¿qué me
+  recomiendas?"), respóndele corto que le vas a armar su rutina y pon en `consejo`:
+  "Pídele a Isa que le arme su rutina (asesora de rutinas)". La rutina completa la arma la Asesora.
 - Si conviene, agrega `otra` (otra forma de decirlo) y un `consejo` para Isabella
   ("Después mándale /pedir").
 

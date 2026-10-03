@@ -43,6 +43,7 @@ LECTOR = RAIZ / 'lector-farmasi' / 'salida'
 ANALISTA = RAIZ / 'analista'
 COMUNIDAD = RAIZ / 'comunidad'
 CLIENTAS = RAIZ / 'clientas'
+ASESORA = RAIZ / 'asesora'
 
 ESTILOS = ('clasico', 'favorito', 'razones')
 FORMAS_EDU = ('tips', 'mito', 'pasos', 'dato')
@@ -482,8 +483,50 @@ def revisar_comunidad():
             'muestras': muestras, 'evidencia': muestras}
 
 
+def revisar_asesora():
+    rutinas = [r for r in (leer_json(f, {}) for f in sorted((ASESORA / 'rutinas').glob('*.json'))) if r]
+    if not rutinas:
+        return None
+    pedidos = (leer_json(CLIENTAS / 'datos' / 'libreta.json', {}) or {}).get('pedidos', [])
+    recientes = [r for r in rutinas if r.get('fecha', '') >= (HOY - datetime.timedelta(days=30)).isoformat()]
+    en_regla = sum(1 for r in rutinas if not r.get('revisar'))
+    con_quien = [r for r in rutinas if (r.get('consulta') or {}).get('nombre') or (r.get('consulta') or {}).get('usuario')]
+    anotadas = sum(1 for r in con_quien if r.get('clienta'))
+    # ¿Compró algo de lo que se le recomendó después de recibir su rutina?
+    vendieron = 0
+    for r in rutinas:
+        cid = (r.get('clienta') or {}).get('id')
+        nombres = {p['nombre'].lower() for p in r.get('productos', [])}
+        if cid and any(pd.get('clienta') == cid and pd.get('fecha', '') >= r['fecha'] and
+                       any(any(n in x.get('nombre', '').lower() or x.get('nombre', '').lower() in n for n in nombres)
+                           for x in pd.get('productos', [])) for pd in pedidos):
+            vendieron += 1
+    medibles = [r for r in rutinas if r.get('clienta') and r['fecha'] <= (HOY - datetime.timedelta(days=7)).isoformat()]
+    criterios = [
+        criterio('Rutinas este mes', min(10, 4 + 1.5 * len(recientes)) if recientes else 3,
+                 f'{len(recientes)} rutinas armadas en los últimos 30 días ({len(rutinas)} en total)',
+                 'Ofrecer una rutina a cada clienta que cuenta cómo es su piel' if len(recientes) < 4 else None,
+                 'Muchas clientas recibieron su rutina' if len(recientes) >= 4 else None),
+        criterio('Mensajes en regla', 10 * en_regla / len(rutinas),
+                 f'{en_regla} de {len(rutinas)} mensajes sin promesas ni precios inventados',
+                 'Revisar que ningún mensaje de rutina prometa resultados' if en_regla < len(rutinas) else None,
+                 'Mensajes sin promesas' if en_regla == len(rutinas) else None),
+        criterio('Clientas en la libreta', 10 * anotadas / len(con_quien) if con_quien else None,
+                 f'{anotadas} de {len(con_quien)} clientas con rutina quedaron en la libreta' if con_quien else 'Sin clientas con nombre todavía',
+                 'Anotar en la libreta a cada clienta que recibe su rutina' if con_quien and anotadas < len(con_quien) else None),
+        criterio('Rutinas que vendieron', min(10, 5 + 10 * vendieron / len(medibles)) if medibles else None,
+                 f'{vendieron} de {len(medibles)} clientas compraron algo de su rutina' if medibles else 'Todavía es pronto para saber si compraron',
+                 'Hacer seguimiento a las que recibieron su rutina y no pidieron' if medibles and vendieron * 3 < len(medibles) else None,
+                 'Las rutinas se convierten en pedidos' if medibles and vendieron * 3 >= len(medibles) else None),
+    ]
+    muestras = [r.get('imagen') or r.get('pagina') for r in rutinas[-3:] if (RAIZ / (r.get('imagen') or r.get('pagina') or '-')).exists()]
+    return {'piezas': len(rutinas), 'que': 'rutinas armadas', 'criterios': criterios, 'muestras': muestras,
+            'evidencia': [r.get('pagina') for r in rutinas[-3:]]}
+
+
 REVISORES = {
     'comunidad-ventas': revisar_comunidad,
+    'asesora-rutinas': revisar_asesora,
     'scraper-farmasi': revisar_scraper,
     'estratega-contenido': revisar_estratega,
     'creador-contenido': revisar_creador_contenido,
@@ -644,7 +687,7 @@ def reunir(fecha):
         'nota_equipo': nota_equipo,
         'nota_equipo_anterior': (previa or {}).get('nota_equipo'),
         'historial_equipo': [{'fecha': a['fecha'], 'nota': a.get('nota_equipo')} for a in anteriores] + [{'fecha': fecha, 'nota': nota_equipo}],
-        'piezas': sum(a['piezas'] for a in agentes.values() if a['que'] not in ('publicaciones planeadas', 'productos investigados', 'publicaciones medidas', 'mensajes respondidos')),
+        'piezas': sum(a['piezas'] for a in agentes.values() if a['que'] not in ('publicaciones planeadas', 'productos investigados', 'publicaciones medidas', 'mensajes respondidos', 'rutinas armadas')),
         'resultados': reales,
         'acuerdos': {'activos': sum(1 for a in todos_acuerdos if a['estado'] == 'activo'),
                      'cumplidos': sum(1 for a in todos_acuerdos if a['estado'] == 'cumplido')},
