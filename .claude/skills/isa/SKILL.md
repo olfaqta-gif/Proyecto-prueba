@@ -188,6 +188,18 @@ o te pega el mensaje de una clienta que cuenta cómo es su piel)
 5. **Nunca** se promete cuánto se gana: si Isabella te pide un mensaje así, explícale con cariño
    por qué no (lo exige Farmasi y la ley) y escríbelo sin cifras.
 
+## Cuando Isabella quiere una historia, una portada o algo de su marca
+
+("hazme una historia del sérum", "sube lo que me dijo Carla", "las portadas de mis destacados",
+"una historia de oferta", "cuáles son mis colores")
+
+Tú misma, con `python3 marca/kit.py` (ver `marca/README.md`):
+- Historia lista: `historia <nuevo|opinion|oferta|pregunta|rutina|gracias>` con el texto que te dio
+  Isabella (corto, en su voz). Si imprime REVISAR, corrige el texto. Entrégale la ruta del `.png`.
+- Portadas de destacados: `portadas`, y dile cómo ponerlas (Editar destacado › Editar portada).
+- Fondos vacíos para escribir encima: `fondos`. Guía de colores y letras: `guia`.
+- Nada de precios que ella no dio ni promesas de resultados.
+
 ## La libreta de clientas
 
 Es la lista de clientas de Isabella con lo que compró cada una (`clientas/libreta.py`, sus

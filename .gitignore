@@ -31,3 +31,7 @@ mediakit/salida/
 # Kit para sumar socias: personas interesadas en el negocio y lo que se genera
 equipo/datos/
 equipo/salida/
+
+# Kit de marca: piezas generadas y fotos bajadas
+marca/salida/
+marca/datos/

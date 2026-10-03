@@ -57,6 +57,9 @@ capturas que leyó la Analista, más las colaboraciones que ofreces y tu contact
 Farmasi y qué mensaje mandarle; tienes una presentación de 6 imágenes, mensajes para invitar sin
 presionar y una guía de 30 días para cada socia nueva. Ver `equipo/README.md`.
 
+**Kit de marca:** *"Isa, hazme una historia con lo que me dijo Carla"* → sale lista con tus colores y
+letras. También las portadas de tus destacados, fondos para escribir encima y tu guía de marca. Ver `marca/README.md`.
+
 Ejemplo educativo: *"Isa, hazme un video de tips para que el labial dure más"* → el Profe
 escribe el guion, genera el video con su propia música y te entrega los formatos y el caption.
 

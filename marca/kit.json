@@ -1,0 +1,32 @@
+{
+  "_como_se_usa": "El kit de marca de Isabella: sus colores, letras y frases fijas. Lo usan las portadas de destacados, las plantillas de historias y la guía (python3 marca/kit.py). Son los mismos colores de su página web. Si Isabella quiere otros colores, se cambian aquí y se vuelven a armar.",
+  "colores": [
+    {"id": "hueso", "nombre": "Hueso", "hex": "#F4EFE8", "uso": "Fondo de casi todo: limpio y cálido."},
+    {"id": "tinta", "nombre": "Tinta", "hex": "#221C1C", "uso": "Letras y fondos oscuros elegantes."},
+    {"id": "rosa", "nombre": "Palo de rosa", "hex": "#8C3B4A", "uso": "Su color: títulos cortos, botones, detalles."},
+    {"id": "rubor", "nombre": "Rubor", "hex": "#EBD5CE", "uso": "Fondos suaves y círculos de las portadas."},
+    {"id": "champan", "nombre": "Champán", "hex": "#B39A73", "uso": "Solo detalles finos: líneas, números, estrellas."}
+  ],
+  "letras": {
+    "titulos": {"nombre": "Cormorant", "en_instagram": "En Instagram, la letra «Elegante» (Modern) o «Clásica» en cursiva", "css": "\"Cormorant\", \"Cormorant Garamond\", \"Didot\", \"Bodoni 72\", Georgia, \"Liberation Serif\", serif"},
+    "texto": {"nombre": "Jost", "en_instagram": "En Instagram, la letra «Clásica» (Classic) o «Fuerte» (Strong) en minúsculas", "css": "\"Jost\", \"Avenir Next\", \"Avenir\", \"Helvetica Neue\", Arial, \"Liberation Sans\", sans-serif"}
+  },
+  "destacados": [
+    {"id": "rutinas", "nombre": "Rutinas", "icono": "rutina"},
+    {"id": "piel", "nombre": "Mi piel", "icono": "gota"},
+    {"id": "maquillaje", "nombre": "Maquillaje", "icono": "labial"},
+    {"id": "favoritos", "nombre": "Favoritos", "icono": "corazon"},
+    {"id": "opiniones", "nombre": "Opiniones", "icono": "estrella"},
+    {"id": "pedidos", "nombre": "Cómo pedir", "icono": "bolsa"},
+    {"id": "equipo", "nombre": "Únete", "icono": "manos"},
+    {"id": "sobre-mi", "nombre": "Sobre mí", "icono": "brillo"}
+  ],
+  "palabra_pedido": "INFO",
+  "reglas": [
+    "Un solo color fuerte por pieza: el palo de rosa. El champán es solo para detalles.",
+    "Títulos en Cormorant (en cursiva quedan más elegantes); el texto corto en Jost.",
+    "Mucho aire: pocas palabras por historia, y la foto del producto sobre fondo blanco o hueso.",
+    "Siempre la misma forma de cerrar: «Escríbeme INFO» (o la palabra de Isabella).",
+    "Sin precios en las piezas salvo que Isabella los ponga; sin promesas de resultados."
+  ]
+}
