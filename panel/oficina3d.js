@@ -812,7 +812,34 @@ export function crearOficina(contenedor, opciones = {}) {
   }
   requestAnimationFrame(cuadro);
 
-  const api = { setEquipo, convocar, actividad, liberar, isa, reunion, mostrarResultado, reunirEquipo, notasReunion, despedirEquipo };
+  /* ---------- color del marco ----------
+     Gira todos los azules de la oficina del marco hacia el color elegido (mismo cálculo que teñirMarco en
+     pagina.html): cambia el tono y la intensidad, pero no la claridad, para que todo se siga viendo
+     bien. Los robots y la decoración rosada conservan sus colores. null vuelve al azul original. */
+  const BASE_TONO = {}; new THREE.Color(0x3d7bff).getHSL(BASE_TONO, THREE.SRGBColorSpace);
+  const originales = new Map();
+  function esAzul(c) { const h = {}; c.getHSL(h, THREE.SRGBColorSpace); return h.h * 360 >= 185 && h.h * 360 <= 260 && h.s > 0.2; }
+  function anotar(obj, prop) {
+    const c = obj[prop]; if (!c?.isColor || originales.has(c) || !esAzul(c)) return;
+    originales.set(c, c.clone());
+  }
+  function teñir(hex) {
+    const pila = [escena];
+    while (pila.length) {
+      const o = pila.pop(); if (o === grupoEquipo) continue;
+      [].concat(o.material || []).forEach((m) => { anotar(m, "color"); anotar(m, "emissive"); });
+      if (o.isLight) anotar(o, "color");
+      pila.push(...o.children);
+    }
+    const meta = {}; if (hex) new THREE.Color(hex).getHSL(meta, THREE.SRGBColorSpace);
+    originales.forEach((orig, c) => {
+      if (!hex) { c.copy(orig); return; }
+      const h = {}; orig.getHSL(h, THREE.SRGBColorSpace);
+      c.setHSL((h.h + meta.h - BASE_TONO.h + 1) % 1, Math.min(1, h.s * meta.s / BASE_TONO.s), h.l, THREE.SRGBColorSpace);
+    });
+  }
+
+  const api = { setEquipo, teñir, convocar, actividad, liberar, isa, reunion, mostrarResultado, reunirEquipo, notasReunion, despedirEquipo };
   window.oficina3d = api;   // útil para probar desde la consola del navegador
   api.depurar = () => ({ cam: camara.position.toArray(), lejos: CAM_LEJOS.toArray(), cerca: CAM_CERCA.toArray(), mira: MIRA_CERCA.toArray(), enfoque, w: contenedor.clientWidth, h: contenedor.clientHeight });
   return api;
