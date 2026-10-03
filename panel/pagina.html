@@ -13,18 +13,42 @@
      llama, flota hasta la mesa de reuniones bajo el holograma de Isa. A los lados,
      paneles de vidrio azul: la conversación y el visor de resultados. Un solo look oscuro. */
   :root {
+    /* Colores del marco: el botón «🎨 Color» los cambia todos de una vez (ver teñirMarco). */
+    --t-060e21: #060e21;
+    --t-0a1834: #0a1834;
+    --t-eaf2ff: #eaf2ff;
+    --t-9fb6dc: #9fb6dc;
+    --t-6a82ab: #6a82ab;
+    --t-3d7bff: #3d7bff;
+    --t-4cc9ff: #4cc9ff;
+    --t-cfe6ff: #cfe6ff;
+    --t-163a8a: #163a8a;
+    --t-0f5fa8: #0f5fa8;
+    --t-2f6bff: #2f6bff;
+    --t-3f9bff: #3f9bff;
+    --t-08142b: #08142b;
+    --t-3b3a8c: #3b3a8c;
+    --t-1b1f5c: #1b1f5c;
+    --t-0d1236: #0d1236;
+    --t-0b1a38: #0b1a38;
+    --t-1a1030: #1a1030;
+    --t-081430: #081430;
+    --t-0d2a5f: #0d2a5f;
+    --t-0a1f48: #0a1f48;
+    --t-96beff: #96beff;
+    --t-a0c8ff: #a0c8ff;
     color-scheme: dark;
-    --noche: #060e21;          /* fondo general */
-    --noche-2: #0a1834;
-    --vidrio: rgba(150, 190, 255, .07);
-    --vidrio-fuerte: rgba(150, 190, 255, .12);
-    --filo: rgba(160, 200, 255, .16);
-    --texto: #eaf2ff;
-    --tenue: #9fb6dc;
-    --apagado: #6a82ab;
-    --azul: #3d7bff;           /* acento principal */
-    --celeste: #4cc9ff;
-    --hielo: #cfe6ff;
+    --noche: var(--t-060e21);          /* fondo general */
+    --noche-2: var(--t-0a1834);
+    --vidrio: color-mix(in srgb, var(--t-96beff) 7%, transparent);
+    --vidrio-fuerte: color-mix(in srgb, var(--t-96beff) 12%, transparent);
+    --filo: color-mix(in srgb, var(--t-a0c8ff) 16%, transparent);
+    --texto: var(--t-eaf2ff);
+    --tenue: var(--t-9fb6dc);
+    --apagado: var(--t-6a82ab);
+    --azul: var(--t-3d7bff);           /* acento principal */
+    --celeste: var(--t-4cc9ff);
+    --hielo: var(--t-cfe6ff);
     --bien: #5be3b0;
     --alerta: #ff7b86;
     --titulo: "Sora", "Segoe UI", system-ui, sans-serif;
@@ -38,8 +62,8 @@
   body { margin: 0; background: var(--noche); color: var(--texto); font: 400 15px/1.55 var(--cuerpo);
          overflow: hidden; -webkit-font-smoothing: antialiased; }
   .fondo { position: fixed; inset: 0; z-index: 0; pointer-events: none;
-    background: radial-gradient(60% 50% at 50% 0%, #163a8a55, transparent 70%),
-                radial-gradient(40% 40% at 90% 90%, #0f5fa833, transparent 70%),
+    background: radial-gradient(60% 50% at 50% 0%, color-mix(in srgb, var(--t-163a8a) 33%, transparent), transparent 70%),
+                radial-gradient(40% 40% at 90% 90%, color-mix(in srgb, var(--t-0f5fa8) 20%, transparent), transparent 70%),
                 linear-gradient(180deg, var(--noche-2), var(--noche)); }
 
   .app { position: relative; z-index: 1; height: 100%; display: grid; gap: 16px;
@@ -63,7 +87,7 @@
   .boton.on { background: linear-gradient(120deg, var(--azul), var(--celeste)); border-color: transparent; color: #fff; }
   .boton.peligro { color: var(--alerta); }
 
-  .vidrio { background: linear-gradient(180deg, rgba(150,190,255,.09), rgba(150,190,255,.04)); border: 1px solid var(--filo);
+  .vidrio { background: linear-gradient(180deg, color-mix(in srgb, var(--t-96beff) 9%, transparent), color-mix(in srgb, var(--t-96beff) 4%, transparent)); border: 1px solid var(--filo);
             border-radius: var(--radio); backdrop-filter: blur(22px) saturate(140%); -webkit-backdrop-filter: blur(22px) saturate(140%);
             box-shadow: 0 30px 60px -30px #000d, inset 0 1px 0 #ffffff12; min-height: 0; min-width: 0;
             display: flex; flex-direction: column; overflow: hidden; }
@@ -77,7 +101,7 @@
   .msg { animation: entrar .4s cubic-bezier(.2,.8,.2,1); min-width: 0; }
   @keyframes entrar { from { opacity: 0; transform: translateY(8px); } }
   .msg.yo { align-self: flex-end; max-width: 85%; padding: 10px 14px; border-radius: 18px 18px 6px 18px; color: #fff;
-            background: linear-gradient(135deg, #2f6bff, #3f9bff); white-space: pre-wrap; box-shadow: 0 10px 30px -12px #3d7bffaa; }
+            background: linear-gradient(135deg, var(--t-2f6bff), var(--t-3f9bff)); white-space: pre-wrap; box-shadow: 0 10px 30px -12px color-mix(in srgb, var(--t-3d7bff) 67%, transparent); }
   .msg.isa { display: grid; grid-template-columns: 26px minmax(0, 1fr); gap: 10px; }
   .mini-orbe { width: 26px; height: 26px; border-radius: 50%; margin-top: 2px;
                background: radial-gradient(circle at 35% 30%, #fff, #ffc2dc 40%, #e8457f 90%); box-shadow: 0 0 14px #ff8fc088; }
@@ -92,7 +116,7 @@
                         background: var(--celeste); animation: latir .8s infinite; vertical-align: middle; }
   .evento { display: flex; align-items: center; gap: 8px; align-self: flex-start; padding: 6px 12px 6px 6px; border-radius: 99px;
             background: var(--vidrio); border: 1px solid var(--filo); font-size: 13px; color: var(--tenue); max-width: 100%; }
-  .evento .punto { width: 20px; height: 20px; border-radius: 50%; flex: none; display: grid; place-items: center; font-size: 11px; color: #08142b; font-weight: 700; }
+  .evento .punto { width: 20px; height: 20px; border-radius: 50%; flex: none; display: grid; place-items: center; font-size: 11px; color: var(--t-08142b); font-weight: 700; }
   .evento b { color: var(--texto); font-weight: 600; }
   .evento .h { font: 400 11px var(--mono); color: var(--apagado); }
   .evento span.t { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -102,10 +126,10 @@
   .ideas { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
   .ideas button { font: 500 13.5px var(--cuerpo); color: var(--texto); background: var(--vidrio); border: 1px solid var(--filo);
                   padding: 8px 13px; border-radius: 99px; cursor: pointer; text-align: left; transition: .2s; }
-  .ideas button:hover { border-color: var(--celeste); background: #4cc9ff1a; }
+  .ideas button:hover { border-color: var(--celeste); background: color-mix(in srgb, var(--t-4cc9ff) 10%, transparent); }
   form { margin: 0 14px 14px; display: flex; align-items: flex-end; gap: 6px; padding: 6px; border-radius: 20px; background: #00000040;
          border: 1px solid var(--filo); transition: border-color .2s, box-shadow .2s; }
-  form:focus-within { border-color: #4cc9ff88; box-shadow: 0 0 0 4px #4cc9ff1a; }
+  form:focus-within { border-color: color-mix(in srgb, var(--t-4cc9ff) 53%, transparent); box-shadow: 0 0 0 4px color-mix(in srgb, var(--t-4cc9ff) 10%, transparent); }
   textarea { flex: 1; min-width: 0; font: 400 15px var(--cuerpo); color: var(--texto); background: none; border: none; resize: none;
              padding: 9px 8px; max-height: 150px; outline: none; }
   textarea::placeholder { color: var(--apagado); }
@@ -115,13 +139,13 @@
   .icono-btn svg { width: 19px; height: 19px; }
   #enviar { background: linear-gradient(135deg, var(--azul), var(--celeste)); color: #fff; }
   #enviar:disabled { opacity: .35; cursor: default; }
-  #microfono.escuchando { background: #4cc9ff33; color: var(--celeste); animation: latir 1s infinite; }
+  #microfono.escuchando { background: color-mix(in srgb, var(--t-4cc9ff) 20%, transparent); color: var(--celeste); animation: latir 1s infinite; }
   @keyframes latir { 50% { opacity: .45; } }
 
   /* ===== Oficina 3D ===== */
   .escenario { position: relative; min-height: 0; min-width: 0; border-radius: var(--radio); overflow: hidden;
                border: 1px solid var(--filo); box-shadow: 0 30px 60px -30px #000d;
-               background: radial-gradient(80% 70% at 50% 40%, #3b3a8c, #1b1f5c 60%, #0d1236); }
+               background: radial-gradient(80% 70% at 50% 40%, var(--t-3b3a8c), var(--t-1b1f5c) 60%, var(--t-0d1236)); }
   .escenario > canvas { position: absolute; inset: 0; width: 100% !important; height: 100% !important; display: block; }
   .capa-etiquetas { position: absolute !important; inset: 0; pointer-events: none; overflow: hidden; }
   .sin-3d { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; padding: 30px; color: var(--tenue); }
@@ -130,7 +154,7 @@
   .etq-robot { --c: var(--celeste); display: flex; flex-direction: column; align-items: center; gap: 3px; pointer-events: auto; cursor: pointer;
                transform: translateY(-4px); }
   .etq-robot > b { font: 600 12px var(--titulo); color: #fff; padding: 3px 10px 3px 8px; border-radius: 99px; white-space: nowrap;
-                   background: #0b1a38d9; border: 1px solid color-mix(in srgb, var(--c) 60%, transparent);
+                   background: color-mix(in srgb, var(--t-0b1a38) 85%, transparent); border: 1px solid color-mix(in srgb, var(--c) 60%, transparent);
                    box-shadow: 0 4px 14px #0007; display: inline-flex; align-items: center; gap: 6px; }
   .etq-robot > b::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--c); box-shadow: 0 0 8px var(--c); }
   .etq-robot > b { transition: background .3s, border-color .3s, box-shadow .3s; }
@@ -138,19 +162,19 @@
   .etq-robot[data-estado="reunion"] > b::before { animation: latir .8s infinite; }
   .etq-robot[data-estado="listo"] > b { border-color: var(--bien); }
   .etq-robot[data-estado="listo"] > b::before { background: var(--bien); box-shadow: 0 0 8px var(--bien); }
-  .boton.reunir { border-color: #4cc9ff88; color: var(--hielo); }
+  .boton.reunir { border-color: color-mix(in srgb, var(--t-4cc9ff) 53%, transparent); color: var(--hielo); }
   .boton.clientas { text-decoration: none; border-color: #f59bd088; color: #ffd6ea; display: inline-flex; align-items: center; gap: 6px; }
   .boton.clientas span { background: #f59bd0; color: #2b0d1e; border-radius: 99px; font-size: 11px; font-weight: 700; padding: 0 7px; }
   .etq-isa { text-align: center; white-space: nowrap; pointer-events: none; }
   .etq-isa b { display: block; font: 700 17px var(--titulo); color: #fff; letter-spacing: .02em; text-shadow: 0 0 14px #ff8fc0, 0 2px 6px #0009; }
   .etq-isa span { display: inline-block; margin-top: 2px; font: 500 11px var(--mono); color: var(--hielo); padding: 2px 9px; border-radius: 99px;
-                     background: #1a1030b3; border: 1px solid #ff9cc655; }
-  .ayuda-3d { position: absolute; right: 14px; bottom: 12px; font: 500 10.5px var(--mono); color: #cfe6ffaa; pointer-events: none;
-              padding: 4px 10px; border-radius: 99px; background: #08143080; }
+                     background: color-mix(in srgb, var(--t-1a1030) 70%, transparent); border: 1px solid #ff9cc655; }
+  .ayuda-3d { position: absolute; right: 14px; bottom: 12px; font: 500 10.5px var(--mono); color: color-mix(in srgb, var(--t-cfe6ff) 67%, transparent); pointer-events: none;
+              padding: 4px 10px; border-radius: 99px; background: color-mix(in srgb, var(--t-081430) 50%, transparent); }
 
   .mision { position: absolute; left: 16px; top: 16px; width: min(330px, calc(100% - 32px)); padding: 14px 16px; border-radius: 16px; z-index: 5;
-            background: linear-gradient(180deg, #0d2a5fdd, #0a1f48ee); border: 1px solid #4cc9ff66; backdrop-filter: blur(10px);
-            box-shadow: 0 0 40px #4cc9ff33, inset 0 0 30px #4cc9ff14; animation: holo .5s ease-out; pointer-events: none; }
+            background: linear-gradient(180deg, color-mix(in srgb, var(--t-0d2a5f) 87%, transparent), color-mix(in srgb, var(--t-0a1f48) 93%, transparent)); border: 1px solid color-mix(in srgb, var(--t-4cc9ff) 40%, transparent); backdrop-filter: blur(10px);
+            box-shadow: 0 0 40px color-mix(in srgb, var(--t-4cc9ff) 20%, transparent), inset 0 0 30px color-mix(in srgb, var(--t-4cc9ff) 8%, transparent); animation: holo .5s ease-out; pointer-events: none; }
   @keyframes holo { from { opacity: 0; transform: scaleY(.2); filter: blur(6px) brightness(2); } }
   .mision .eti { font: 500 10px var(--mono); letter-spacing: .16em; color: var(--celeste); text-transform: uppercase; display: flex; justify-content: space-between; }
   .mision h3 { margin: 4px 0 8px; font: 600 15px/1.3 var(--titulo); }
@@ -163,7 +187,7 @@
   .mision li { flex: none; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; animation: entrar .3s; }
   .mision li b { font-weight: 500; }
   .ficha { position: absolute; left: 50%; bottom: 12px; transform: translateX(-50%); width: min(520px, calc(100% - 24px)); padding: 14px 16px;
-           border-radius: 16px; background: #0b1a38f2; border: 1px solid var(--filo); font-size: 14px; color: var(--tenue); z-index: 20; }
+           border-radius: 16px; background: color-mix(in srgb, var(--t-0b1a38) 95%, transparent); border: 1px solid var(--filo); font-size: 14px; color: var(--tenue); z-index: 20; }
   .ficha h4 { margin: 0 0 4px; font: 600 14px var(--titulo); color: var(--texto); }
   .ficha small { display: block; margin-top: 8px; font: 400 11px var(--mono); color: var(--apagado); }
 
@@ -175,7 +199,7 @@
   @keyframes revelar { from { opacity: 0; transform: scale(1.04); filter: blur(12px); } }
   .vacio-visor { text-align: center; padding: 20px; color: var(--apagado); font-size: 13.5px; }
   .info-visor { display: flex; align-items: center; gap: 10px; padding: 12px 18px 4px; min-width: 0; }
-  .info-visor .etiqueta { font: 500 10px var(--mono); letter-spacing: .12em; padding: 3px 8px; border-radius: 6px; background: #4cc9ff22; color: var(--celeste); flex: none; }
+  .info-visor .etiqueta { font: 500 10px var(--mono); letter-spacing: .12em; padding: 3px 8px; border-radius: 6px; background: color-mix(in srgb, var(--t-4cc9ff) 13%, transparent); color: var(--celeste); flex: none; }
   .info-visor .nombre { flex: 1; min-width: 0; font-size: 13.5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .info-visor a { font-size: 13px; color: var(--texto); text-decoration: none; padding: 5px 11px; border-radius: 99px; border: 1px solid var(--filo); flex: none; }
   .info-visor a:hover { background: var(--vidrio-fuerte); }
@@ -189,8 +213,25 @@
   .mini small { position: absolute; left: 0; right: 0; bottom: 0; padding: 14px 6px 5px; font: 400 10px var(--mono); color: #fff;
                 background: linear-gradient(transparent, #000c); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: left; }
   .mini:hover { transform: translateY(-2px); border-color: #ffffff40; }
-  .mini.sel { border-color: var(--celeste); box-shadow: 0 0 0 2px #4cc9ff55; }
+  .mini.sel { border-color: var(--celeste); box-shadow: 0 0 0 2px color-mix(in srgb, var(--t-4cc9ff) 33%, transparent); }
   .nada { grid-column: 1 / -1; color: var(--apagado); font-size: 13.5px; padding: 6px 4px; }
+
+  /* ===== Color del marco ===== */
+  .color-marco { position: relative; }
+  .muestra-actual { width: 14px; height: 14px; border-radius: 50%; background: linear-gradient(135deg, var(--azul), var(--celeste)); box-shadow: 0 0 0 1px #ffffff40; }
+  .paleta { position: absolute; right: 0; top: calc(100% + 8px); z-index: 50; width: 252px; padding: 14px; border-radius: 18px;
+            background: color-mix(in srgb, var(--t-0b1a38) 96%, transparent); border: 1px solid var(--filo); box-shadow: 0 24px 50px -16px #000e; }
+  .paleta h4 { margin: 0 0 2px; font: 600 13.5px var(--titulo); }
+  .paleta p { margin: 0 0 12px; font-size: 12.5px; color: var(--tenue); }
+  .muestras { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+  .muestras button { aspect-ratio: 1; border-radius: 50%; border: 2px solid transparent; cursor: pointer; padding: 0; background: var(--m);
+                     box-shadow: inset 0 0 0 1px #ffffff30; transition: transform .15s; }
+  .muestras button:hover { transform: scale(1.1); }
+  .muestras button[aria-pressed="true"] { border-color: #fff; }
+  .paleta .fila { display: flex; align-items: center; gap: 8px; margin-top: 12px; }
+  .paleta label { flex: 1; display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--texto); cursor: pointer; }
+  .paleta input[type="color"] { width: 30px; height: 30px; padding: 0; border: 1px solid var(--filo); border-radius: 8px; background: none; cursor: pointer; }
+  .paleta .boton { padding: 5px 11px; font-size: 12px; }
 
   @media (max-width: 1440px) and (min-width: 1181px) { .app { grid-template-columns: 300px minmax(0, 1fr) 280px; } }
   @media (max-width: 1180px) {
@@ -203,6 +244,38 @@
   @media (max-width: 560px) { .marca span, #hora { display: none; } .app { padding-inline: 16px; } }
   @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
 </style>
+<script>
+/* Color del marco. Cada azul del panel está en una variable --t-XXXXXX (su color original).
+   teñirMarco gira todos hacia el color elegido: cambia el tono y la intensidad pero deja igual
+   la claridad, así las letras se siguen leyendo bien con cualquier color. null = azul original. */
+(function () {
+  const BASE = "#3d7bff";
+  const aHsl = (hex) => {
+    const n = parseInt(hex.slice(1), 16), r = (n >> 16 & 255) / 255, g = (n >> 8 & 255) / 255, b = (n & 255) / 255;
+    const max = Math.max(r, g, b), min = Math.min(r, g, b), l = (max + min) / 2, d = max - min;
+    if (!d) return [0, 0, l];
+    const s = d / (1 - Math.abs(2 * l - 1));
+    const h = max === r ? ((g - b) / d + 6) % 6 : max === g ? (b - r) / d + 2 : (r - g) / d + 4;
+    return [h / 6, s, l];
+  };
+  const aHex = (h, s, l) => {
+    const f = (n) => { const k = (n + h * 12) % 12, a = s * Math.min(l, 1 - l);
+      return Math.round(255 * (l - a * Math.max(-1, Math.min(k - 3, 9 - k, 1)))).toString(16).padStart(2, "0"); };
+    return "#" + f(0) + f(8) + f(4);
+  };
+  const nombres = [...new Set(document.querySelector("style").textContent.match(/--t-[0-9a-f]{6}(?=:)/g))];
+  window.teñirMarco = function (hex) {
+    const raiz = document.documentElement.style;
+    if (!/^#[0-9a-f]{6}$/i.test(hex || "")) { nombres.forEach((v) => raiz.removeProperty(v)); return; }
+    const [hb, sb] = aHsl(BASE), [hm, sm] = aHsl(hex);
+    nombres.forEach((v) => {
+      const [h, s, l] = aHsl("#" + v.slice(4));
+      raiz.setProperty(v, aHex((h + hm - hb + 1) % 1, Math.min(1, s * sm / sb), l));
+    });
+  };
+  try { window.teñirMarco(localStorage.getItem("isa-color")); } catch (e) {}
+})();
+</script>
 </head>
 <body>
 <div class="fondo"></div>
@@ -215,6 +288,18 @@
     <button class="boton" id="voz" type="button" title="Isa lee sus respuestas en voz alta">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14"/></svg>Voz</button>
     <button class="boton peligro" id="parar" type="button" hidden>Detener</button>
+    <div class="color-marco">
+      <button class="boton" id="color" type="button" aria-expanded="false" aria-controls="paleta" title="Cambia el color del panel a tu gusto"><i class="muestra-actual"></i>Color</button>
+      <div class="paleta" id="paleta" hidden>
+        <h4>Color del panel</h4>
+        <p>Elige el que más te guste. Se guarda solo.</p>
+        <div class="muestras" id="muestras"></div>
+        <div class="fila">
+          <label>Otro color <input type="color" id="color-libre" value="#3d7bff"></label>
+          <button class="boton" id="color-original" type="button">Volver al azul</button>
+        </div>
+      </div>
+    </div>
     <a class="boton clientas" id="clientas" href="/clientas" target="_blank" rel="noopener" title="La libreta de clientas de Isabella: pedidos y a quién escribirle hoy">💖 Clientas <span id="clientas-hoy" hidden></span></a>
     <button class="boton reunir" id="reunir" type="button" title="Isa reúne a todo el equipo y revisa su trabajo">Reunir al equipo</button>
     <button class="boton" id="nueva" type="button">Nueva conversación</button>
@@ -281,6 +366,31 @@ catch (e) {
   d.innerHTML = "<div><b>Tu navegador no pudo dibujar la oficina en 3D</b>Prueba abrir el panel en Google Chrome o Microsoft Edge.<br>La conversación funciona igual.</div>";
   $("#escenario").appendChild(d);
 }
+/* ---------- Color del marco ---------- */
+const COLORES = [["Azul", "#3d7bff"], ["Turquesa", "#1fb5a8"], ["Verde", "#3fae5a"], ["Oliva", "#8a9a3c"], ["Dorado", "#d9a13b"],
+                 ["Coral", "#f0705a"], ["Rosa", "#f0509a"], ["Fucsia", "#d63ccf"], ["Lila", "#8e6cf0"], ["Gris", "#7a7f8c"]];
+let colorMarco = null;
+try { colorMarco = localStorage.getItem("isa-color"); } catch (e) {}
+function ponerColor(hex) {
+  colorMarco = hex;
+  teñirMarco(hex); oficina?.teñir(hex);
+  try { hex ? localStorage.setItem("isa-color", hex) : localStorage.removeItem("isa-color"); } catch (e) {}
+  $("#color-libre").value = hex || "#3d7bff";
+  $("#muestras").querySelectorAll("button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.hex === (hex || "#3d7bff"))));
+}
+COLORES.forEach(([nombre, hex]) => {
+  const b = document.createElement("button"); b.type = "button"; b.dataset.hex = hex; b.title = nombre; b.setAttribute("aria-label", nombre);
+  b.style.setProperty("--m", hex); b.onclick = () => ponerColor(hex === "#3d7bff" ? null : hex);
+  $("#muestras").append(b);
+});
+$("#color-libre").oninput = (e) => ponerColor(e.target.value.toLowerCase());
+$("#color-original").onclick = () => ponerColor(null);
+const abrirPaleta = (abrir) => { $("#paleta").hidden = !abrir; $("#color").setAttribute("aria-expanded", String(abrir)); };
+$("#color").onclick = () => abrirPaleta($("#paleta").hidden);
+document.addEventListener("click", (e) => { if (!e.target.closest(".color-marco")) abrirPaleta(false); });
+document.addEventListener("keydown", (e) => { if (e.key === "Escape") abrirPaleta(false); });
+ponerColor(colorMarco);
+
 const of = (accion, ...args) => { try { oficina?.[accion](...args); } catch (e) { console.error(e); } };
 let misionActiva = new Set(), cronoInicio = 0;
 
