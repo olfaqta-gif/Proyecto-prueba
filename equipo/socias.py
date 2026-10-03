@@ -32,6 +32,9 @@ from urllib.parse import quote
 
 AQUI = Path(__file__).resolve().parent
 RAIZ = AQUI.parent
+sys.path.insert(0, str(RAIZ / 'herramientas'))
+import rutas  # noqa: E402  (node y ffmpeg que deja herramientas/instalar_videos.py)
+rutas.preparar()
 NEGOCIO = AQUI / 'negocio.json'
 DATOS = AQUI / 'datos'
 SOCIAS = DATOS / 'socias.json'
@@ -306,7 +309,7 @@ def fotos(html_archivo, selector, ancho, alto):
                            capture_output=True, text=True, timeout=120)
     except (OSError, subprocess.TimeoutExpired):
         return []
-    return [Path(x) for x in r.stdout.split()] if r.returncode == 0 else []
+    return [Path(x) for x in r.stdout.splitlines() if x.strip()] if r.returncode == 0 else []
 
 
 # ---------- los mensajes para invitar ----------

@@ -33,6 +33,9 @@ from pathlib import Path
 
 AQUI = Path(__file__).resolve().parent
 RAIZ = AQUI.parent
+sys.path.insert(0, str(RAIZ / 'herramientas'))
+import rutas  # noqa: E402  (node y ffmpeg que deja herramientas/instalar_videos.py)
+rutas.preparar()
 PERFIL = AQUI / 'perfil.json'
 EJEMPLO = AQUI / 'perfil.ejemplo.json'
 DATOS = AQUI / 'datos'

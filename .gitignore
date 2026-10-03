@@ -36,3 +36,9 @@ equipo/salida/
 marca/salida/
 marca/datos/
 planificador/tendencias/
+
+# Lo que instala herramientas/instalar_videos.py (node, ffmpeg, playwright)
+herramientas/node/
+herramientas/bin/
+node_modules/
+package-lock.json

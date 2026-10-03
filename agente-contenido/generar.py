@@ -27,6 +27,9 @@ from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 AQUI = Path(__file__).resolve().parent
+sys.path.insert(0, str(AQUI.parent / 'herramientas'))
+import rutas  # noqa: E402  (node y ffmpeg que deja herramientas/instalar_videos.py)
+rutas.preparar()
 PLANTILLA = AQUI / 'plantilla'
 PALETAS = {'coral', 'dorado', 'verde', 'lavanda', 'rosa'}
 ESTILOS = ['clasico', 'favorito', 'razones']
@@ -175,7 +178,7 @@ def previa(html, destino, formato, T):
         capturar(html, 'preview', tmp, formato, T, ','.join(f'{x:.2f}' for x in t))
         w, h = FORMATOS[formato][:2]
         alto = 480 if h >= w else 300
-        subprocess.run(['ffmpeg', '-v', 'error', '-y', '-pattern_type', 'glob', '-i', f'{tmp}/p_*.jpg',
+        subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', f'{tmp}/p_%02d.jpg',
                         '-vf', f'scale=-2:{alto},tile={len(t)}x1:padding=8:color=white', '-frames:v', '1',
                         str(destino)], check=True)
     return destino

@@ -6,7 +6,7 @@ const path = require('path');
   const [,, html, png] = process.argv;
   const browser = await chromium.launch();
   const page = await browser.newPage({ viewport: { width: 1080, height: 1920 } });
-  await page.goto('file://' + path.resolve(html) + '?foto', { waitUntil: 'load', timeout: 20000 }).catch(() => {});
+  await page.goto(require('url').pathToFileURL(path.resolve(html)).href + '?foto', { waitUntil: 'load', timeout: 20000 }).catch(() => {});
   await page.evaluate(() => document.fonts.ready);
   await page.waitForTimeout(200);
   await page.locator('#tarjeta').screenshot({ path: png });

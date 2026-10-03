@@ -32,6 +32,9 @@ from pathlib import Path
 
 AQUI = Path(__file__).resolve().parent
 RAIZ = AQUI.parent
+sys.path.insert(0, str(RAIZ / 'herramientas'))
+import rutas  # noqa: E402  (node y ffmpeg que deja herramientas/instalar_videos.py)
+rutas.preparar()
 AC = RAIZ / 'agente-contenido'
 sys.path.insert(0, str(AC))      # sonido.py
 sys.path.insert(0, str(AQUI))    # musica.py
@@ -343,7 +346,7 @@ def previa(html, destino, formato, T):
         alto = 420 if h >= w else 260
         por_fila = min(len(fotos), 6)
         filas = -(-len(fotos) // por_fila)
-        ac.subprocess.run(['ffmpeg', '-v', 'error', '-y', '-pattern_type', 'glob', '-i', f'{tmp}/p_*.jpg', '-vf',
+        ac.subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', f'{tmp}/p_%02d.jpg', '-vf',
                            f'scale=-2:{alto},tile={por_fila}x{filas}:padding=8:color=white', '-frames:v', '1',
                            str(destino)], check=True)
     return destino

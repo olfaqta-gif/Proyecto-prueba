@@ -27,6 +27,9 @@ from pathlib import Path
 from urllib.parse import parse_qs, urlparse
 
 RAIZ = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(RAIZ / 'herramientas'))
+import rutas  # noqa: E402  (node y ffmpeg que deja herramientas/instalar_videos.py)
+rutas.preparar()
 PANEL = Path(__file__).resolve().parent
 AGENTES = RAIZ / ".claude" / "agents"
 HABILIDADES = RAIZ / ".claude" / "skills"

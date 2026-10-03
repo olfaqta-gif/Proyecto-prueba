@@ -26,8 +26,8 @@ que cambia cuando vienes de Isa:
 4. **Estilo.** Usa el que pida Isa; si no pide, elige uno distinto al de la ficha más
    reciente en `agente-contenido/productos/` y escribe sus textos en `estilos.<estilo>`.
 5. Genera las previas, revísalas, corrige, y luego los videos con `--video`
-   (si falta numpy/scipy: `python3 -m pip install numpy scipy`). Si no se pueden
-   instalar (sin acceso a pypi.org), entrega la previa y el caption y avisa a Isa
+   (si falta algo para el video: `python3 herramientas/instalar_videos.py`, que instala todo
+   gratis y dentro de la carpeta). Si no se puede instalar (sin internet), entrega la previa y el caption y avisa a Isa
    que el video quedó pendiente por eso.
 6. **Si viene de un plan** (Isa te pasa la ruta del plan y el id de la publicación):
    usa su `estilo` y `formatos`, y su `idea` y `gancho` como punto de partida del copy

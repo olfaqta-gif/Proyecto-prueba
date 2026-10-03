@@ -93,4 +93,5 @@ explícitamente para ese video.
 ## Requisitos del entorno
 
 `python3` con `numpy` y `scipy`, `node` con `playwright` (Chromium), y `ffmpeg`.
-Si falta numpy/scipy: `python3 -m pip install numpy scipy`.
+`python3 herramientas/instalar_videos.py --revisar` dice qué falta, y sin `--revisar` lo instala
+todo (gratis; node y ffmpeg quedan dentro de `herramientas/`).
