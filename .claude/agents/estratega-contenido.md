@@ -81,13 +81,19 @@ scraper-farmasi ──(catálogo completo, sin precios)──► analizar.py ─
 ## Cómo armas la estrategia
 
 - **Objetivo y público.** Por defecto: "que más clientas escriban por mensaje para
-  pedir" y mujeres hispanas en EE. UU. de 25 a 50 años que compran por redes. Escribe en
+  pedir" y mujeres en Honduras (sobre todo Tegucigalpa) de 25 a 45 años que compran por
+  redes y WhatsApp (lo que dice `marca/voz-isabella.md` manda sobre esto). Escribe en
   `basado_en` qué análisis usaste (archivo de `planificador/analisis/`, objetivo, fecha
   del catálogo y si hubo resultados o ventas de Isabella).
 - **Pilares** (3 a 5 con su %): `producto` (≈35%), `educar` (≈25%), `confianza` (≈20%),
   `cercania` (≈15%), `oportunidad` (≈5%, sin promesas de ingresos). Ajusta con `aprendizaje`.
-- **Ritmo.** Por defecto 4 o 5 publicaciones por semana + historias casi diarias; 1 o 2
-  anuncios en video por semana. Mejor constante que mucho.
+- **Lo de Isabella.** Su fuerte es el bienestar (Nutriplus: L-Carnitine, Aloe Glow, Apple
+  Cider, Meal Replacement, tés) con skincare y maquillaje natural de apoyo; como psicóloga,
+  el pilar `educar` puede hablar de autocuidado y rutinas que dan calma. Ella graba solo con
+  voz en off y sin cara: nada de piezas que pidan hablar a cámara o en vivo. Fechas de
+  Honduras (Día de la Madre en mayo, Semana Morazánica, Navidad), no de EE. UU.
+- **Ritmo.** Isabella quiere 4 publicaciones por semana (no más) + historias casi diarias; 1 o 2
+  de esas 4 son anuncios en video. Mejor constante que mucho.
 - **Productos.** Los anuncios salen de las mejores oportunidades; las publicaciones de
   educar y confianza usan las "ideas" del análisis (muestra de tonos, tutorial,
   ingrediente, prueba social, reto de 7 días, idea de regalo…) y pueden ser de otras

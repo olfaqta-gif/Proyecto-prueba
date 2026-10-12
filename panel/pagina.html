@@ -347,8 +347,8 @@ let historial = [], resultados = [], delServidor = [];
 try { sesion = localStorage.getItem("isa-sesion"); historial = JSON.parse(localStorage.getItem("isa-historial") || "[]");
       vozActiva = localStorage.getItem("isa-voz") === "1"; } catch (e) { historial = []; }
 
-const IDEAS = ["Búscame los 3 productos con mejores reseñas", "¿Qué publico las próximas 2 semanas?",
-               "Hazme un anuncio del Vitamin C Glow Serum", "Reúne al equipo y revisa cómo va el trabajo"];
+const IDEAS = ["¿Qué publico esta semana? (mis 4 publicaciones)", "Hazme un anuncio de mi Aloe Glow",
+               "Un guion con voz en off de mi mañana con Nutriplus", "Reúne al equipo y revisa cómo va el trabajo"];
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 const urlArchivo = (r) => `/archivo?ruta=${encodeURIComponent(r)}`;
 const PATRON_RUTA = /^[\w.\-\/]+\.(mp4|html|jpg|jpeg|png|json|txt|csv|webp)$/i;
@@ -507,7 +507,7 @@ function guardar() {
 function saludo() {
   consola.innerHTML = "";
   const d = document.createElement("div"); d.className = "msg isa saludo";
-  d.innerHTML = `<div class="mini-orbe"></div><div class="texto"><h3>Hola, Isabella.</h3>
+  d.innerHTML = `<div class="mini-orbe"></div><div class="texto"><h3>Hello, Isabella 🤍</h3>
     <p>El equipo está en sus escritorios. Pídeme algo y verás cómo llamo a cada uno a la mesa para trabajar.</p>
     <div class="ideas">${IDEAS.map((i) => `<button type="button">${esc(i)}</button>`).join("")}</div></div>`;
   consola.appendChild(d);
