@@ -60,7 +60,7 @@ PROMESAS = re.compile(
     r'\bcura\b|\bcurar|(?:elimina|borra|quita)(?:r)? (?:el |las |los )?(?:acn[eé]|manchas|arrugas|celulitis)|'
     r'garantiz|100 ?%|resultados? (?:seguros?|garantizad)|baja(?:r)? de peso|adelgaz|quema grasa|'
     r'sin efectos secundarios|m[eé]dicamente probado|aprobado por (?:la )?fda', re.I)
-PRECIO = re.compile(r'\$\s?\d|\d+(?:[.,]\d+)?\s?(?:d[oó]lares|usd|pesos|soles|euros)\b', re.I)
+PRECIO = re.compile(r'\$\s?\d|\d+(?:[.,]\d+)?\s?(?:d[oó]lares|usd|pesos|soles|euros|lempiras?|lps?)\b', re.I)
 
 
 def libreta():

@@ -49,7 +49,7 @@ DIAS = ('lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado', 'doming
 
 # Lo que nunca debe salir en un plan (mismas reglas que el agente de contenido)
 PROHIBIDO = [
-    (re.compile(r'\$\s?\d|\d\s?(usd|dólares|dolares)\b|\bprecio\b', re.I),
+    (re.compile(r'\$\s?\d|\d\s?(usd|dólares|dolares|lempiras?|lps)\b|\bL\.?\s?\d{2,}|\bprecio\b', re.I),
      'menciona precios (Isabella los maneja aparte)'),
     (re.compile(r'\d+\s?%'), 'usa porcentajes de resultados'),
     (re.compile(r'\bcura\b|\bcuran\b|\belimina\w* (el |la |los |las )?(acné|acne|arrugas|manchas)|\bgarantiz', re.I),

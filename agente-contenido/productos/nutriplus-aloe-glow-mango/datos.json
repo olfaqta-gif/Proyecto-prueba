@@ -1,0 +1,59 @@
+{
+  "fuente": "https://www.farmasius.com/farmasi/product-detail/nutriplus-aloe-glow-mango?pid=1000704",
+  "leido": "2026-10-12",
+  "codigo": "1000704",
+  "slug": "nutriplus-aloe-glow-mango",
+  "nombre": "Nutriplus Aloe Glow Mango",
+  "marca": "Nutriplus",
+  "etiquetas_tienda": [
+    "7.11",
+    "BOGO",
+    "UP TO 60% OFF",
+    "BUY ONE GET SECOND 50% OFF",
+    "30% OFF",
+    "BOGO - 24 HOURS ONLY",
+    "Nutriplus",
+    "Liquids",
+    "Shop by Benefit",
+    "Digestive Health",
+    "Nutrition",
+    "Shop by Type",
+    "Shakes & Powders",
+    "Shop by Brand"
+  ],
+  "contenido": "",
+  "descripcion": "Nutriplus Aloe Glow Mango is a liquid dietary supplement that combines purified aloe vera juice with a touch of mango flavor and chamomile extract. Its liquid format and fruity taste make it a refreshing option for those looking to support their well-being from within as part of a balanced lifestyle. Aloe Glow is perfect for anyone who wants to incorporate plant-based ingredients such as aloe vera and chamomile into their daily routine. Designed for those seeking a mindful, well-balanced lifestyle.",
+  "resultados_declarados": "",
+  "ingredientes_clave": "",
+  "ingredientes_inci": "Water, Purified (decolorized) Aloe Vera Leaf Juice (Aloe barbadensis, Leaf), Natural Flavoring: Mango, Acidity Regulator: Malic Acid, Sweetener: Stevia, Preservatives: Potassium Sorbate, Sodium Benzoate, Chamomile Extract (Matricaria recutita, Flower). Contains 40% Aloe Vera Leaf Juice extracted from decolorized aloe vera leaf.",
+  "modo_de_uso": "Consume once daily, ideally on an empty stomach, for optimum results. Replace sugary beverages with this clean and refreshing mango or mandarin alternative to nourish your body and reset your routine.",
+  "atributos": [
+    "Sugar-free. Cholesterol-free. No colorants. Made from certified organic aloe plantations in Mexico. ECOCERT certified for quality, sustainability, and purity."
+  ],
+  "precauciones": "",
+  "resenas": {
+    "promedio": 4.98,
+    "cantidad": 649
+  },
+  "tonos": [],
+  "imagenes_url": [
+    "https://content.farmasius.com/Product/1000704_400_1.webp",
+    "https://content.farmasius.com/Product/1000704_400_2.webp"
+  ],
+  "disponible": true,
+  "nuevo": false,
+  "edicion_limitada": false,
+  "descontinuado": false,
+  "imagen": "producto.jpg",
+  "para_ficha": {
+    "imagen": "producto.jpg",
+    "producto": {
+      "nombre": "Aloe Glow Mango",
+      "nombre_corto": "Nutriplus · Farmasi",
+      "dato": {
+        "destacado": "★★★★★",
+        "texto": "4.98 · 649 reseñas"
+      }
+    }
+  }
+}

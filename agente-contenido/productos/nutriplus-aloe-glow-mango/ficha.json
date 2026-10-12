@@ -1,0 +1,65 @@
+{
+  "paleta": "dorado",
+  "imagen": "producto.jpg",
+  "gancho": {
+    "kicker": "Mi ritual de la mañana",
+    "linea1": "Lo primero que tomo cada mañana",
+    "linea2": "Y no lleva azúcar"
+  },
+  "producto": {
+    "categoria": "Bebida de aloe vera",
+    "nombre": "Aloe Glow Mango",
+    "nombre_corto": "Nutriplus · Farmasi",
+    "dato": {
+      "destacado": "★★★★★",
+      "texto": "4.98 · 649 reseñas"
+    }
+  },
+  "beneficios": {
+    "titulo": "Por qué me encanta",
+    "lista": [
+      "Aloe vera y manzanilla",
+      "Sin azúcar y sin colorantes",
+      "Sabor suave a mango"
+    ]
+  },
+  "cierre": {
+    "frase1": "Bienestar desde adentro,",
+    "frase2": "un sorbo a la vez.",
+    "precio": "",
+    "boton_pre": "Escríbeme",
+    "palabra": "INFO",
+    "usuario": "@isamejiach",
+    "aviso": "Distribuidora independiente Farmasi. Calificación publicada en la tienda oficial de la marca. Suplemento alimenticio: no pretende diagnosticar, tratar ni curar enfermedades. Los resultados varían."
+  },
+  "caption": {
+    "texto": "Lo primero que tomo cada mañana 🤍\n\nHello ustedes. Les cuento mi pequeño ritual: antes del café, mi Aloe Glow Mango de Nutriplus.\n\n🌿 Aloe vera y manzanilla\n🥭 Sabor suave a mango, sin azúcar y sin colorantes\n☀️ Una vez al día, mejor en ayunas\n\nMi idea es empezar el día con calma y cambiar las bebidas con azúcar por algo más ligero. Lo estoy probando y les voy contando cómo me va 🤍\n\n⭐ 4.98 de calificación en 649 reseñas en la tienda oficial.\n\nChicas, escríbanme INFO por mensaje y les cuento cómo pedirlo.",
+    "hashtags": [
+      "farmasi",
+      "nutriplus",
+      "aloeglow",
+      "aloevera",
+      "bienestar",
+      "rutinademañana",
+      "autocuidado",
+      "farmasihonduras",
+      "tegucigalpa",
+      "sinazucar"
+    ],
+    "aviso": "Distribuidora independiente Farmasi. Suplemento alimenticio como parte de una alimentación balanceada; consulta a tu médico si tienes alguna condición. Los resultados varían."
+  },
+  "estilo": "favorito",
+  "formatos": ["9x16"],
+  "estilos": {
+    "favorito": {
+      "gancho": {
+        "kicker": "Mi ritual de la mañana",
+        "linea1": "Lo primero que tomo cada mañana",
+        "linea2": "Y no lleva azúcar"
+      },
+      "beneficios": {
+        "titulo": "Por qué me encanta"
+      }
+    }
+  }
+}

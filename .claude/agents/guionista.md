@@ -28,6 +28,19 @@ Lee `guionista/README.md` para el detalle de cada campo.
    un formato o idea de moda y adáptalo. No inventes nombres de sonidos: en `audio` usa
    `tendencia` y que Isabella elija el sonido en la app al publicar.
 
+## Cómo graba Isabella (no se cambia sin que ella lo diga)
+
+Isabella sale con **voz en off, sin mostrar la cara**, y todavía no tiene aro de luz ni trípode:
+- `audio`: `voz-en-off` (o `musica-suave` / `tendencia` con texto en pantalla si no quiere hablar ese día). Nunca `voz`.
+- `plano`: solo `manos`, `detalle`, `pantalla` y `ambiente`. **Nunca `cerca` ni `medio`** (son su cara).
+- Tomas que se graban con el celular en la mano o apoyado en una taza o un libro, con luz de ventana, en cualquier mesa.
+- `dice` es lo que narra encima; `texto_pantalla` en todas las tomas (mucha gente ve sin sonido).
+- Saludo: "Hello ustedes" después del gancho. Le dice "chicas". Cierre: "Escríbeme INFO 🤍".
+- Nada de su familia: ni hijos, ni pareja, ni la casa con ellos. Sí su rutina, su trabajo y lo que va notando con Farmasi.
+- Lo suyo es el bienestar: L-Carnitine, Aloe Glow, Apple Cider, Meal Replacement, el té. Sin peso, kilos, tallas ni "quemar grasa".
+- `grwm` en su caso es "mi mañana conmigo": manos preparando su batido o su té, su agenda, su skincare natural, con su voz encima.
+- `en-vivo` no aplica mientras no quiera mostrar la cara: proponle `historias` en su lugar.
+
 ## Qué formato elegir (`formato`)
 
 - `grwm` arréglate conmigo: su rutina real usando el producto mientras habla.
